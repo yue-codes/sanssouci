@@ -1,0 +1,165 @@
+---
+/**
+ * Página /entrar: inicio de sesión con enlace mágico (sin contraseña).
+ *
+ * Es de servidor (`prerender = false`) porque responde distinto a cada visita:
+ * - GET: muestra el formulario (o «ya has entrado» si hay sesión).
+ * - POST: pide a Supabase que mande el enlace al correo y muestra «revisa tu correo».
+ * El formulario es HTML normal, sin JavaScript: funciona aunque falle una isla.
+ *
+ * Parámetros de la URL: `siguiente` (a dónde volver tras entrar; lo pone el middleware)
+ * y `error=enlace` (lo pone /auth/confirmar si el enlace no sirvió).
+ */
+import { BookCheck, Mail, MailCheck, Swords, TriangleAlert, Trophy, Wind } from "lucide-preact";
+import Base from "@/layouts/Base.astro";
+import { rutaInterna } from "@/lib/supabase";
+
+export const prerender = false;
+
+const { supabase, usuario } = Astro.locals;
+const siguiente = rutaInterna(Astro.url.searchParams.get("siguiente"));
+
+/** Lo que pasó con el formulario en esta visita. */
+type Estado =
+  | { tipo: "formulario"; email: string; error?: string }
+  | { tipo: "enviado"; email: string };
+
+let estado: Estado = {
+  tipo: "formulario",
+  email: "",
+  error: Astro.url.searchParams.get("error") === "enlace"
+    ? "Ese enlace ya no sirve: caducó, ya se usó o se abrió en otro navegador. Pide uno nuevo."
+    : undefined,
+};
+
+if (Astro.request.method === "POST" && !usuario) {
+  const datos = await Astro.request.formData();
+  const email = String(datos.get("email") ?? "").trim().toLowerCase();
+
+  // El navegador ya valida el correo (type="email"), pero el servidor no se fía:
+  // cualquiera puede mandar un POST sin pasar por el formulario.
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 254) {
+    estado = { tipo: "formulario", email, error: "Escribe un correo válido, como nombre@ejemplo.com." };
+  } else {
+    const { error } = await supabase.auth.signInWithOtp({
+      email,
+      options: {
+        emailRedirectTo: `${Astro.url.origin}/auth/confirmar?siguiente=${encodeURIComponent(siguiente)}`,
+      },
+    });
+    estado = error
+      ? {
+          tipo: "formulario",
+          email,
+          // 429: Supabase limita los correos (por persona cada minuto y en total por hora).
+          error: error.status === 429
+            ? "Se han pedido demasiados enlaces seguidos. Espera unos minutos y vuelve a intentarlo."
+            : "No se pudo enviar el correo. Inténtalo de nuevo en un momento.",
+        }
+      : { tipo: "enviado", email };
+  }
+}
+
+const BOTON = "inline-flex w-full items-center justify-center gap-2 rounded-xl bg-acento px-4 py-2.5 text-sm font-semibold text-fondo transition hover:brightness-110";
+const BOTON_SECUNDARIO = "inline-flex w-full items-center justify-center gap-2 rounded-xl border border-borde bg-superficie px-4 py-2.5 text-sm font-semibold transition hover:border-acento/60";
+
+/** Qué se guarda al tener cuenta (texto de la columna izquierda). */
+const ventajas = [
+  { Icono: BookCheck, texto: "Marca cada sesión de los 90 días, con minutos y notas." },
+  { Icono: Trophy, texto: "Consigue logros y mira crecer tu árbol de talentos." },
+  { Icono: Swords, texto: "Registra tus victorias contra los jefes, con su video." },
+];
+---
+
+<Base titulo="Entrar" descripcion="Inicia sesión para guardar tu progreso en el Camino del Flautista.">
+  <section class="grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:items-center lg:gap-16 lg:py-8">
+    <!-- ============ Por qué entrar ============ -->
+    <div>
+      <p class="eyebrow">Tu cuenta</p>
+      <h1 class="mt-3 text-4xl leading-[1.05] font-semibold tracking-tight sm:text-6xl">
+        Guarda tu <em class="font-normal text-acento">camino</em>.
+      </h1>
+      <p class="mt-5 max-w-lg text-lg leading-relaxed text-tenue">
+        El mapa y el temario son para todos. Con una cuenta, el progreso es tuyo y te espera en cualquier dispositivo.
+      </p>
+      <!-- Solo con dos columnas: en pantallas estrechas empujaría el formulario fuera de la vista. -->
+      <ul class="mt-8 hidden gap-3 lg:grid">
+        {ventajas.map(({ Icono, texto }) => (
+          <li class="flex items-center gap-3">
+            <span class="grid size-9 shrink-0 place-items-center rounded-xl bg-acento-suave text-acento"><Icono size={18} aria-hidden="true" /></span>
+            <span class="text-sm">{texto}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <!-- ============ Tarjeta: formulario / enviado / ya dentro ============ -->
+    <div class="tarjeta p-6 sm:p-8">
+      {usuario ? (
+        <div class="text-center">
+          <span class="mx-auto grid size-12 place-items-center rounded-2xl bg-acento text-fondo"><Wind size={22} aria-hidden="true" /></span>
+          <h2 class="mt-4 text-2xl font-semibold">Ya estás dentro</h2>
+          <p class="mt-2 text-sm text-tenue">Has entrado como <strong class="text-texto">{usuario.email}</strong>.</p>
+          <div class="mt-6 grid gap-3">
+            <a href={siguiente} class={BOTON}>Continuar</a>
+            <form method="post" action="/auth/salir">
+              <button type="submit" class={BOTON_SECUNDARIO}>Cerrar sesión</button>
+            </form>
+          </div>
+        </div>
+      ) : estado.tipo === "enviado" ? (
+        <div class="text-center" role="status">
+          <span class="mx-auto grid size-12 place-items-center rounded-2xl bg-exito/15 text-exito"><MailCheck size={22} aria-hidden="true" /></span>
+          <h2 class="mt-4 text-2xl font-semibold">Revisa tu correo</h2>
+          <p class="mt-2 text-sm leading-relaxed text-tenue">
+            Mandamos un enlace a <strong class="text-texto">{estado.email}</strong>. Ábrelo
+            <strong class="text-texto">en este mismo navegador</strong> para entrar.
+          </p>
+          <p class="mt-4 text-xs text-tenue">¿No llega? Mira en spam o promociones; puede tardar un minuto.</p>
+          <a href={`/entrar?siguiente=${encodeURIComponent(siguiente)}`} class="mt-6 inline-block text-sm font-semibold text-acento hover:underline">
+            Usar otro correo
+          </a>
+        </div>
+      ) : (
+        <form method="post" class="grid gap-5">
+          <div>
+            <h2 class="text-2xl font-semibold">Entrar</h2>
+            <p class="mt-1 text-sm text-tenue">Sin contraseña: te mandamos un enlace al correo. Si es tu primera vez, se crea tu cuenta.</p>
+          </div>
+
+          {estado.error && (
+            <p id="error-entrar" role="alert" class="flex items-start gap-2.5 rounded-xl border border-peligro/40 bg-peligro/10 px-4 py-3 text-sm">
+              <TriangleAlert size={16} class="mt-0.5 shrink-0 text-peligro" aria-hidden="true" />
+              <span>{estado.error}</span>
+            </p>
+          )}
+
+          <div>
+            <label for="email" class="mb-1.5 block text-xs font-semibold tracking-wider text-tenue uppercase">Correo</label>
+            <div class="relative">
+              <Mail size={16} class="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-tenue" aria-hidden="true" />
+              <input
+                id="email"
+                name="email"
+                type="email"
+                required
+                autocomplete="email"
+                inputmode="email"
+                maxlength={254}
+                value={estado.email}
+                placeholder="nombre@ejemplo.com"
+                aria-invalid={estado.error ? "true" : undefined}
+                aria-describedby={estado.error ? "error-entrar" : undefined}
+                class="w-full rounded-xl border border-borde bg-superficie py-2.5 pr-3 pl-9 text-sm aria-invalid:border-peligro/60"
+              />
+            </div>
+          </div>
+
+          <button type="submit" class={BOTON}>
+            <Mail size={16} aria-hidden="true" /> Enviarme el enlace
+          </button>
+        </form>
+      )}
+    </div>
+  </section>
+</Base>

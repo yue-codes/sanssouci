@@ -14,7 +14,7 @@ El esquema de la base de datos **no** se describe aquí: vive en `supabase/migra
 | 3. Authentication → URL Configuration | Usuario | ✅ 2 nov 2026 |
 | 4. Instalar `@supabase/supabase-js`, `@supabase/ssr` y `@astrojs/cloudflare` (modo servidor) | Claude | ✅ + `wrangler` (peer del adaptador) |
 | 5. Primera migración: tablas + RLS | Claude | ✅ `progreso_inicial` + `permisos_minimos`, aplicadas por la API de Supabase (2 nov 2026) |
-| 6. Cliente de Supabase en `src/lib/`, middleware, `/entrar` con enlace mágico | Claude | ⏳ |
+| 6. Cliente de Supabase en `src/lib/`, middleware, `/entrar` con enlace mágico | Claude | ✅ diseño de `/entrar` aprobado; login probado (2 nov 2026): el trigger creó el perfil |
 | 7. Login con Google (credenciales en Google Cloud) | Ambos | ⏳ después de que funcione el enlace mágico |
 
 Al recibir el «listo», comprobar que `.env` existe y tiene las dos variables **sin mostrar sus valores** (p. ej. `grep -c "=." .env`).
@@ -62,3 +62,14 @@ Ver `docs/diseno-tecnico.md` (sección 7): `perfiles`, `dias_completados`, `logr
 - Esa API necesita un *access token* personal (`sbp_…`), que da control total de la cuenta. Va solo en el comando y se revoca al terminar; nunca se escribe en un archivo.
 - **Permisos:** Supabase da por defecto a `authenticated` todos los permisos sobre las tablas de `public`, incluido `TRUNCATE`, que no pasa por RLS. Por eso cada tabla nueva necesita un `revoke all` y después un `grant` solo de lo que se usa (ver `20261102121000_permisos_minimos.sql`).
 - Comprobado: con la clave *publishable* y sin sesión, leer o escribir en las tablas da `permission denied` (HTTP 401).
+
+## 6. Tipos de la base de datos
+
+`src/lib/tipos-supabase.ts` se genera desde el esquema real. **Regenéralo tras cada migración**, con la CLI (`supabase gen types typescript --linked`) o con la API de administración (`GET /v1/projects/{ref}/types/typescript?included_schemas=public`, con un *access token*). Después se le vuelve a poner la cabecera `@file`.
+
+## 7. Enlace mágico: detalles a saber
+
+- **Flujo PKCE (el de por defecto):** el enlace lleva a `/auth/confirmar?code=…`. Hay que abrirlo **en el mismo navegador** donde se pidió, porque la otra mitad del código está en una cookie de ese navegador. Si se abre en otro (p. ej., el correo en el móvil), `/entrar` muestra «ese enlace ya no sirve».
+  Si eso molesta, se puede cambiar la plantilla del correo (Authentication → Emails → Magic Link) para que use `{{ .TokenHash }}`: `/auth/confirmar` ya entiende `token_hash` + `type`.
+- **Límite de correos:** el correo integrado de Supabase envía muy pocos por hora (y uno por minuto por dirección). `/entrar` lo avisa con un mensaje claro (HTTP 429). Para más usuarios, configurar SMTP propio.
+- **Pendiente para la fase 5:** el adaptador de Cloudflare activa solo un *binding* de Cloudflare Images (`IMAGES`) y otro de KV para sesiones de Astro (`SESSION`). No los usamos; decidir al desplegar si se desactivan o se crean.

@@ -23,7 +23,9 @@ src/
 │   │                  sesionDeReferencia (qué sesión enseñar «hoy») (puras)
 │   ├── formato.ts     formato para mostrar: duracion (pura)
 │   ├── arbol.ts       nodos y disposición del árbol: construirNodosArbol, posicionarArbol
-│   └── ejemplo.ts     PROGRESO_EJEMPLO, inventado (temporal, hasta la fase 4)
+│   ├── ejemplo.ts     PROGRESO_EJEMPLO, inventado (temporal, hasta la fase 4)
+│   ├── supabase.ts    crearClienteServidor, usuarioActual, rutaInterna (solo servidor)
+│   └── tipos-supabase.ts  tipos de las tablas (GENERADO desde la base de datos)
 ├── components/      Componentes agrupados por DOMINIO (de qué tratan):
 │   ├── layout/        Cabecera, PiePagina
 │   ├── ui/            genéricos, sin conocer el juego: AnilloProgreso, Aviso, MigasDePan,
@@ -41,7 +43,10 @@ src/
 │   ├── sesion/        isla SesionDelDia; ResumenSesion; bloques.ts
 │   └── tema/          SelectorTema
 ├── layouts/         Esqueletos de página (Base.astro)
+├── middleware.ts    Sesión de cada petición de servidor y protección de RUTAS_PRIVADAS
+├── env.d.ts         Tipos de Astro.locals (supabase, usuario)
 ├── pages/           Rutas: cada archivo es una URL (ver «Páginas»)
+│   └── auth/          endpoints de sesión: confirmar (GET, enlace mágico), salir (POST)
 └── styles/
     ├── tokens.css     colores y fuentes: el único sitio para cambiar la paleta
     └── global.css     conecta Tailwind con los tokens; estilos base
@@ -69,6 +74,17 @@ Una isla se ejecuta **también en el navegador**, así que todo lo que importe (
 - Una isla recibe **datos planos** por props (p. ej. `CancionResumen`), calculados en la página.
 - Solo puede importar módulos «seguros»: `@/lib/catalogo`, `@/lib/youtube`, `@/lib/progreso`… Si un módulo seguro necesita tipos de `contenido`, usa **`import type`**, que TypeScript borra al compilar.
 - Si una función pura vive junto a código de servidor y la necesita una isla, se saca a su propio archivo (así nacieron `youtube.ts` y `catalogo.ts`).
+- `@/lib/supabase` también es solo de servidor (usa las cookies de Astro). Una isla que necesite Supabase usará un cliente de navegador aparte (`createBrowserClient`), aún no creado.
+
+## Sesión y páginas de servidor (fase 4)
+
+- **Por defecto, todo se prerenderiza.** Una página que dependa de quién visita declara `export const prerender = false`; solo esas pasan por `src/middleware.ts` en cada visita.
+- **El middleware** crea un cliente de Supabase por petición y deja `Astro.locals.supabase` y `Astro.locals.usuario`. Si la ruta está en `RUTAS_PRIVADAS` (`src/config/sitio.ts`) y no hay sesión, redirige a `/entrar?siguiente=…`.
+- **Quién visita se sabe con `getClaims()`**, que verifica la firma del token. Nunca con `getSession()` en el servidor: lee la cookie sin verificarla.
+- **Cabeceras anti-caché:** cuando Supabase escribe cookies de sesión, el middleware añade `Cache-Control: private, no-store…` para que ningún CDN sirva la sesión de alguien a otra persona.
+- **Redirecciones tras entrar:** siempre pasan por `rutaInterna()`, que solo acepta rutas del propio sitio (evita la «redirección abierta»).
+- **Formularios:** HTML normal con `method="post"`, sin JavaScript. Astro rechaza los POST que vienen de otro dominio (`security.checkOrigin`, activo por defecto), lo que protege contra CSRF. Cerrar sesión es un POST, nunca un enlace.
+- **Variables de entorno:** se declaran y validan en `env.schema` (`astro.config.mjs`) y se importan de `astro:env/client`. Si falta una, el build falla.
 
 ## Colores y tema
 

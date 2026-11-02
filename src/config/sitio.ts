@@ -29,3 +29,10 @@ export const NAVEGACION: readonly EnlaceNavegacion[] = [
   { href: "/canciones", texto: "Canciones" },
   { href: "/logros", texto: "Logros" },
 ];
+
+/**
+ * Rutas que exigen sesión. El middleware (`src/middleware.ts`) manda a `/entrar`
+ * a quien visite una de ellas (o algo debajo, p. ej. `/perfil/editar`) sin sesión.
+ * Esas páginas deben declarar `export const prerender = false`.
+ */
+export const RUTAS_PRIVADAS: readonly string[] = ["/panel", "/perfil"];
