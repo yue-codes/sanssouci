@@ -8,7 +8,14 @@ const OPCIONES: { valor: Tema; etiqueta: string; Icono: typeof Sun }[] = [
   { valor: "dark", etiqueta: "Oscuro", Icono: Moon },
 ];
 
-/** Selector de tema de tres posiciones. Guarda la preferencia en localStorage (solo es una comodidad). */
+/**
+ * @component SelectorTema (isla: `client:load`)
+ * Selector de tema de tres posiciones: claro, sistema y oscuro.
+ * Fija `data-theme` en <html>, que tokens.css traduce a `color-scheme`.
+ * Guarda la preferencia en localStorage (clave "tema"); si no se puede, el tema
+ * funciona igual, solo no se recuerda. El script inline de Base.astro la aplica
+ * al cargar para evitar el parpadeo.
+ */
 export default function SelectorTema() {
   const [tema, setTema] = useState<Tema>("system");
 
@@ -40,7 +47,7 @@ export default function SelectorTema() {
           aria-label={etiqueta}
           title={etiqueta}
           onClick={() => elegir(valor)}
-          class="grid size-8 place-items-center rounded-lg text-tenue transition hover:text-texto aria-checked:bg-oro aria-checked:text-fondo"
+          class="grid size-8 place-items-center rounded-lg text-tenue transition hover:text-texto aria-checked:bg-acento aria-checked:text-fondo"
         >
           <Icono size={16} aria-hidden="true" />
         </button>

@@ -1,11 +1,19 @@
 ---
+/**
+ * @component TarjetaJefe
+ * Tarjeta destacada de un jefe: canción, condiciones de victoria y cuenta atrás.
+ * De fondo usa la miniatura de la versión de referencia, muy atenuada.
+ */
 import { Swords, Video, Crown } from "lucide-preact";
-import type { Jefe, Cancion } from "../../lib/contenido";
-import { miniaturaYoutube } from "../../lib/contenido";
+import type { Jefe, Cancion } from "@/lib/contenido";
+import { miniaturaYoutube } from "@/lib/contenido";
 
 interface Props {
+  /** Jefe a mostrar. */
   jefe: Jefe;
+  /** Canción del jefe (se pasa aparte para no volver a buscarla). */
   cancion: Cancion;
+  /** Si se indica, muestra «En N días». */
   diasRestantes?: number;
 }
 const { jefe, cancion, diasRestantes } = Astro.props;
@@ -13,12 +21,12 @@ const j = jefe.data;
 const Icono = j.final ? Crown : Swords;
 ---
 
-<article class="relative overflow-hidden rounded-3xl border border-oro/40 bg-superficie">
+<article class="relative overflow-hidden rounded-3xl border border-acento/40 bg-superficie">
   <!-- Miniatura de la versión de referencia como fondo, muy oscurecida -->
   {j.version && (
     <img src={miniaturaYoutube(j.version)} alt="" loading="lazy" class="absolute inset-0 size-full object-cover opacity-25 blur-[2px] scale-110" />
   )}
-  <div class="absolute inset-0 bg-gradient-to-br from-superficie via-superficie/90 to-oro-suave/60"></div>
+  <div class="absolute inset-0 bg-gradient-to-br from-superficie via-superficie/90 to-acento-suave/60"></div>
   <div class="relative grid gap-6 p-6 sm:p-8 md:grid-cols-[1.2fr_1fr]">
     <div>
       <p class="eyebrow flex items-center gap-2"><Icono size={14} aria-hidden="true" /> {j.final ? "Jefe final" : "Próximo jefe"}</p>
@@ -27,11 +35,11 @@ const Icono = j.final ? Crown : Swords;
       <p class="mt-4 max-w-prose leading-relaxed">{j.descripcion}</p>
       <div class="mt-6 flex flex-wrap gap-3 text-sm">
         <span class="rounded-full border border-borde bg-superficie-2/70 px-3 py-1">⏱ {j.condicionVictoria.tempo}</span>
-        <span class="inline-flex items-center gap-1.5 rounded-full border border-oro/50 bg-oro-suave/70 px-3 py-1 font-medium">
+        <span class="inline-flex items-center gap-1.5 rounded-full border border-acento/50 bg-acento-suave/70 px-3 py-1 font-medium">
           <Video size={14} aria-hidden="true" /> Grabar es parte de la victoria
         </span>
         {diasRestantes !== undefined && (
-          <span class="rounded-full bg-oro px-3 py-1 font-semibold text-fondo">En {diasRestantes} días</span>
+          <span class="rounded-full bg-acento px-3 py-1 font-semibold text-fondo">En {diasRestantes} días</span>
         )}
       </div>
     </div>
@@ -40,7 +48,7 @@ const Icono = j.final ? Crown : Swords;
       <ul class="mt-3 grid gap-2.5 text-sm">
         {j.condicionVictoria.criterios.map((c) => (
           <li class="flex gap-2.5">
-            <span class="mt-1 size-4 shrink-0 rounded border-2 border-oro/70" aria-hidden="true"></span>
+            <span class="mt-1 size-4 shrink-0 rounded border-2 border-acento/70" aria-hidden="true"></span>
             <span class="leading-relaxed">{c}</span>
           </li>
         ))}

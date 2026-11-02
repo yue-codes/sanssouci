@@ -1,11 +1,16 @@
 ---
-/** Logro en pequeño (nombre + estado), enlazado a su nodo en el árbol. */
+/**
+ * @component ChipLogro
+ * Logro en pequeño (nombre + estado), enlazado a su nodo en el árbol.
+ */
 import { Check, Sparkles, Lock } from "lucide-preact";
-import type { Logro } from "../../lib/contenido";
-import type { EstadoLogro } from "../../lib/progreso";
+import type { Logro } from "@/lib/contenido";
+import type { EstadoLogro } from "@/lib/progreso";
 
 interface Props {
+  /** Logro a mostrar. */
   logro: Logro;
+  /** Su estado para el jugador (ver `estadoLogro`). */
   estado: EstadoLogro;
 }
 const { logro, estado } = Astro.props;
@@ -17,8 +22,8 @@ const texto = { conseguido: "conseguido", disponible: "disponible", bloqueado: "
   href={`/muestra/arbol#${logro.id}`}
   data-estado={estado}
   class="inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs transition hover:bg-superficie-2
-         data-[estado=conseguido]:border-oro/50 data-[estado=conseguido]:text-oro
-         data-[estado=disponible]:border-aurora/60 data-[estado=disponible]:text-aurora
+         data-[estado=conseguido]:border-acento/50 data-[estado=conseguido]:text-acento
+         data-[estado=disponible]:border-resalte/60 data-[estado=disponible]:text-resalte
          data-[estado=bloqueado]:border-borde data-[estado=bloqueado]:text-tenue"
 >
   <Icono size={12} aria-hidden="true" />

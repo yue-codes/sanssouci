@@ -1,0 +1,36 @@
+---
+/**
+ * @component Cabecera
+ * Barra superior fija: logo, navegación principal y selector de tema.
+ * Marca el enlace de la página actual con `aria-current="page"`, que sirve
+ * a la vez para los lectores de pantalla y para el estilo (`aria-[current=page]:`).
+ */
+import { Wind } from "lucide-preact";
+import SelectorTema from "@/components/tema/SelectorTema";
+import { NAVEGACION, SITIO } from "@/config/sitio";
+
+const rutaActual = Astro.url.pathname;
+---
+
+<header class="sticky top-0 z-40 border-b border-borde/60 bg-fondo/70 backdrop-blur-md">
+  <nav class="mx-auto flex max-w-6xl items-center gap-4 px-4 py-3" aria-label="Principal">
+    <a href="/" class="flex items-center gap-2 font-display text-lg font-semibold">
+      <span class="grid size-8 place-items-center rounded-lg bg-acento text-fondo"><Wind size={18} aria-hidden="true" /></span>
+      <span class="hidden sm:inline">{SITIO.nombre}</span>
+    </a>
+    <ul class="ml-auto flex items-center gap-1 overflow-x-auto text-sm">
+      {NAVEGACION.map((e) => (
+        <li>
+          <a
+            href={e.href}
+            aria-current={rutaActual.startsWith(e.href) ? "page" : undefined}
+            class="rounded-lg px-3 py-2 text-tenue transition hover:bg-superficie-2 hover:text-texto aria-[current=page]:bg-superficie-2 aria-[current=page]:text-texto"
+          >
+            {e.texto}
+          </a>
+        </li>
+      ))}
+    </ul>
+    <SelectorTema client:load />
+  </nav>
+</header>

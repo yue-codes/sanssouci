@@ -1,0 +1,91 @@
+/**
+ * ============================================================================
+ *  TOKENS DE DISEÑO — el único archivo que hay que tocar para cambiar colores
+ * ============================================================================
+ *
+ * Los colores se organizan en tres capas:
+ *
+ *  1. PALETA: asigna valores a los primitivos por papel (`--neutro-*`,
+ *     `--marca-*`, `--apoyo-*`, `--calido-*`…). Hoy hay una, «Bosque».
+ *
+ *  2. PRIMITIVOS POR PAPEL: neutro (fondos, bordes, texto), marca (el color
+ *     principal), apoyo (secundario), cálido (lo que llama la atención),
+ *     éxito y peligro. Nunca se usan directamente en componentes.
+ *
+ *  3. SEMÁNTICOS: el papel de cada color en la interfaz (`--fondo`, `--acento`…),
+ *     con `light-dark(claro, oscuro)`. Los componentes solo usan estos, vía
+ *     Tailwind (`bg-fondo`, `text-acento`, `border-borde/50`…).
+ *
+ * Cómo cambiar la paleta:
+ *  - Ajustar un tono: edita su valor en el bloque de la paleta.
+ *  - Cambiar un papel entero (p. ej. el contraste ámbar por lila): cambia
+ *    sus primitivos (`--calido-300` y `--calido-700`). Ningún componente cambia.
+ *  - Varias paletas a la vez: añade bloques `:root[data-paleta="…"]` que solo
+ *    redefinan lo que cambia y fija `data-paleta` en <html>.
+ *
+ * Contraste: el texto (`--texto`, `--tenue`) y los colores usados como texto
+ * (`--acento`, `--resalte`…) cumplen WCAG AA (≥ 4.5:1) sobre `--fondo` y
+ * `--superficie-2` en ambos temas. Si cambias un valor, compruébalo de nuevo
+ * (por ejemplo, con https://webaim.org/resources/contrastchecker/).
+ */
+
+/* ============================================================================
+ * 1. Paleta
+ * ========================================================================== */
+
+/* --- Bosque: verde jade + ámbar (decidida el 2 nov 2026) --- */
+:root {
+  --neutro-50: #f3f6f1;  --neutro-75: #fbfdf9;  --neutro-100: #e6eee5; --neutro-200: #cfdccf;
+  --neutro-300: #a9bfb0; --neutro-600: #435a4e; --neutro-700: #2b4034; --neutro-800: #1a2c23;
+  --neutro-900: #14211b; --neutro-925: #0d1914; --neutro-950: #08110d; --neutro-texto-oscuro: #e7f1ea;
+  --marca-100: #d4ecdc;  --marca-400: #5cd69a;  --marca-700: #1c7149;  --marca-900: #173528;
+  --apoyo-300: #b9d3c4;  --apoyo-700: #4f6b5f;
+  --calido-300: #f0c35a; --calido-700: #8a5a00;
+  --exito-300: #6fdcc4;  --exito-700: #0d6b64;
+  --peligro-300: #ff8f80; --peligro-700: #b3261e;
+}
+
+/* ============================================================================
+ * 2. Semánticos: light-dark(tema claro, tema oscuro)
+ *    No dependen de la paleta: siempre apuntan a los mismos primitivos por papel.
+ * ========================================================================== */
+:root {
+  --fondo: light-dark(var(--neutro-50), var(--neutro-950));
+  --superficie: light-dark(var(--neutro-75), var(--neutro-925));
+  --superficie-2: light-dark(var(--neutro-100), var(--neutro-800));
+  --borde: light-dark(var(--neutro-200), var(--neutro-700));
+  --texto: light-dark(var(--neutro-900), var(--neutro-texto-oscuro));
+  --tenue: light-dark(var(--neutro-600), var(--neutro-300));
+
+  /** Color de marca: botones, zona actual, logros conseguidos. */
+  --acento: light-dark(var(--marca-700), var(--marca-400));
+  /** Fondo suave a juego con el acento. */
+  --acento-suave: light-dark(var(--marca-100), var(--marca-900));
+  /** Acento secundario, más discreto. */
+  --secundario: light-dark(var(--apoyo-700), var(--apoyo-300));
+  /** Lo que pide atención: logros disponibles, retos. */
+  --resalte: light-dark(var(--calido-700), var(--calido-300));
+  /** Lo completado: bloques hechos, zonas superadas. */
+  --exito: light-dark(var(--exito-700), var(--exito-300));
+  /** Errores y jefes. */
+  --peligro: light-dark(var(--peligro-700), var(--peligro-300));
+
+  /* Decoración del fondo: resplandores derivados de la marca (sirven en cualquier paleta). */
+  --brillo-1: color-mix(in oklab, var(--acento) 16%, transparent);
+  --brillo-2: color-mix(in oklab, var(--resalte) 8%, transparent);
+  --estrellas: light-dark(transparent, rgb(245 245 230 / 0.5));
+
+  /* Tipografía (fuentes instaladas con Fontsource: ver global.css). */
+  --fuente-titulos: "Fraunces Variable", Georgia, serif;
+  --fuente-texto: "Inter Variable", system-ui, sans-serif;
+  --fuente-pixel: "Pixelify Sans Variable", ui-monospace, monospace;
+}
+
+/**
+ * Elección de tema. `light-dark()` elige según `color-scheme`:
+ *  - Por defecto, "light dark" = sigue la preferencia del sistema.
+ *  - El selector de tema fija `data-theme` en <html> para forzar uno.
+ */
+:root { color-scheme: light dark; }
+:root[data-theme="light"] { color-scheme: light; }
+:root[data-theme="dark"] { color-scheme: dark; }

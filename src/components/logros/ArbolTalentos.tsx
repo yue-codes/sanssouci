@@ -1,9 +1,10 @@
 import { useComputed, useSignal } from "@preact/signals";
 import { useEffect } from "preact/hooks";
 import { Check, Lock, Sparkles } from "lucide-preact";
-import { ICONO_CATEGORIA, NOMBRE_CATEGORIA, type CategoriaLogro } from "../ui/categorias";
-import { estadoLogro, type EstadoLogro } from "../../lib/progreso";
+import { ICONO_CATEGORIA, NOMBRE_CATEGORIA, type CategoriaLogro } from "./categorias";
+import { estadoLogro, type EstadoLogro } from "@/lib/progreso";
 
+/** Datos planos de un logro, ya colocado en la cuadrícula (ver `posicionarArbol`). */
 export interface NodoTalento {
   id: string;
   nombre: string;
@@ -17,8 +18,11 @@ export interface NodoTalento {
 }
 
 interface Props {
+  /** Todos los logros, con `col` y `fila`. */
   nodos: NodoTalento[];
+  /** Categorías en el orden de las columnas. */
   ramas: CategoriaLogro[];
+  /** Ids de los logros que el jugador ya tiene. */
   obtenidos: string[];
 }
 
@@ -30,13 +34,14 @@ const ARRIBA = 64; // espacio para los nombres de las ramas
 const HEXAGONO = "polygon(25% 4%, 75% 4%, 100% 50%, 75% 96%, 25% 96%, 0% 50%)";
 
 const ESTILO: Record<EstadoLogro, { borde: string; relleno: string; icono: string; texto: string }> = {
-  conseguido: { borde: "bg-oro", relleno: "bg-oro-suave", icono: "text-oro", texto: "Conseguido" },
-  disponible: { borde: "bg-aurora", relleno: "bg-superficie", icono: "text-aurora", texto: "Disponible" },
+  conseguido: { borde: "bg-acento", relleno: "bg-acento-suave", icono: "text-acento", texto: "Conseguido" },
+  disponible: { borde: "bg-resalte", relleno: "bg-superficie", icono: "text-resalte", texto: "Disponible" },
   bloqueado: { borde: "bg-borde", relleno: "bg-superficie-2", icono: "text-tenue opacity-60", texto: "Bloqueado" },
 };
 const ICONO_ESTADO = { conseguido: Check, disponible: Sparkles, bloqueado: Lock };
 
 /**
+ * @component ArbolTalentos (isla: `client:load`)
  * Árbol de habilidades estilo RPG, dibujado a partir de logros.json:
  * cada `requiere` es una línea entre dos nodos.
  * En la muestra puedes marcar logros y ver cómo se desbloquean los siguientes;
@@ -81,11 +86,11 @@ export default function ArbolTalentos({ nodos, ramas, obtenidos: iniciales }: Pr
       <div class="tarjeta overflow-hidden">
         <div class="flex flex-wrap items-center gap-x-6 gap-y-2 border-b border-borde px-5 py-3 text-sm">
           <p>
-            <span class="font-pixel text-2xl text-oro">{obtenidos.value.size}</span>
+            <span class="font-pixel text-2xl text-acento">{obtenidos.value.size}</span>
             <span class="text-tenue"> / {nodos.length} talentos</span>
           </p>
           <p>
-            <span class="font-pixel text-2xl text-aurora">{disponibles.value.length}</span>
+            <span class="font-pixel text-2xl text-resalte">{disponibles.value.length}</span>
             <span class="text-tenue"> disponibles ahora</span>
           </p>
           <ul class="ml-auto flex gap-4 text-xs text-tenue">
@@ -109,7 +114,7 @@ export default function ArbolTalentos({ nodos, ramas, obtenidos: iniciales }: Pr
               );
             })}
 
-            {/* Líneas de requisitos: doradas si el requisito ya está conseguido */}
+            {/* Líneas de requisitos: con el color de acento si el requisito ya está conseguido */}
             <svg class="pointer-events-none absolute inset-0" width={ancho} height={alto} aria-hidden="true">
               {nodos.flatMap((n) =>
                 n.requiere.map((r) => {
@@ -123,7 +128,7 @@ export default function ArbolTalentos({ nodos, ramas, obtenidos: iniciales }: Pr
                       key={`${r}-${n.id}`}
                       d={`M${a.x} ${a.y + NODO / 2} C${a.x} ${medio} ${b.x} ${medio} ${b.x} ${b.y - NODO / 2}`}
                       fill="none"
-                      stroke={resaltada ? "var(--aurora)" : ya ? "var(--oro)" : "var(--borde)"}
+                      stroke={resaltada ? "var(--resalte)" : ya ? "var(--acento)" : "var(--borde)"}
                       stroke-width={resaltada ? 3 : ya ? 2.5 : 1.5}
                       stroke-dasharray={ya || resaltada ? undefined : "4 5"}
                       opacity={resaltada || ya ? 1 : 0.8}
@@ -198,7 +203,7 @@ export default function ArbolTalentos({ nodos, ramas, obtenidos: iniciales }: Pr
           type="button"
           disabled={estadoSel === "bloqueado"}
           onClick={() => alternar(sel.id)}
-          class="mt-6 w-full rounded-xl bg-oro px-4 py-2.5 text-sm font-semibold text-fondo transition hover:brightness-110 disabled:cursor-not-allowed disabled:bg-superficie-2 disabled:text-tenue"
+          class="mt-6 w-full rounded-xl bg-acento px-4 py-2.5 text-sm font-semibold text-fondo transition hover:brightness-110 disabled:cursor-not-allowed disabled:bg-superficie-2 disabled:text-tenue"
         >
           {estadoSel === "conseguido" ? "Quitar (demo)" : estadoSel === "disponible" ? "Marcar como conseguido (demo)" : "Aún bloqueado"}
         </button>

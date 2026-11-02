@@ -9,6 +9,11 @@
   ],
   "compilerOptions": {
     "jsx": "react-jsx",
-    "jsxImportSource": "preact"
+    "jsxImportSource": "preact",
+    // Alias de imports: "@/lib/contenido" en lugar de "../../lib/contenido".
+    // Astro (Vite) lee este mismo campo, así que no hace falta configurarlo en otro sitio.
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   }
 }

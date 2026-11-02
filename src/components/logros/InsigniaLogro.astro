@@ -1,9 +1,15 @@
 ---
+/**
+ * @component InsigniaLogro
+ * Insignia de un logro con su icono de categoría, criterio y si ya se obtuvo.
+ */
 import { ICONO_CATEGORIA } from "./categorias";
-import type { Logro } from "../../lib/contenido";
+import type { Logro } from "@/lib/contenido";
 
 interface Props {
+  /** Logro a mostrar. */
   logro: Logro;
+  /** Si el jugador ya lo tiene. */
   obtenido?: boolean;
 }
 const { logro, obtenido = false } = Astro.props;
@@ -14,14 +20,14 @@ const Icono = ICONO_CATEGORIA[l.categoria];
 <div data-obtenido={obtenido} class="group tarjeta flex items-start gap-3 p-4 data-[obtenido=false]:opacity-70">
   <span
     class="relative grid size-12 shrink-0 place-items-center rounded-xl border-2 border-borde text-tenue
-           group-data-[obtenido=true]:border-oro group-data-[obtenido=true]:bg-gradient-to-br group-data-[obtenido=true]:from-oro group-data-[obtenido=true]:to-oro/60 group-data-[obtenido=true]:text-fondo group-data-[obtenido=true]:shadow-[0_8px_24px_-8px_var(--oro)]"
+           group-data-[obtenido=true]:border-acento group-data-[obtenido=true]:bg-gradient-to-br group-data-[obtenido=true]:from-acento group-data-[obtenido=true]:to-acento/60 group-data-[obtenido=true]:text-fondo group-data-[obtenido=true]:shadow-[0_8px_24px_-8px_var(--acento)]"
   >
     <Icono size={22} aria-hidden="true" />
   </span>
   <div class="min-w-0">
     <p class="font-semibold leading-tight">{l.nombre}</p>
     <p class="mt-1 text-xs leading-relaxed text-tenue">{l.criterio}</p>
-    <p class="mt-1.5 text-[11px] font-semibold uppercase tracking-wider text-tenue group-data-[obtenido=true]:text-oro">
+    <p class="mt-1.5 text-[11px] font-semibold uppercase tracking-wider text-tenue group-data-[obtenido=true]:text-acento">
       {obtenido ? "Obtenido" : l.categoria}
     </p>
   </div>

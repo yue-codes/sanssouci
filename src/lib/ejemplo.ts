@@ -1,5 +1,5 @@
 /**
- * Progreso INVENTADO para las páginas de muestra, hasta que exista el login (fase 4).
+ * @file Progreso INVENTADO para las páginas de muestra, hasta que exista el login (fase 4).
  * Simula a alguien que lleva un par de semanas sin flauta.
  * Está en un solo sitio para que todas las muestras enseñen el mismo progreso.
  */

@@ -1,4 +1,6 @@
 /**
+ * @file Disposición del árbol de habilidades.
+ *
  * Coloca los logros en una cuadrícula para dibujar el árbol de habilidades.
  * - Columna: la rama (categoría) del logro.
  * - Fila: su "profundidad", es decir, cuántos pasos de requisitos hay antes de él.
@@ -6,12 +8,20 @@
  * Si dos logros de la misma rama caen en la misma fila, el segundo baja una.
  */
 
+/** Lo mínimo que necesita un nodo para colocarse en el árbol. */
 export interface NodoArbol {
   id: string;
   categoria: string;
   requiere: string[];
 }
 
+/**
+ * Asigna a cada nodo una columna (`col`) y una fila (`fila`) de la cuadrícula.
+ *
+ * @param nodos Logros (o cualquier objeto con `id`, `categoria` y `requiere`).
+ * @param ramas Categorías en el orden de las columnas; los nodos de otras categorías se omiten.
+ * @returns Los mismos nodos con `col` y `fila` añadidos, agrupados por rama.
+ */
 export function posicionarArbol<T extends NodoArbol>(nodos: T[], ramas: readonly string[]) {
   const porId = new Map(nodos.map((n) => [n.id, n]));
   const memo = new Map<string, number>();

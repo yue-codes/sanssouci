@@ -1,8 +1,13 @@
 ---
-import type { Ruta } from "../../lib/contenido";
+/**
+ * @component ChipRuta
+ * Etiqueta de una ruta con su color propio, que viene de `rutas.json` (es dato, no
+ * token de diseño). `color-mix` genera el borde y el fondo translúcidos a partir de él.
+ */
+import type { Ruta } from "@/lib/contenido";
 
-/** Etiqueta de ruta con su color (definido en rutas.json). */
 interface Props {
+  /** Ruta a mostrar. */
   ruta: Ruta;
 }
 const { ruta } = Astro.props;

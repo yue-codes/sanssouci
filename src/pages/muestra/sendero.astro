@@ -4,12 +4,12 @@
  * con un jefe como puerta al final de cada tramo.
  * Lo cercano se ve con detalle; lo lejano, en niebla y resumido.
  */
-import Base from "../../layouts/Base.astro";
-import PestanasMuestra from "../../components/ui/PestanasMuestra.astro";
-import ChipLogro from "../../components/ui/ChipLogro.astro";
-import { cargarContenido } from "../../lib/contenido";
-import { estadoLogro } from "../../lib/progreso";
-import { OBTENIDOS_EJEMPLO, ZONA_ACTUAL_EJEMPLO } from "../../lib/ejemplo";
+import Base from "@/layouts/Base.astro";
+import PestanasMuestra from "@/components/muestra/PestanasMuestra.astro";
+import ChipLogro from "@/components/logros/ChipLogro.astro";
+import { cargarContenido } from "@/lib/contenido";
+import { estadoLogro } from "@/lib/progreso";
+import { OBTENIDOS_EJEMPLO, ZONA_ACTUAL_EJEMPLO } from "@/lib/ejemplo";
 import { Check, Footprints, Lock, Swords, ArrowRight, Music2 } from "lucide-preact";
 
 const c = await cargarContenido();
@@ -57,16 +57,16 @@ const siguientePaso = actual.requisitos.find((r) => r.estado === "disponible");
           <span class="text-tenue">{actual.hechos} de {actual.requisitos.length} requisitos</span>
         </div>
         <div class="mt-2 h-2.5 overflow-hidden rounded-full bg-borde" role="progressbar" aria-label="Requisitos de la zona" aria-valuemin={0} aria-valuemax={actual.requisitos.length} aria-valuenow={actual.hechos}>
-          <div class="h-full rounded-full bg-gradient-to-r from-oro to-oro/70" style={`width:${(actual.hechos / actual.requisitos.length) * 100}%`}></div>
+          <div class="h-full rounded-full bg-gradient-to-r from-acento to-acento/70" style={`width:${(actual.hechos / actual.requisitos.length) * 100}%`}></div>
         </div>
       </div>
       {siguientePaso && (
-        <a href={`/muestra/arbol#${siguientePaso.logro.id}`} class="group flex items-center gap-3 rounded-xl border border-aurora/50 bg-aurora/10 px-4 py-3 text-sm transition hover:bg-aurora/20">
+        <a href={`/muestra/arbol#${siguientePaso.logro.id}`} class="group flex items-center gap-3 rounded-xl border border-resalte/50 bg-resalte/10 px-4 py-3 text-sm transition hover:bg-resalte/20">
           <span>
             <span class="block text-xs text-tenue">Siguiente paso</span>
             <span class="font-semibold">{siguientePaso.logro.data.nombre}</span>
           </span>
-          <ArrowRight size={18} class="text-aurora transition group-hover:translate-x-1" aria-hidden="true" />
+          <ArrowRight size={18} class="text-resalte transition group-hover:translate-x-1" aria-hidden="true" />
         </a>
       )}
     </div>
@@ -81,18 +81,18 @@ const siguientePaso = actual.requisitos.find((r) => r.estado === "disponible");
         <>
           <!-- Zona -->
           <li data-estado={z.estado} class={`group relative grid grid-cols-[3rem_1fr] gap-x-4 pb-6 md:grid-cols-[1fr_5rem_1fr] ${z.lejana ? "opacity-55 saturate-50" : ""}`}>
-            <!-- Tramo de camino: dorado lo andado, punteado lo que falta -->
-            <span aria-hidden="true" class={`absolute top-0 bottom-0 left-6 -translate-x-1/2 md:left-1/2 ${z.estado === "superada" ? "w-1 rounded bg-oro" : z.estado === "actual" ? "w-1 rounded bg-gradient-to-b from-oro to-borde" : "border-l-2 border-dashed border-borde"}`}></span>
+            <!-- Tramo de camino: color de acento lo andado, punteado lo que falta -->
+            <span aria-hidden="true" class={`absolute top-0 bottom-0 left-6 -translate-x-1/2 md:left-1/2 ${z.estado === "superada" ? "w-1 rounded bg-acento" : z.estado === "actual" ? "w-1 rounded bg-gradient-to-b from-acento to-borde" : "border-l-2 border-dashed border-borde"}`}></span>
 
             <span class="relative z-10 row-start-1 grid justify-items-center md:col-start-2">
-              {z.estado === "actual" && <span class="absolute top-0 size-12 animate-latido rounded-full bg-oro" aria-hidden="true"></span>}
-              <span class={`relative grid size-12 place-items-center rounded-full border-2 font-display text-lg font-semibold ${z.estado === "superada" ? "border-exito bg-exito text-fondo" : z.estado === "actual" ? "border-oro bg-oro text-fondo" : "border-borde bg-superficie text-tenue"}`}>
+              {z.estado === "actual" && <span class="absolute top-0 size-12 animate-latido rounded-full bg-acento" aria-hidden="true"></span>}
+              <span class={`relative grid size-12 place-items-center rounded-full border-2 font-display text-lg font-semibold ${z.estado === "superada" ? "border-exito bg-exito text-fondo" : z.estado === "actual" ? "border-acento bg-acento text-fondo" : "border-borde bg-superficie text-tenue"}`}>
                 {z.estado === "superada" ? <Check size={20} aria-hidden="true" /> : z.estado === "actual" ? <Footprints size={20} aria-hidden="true" /> : n.orden}
               </span>
             </span>
 
             <div class={`row-start-1 ${lado}`}>
-              <div class={`tarjeta p-5 text-left ${z.estado === "actual" ? "border-oro shadow-[0_0_0_4px_color-mix(in_oklab,var(--oro)_15%,transparent)]" : ""}`}>
+              <div class={`tarjeta p-5 text-left ${z.estado === "actual" ? "border-acento shadow-[0_0_0_4px_color-mix(in_oklab,var(--acento)_15%,transparent)]" : ""}`}>
                 <p class="eyebrow group-data-[estado=bloqueada]:text-tenue">
                   Zona {n.orden} · {z.estado === "actual" ? "Estás aquí" : z.estado === "superada" ? "Superada" : n.zona}
                 </p>
@@ -115,9 +115,9 @@ const siguientePaso = actual.requisitos.find((r) => r.estado === "disponible");
 
           <!-- Jefe: la puerta al final del tramo -->
           <li class={`relative grid grid-cols-[3rem_1fr] gap-x-4 pb-10 md:grid-cols-[1fr_5rem_1fr] ${z.lejana ? "opacity-55 saturate-50" : ""}`}>
-            <span aria-hidden="true" class={`absolute top-0 bottom-0 left-6 -translate-x-1/2 md:left-1/2 ${z.estado === "superada" ? "w-1 rounded bg-oro" : "border-l-2 border-dashed border-borde"}`}></span>
+            <span aria-hidden="true" class={`absolute top-0 bottom-0 left-6 -translate-x-1/2 md:left-1/2 ${z.estado === "superada" ? "w-1 rounded bg-acento" : "border-l-2 border-dashed border-borde"}`}></span>
             <span class="relative z-10 row-start-1 grid justify-items-center md:col-start-2">
-              <span class={`mt-1 grid size-9 rotate-45 place-items-center rounded-md border-2 ${z.estado === "superada" ? "border-oro bg-oro text-fondo" : "border-peligro/70 bg-superficie text-peligro"}`}>
+              <span class={`mt-1 grid size-9 rotate-45 place-items-center rounded-md border-2 ${z.estado === "superada" ? "border-acento bg-acento text-fondo" : "border-peligro/70 bg-superficie text-peligro"}`}>
                 <Swords size={16} class="-rotate-45" aria-hidden="true" />
               </span>
             </span>

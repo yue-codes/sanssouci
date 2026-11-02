@@ -4,13 +4,13 @@
  * Los nodos y las líneas salen de logros.json; el progreso es de ejemplo.
  */
 import "@fontsource-variable/pixelify-sans";
-import Base from "../../layouts/Base.astro";
-import PestanasMuestra from "../../components/ui/PestanasMuestra.astro";
-import ArbolTalentos, { type NodoTalento } from "../../components/islas/ArbolTalentos";
-import { ORDEN_RAMAS } from "../../components/ui/categorias";
-import { cargarContenido } from "../../lib/contenido";
-import { posicionarArbol } from "../../lib/arbol";
-import { OBTENIDOS_EJEMPLO } from "../../lib/ejemplo";
+import Base from "@/layouts/Base.astro";
+import PestanasMuestra from "@/components/muestra/PestanasMuestra.astro";
+import ArbolTalentos, { type NodoTalento } from "@/components/logros/ArbolTalentos";
+import { ORDEN_RAMAS } from "@/components/logros/categorias";
+import { cargarContenido } from "@/lib/contenido";
+import { posicionarArbol } from "@/lib/arbol";
+import { OBTENIDOS_EJEMPLO } from "@/lib/ejemplo";
 
 const c = await cargarContenido();
 
@@ -36,7 +36,7 @@ const nodos: NodoTalento[] = posicionarArbol(planos, ORDEN_RAMAS);
     <h1 class="mt-3 font-pixel text-4xl leading-tight font-semibold sm:text-6xl">Tus habilidades</h1>
     <p class="mt-4 text-lg leading-relaxed text-tenue">
       Cada columna es una rama del temario y cada línea, un requisito.
-      Lo <span class="text-aurora">azul</span> lo puedes conseguir ya; lo <span class="text-oro">dorado</span> ya es tuyo.
+      Lo <span class="font-semibold text-resalte">disponible</span> lo puedes conseguir ya; lo <span class="font-semibold text-acento">conseguido</span> ya es tuyo.
       Toca un talento para ver cómo se consigue y qué abre.
     </p>
   </header>

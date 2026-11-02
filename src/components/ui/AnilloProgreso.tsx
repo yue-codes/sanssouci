@@ -1,11 +1,17 @@
 interface Props {
-  /** De 0 a 1 */
+  /** Avance de 0 a 1 (los valores fuera de rango se recortan). */
   valor: number;
+  /** Texto pequeño bajo el porcentaje, p. ej. "20 / 50 min". */
   etiqueta: string;
+  /** Lado en px. Por defecto, 112. */
   tamano?: number;
 }
 
-/** Anillo de progreso en SVG. Sin estado propio: sirve igual en Astro (estático) que dentro de una isla. */
+/**
+ * @component AnilloProgreso
+ * Anillo de progreso en SVG. Sin estado propio: sirve igual en Astro (HTML
+ * estático) que dentro de una isla. Al llegar al 100 % cambia al color de éxito.
+ */
 export default function AnilloProgreso({ valor, etiqueta, tamano = 112 }: Props) {
   const r = 44;
   const circ = 2 * Math.PI * r;
@@ -16,7 +22,7 @@ export default function AnilloProgreso({ valor, etiqueta, tamano = 112 }: Props)
         <circle cx="50" cy="50" r={r} fill="none" stroke="var(--borde)" stroke-width="8" />
         <circle
           cx="50" cy="50" r={r} fill="none"
-          stroke={v === 1 ? "var(--exito)" : "var(--oro)"}
+          stroke={v === 1 ? "var(--exito)" : "var(--acento)"}
           stroke-width="8" stroke-linecap="round"
           stroke-dasharray={circ}
           stroke-dashoffset={circ * (1 - v)}

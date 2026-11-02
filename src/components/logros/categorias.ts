@@ -1,11 +1,11 @@
 /**
- * Icono, nombre y orden de cada categoría de logro (cada una es una "rama" del árbol).
+ * @file Icono, nombre y orden de cada categoría de logro (cada una es una "rama" del árbol).
  * Vive aquí para que InsigniaLogro, ChipLogro y el árbol usen exactamente lo mismo.
  * Con `Record<CategoriaLogro, …>`, si se añade una categoría al esquema y falta aquí,
  * TypeScript avisa.
  */
 import { BookOpen, Brain, Wind, Waves, Hand, Music, Ear, Flame, Video, Library } from "lucide-preact";
-import type { Logro } from "../../lib/contenido";
+import type { Logro } from "@/lib/contenido";
 
 export type CategoriaLogro = Logro["data"]["categoria"];
 

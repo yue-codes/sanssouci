@@ -4,15 +4,15 @@
  * Usa los datos reales de src/data; el progreso (zonas superadas, logros obtenidos)
  * es de EJEMPLO hasta que exista el login (fase 4).
  */
-import Base from "../layouts/Base.astro";
-import PestanasMuestra from "../components/ui/PestanasMuestra.astro";
-import SesionDeHoy from "../components/islas/SesionDeHoy";
-import TarjetaZona from "../components/ui/TarjetaZona.astro";
-import TarjetaJefe from "../components/ui/TarjetaJefe.astro";
-import TarjetaCancion from "../components/ui/TarjetaCancion.astro";
-import InsigniaLogro from "../components/ui/InsigniaLogro.astro";
-import { cargarContenido } from "../lib/contenido";
-import { diaDelPlan, fechaLarga } from "../lib/fechas";
+import Base from "@/layouts/Base.astro";
+import PestanasMuestra from "@/components/muestra/PestanasMuestra.astro";
+import SesionDeHoy from "@/components/sesion/SesionDeHoy";
+import TarjetaZona from "@/components/mapa/TarjetaZona.astro";
+import TarjetaJefe from "@/components/jefes/TarjetaJefe.astro";
+import TarjetaCancion from "@/components/canciones/TarjetaCancion.astro";
+import InsigniaLogro from "@/components/logros/InsigniaLogro.astro";
+import { cargarContenido } from "@/lib/contenido";
+import { diaDelPlan, fechaLarga } from "@/lib/fechas";
 import { Flame, CalendarDays, Swords, Library } from "lucide-preact";
 
 const c = await cargarContenido();
@@ -37,7 +37,7 @@ const estadisticas = [
   { Icono: Swords, valor: `${dias.filter((d) => d.data.jefe).length}`, etiqueta: "jefes en 90 días" },
   { Icono: Library, valor: `${c.canciones.length}`, etiqueta: "obras en tu catálogo" },
 ];
-const paleta = ["fondo", "superficie", "superficie-2", "borde", "tenue", "texto", "oro", "plata", "aurora", "exito", "peligro"];
+const paleta = ["fondo", "superficie", "superficie-2", "borde", "tenue", "texto", "acento", "acento-suave", "secundario", "resalte", "exito", "peligro"];
 ---
 
 <Base titulo="Muestra de diseño">
@@ -48,9 +48,9 @@ const paleta = ["fondo", "superficie", "superficie-2", "borde", "tenue", "texto"
     <p class="eyebrow">{antesDeEmpezar ? "Cuenta atrás" : `Semana ${diaMostrado.data.semana} · ${diaMostrado.data.fase === "sin-flauta" ? "sin flauta" : "con flauta"}`}</p>
     <h1 class="mt-3 max-w-3xl text-5xl font-semibold leading-[1.05] tracking-tight sm:text-7xl">
       {antesDeEmpezar ? (
-        <>Tu camino empieza <em class="font-normal text-oro">{hoy === 0 ? "mañana" : `en ${1 - hoy} días`}</em>.</>
+        <>Tu camino empieza <em class="font-normal text-acento">{hoy === 0 ? "mañana" : `en ${1 - hoy} días`}</em>.</>
       ) : (
-        <>Día <em class="font-normal text-oro">{hoy}</em> de 90.</>
+        <>Día <em class="font-normal text-acento">{hoy}</em> de 90.</>
       )}
     </h1>
     <p class="mt-5 max-w-2xl text-lg leading-relaxed text-tenue">
@@ -60,7 +60,7 @@ const paleta = ["fondo", "superficie", "superficie-2", "borde", "tenue", "texto"
     <dl class="mt-10 grid grid-cols-2 gap-3 lg:grid-cols-4">
       {estadisticas.map(({ Icono, valor, etiqueta }) => (
         <div class="tarjeta flex items-center gap-4 p-4">
-          <span class="grid size-11 place-items-center rounded-xl bg-superficie-2 text-oro"><Icono size={20} aria-hidden="true" /></span>
+          <span class="grid size-11 place-items-center rounded-xl bg-superficie-2 text-acento"><Icono size={20} aria-hidden="true" /></span>
           <div>
             <dd class="font-display text-3xl font-semibold leading-none">{valor}</dd>
             <dt class="mt-1 text-xs text-tenue">{etiqueta}</dt>
@@ -79,10 +79,10 @@ const paleta = ["fondo", "superficie", "superficie-2", "borde", "tenue", "texto"
         {dias.map((d) => {
           const t = d.data;
           const clase = t.jefe
-            ? "bg-oro rotate-45 scale-75 rounded-[3px]"
+            ? "bg-acento rotate-45 scale-75 rounded-[3px]"
             : t.tipo === "descanso"
               ? "bg-borde/50"
-              : t.fase === "sin-flauta" ? "bg-aurora/45" : "bg-plata/50";
+              : t.fase === "sin-flauta" ? "bg-resalte/45" : "bg-secundario/50";
           return (
             <li title={`Día ${t.numero} · ${t.titulo}`} class={`aspect-square rounded-[4px] ${clase} ${t.numero === hoy ? "ring-2 ring-texto ring-offset-2 ring-offset-superficie" : ""}`}>
               <span class="sr-only">Día {t.numero}: {t.titulo}</span>
@@ -91,10 +91,10 @@ const paleta = ["fondo", "superficie", "superficie-2", "borde", "tenue", "texto"
         })}
       </ol>
       <ul class="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-xs text-tenue">
-        <li class="flex items-center gap-2"><span class="size-3 rounded-[3px] bg-aurora/45"></span> Sin flauta</li>
-        <li class="flex items-center gap-2"><span class="size-3 rounded-[3px] bg-plata/50"></span> Con flauta</li>
+        <li class="flex items-center gap-2"><span class="size-3 rounded-[3px] bg-resalte/45"></span> Sin flauta</li>
+        <li class="flex items-center gap-2"><span class="size-3 rounded-[3px] bg-secundario/50"></span> Con flauta</li>
         <li class="flex items-center gap-2"><span class="size-3 rounded-[3px] bg-borde/50"></span> Descanso</li>
-        <li class="flex items-center gap-2"><span class="size-2.5 rotate-45 rounded-[2px] bg-oro"></span> Jefe</li>
+        <li class="flex items-center gap-2"><span class="size-2.5 rotate-45 rounded-[2px] bg-acento"></span> Jefe</li>
       </ul>
     </div>
   </section>
@@ -119,10 +119,10 @@ const paleta = ["fondo", "superficie", "superficie-2", "borde", "tenue", "texto"
         <p class="eyebrow">El mapa</p>
         <h2 class="mt-2 text-3xl font-semibold">Nueve zonas hasta la cumbre</h2>
       </div>
-      <a href="/mapa" class="shrink-0 text-sm font-medium text-oro hover:underline">Ver mapa completo →</a>
+      <a href="/mapa" class="shrink-0 text-sm font-medium text-acento hover:underline">Ver mapa completo →</a>
     </div>
     <div class="relative mt-6">
-      <div class="pointer-events-none absolute top-1/2 right-0 left-0 h-px bg-gradient-to-r from-oro via-borde to-transparent" aria-hidden="true"></div>
+      <div class="pointer-events-none absolute top-1/2 right-0 left-0 h-px bg-gradient-to-r from-acento via-borde to-transparent" aria-hidden="true"></div>
       <div class="relative -mx-4 flex snap-x gap-4 overflow-x-auto px-4 pb-4 [scrollbar-width:thin]">
         {c.niveles.map((n) => <TarjetaZona nivel={n} estado={n.data.orden === 0 ? "actual" : "bloqueada"} progreso={0.08} />)}
       </div>

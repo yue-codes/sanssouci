@@ -1,24 +1,22 @@
+/**
+ * Estilos globales: carga Tailwind, las fuentes y los tokens, y los conecta.
+ * Los colores NO se definen aquí, sino en tokens.css.
+ */
 @import "tailwindcss";
 @import "@fontsource-variable/fraunces";
 @import "@fontsource-variable/inter";
+@import "./tokens.css";
 
-/*
- * Tokens de diseño.
- * Los colores son "semánticos" (fondo, superficie, texto…) y no literales (azul, gris…):
- * cada componente usa `bg-superficie` o `text-tenue`, y el tema decide qué color es.
- * Así, el modo claro y el oscuro salen de un solo sitio, sin duplicar clases `dark:`.
+/**
+ * Expone los tokens semánticos como utilidades de Tailwind:
+ * `--color-acento` genera `bg-acento`, `text-acento`, `border-acento/40`, etc.
+ * `inline` hace que la utilidad use `var(--acento)` en vez de copiar el valor,
+ * así el cambio de tema se aplica sin recompilar.
  */
 @theme inline {
-  --font-display: "Fraunces Variable", Georgia, serif;
-  --font-sans: "Inter Variable", system-ui, sans-serif;
-  /* Solo para títulos cortos de la estética "videojuego" (opción C). */
-  --font-pixel: "Pixelify Sans Variable", ui-monospace, monospace;
-  --animate-latido: latido 2.2s ease-out infinite;
-
-  @keyframes latido {
-    0% { transform: scale(1); opacity: 0.55; }
-    100% { transform: scale(1.45); opacity: 0; }
-  }
+  --font-display: var(--fuente-titulos);
+  --font-sans: var(--fuente-texto);
+  --font-pixel: var(--fuente-pixel); /* solo para títulos cortos del árbol de talentos */
 
   --color-fondo: var(--fondo);
   --color-superficie: var(--superficie);
@@ -26,72 +24,19 @@
   --color-texto: var(--texto);
   --color-tenue: var(--tenue);
   --color-borde: var(--borde);
-  --color-oro: var(--oro);
-  --color-oro-suave: var(--oro-suave);
-  --color-plata: var(--plata);
-  --color-aurora: var(--aurora);
+  --color-acento: var(--acento);
+  --color-acento-suave: var(--acento-suave);
+  --color-secundario: var(--secundario);
+  --color-resalte: var(--resalte);
   --color-exito: var(--exito);
   --color-peligro: var(--peligro);
-}
 
-/* Modo claro: pergamino al amanecer */
-:root {
-  color-scheme: light;
-  --fondo: #f6f1e7;
-  --superficie: #fffcf6;
-  --superficie-2: #efe7d6;
-  --texto: #1c1a2b;
-  --tenue: #5b566e;
-  --borde: #e0d5bf;
-  --oro: #8f5f00;
-  --oro-suave: #f3dfb0;
-  --plata: #5f6b86;
-  --aurora: #4b56c8;
-  --exito: #1f7a4f;
-  --peligro: #b3261e;
-  --brillo-1: rgb(232 182 92 / 0.28);
-  --brillo-2: rgb(124 140 255 / 0.14);
-  --estrellas: transparent;
-}
-
-/* Modo oscuro: noche de práctica */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    color-scheme: dark;
-    --fondo: #0a0c18;
-    --superficie: #12152a;
-    --superficie-2: #1a1e38;
-    --texto: #ece8f5;
-    --tenue: #a29eb9;
-    --borde: #2a2f4f;
-    --oro: #e8bb5f;
-    --oro-suave: #3a2f17;
-    --plata: #c7d0e6;
-    --aurora: #8b98ff;
-    --exito: #5fd39a;
-    --peligro: #ff8a80;
-    --brillo-1: rgb(124 140 255 / 0.22);
-    --brillo-2: rgb(232 187 95 / 0.12);
-    --estrellas: rgb(255 255 255 / 0.55);
+  /* `animate-latido`: halo que se expande y se desvanece (logros disponibles, zona actual). */
+  --animate-latido: latido 2.2s ease-out infinite;
+  @keyframes latido {
+    0% { transform: scale(1); opacity: 0.55; }
+    100% { transform: scale(1.45); opacity: 0; }
   }
-}
-:root[data-theme="dark"] {
-  color-scheme: dark;
-  --fondo: #0a0c18;
-  --superficie: #12152a;
-  --superficie-2: #1a1e38;
-  --texto: #ece8f5;
-  --tenue: #a29eb9;
-  --borde: #2a2f4f;
-  --oro: #e8bb5f;
-  --oro-suave: #3a2f17;
-  --plata: #c7d0e6;
-  --aurora: #8b98ff;
-  --exito: #5fd39a;
-  --peligro: #ff8a80;
-  --brillo-1: rgb(124 140 255 / 0.22);
-  --brillo-2: rgb(232 187 95 / 0.12);
-  --estrellas: rgb(255 255 255 / 0.55);
 }
 
 @layer base {
@@ -100,7 +45,7 @@
   }
   body {
     @apply min-h-dvh;
-    /* Cielo: dos resplandores suaves + estrellas diminutas (solo se ven en modo oscuro). */
+    /* Cielo: dos resplandores suaves + puntos de luz (solo visibles en el tema oscuro). */
     background:
       radial-gradient(1.5px 1.5px at 12% 18%, var(--estrellas), transparent),
       radial-gradient(1px 1px at 68% 9%, var(--estrellas), transparent),
@@ -118,22 +63,25 @@
     font-optical-sizing: auto;
   }
   :focus-visible {
-    @apply outline-2 outline-offset-2 outline-oro;
+    @apply outline-2 outline-offset-2 outline-acento;
   }
+  /* Accesibilidad: sin animaciones para quien lo pide en su sistema. */
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
       animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
     }
   }
 }
 
 @layer components {
-  /* Tarjeta base: se reutiliza en todas las demás. */
+  /** Tarjeta base: borde, fondo translúcido y sombra. La usan casi todos los bloques. */
   .tarjeta {
     @apply rounded-2xl border border-borde bg-superficie/80 shadow-sm backdrop-blur-sm;
   }
+  /** Antetítulo: texto pequeño en mayúsculas sobre un título. */
   .eyebrow {
-    @apply text-xs font-semibold uppercase tracking-[0.18em] text-oro;
+    @apply text-xs font-semibold uppercase tracking-[0.18em] text-acento;
   }
 }

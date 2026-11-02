@@ -1,7 +1,8 @@
 import { useComputed, useSignal } from "@preact/signals";
 import { Check } from "lucide-preact";
-import AnilloProgreso from "../ui/AnilloProgreso";
+import AnilloProgreso from "@/components/ui/AnilloProgreso";
 
+/** Un bloque de la sesión (mismo formato que en dias.json). */
 export interface Bloque {
   tipo: string;
   minutos: number;
@@ -10,10 +11,12 @@ export interface Bloque {
 }
 
 interface Props {
+  /** Bloques del día, en orden. */
   bloques: Bloque[];
 }
 
 /**
+ * @component SesionDeHoy (isla: `client:visible`)
  * Lista de bloques de la sesión con progreso en vivo.
  * Usa signals: al marcar un bloque, solo se vuelve a pintar lo que depende de ese dato
  * (el anillo y los minutos), sin re-renderizar toda la lista.
@@ -48,19 +51,19 @@ export default function SesionDeHoy({ bloques }: Props) {
                 type="button"
                 aria-pressed={hecho}
                 onClick={() => alternar(i)}
-                class="group flex w-full items-start gap-3 rounded-xl border border-borde bg-superficie-2/50 p-3 text-left transition hover:border-oro/60 aria-pressed:border-exito/50 aria-pressed:bg-exito/10"
+                class="group flex w-full items-start gap-3 rounded-xl border border-borde bg-superficie-2/50 p-3 text-left transition hover:border-acento/60 aria-pressed:border-exito/50 aria-pressed:bg-exito/10"
               >
                 <span
                   aria-hidden="true"
                   class={`mt-0.5 grid size-6 shrink-0 place-items-center rounded-full border-2 transition ${
-                    hecho ? "border-exito bg-exito text-fondo" : "border-borde group-hover:border-oro"
+                    hecho ? "border-exito bg-exito text-fondo" : "border-borde group-hover:border-acento"
                   }`}
                 >
                   {hecho && <Check size={14} strokeWidth={3} />}
                 </span>
                 <span class="min-w-0 flex-1">
                   <span class="flex flex-wrap items-baseline gap-x-2">
-                    <span class="text-xs font-semibold uppercase tracking-wider text-oro">{b.tipo}</span>
+                    <span class="text-xs font-semibold uppercase tracking-wider text-acento">{b.tipo}</span>
                     <span class="text-xs text-tenue">{b.minutos} min</span>
                   </span>
                   <span class={`mt-1 block text-sm leading-relaxed ${hecho ? "text-tenue line-through decoration-exito/60" : ""}`}>
