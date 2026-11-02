@@ -31,6 +31,7 @@ Siempre con **pnpm**.
 | [`docs/mapa.md`](docs/mapa.md), [`docs/plan-90-dias.md`](docs/plan-90-dias.md), [`docs/catalogo.md`](docs/catalogo.md) | Generados desde los JSON: no se editan a mano |
 | [`docs/clasificar-cancion.md`](docs/clasificar-cancion.md) | Cómo añadir una canción nueva al catálogo |
 | [`docs/arquitectura.md`](docs/arquitectura.md) | Estructura del código y convenciones (carpetas, imports, colores, documentación) |
+| [`docs/supabase.md`](docs/supabase.md) | Configuración de Supabase (login y base de datos): decisiones y estado |
 | [`docs/diseno-tecnico.md`](docs/diseno-tecnico.md) | El diseño técnico aprobado al inicio y las fases del proyecto |
 | [`CLAUDE.md`](CLAUDE.md) | Contexto, decisiones y estado del proyecto (para Claude Code) |
 

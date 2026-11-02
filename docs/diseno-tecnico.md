@@ -174,7 +174,7 @@ estado_canciones(user_id, cancion_id, estado: pendiente|aprendiendo|dominada, ac
 ```
 - `fecha_inicio` y `fecha_llegada_flauta` van por usuario: así el calendario sirve a otras personas y se ajusta cuando sepas la fecha real.
 - El esquema se guarda como migraciones SQL en `supabase/migrations/`, versionadas en git.
-- Las claves de Supabase van en `.env`, que no se sube a git, y en los secretos de Cloudflare.
+- Las claves de Supabase van en `.env`, que no se sube a git, y en los secretos de Cloudflare. Configuración del proyecto y variables: `docs/supabase.md`.
 
 **Diseño visual:** estética de «mapa de aventura» sobria. Aprobado en la fase 3: mapa como sendero + árbol de talentos estilo RPG, paleta «Bosque» (verde jade + ámbar) en `src/styles/tokens.css`. Modo claro y oscuro, tipografía legible, buen contraste y foco visible para navegar con teclado, y un diseño que funciona primero en el móvil.
 

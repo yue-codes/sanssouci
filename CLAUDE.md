@@ -14,7 +14,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 | 1. Datos (`src/data`, esquemas, `pnpm verificar`) | ✅ hecha (commit `a70629b`) |
 | 2. Documentos (`docs/`, `pnpm generar-docs`) | ✅ hecha (commit `5a31193`) |
 | 3. Base de la web (Tailwind, Preact, layout, páginas de contenido) | ✅ hecha (pasos 0–6 y cierre, commits `ed4e419` a `457049d`). Dirección visual A + C, paleta «Bosque». Todas las páginas de contenido están hechas; `/panel`, `/entrar` y `/perfil` son de la fase 4. El adaptador de Cloudflare se instala cuando haga falta el modo servidor. |
-| 4. Login y progreso (Supabase, migraciones, middleware, islas que guardan) | ⏳ **siguiente**, a la espera del visto bueno. El usuario crea el proyecto en Supabase; guíale paso a paso. |
+| 4. Login y progreso (Supabase, migraciones, middleware, islas que guardan) | 🟡 **en curso**. Paso 1: el usuario está creando el proyecto en Supabase (guía y decisiones en `docs/supabase.md`, con su tabla de estado). **Siguiente: esperar su «listo»**, comprobar `.env` sin mostrar valores e instalar Supabase + adaptador de Cloudflare. |
 | 5. Despliegue en Cloudflare Workers | ⏳ pendiente |
 
 ## 0. Estado técnico del repo y comandos
@@ -85,7 +85,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **El rendimiento no es prioridad:** usa **Preact a fondo** (páginas interactivas como componentes completos) y `@preact/signals` para el estado compartido entre islas.
 - **Diseño:** el usuario quiere que impresione, con Tailwind (v4). La dirección visual ya está aprobada (ver 3.3). Para cambios visuales grandes, enséñale antes una muestra y espera su aprobación.
 - Páginas previstas: `/`, `/entrar`, `/panel`, `/mapa`, `/arbol`, `/niveles/[id]`, `/jefes/[id]`, `/calendario`, `/dias/[n]`, `/logros`, `/canciones`, `/canciones/[id]` y `/perfil`. Middleware de sesión para las rutas privadas. Funciones puras en `src/lib/` (ya existen `estaDesbloqueado`, `estadoLogro` y `ordenZonaActual`; `racha` llegará con el progreso real en la fase 4).
-- Las claves de Supabase van en `.env` (fuera de git) y en los secretos de Cloudflare.
+- Las claves de Supabase van en `.env` (fuera de git; plantilla en `.env.example`: `PUBLIC_SUPABASE_URL` y `PUBLIC_SUPABASE_PUBLISHABLE_KEY`) y en los secretos de Cloudflare. Solo se usa la clave *publishable*; la *secret* nunca. RLS automática activada en el panel, pero cada migración activa RLS y crea sus reglas explícitamente. Detalle en `docs/supabase.md`.
 
 ### 3.3 Arquitectura del frontend (fase 3, ya en el código)
 
