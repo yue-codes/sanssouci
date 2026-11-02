@@ -4,22 +4,29 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 # Proyecto: Camino del Flautista (plan de 90 días + mapa de niveles y jefes + web en Astro)
 
-> Este archivo es el traspaso de una conversación larga en claude.ai a Claude Code.
-> Léelo completo antes de hacer nada. Todo lo de aquí ya fue decidido con el usuario salvo la sección "Pendiente".
-> Junto a este archivo debe estar `canciones.txt` (lista de ~190 títulos sacada de su lista de YouTube con yt-dlp).
+> Empezó como traspaso de una conversación en claude.ai. Todo lo de aquí ya fue decidido con el usuario salvo la sección "Pendiente".
+> El diseño aprobado (fases 1–5) está en `~/.claude/plans/compiled-humming-rainbow.md`. **Fases 1 (datos) y 2 (documentos) hechas**; la siguiente es la 3 (base de la web).
 
 ## 0. Estado técnico del repo y comandos
 
-- Proyecto recién creado con la plantilla **minimal de Astro 7** (`astro ^7.4.4`, Node `>=22.23.4`). Solo existe `src/pages/index.astro`; TypeScript en modo `strict` (`tsconfig.json` extiende `astro/tsconfigs/strict`).
-- **Aún no instalados:** Tailwind CSS ni Preact. Añádelos con `pnpm astro add tailwind` / `pnpm astro add preact` cuando toque (y explica qué cambia en `astro.config.mjs`).
-- `canciones.txt` ya está en la raíz (181 títulos, uno por línea). **Aún no existen:** `docs/` ni `src/data/`.
-- Comandos:
-  - `pnpm install` — dependencias.
-  - `pnpm build` — compila a `dist/`; es la forma de verificar que todo funciona.
-  - `pnpm astro check` — chequeo de tipos de `.astro`/TS (requiere `@astrojs/check` y `typescript`; si faltan, el propio comando ofrece instalarlos).
-  - No hay linter ni tests configurados todavía.
-- **Conflicto con `AGENTS.md`:** ese archivo (generado por Astro) sugiere arrancar `astro dev --background`. **Ignóralo:** aquí manda la regla de la sección 1, nunca arranques el servidor de desarrollo.
-- Ramas: se trabaja en `master` (la principal declarada es `main`). Haz commits solo cuando el usuario lo pida.
+- **Astro 7** (`astro ^7.4.4`, Node `>=22.23.4`), TypeScript `strict`. **TypeScript 6** a propósito: `astro check` no admite TS 7 todavía.
+- Comandos (no existe linter ni tests):
+  - `pnpm build`: compila; es la verificación principal.
+  - `pnpm astro check`: tipos y validación de los esquemas del contenido (incluidas las referencias rotas entre JSON).
+  - `pnpm verificar`: reglas entre archivos que Zod no ve (los 181 videos aparecen una sola vez, 90 días, 65 sesiones de 45 a 60 min, jueves y domingo de descanso, jefe ↔ nivel).
+  - `pnpm generar-docs`: regenera `docs/mapa.md`, `docs/catalogo.md` y `docs/plan-90-dias.md` desde `src/data`. **Ojo:** el script no se llama `docs` porque `pnpm docs` es un comando propio de pnpm.
+- Para editar `package.json` usa `pnpm pkg set …`, nunca `npm`.
+- **Conflicto con `AGENTS.md`:** ese archivo (generado por Astro) sugiere arrancar `astro dev --background`. **Ignóralo:** nunca arranques el servidor de desarrollo.
+- Ramas: se trabaja en `master`. Haz commits solo cuando el usuario lo pida.
+
+### Arquitectura de datos (decidida)
+
+- **Contenido** (igual para todos): JSON en `src/data/` (`rutas`, `niveles`, `jefes`, `logros`, `canciones`, `extras`, `dias`). Cada archivo es un arreglo con `id` y se carga con el loader `file()` en `src/content.config.ts`. Las relaciones usan `reference()`, así que un id inexistente rompe el build. `z` se importa de `astro/zod` (Zod v4).
+- **Los JSON son la fuente de verdad.** Los `.md` de `docs/` que dicen «generado» no se editan a mano. `docs/plan.md` (guías) y `docs/clasificar-cancion.md` (criterio para canciones nuevas) sí son manuales.
+- **Lo derivable no se guarda:** la URL de YouTube sale de `youtubeId`; «reto de oído» = ninguna versión tiene `partitura` y alguna tiene `de-oido`.
+- **Los ids son estables:** la base de datos de progreso los guarda. No los renombres.
+- Regla de zona de una canción: va en la zona donde ya tienes lo que exige (dificultad 1–2 → nivel-2, 3 → 3, 4 → 4, 5 → 5, 6 → 6, 7–9 → 7, 10 → 8). Las canciones de jefe van en la zona de su jefe. Detalle en `docs/clasificar-cancion.md`.
+- **Progreso** (por usuario): Supabase (Postgres + RLS). Tablas previstas: `perfiles` (incluye `fecha_inicio` y `fecha_llegada_flauta`), `dias_completados`, `logros_obtenidos`, `victorias_jefe` y `estado_canciones`, con migraciones en `supabase/migrations/`.
 
 ## 1. Sobre el usuario y cómo trabajar con él
 
@@ -54,29 +61,19 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Plan: que el maestro la revise al recibirla (sellado, ajuste, afinación). Piensa **cambiarla en unos años** (señal típica: entre el año 2 y 3, la decide el maestro y su progreso).
 - Se evaluaron Yamaha YFL-222HD y Jupiter JFL700R (~$15,000 MXN cada una); descartadas por precio por ahora.
 
-## 3. Qué hay que producir (en este orden)
+## 3. Qué hay que producir
 
-### 3.1 Plan principal (documento Markdown, `docs/plan.md`)
-1. **Mapa de niveles y jefes de todo el camino hasta el jefe final**, estilo videojuego (ver sección 4).
-2. **Los 90 días día por día**, con fecha real (2-nov-2026 a 30-ene-2027), respetando el horario. Solo días de práctica llevan sesión; jueves y domingo marcados como descanso.
-3. **Guía de grabación de videos** con la Canon R50 (encuadre, luz, audio) y cuándo sumar micrófono.
-4. **Guía de la flauta**: qué revisar al recibirla y preguntas para la primera clase.
+### 3.1 Plan y catálogo (hecho)
+- `docs/plan.md`: reglas del juego, cuidado del cuerpo, guía de grabación con la R50, guía de la FL-430 con las preguntas para la primera clase, y libros.
+- `docs/mapa.md`, `docs/plan-90-dias.md` y `docs/catalogo.md`: generados desde `src/data`.
+- Catálogo: 123 obras a partir de los 181 videos de `canciones.txt` (metadatos sacados con `yt-dlp`). Lo que no es pieza para flauta traversa va en `extras.json`. Canciones nuevas: seguir `docs/clasificar-cancion.md`.
 
-### 3.2 Catálogo de canciones (`src/data/songs.json` + versión legible en `docs/catalogo.md`)
-- Partiendo de `canciones.txt`, **agrupar por obra única**. Hay muchas repetidas (versiones, solo partitura, interpretaciones). Por cada obra: versiones disponibles y para qué sirve cada una (partitura, referencia de interpretación, o "de oído").
-- Las marcadas **"flute cover by ear"** no traen partitura: úsalas como **retos de transcripción con la guitarra**.
-- Marcar aparte lo que no es pieza para flauta traversa (versiones de flauta dulce, violín, clips que son solo comentario o meme) y no clasificarlo como pieza.
-- Por obra: **dificultad (1 a 10), nivel del mapa, técnica requerida, categoría** (clásica, Ghibli, videojuegos, anime/Vocaloid/Ado, folk, etc.) y si requiere algo previo.
-- Piezas claramente muy avanzadas en su lista: La Campanella, Capricho 24 de Paganini, Czardas, Verano de Vivaldi, Badinerie, Concierto de Romberg, Danse Macabre, Introducción y Rondó Caprichoso, Estudio op.25 nº2 de Chopin, el arreglo de "Six Trillion Years" de gran virtuosismo.
-- El usuario añadirá canciones después y quiere poder pedir "clasifícame esta nueva": deja una **plantilla/criterio de clasificación documentado** para hacerlo de forma consistente.
-
-### 3.3 Datos para la web (`src/data/*.json`)
-Niveles, jefes, logros, canciones y días del plan, en JSON con ids estables y relaciones (por ejemplo `requiere: [logro-id, ...]`), listos para leer desde Astro sin reescribir nada. Propón y explica un esquema.
-
-### 3.4 La web en Astro (después de lo anterior)
-- El usuario la hará **con Claude Code en terminal**. Antes de escribir código, propón la estructura y espera su visto bueno.
-- Ideas ya mencionadas: seguimiento de progreso, niveles, jefes, logros, calendario de los 90 días. Persistencia sencilla (por ejemplo localStorage) al inicio.
-- Considera Astro content collections con validación de esquema y explica por qué.
+### 3.2 La web (fases 3–5; pendiente)
+- Decidido con el usuario: **Supabase** (login con enlace mágico y Google, Postgres con RLS), **Cloudflare Workers** (`@astrojs/cloudflare`, Astro en modo servidor) y **varios usuarios** (cada uno con su propio progreso).
+- **El rendimiento no es prioridad:** usa **Preact a fondo** (páginas interactivas como componentes completos) y `@preact/signals` para el estado compartido entre islas.
+- **Diseño:** el usuario quiere que impresione, con Tailwind (v4). **Antes de construir las páginas, enséñale una página de muestra con la dirección visual** (paleta, tipografía, tarjetas de zona y de jefe) y espera su aprobación.
+- Páginas previstas: `/`, `/entrar`, `/panel`, `/mapa`, `/niveles/[id]`, `/jefes/[id]`, `/calendario`, `/dias/[n]`, `/logros`, `/canciones`, `/canciones/[id]` y `/perfil`. Middleware de sesión para las rutas privadas. Funciones puras (por ejemplo `estaDesbloqueado`, `racha`, `nivelActual`) en `src/lib/`.
+- Las claves de Supabase van en `.env` (fuera de git) y en los secretos de Cloudflare.
 
 ## 4. Diseño del sistema estilo videojuego
 
@@ -85,7 +82,7 @@ Niveles, jefes, logros, canciones y días del plan, en JSON con ids estables y r
 - **Logros** de técnica y hábitos: nombres de notas, primera octava, escalas, doble picado, tercera octava, vibrato, rachas de práctica, transcribir una melodía de oído, etc.
 - Cada canción indica **qué desbloquear antes** (técnica o conocimiento).
 - Debajo del juego hay un **temario serio**: lectura, teoría, respiración, sonido (embocadura), escalas, estudios y repertorio. El juego organiza el temario, no lo sustituye.
-- **Jefes finales:** La Campanella y el Capricho 24 de Paganini, en un horizonte realista de **3 a 5+ años**.
+- **Jefes finales:** La Campanella y el Capricho 24 de Paganini, en un horizonte realista de **4 a 5+ años** (el mapa los pone en la zona 8).
 - Ideas de rutas: clásicas, Ghibli, videojuegos, anime/Vocaloid/Ado. Pueden ser ramas del mapa que se cruzan.
 
 ### Estructura de cada sesión (45 a 60 min)

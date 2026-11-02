@@ -11,7 +11,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "verificar": "node scripts/verificar-datos.mjs",
-    "check": "astro check"
+    "check": "astro check",
+    "generar-docs": "node scripts/generar-docs.mjs"
   },
   "dependencies": {
     "astro": "^7.4.4"
