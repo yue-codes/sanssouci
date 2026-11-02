@@ -3,19 +3,25 @@
  * Los colores NO se definen aquí, sino en tokens.css.
  */
 @import "tailwindcss";
-@import "@fontsource-variable/fraunces";
-@import "@fontsource-variable/inter";
+/* Instrument Serif solo existe en peso 400 (normal y cursiva): por eso los títulos no van en negrita. */
+@import "@fontsource/instrument-serif/400.css";
+@import "@fontsource/instrument-serif/400-italic.css";
+@import "@fontsource-variable/bricolage-grotesque";
+@import "@fontsource-variable/martian-mono";
+/* Pixelify Sans se importa solo en /arbol, la única página que la usa. */
+/* CSS mínimo que necesita Lenis (el scroll suave de src/scripts/movimiento.ts). */
+@import "lenis/dist/lenis.css";
 @import "./tokens.css";
 
 /**
  * Expone los tokens semánticos como utilidades de Tailwind:
  * `--color-acento` genera `bg-acento`, `text-acento`, `border-acento/40`, etc.
- * `inline` hace que la utilidad use `var(--acento)` en vez de copiar el valor,
- * así el cambio de tema se aplica sin recompilar.
+ * `inline` hace que la utilidad use `var(--acento)` en vez de copiar el valor.
  */
 @theme inline {
   --font-display: var(--fuente-titulos);
   --font-sans: var(--fuente-texto);
+  --font-mono: var(--fuente-mono);
   --font-pixel: var(--fuente-pixel); /* solo para títulos cortos del árbol de talentos */
 
   --color-fondo: var(--fondo);
@@ -24,12 +30,16 @@
   --color-texto: var(--texto);
   --color-tenue: var(--tenue);
   --color-borde: var(--borde);
+  --color-borde-fuerte: var(--borde-fuerte);
   --color-acento: var(--acento);
+  --color-acento-claro: var(--acento-claro);
   --color-acento-suave: var(--acento-suave);
   --color-secundario: var(--secundario);
   --color-resalte: var(--resalte);
   --color-exito: var(--exito);
   --color-peligro: var(--peligro);
+
+  --ease-suave: var(--curva-suave);
 
   /* `animate-latido`: halo que se expande y se desvanece (logros disponibles, zona actual). */
   --animate-latido: latido 2.2s ease-out infinite;
@@ -37,30 +47,47 @@
     0% { transform: scale(1); opacity: 0.55; }
     100% { transform: scale(1.45); opacity: 0; }
   }
+  /* `animate-acercar`: zoom muy lento de las imágenes grandes al cargar. */
+  --animate-acercar: acercar 9s var(--curva-suave) both;
+  @keyframes acercar {
+    from { transform: scale(1.08); }
+    to { transform: scale(1); }
+  }
+}
+
+/* Cambio de página con fundido (View Transitions nativas entre documentos, sin JavaScript).
+   Los navegadores que no las entienden cambian de página como siempre. */
+@view-transition {
+  navigation: auto;
 }
 
 @layer base {
   html {
     @apply bg-fondo text-texto font-sans antialiased;
+    font-optical-sizing: auto;
   }
   body {
-    @apply min-h-dvh;
-    /* Cielo: dos resplandores suaves + puntos de luz (solo visibles en el tema oscuro). */
-    background:
-      radial-gradient(1.5px 1.5px at 12% 18%, var(--estrellas), transparent),
-      radial-gradient(1px 1px at 68% 9%, var(--estrellas), transparent),
-      radial-gradient(1px 1px at 84% 32%, var(--estrellas), transparent),
-      radial-gradient(1.5px 1.5px at 38% 6%, var(--estrellas), transparent),
-      radial-gradient(1px 1px at 92% 64%, var(--estrellas), transparent),
-      radial-gradient(1px 1px at 4% 52%, var(--estrellas), transparent),
-      radial-gradient(60rem 30rem at 85% -10%, var(--brillo-1), transparent 70%),
-      radial-gradient(50rem 26rem at -10% 10%, var(--brillo-2), transparent 70%),
-      var(--fondo);
-    background-attachment: fixed;
+    @apply min-h-dvh bg-fondo;
+  }
+  /* Grano de película sobre toda la página: quita el aspecto «plano de pantalla». */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    pointer-events: none;
+    opacity: 0.06;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23g)'/></svg>");
   }
   h1, h2, h3 {
     @apply font-display text-balance;
-    font-optical-sizing: auto;
+    /* La serif solo tiene peso 400: si una clase pide negrita, que no la invente el navegador. */
+    font-synthesis: none;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+  ::selection {
+    @apply bg-acento text-fondo;
   }
   :focus-visible {
     @apply outline-2 outline-offset-2 outline-acento;
@@ -72,16 +99,65 @@
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
     }
+    @view-transition { navigation: none; }
+  }
+
+  /*
+   * Estado inicial de lo que se revela al hacer scroll (ver src/scripts/movimiento.ts).
+   * Solo se oculta si <html> tiene la clase `movimiento`, que pone un script en <head>
+   * cuando el sistema no pide menos movimiento. Sin JavaScript, todo se ve desde el principio.
+   */
+  html.movimiento [data-revelar=""],
+  html.movimiento [data-revelar="hijos"] > * {
+    opacity: 0;
+    transform: translateY(1.5rem);
+  }
+  html.movimiento [data-crecer] > * {
+    transform: scaleX(0);
+    transform-origin: left;
   }
 }
 
 @layer components {
-  /** Tarjeta base: borde, fondo translúcido y sombra. La usan casi todos los bloques. */
-  .tarjeta {
-    @apply rounded-2xl border border-borde bg-superficie/80 shadow-sm backdrop-blur-sm;
+  /** Contenedor de página: ancho máximo y márgenes laterales (respetando el notch del móvil). */
+  .contenedor {
+    @apply mx-auto w-full max-w-7xl;
+    padding-left: max(1rem, env(safe-area-inset-left, 0px));
+    padding-right: max(1rem, env(safe-area-inset-right, 0px));
+    @media (width >= 40rem) {
+      padding-left: max(2rem, env(safe-area-inset-left, 0px));
+      padding-right: max(2rem, env(safe-area-inset-right, 0px));
+    }
   }
-  /** Antetítulo: texto pequeño en mayúsculas sobre un título. */
+  /** Bloque con fondo propio. Esquinas casi rectas: aquí nada es una «píldora» por defecto. */
+  .tarjeta {
+    @apply rounded-md border border-borde bg-superficie;
+  }
+  /** Antetítulo: etiqueta pequeña en mono sobre un título (como la indicación de una partitura). */
   .eyebrow {
-    @apply text-xs font-semibold uppercase tracking-[0.18em] text-acento;
+    @apply font-mono text-[0.6875rem] font-medium tracking-[0.06em] text-acento uppercase;
+  }
+  /** Botón principal: ámbar sobre la noche. */
+  .boton {
+    @apply inline-flex items-center gap-2 rounded-[3px] bg-acento px-5 py-3 text-sm font-semibold text-fondo transition duration-300 ease-suave hover:-translate-y-0.5 hover:bg-acento-claro;
+  }
+  /** Botón secundario: solo borde. */
+  .boton-borde {
+    @apply inline-flex items-center gap-2 rounded-[3px] border border-borde-fuerte px-5 py-3 text-sm font-semibold text-texto transition duration-300 ease-suave hover:border-tenue hover:bg-superficie-2;
+  }
+  /**
+   * Velo de color sobre una imagen: la tiñe con `--tinte` conservando sus luces y
+   * sombras (`mix-blend-mode: color`). Sirve para que las fotos cálidas no choquen
+   * con la paleta. Va como hermano posterior de la imagen, dentro de su marco.
+   * Para retirarlo al pasar el ratón: `group-hover:opacity-0` en el velo.
+   */
+  .velo {
+    @apply pointer-events-none absolute inset-0 opacity-70 transition-opacity duration-700 ease-suave;
+    background: var(--tinte);
+    mix-blend-mode: color;
+  }
+  /** Enlace con flecha que se desplaza al pasar por encima. */
+  .enlace-flecha {
+    @apply inline-flex items-center gap-1.5 text-sm font-semibold text-acento transition-[gap] duration-300 ease-suave hover:gap-2.5;
   }
 }

@@ -1,10 +1,35 @@
 ---
 /**
  * @component PiePagina
- * Pie común a todas las páginas. Recuerda la regla principal del plan.
+ * Pie común a todas las páginas: la regla principal del plan en grande,
+ * la navegación repetida y el horario de práctica.
  */
+import Logo from "./Logo.astro";
+import { HORARIO, NAVEGACION, SITIO } from "@/config/sitio";
 ---
 
-<footer class="mx-auto max-w-6xl px-4 pb-10 text-sm text-tenue">
-  Lo que diga tu maestro manda sobre este plan.
+<footer class="mt-24 border-t border-borde">
+  <div class="contenedor grid gap-12 py-16 md:grid-cols-[1.4fr_1fr] md:py-20">
+    <div data-revelar>
+      <p class="font-display text-4xl leading-[1.05] text-balance sm:text-5xl">
+        Lo que diga tu maestro <em class="text-acento">manda</em> sobre este plan.
+      </p>
+      <p class="mt-5 max-w-md text-sm text-tenue">
+        El juego organiza el temario, no lo sustituye. Si algo duele o cansa, para: el cuerpo va primero.
+      </p>
+    </div>
+    <div class="flex flex-col justify-between gap-10">
+      <ul class="grid grid-cols-2 gap-x-6 gap-y-2 text-sm">
+        {NAVEGACION.map((e) => (
+          <li><a href={e.href} class="text-tenue transition-colors hover:text-texto">{e.texto}</a></li>
+        ))}
+      </ul>
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <Logo class="text-base text-texto" />
+        <p class="font-mono text-[0.6875rem] text-tenue">
+          {HORARIO.dias} · {HORARIO.inicio}–{HORARIO.fin} · {SITIO.zonaHoraria.replace("_", " ")}
+        </p>
+      </div>
+    </div>
+  </div>
 </footer>

@@ -10,14 +10,14 @@ import { BookCheck, Clock, Flame, LogOut, Trophy } from "lucide-preact";
 import Base from "@/layouts/Base.astro";
 import EncabezadoSeccion from "@/components/ui/EncabezadoSeccion.astro";
 import ResumenSesion from "@/components/sesion/ResumenSesion.astro";
-import LineaNoventaDias from "@/components/calendario/LineaNoventaDias.astro";
+import PartituraNoventaDias from "@/components/calendario/PartituraNoventaDias";
 import EstasAqui from "@/components/mapa/EstasAqui.astro";
-import TarjetaJefe from "@/components/jefes/TarjetaJefe.astro";
+import AnuncioJefe from "@/components/jefes/AnuncioJefe.astro";
 import { SITIO } from "@/config/sitio";
 import { cargarContenido } from "@/lib/contenido";
 import { cargarProgresoUsuario } from "@/lib/progreso-usuario";
 import { racha } from "@/lib/progreso";
-import { minutosDelDia, sesionDeReferencia, titularDelDia } from "@/lib/calendario";
+import { diasParaPartitura, minutosDelDia, sesionDeReferencia, titularDelDia } from "@/lib/calendario";
 import { diaDelPlan, fechaLarga, hoyIso, parsearFecha } from "@/lib/fechas";
 import { construirSendero } from "@/lib/mapa";
 import { diaDelJefe } from "@/lib/jefes";
@@ -52,7 +52,7 @@ const cifras = [
 // ---- Mapa y jefes --------------------------------------------------------------
 const paradas = construirSendero(c, progreso);
 const actual = paradas.find((p) => p.estado === "actual") ?? paradas[paradas.length - 1];
-const proximoJefe = paradas.flatMap((p) => p.jefes).find((j) => !j.vencido);
+const proximoJefe = paradas.flatMap((p) => p.jefes.map((j) => ({ ...j, zona: p.nivel.data.orden }))).find((j) => !j.vencido);
 const diaJefe = proximoJefe && diaDelJefe(c, proximoJefe.jefe.id)?.data.numero;
 
 const nombre = perfil.nombre ?? usuario?.email?.split("@")[0] ?? "flautista";
@@ -91,17 +91,20 @@ const nombre = perfil.nombre ?? usuario?.email?.split("@")[0] ?? "flautista";
   </section>
 
   <!-- ============ 90 DÍAS ============ -->
-  <section class="mt-10" aria-label="Calendario">
-    <LineaNoventaDias dias={c.dias} hoy={hoy} completados={numerosHechos} />
+  <section class="mt-16" aria-labelledby="titulo-partitura">
+    <EncabezadoSeccion id="titulo-partitura" eyebrow="Tus 90 días" titulo="Tu partitura" descripcion="Cada nota llena es una sesión hecha." enlace={{ href: "/calendario", texto: "Calendario completo" }} />
+    <PartituraNoventaDias client:load dias={diasParaPartitura(c)} hoy={hoy} hechos={[...numerosHechos]} />
   </section>
 
   <!-- ============ PRÓXIMO JEFE ============ -->
   {proximoJefe && (
     <section class="mt-16" aria-labelledby="proximo-jefe">
       <EncabezadoSeccion id="proximo-jefe" eyebrow="Lo que viene" titulo="Tu próximo jefe" enlace={{ href: `/jefes/${proximoJefe.jefe.id}`, texto: "Ver condiciones" }} />
-      <TarjetaJefe
+      <AnuncioJefe
         jefe={proximoJefe.jefe}
         cancion={proximoJefe.cancion}
+        zona={proximoJefe.zona}
+        diaDelPlan={diaJefe}
         diasRestantes={diaJefe !== undefined && hoy <= diaJefe ? diaJefe - Math.max(hoy, 0) : undefined}
       />
     </section>

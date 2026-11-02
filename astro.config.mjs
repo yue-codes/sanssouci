@@ -10,7 +10,10 @@ export default defineConfig({
   // Sin `output: 'server'`: todas las páginas se prerenderizan (HTML estático)
   // salvo las que declaren `export const prerender = false` (las de progreso).
   // El adaptador es el que permite esas páginas de servidor en Cloudflare Workers.
-  adapter: cloudflare(),
+  // `imageService: "compile"`: las imágenes de `src/assets` se optimizan con sharp AL COMPILAR
+  // (AVIF/WebP en varios tamaños). Sin esto, el adaptador usaría Cloudflare Images,
+  // un servicio aparte (de pago) que habría que configurar en la cuenta.
+  adapter: cloudflare({ imageService: "compile" }),
 
   // Variables de entorno validadas al compilar: si falta una o tiene mal formato,
   // el build falla con un mensaje claro. Se importan desde `astro:env/client`.

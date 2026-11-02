@@ -2,7 +2,8 @@
  * @file Datos del calendario de 90 días: semanas, minutos e hitos de cada día.
  * Funciones puras sobre las entradas de `dias.json`.
  */
-import type { Dia } from "@/lib/contenido";
+import type { Contenido, Dia } from "@/lib/contenido";
+import type { DiaPartitura } from "@/lib/partitura";
 import { indiceDiaSemana } from "@/lib/fechas";
 
 /** Algo destacable de un día, que se marca en el calendario. */
@@ -119,4 +120,25 @@ export function titularDelDia(hoy: number): TitularDelDia {
   if (hoy < 1) return { antes: "Empiezas", enfasis: hoy === 0 ? "mañana" : `en ${1 - hoy} días`, despues: "." };
   if (hoy > 90) return { antes: "Los 90 días", enfasis: "terminaron", despues: "; el camino sigue." };
   return { antes: "Día", enfasis: String(hoy), despues: " de 90." };
+}
+
+/**
+ * Los días del plan como datos planos para la partitura (`PartituraNoventaDias`),
+ * con el nombre del jefe ya resuelto. Una isla no puede recibir entradas de
+ * `astro:content`, así que la página la llama y pasa el resultado por props.
+ *
+ * @param c Contenido cargado con `cargarContenido()`.
+ */
+export function diasParaPartitura(c: Contenido): DiaPartitura[] {
+  return [...c.dias]
+    .sort((a, b) => a.data.numero - b.data.numero)
+    .map(({ data: d }) => ({
+      numero: d.numero,
+      fecha: d.fecha,
+      titulo: d.titulo,
+      semana: d.semana,
+      descanso: d.tipo === "descanso",
+      conFlauta: d.fase === "con-flauta",
+      jefe: d.jefe ? c.jefePorId.get(d.jefe.id)?.data.nombre : undefined,
+    }));
 }

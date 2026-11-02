@@ -1,36 +1,44 @@
 ---
 /**
  * @component Cabecera
- * Barra superior fija: logo, navegación principal y selector de tema.
+ * Barra superior fija: logo y navegación principal. Arriba del todo es
+ * transparente (deja ver la portada); al bajar gana fondo y borde, gracias al
+ * atributo `data-desplazado` que pone `src/scripts/movimiento.ts`.
+ *
  * Marca el enlace de la página actual con `aria-current="page"`, que sirve
  * a la vez para los lectores de pantalla y para el estilo (`aria-[current=page]:`).
+ * En móvil, los enlaces pasan a una segunda fila que se desplaza en horizontal.
  */
-import { Wind } from "lucide-preact";
-import SelectorTema from "@/components/tema/SelectorTema";
-import { NAVEGACION, SITIO } from "@/config/sitio";
+import Logo from "./Logo.astro";
+import { NAVEGACION } from "@/config/sitio";
 
 const rutaActual = Astro.url.pathname;
 ---
 
-<header class="sticky top-0 z-40 border-b border-borde/60 bg-fondo/70 backdrop-blur-md">
-  <nav class="mx-auto flex max-w-6xl items-center gap-4 px-4 py-3" aria-label="Principal">
-    <a href="/" class="flex items-center gap-2 font-display text-lg font-semibold">
-      <span class="grid size-8 place-items-center rounded-lg bg-acento text-fondo"><Wind size={18} aria-hidden="true" /></span>
-      <span class="hidden sm:inline">{SITIO.nombre}</span>
+<header
+  data-cabecera
+  class="sticky top-0 z-40 border-b border-transparent transition-colors duration-500
+         data-desplazado:border-borde/70 data-desplazado:bg-fondo/85 data-desplazado:backdrop-blur-md"
+  style="padding-top: env(safe-area-inset-top, 0px)"
+>
+  <nav class="contenedor flex flex-wrap items-center gap-x-8 gap-y-1 py-3 sm:py-4" aria-label="Principal">
+    <a href="/" class="py-1 text-base text-texto sm:text-lg" aria-label="Camino del Flautista, inicio">
+      <Logo />
     </a>
-    <ul class="ml-auto flex items-center gap-1 overflow-x-auto text-sm">
+    <ul class="order-last -mx-2 flex w-full items-center gap-1 overflow-x-auto pb-1 text-sm [scrollbar-width:none] md:order-none md:mx-0 md:ml-auto md:w-auto md:pb-0">
       {NAVEGACION.map((e) => (
-        <li>
+        <li class="shrink-0">
           <a
             href={e.href}
             aria-current={rutaActual.startsWith(e.href) ? "page" : undefined}
-            class="rounded-lg px-3 py-2 text-tenue transition hover:bg-superficie-2 hover:text-texto aria-[current=page]:bg-superficie-2 aria-[current=page]:text-texto"
+            class="relative block px-2.5 py-2 text-tenue transition-colors duration-300 hover:text-texto aria-[current=page]:text-texto
+                   after:absolute after:inset-x-2.5 after:bottom-1 after:h-px after:origin-left after:scale-x-0 after:bg-borde-fuerte after:transition-transform after:duration-500 after:ease-suave
+                   hover:after:scale-x-100 aria-[current=page]:after:scale-x-100 aria-[current=page]:after:bg-acento"
           >
             {e.texto}
           </a>
         </li>
       ))}
     </ul>
-    <SelectorTema client:load />
   </nav>
 </header>

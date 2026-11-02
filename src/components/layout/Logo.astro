@@ -1,0 +1,28 @@
+---
+/**
+ * @component Logo
+ * Marca del sitio: cuatro líneas de pentagrama con una nota ámbar encima, y el nombre.
+ * Se dibuja en SVG (no es una imagen) para que herede el color del texto.
+ */
+import { SITIO } from "@/config/sitio";
+
+interface Props {
+  /** Muestra el nombre junto a la marca. Por defecto, sí. */
+  conNombre?: boolean;
+  /** Clases extra. */
+  class?: string;
+}
+const { conNombre = true, class: clase = "" } = Astro.props;
+---
+
+<span class:list={["inline-flex items-center gap-2.5", clase]}>
+  <svg viewBox="0 0 34 22" class="h-[1.15em] w-auto shrink-0" aria-hidden="true">
+    <g stroke="currentColor" stroke-width="1" opacity="0.45">
+      <line x1="0" y1="4" x2="34" y2="4" /><line x1="0" y1="9" x2="34" y2="9" />
+      <line x1="0" y1="14" x2="34" y2="14" /><line x1="0" y1="19" x2="34" y2="19" />
+    </g>
+    <ellipse cx="13" cy="16.5" rx="4.6" ry="3.4" transform="rotate(-20 13 16.5)" fill="var(--acento)" />
+    <line x1="17.2" y1="15.5" x2="17.2" y2="1" stroke="var(--acento)" stroke-width="1.5" />
+  </svg>
+  {conNombre && <span class="font-display text-[1.35em] leading-none tracking-tight">{SITIO.nombre}</span>}
+</span>

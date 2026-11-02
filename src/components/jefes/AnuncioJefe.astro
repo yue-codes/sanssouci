@@ -1,0 +1,93 @@
+---
+/**
+ * @component AnuncioJefe
+ * El próximo jefe como una puerta: imagen a sangre, nombre grande, cuenta atrás,
+ * tempo y condiciones de victoria. Todo el bloque enlaza a la página del jefe.
+ *
+ * La imagen sale de `imagenDeJefe` (`src/config/imagenes.ts`): por defecto, la
+ * sombra en la puerta, porque en el mapa cada jefe es la puerta de su zona.
+ * Lleva un velo de color (`.velo`) que la entona con la paleta y se aclara al pasar el ratón.
+ */
+import { Picture } from "astro:assets";
+import { Video } from "lucide-preact";
+import type { Cancion, Jefe } from "@/lib/contenido";
+import { imagenDeJefe } from "@/config/imagenes";
+
+interface Props {
+  /** Jefe a mostrar. */
+  jefe: Jefe;
+  /** Canción del jefe (se pasa aparte para no volver a buscarla). */
+  cancion: Cancion;
+  /** Número de la zona a la que pertenece (para la etiqueta). */
+  zona: number;
+  /** Días que faltan; si no se indica, no se muestra la cuenta atrás. */
+  diasRestantes?: number;
+  /** Día del plan en que toca (si cae dentro de los 90 días). */
+  diaDelPlan?: number;
+  /** Clases extra. */
+  class?: string;
+}
+const { jefe, cancion, zona, diasRestantes, diaDelPlan, class: clase = "" } = Astro.props;
+const j = jefe.data;
+const imagen = imagenDeJefe(jefe.id);
+// «♩ = 60 con metrónomo» → «♩ = 60»: la cifra va grande; el resto ya lo dicen las condiciones.
+const tempo = j.condicionVictoria.tempo.match(/♩\s*=\s*\d+/)?.[0];
+
+const cifras = [
+  diasRestantes !== undefined && { valor: diasRestantes, texto: diasRestantes === 1 ? "día" : "días" },
+  diaDelPlan !== undefined && { valor: diaDelPlan, texto: "es el día" },
+  tempo && { valor: tempo.replace(/\s/g, ""), texto: "tempo" },
+].filter((c) => !!c);
+---
+
+<a
+  href={`/jefes/${jefe.id}`}
+  class:list={["group relative isolate flex min-h-[32rem] overflow-hidden rounded-md border border-borde", clase]}
+>
+  <Picture
+    src={imagen.src}
+    alt=""
+    widths={[480, 720, 960]}
+    sizes="(min-width: 1024px) 40vw, 100vw"
+    formats={["avif"]}
+    fallbackFormat="webp"
+    class="absolute inset-0 -z-20 size-full object-cover transition-transform duration-[1.6s] ease-suave group-hover:scale-105"
+    style={{ objectPosition: imagen.enfoque }}
+  />
+  <span class="velo -z-10 group-hover:opacity-25" aria-hidden="true"></span>
+  <div class="absolute inset-0 -z-10 bg-linear-to-b from-fondo/10 via-fondo/55 to-fondo" aria-hidden="true"></div>
+
+  <div class="mt-auto w-full p-6 sm:p-8">
+    <p class="font-mono text-[0.6875rem] tracking-[0.06em] text-peligro uppercase">
+      {j.final ? "Jefe final" : "Próximo jefe"} · la puerta de la zona {zona}
+    </p>
+    <h3 class="mt-3 text-5xl leading-[0.95] sm:text-6xl">{j.nombre}</h3>
+    <p class="mt-2 text-tenue">{cancion.data.titulo} · {cancion.data.obra}</p>
+
+    <!-- `flex-col-reverse` en cada cifra: en el HTML va primero la etiqueta (dt), como pide <dl>; a la vista, la cifra arriba. -->
+    {cifras.length > 0 && (
+      <dl class="mt-6 flex flex-wrap gap-x-8 gap-y-3">
+        {cifras.map((c) => (
+          <div class="flex flex-col-reverse">
+            <dt class="mt-1 font-mono text-[0.625rem] text-tenue uppercase">{c.texto}</dt>
+            <dd class="font-display text-4xl leading-none tabular-nums">{c.valor}</dd>
+          </div>
+        ))}
+      </dl>
+    )}
+
+    <ul class="mt-6 grid gap-2 text-sm text-texto/85">
+      {j.condicionVictoria.criterios.map((c) => (
+        <li class="flex gap-3">
+          <span class="mt-[0.45rem] size-1.5 shrink-0 rotate-45 bg-peligro" aria-hidden="true" />
+          {c}
+        </li>
+      ))}
+    </ul>
+
+    <p class="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-texto/15 pt-4 text-sm">
+      <span class="inline-flex items-center gap-2 text-tenue"><Video size={15} aria-hidden="true" /> Grabar es parte de la victoria</span>
+      <span class="enlace-flecha">Ver el jefe <span aria-hidden="true">→</span></span>
+    </p>
+  </div>
+</a>

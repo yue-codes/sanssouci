@@ -6,7 +6,9 @@
 
 ```
 src/
-├── config/          Configuración del sitio (nombre, navegación). Sin lógica.
+├── assets/imagenes/ Imágenes que Astro optimiza al compilar (ver «Imágenes»).
+├── config/          Configuración del sitio (nombre, navegación, horario) e
+│                    imagenes.ts (catálogo de imágenes: alt y a qué zona/jefe/ruta van).
 ├── data/            Contenido del juego en JSON: la fuente de verdad.
 ├── content.config.ts  Esquemas (Zod) de las colecciones de src/data.
 ├── lib/             Lógica en TypeScript, sin interfaz:
@@ -21,36 +23,39 @@ src/
 │   ├── jefes.ts       jefesEnOrden, diaDelJefe
 │   ├── calendario.ts  semanasDelPlan, minutosDelDia, hitosDelDia, primerDiaConFlauta,
 │   │                  sesionDeReferencia (qué sesión enseñar «hoy») (puras)
-│   ├── formato.ts     formato para mostrar: duracion (pura)
+│   ├── formato.ts     formato para mostrar: duracion, sumarMinutos (puras)
+│   ├── partitura.ts   los 90 días como partitura: componerPartitura (pura, va al navegador)
 │   ├── arbol.ts       nodos y disposición del árbol: construirNodosArbol, posicionarArbol
 │   ├── ejemplo.ts     PROGRESO_EJEMPLO, inventado (temporal, hasta la fase 4)
 │   ├── supabase.ts    crearClienteServidor, usuarioActual, rutaInterna (solo servidor)
 │   ├── progreso-usuario.ts  cargarProgresoUsuario: Progreso real desde Supabase (solo servidor)
 │   └── tipos-supabase.ts  tipos de las tablas (GENERADO desde la base de datos)
 ├── components/      Componentes agrupados por DOMINIO (de qué tratan):
-│   ├── layout/        Cabecera, PiePagina
+│   ├── layout/        Cabecera, PiePagina, Logo
 │   ├── ui/            genéricos, sin conocer el juego: AnilloProgreso, Aviso, MigasDePan,
 │   │                  EncabezadoSeccion, NavegacionVecinos, ReproductorYoutube
-│   ├── mapa/          Sendero → TramoSendero + ParadaZona + PuertaJefe; ResumenZona; TarjetaZona; EstasAqui
+│   ├── mapa/          Sendero → TramoSendero + ParadaZona + PuertaJefe; ResumenZona; TarjetaZona; EstasAqui;
+│   │                  SenderoPortada (el sendero en horizontal, con imágenes)
 │   ├── niveles/       TemarioZona
-│   ├── jefes/         TarjetaJefe, CondicionesVictoria
+│   ├── jefes/         TarjetaJefe, CondicionesVictoria, AnuncioJefe (el próximo jefe como puerta)
 │   ├── canciones/     TarjetaCancion, ChipRuta, Dificultad (.tsx: sirven en páginas e islas),
+│   │                  isla IndiceRutas (rutas con imagen que sigue al cursor),
 │   │   │              ListaVersiones, usos.ts
 │   │   └── catalogo/    isla CatalogoCanciones → PanelFiltros
 │   ├── logros/        TarjetaLogro, ChipLogro, AvanceCategorias, categorias.ts
 │   │   └── arbol/       isla ArbolTalentos y sus piezas (LienzoArbol, ListaRama,
 │   │                    PestanasRamas, DetalleTalento, Hexagono, estilos.ts)
-│   ├── calendario/    SemanaCalendario → CeldaDia; LineaNoventaDias; hitos.ts
-│   ├── sesion/        isla SesionDelDia; ResumenSesion; bloques.ts
-│   └── tema/          SelectorTema
+│   ├── calendario/    SemanaCalendario → CeldaDia; LineaNoventaDias; isla PartituraNoventaDias; hitos.ts
+│   └── sesion/        isla SesionDelDia; ResumenSesion; bloques.ts
 ├── layouts/         Esqueletos de página (Base.astro)
 ├── middleware.ts    Sesión de cada petición de servidor y protección de RUTAS_PRIVADAS
 ├── env.d.ts         Tipos de Astro.locals (supabase, usuario)
 ├── pages/           Rutas: cada archivo es una URL (ver «Páginas»)
 │   └── auth/          endpoints de sesión: confirmar (GET, enlace mágico), salir (POST)
+├── scripts/         JavaScript de página entera, sin componente: movimiento.ts (ver «Movimiento»)
 └── styles/
     ├── tokens.css     colores y fuentes: el único sitio para cambiar la paleta
-    └── global.css     conecta Tailwind con los tokens; estilos base
+    └── global.css     conecta Tailwind con los tokens; estilos base y clases comunes
 ```
 
 **Por qué por dominio y no por tipo:** cuando trabajas en los logros, todo lo de logros está en una carpeta. Separar por tipo (`islas/` frente a `ui/`) obliga a saltar entre carpetas para una misma función. Que un componente sea isla se decide **al usarlo** (`client:load`, `client:visible`), no por su carpeta. Por eso cada isla lo dice en su cabecera: `@component ArbolTalentos (isla: client:load)`.
@@ -89,28 +94,59 @@ Una isla se ejecuta **también en el navegador**, así que todo lo que importe (
 - **Progreso real:** `cargarProgresoUsuario(Astro.locals.supabase)` devuelve el mismo `Progreso` que `PROGRESO_EJEMPLO`, así que las funciones de `src/lib/` sirven igual. No filtres por `user_id`: lo hace RLS.
 - **Variables de entorno:** se declaran y validan en `env.schema` (`astro.config.mjs`) y se importan de `astro:env/client`. Si falta una, el build falla.
 
-## Colores y tema
+## Colores, tipografía y tema
 
-- **Tres capas** en `src/styles/tokens.css`:
-  1. **Paleta** «Bosque» (verde jade + ámbar): da valores a los primitivos. Para tener varias, se añaden bloques `:root[data-paleta="…"]` que solo redefinen lo que cambia.
-  2. **Primitivos por papel** (`--neutro-*`, `--marca-*`, `--apoyo-*`, `--calido-*`, `--exito-*`, `--peligro-*`). No se usan en componentes.
-  3. **Semánticos** (`--fondo`, `--acento`…): el papel del color. Cada uno elige un primitivo para cada tema con `light-dark(claro, oscuro)`. No cambian con la paleta.
-- En componentes, solo utilidades semánticas de Tailwind: `bg-superficie`, `text-acento`, `border-borde/60`. **Nunca** colores literales (`#…`, `bg-green-500`) ni clases `dark:`.
-- Los nombres semánticos describen la **función**, no el color, para que cambiar la paleta no obligue a renombrar nada:
+**Dirección visual «Nocturno», paleta «Cian»** (2 nov 2026): la web es la hora de practicar, de 8 a 10 de la noche. Los colores salen de la imagen principal (`anime-cian.webp`): noche azul índigo, texto rosa pálido, el cian como luz principal, lavanda, cielo y el rosa fuerte de sus cintas. Imágenes grandes y grano de película. Los 90 días se leen como una partitura; el lenguaje de juego (sendero, puertas, niebla) vive en el mapa y el árbol.
+
+- **Solo tema oscuro**, a propósito: no hay `light-dark()`, ni selector de tema, ni `data-theme`.
+- **Dos capas** en `src/styles/tokens.css`:
+  1. **Paleta** con nombre propio (`--noche-*`, `--perla-*`, `--bruma-*`, `--cian-*`, `--lavanda-*`, `--cielo-*`, `--menta-*`, `--rosa-*`, `--cobalto-*`). No se usan en componentes.
+  2. **Semánticos** (`--fondo`, `--acento`…): el papel del color.
+- En componentes, solo utilidades semánticas de Tailwind: `bg-superficie`, `text-acento`, `border-borde/60`. **Nunca** colores literales (`#…`, `bg-green-500`).
+- Los nombres semánticos describen la **función**, no el color:
 
 | Token | Para qué |
 |---|---|
-| `fondo`, `superficie`, `superficie-2`, `borde` | Capas de la interfaz |
+| `fondo`, `superficie`, `superficie-2`, `borde`, `borde-fuerte` | Capas de la interfaz |
 | `texto`, `tenue` | Texto principal y secundario |
-| `acento`, `acento-suave` | Marca: botones, zona actual, logros conseguidos |
-| `secundario` | Acento discreto |
-| `resalte` | Lo que pide atención: logros disponibles, retos |
-| `exito` | Lo completado |
-| `peligro` | Errores y jefes |
+| `acento`, `acento-claro`, `acento-suave` | Marca (cian): botones, hoy, la zona actual |
+| `secundario` | Acento discreto (cielo); también las sesiones con flauta en la partitura |
+| `resalte` | Lo que ya se puede hacer (lavanda): logros disponibles |
+| `exito` | Lo completado (menta) |
+| `peligro` | Jefes y errores (rosa) |
+| `tinte` | Color del velo que entona las fotos (cobalto; clase `.velo`) |
 
 - La excepción son los colores de **ruta** (`rutas.json`): son datos del contenido, no del diseño.
-- **Tema:** por defecto sigue al sistema (`color-scheme: light dark`). El selector fija `data-theme="light|dark"` en `<html>` y lo guarda en `localStorage` (clave `tema`).
-- **Contraste:** todos los colores de texto cumplen WCAG AA (≥ 4.5:1) en ambos temas. Compruébalo si cambias un valor.
+- **Contraste:** todos los colores de texto cumplen WCAG AA (≥ 4.5:1) sobre `fondo`, `superficie` y `superficie-2`.
+- **Fuentes** (Fontsource, instaladas con `pnpm add`): **Instrument Serif** para títulos (solo existe en peso 400: los `h1`–`h3` nunca van en negrita y llevan `font-synthesis: none`), **Bricolage Grotesque** para el texto y **Martian Mono** para cifras, fechas y etiquetas (`font-mono`, clase `.eyebrow`). Pixelify Sans, solo en `/arbol`.
+- **Clases comunes** en `global.css`: `.contenedor` (ancho y márgenes de página), `.tarjeta`, `.eyebrow`, `.boton`, `.boton-borde`, `.enlace-flecha` y `.velo` (tiñe una imagen con la paleta; se retira con `group-hover:opacity-0`).
+- **Páginas a sangre:** `<Base ancho="completo">` quita el contenedor de `<main>`; la página pone `.contenedor` en cada sección.
+
+## Imágenes
+
+- Viven en `src/assets/imagenes/` (no en `public/`), para que Astro las optimice **al compilar**: AVIF con respaldo WebP, en varios tamaños, con `width`/`height` y nombre con hash. El adaptador de Cloudflare va con `imageService: "compile"` (usa `sharp`); sin eso usaría Cloudflare Images, un servicio aparte.
+- **Catálogo único:** `src/config/imagenes.ts` las importa, les da su `alt` y su punto de enfoque, y dice qué imagen va con cada zona (`IMAGEN_ZONA`), jefe (`imagenDeJefe`) y ruta (`IMAGEN_RUTA`). Los componentes las piden ahí; no importan imágenes sueltas.
+- En componentes `.astro`: `<Picture src={img.src} widths={[…]} sizes="…" formats={["avif"]} fallbackFormat="webp" />`. El respaldo en WebP es a propósito: con una fuente WebP, Astro usaría PNG como respaldo, de varios MB.
+- **En una isla** no se puede usar `<Picture>`: la página llama a `getImage()` y le pasa la URL ya optimizada (ver `IndiceRutas`).
+- En las páginas de servidor (`/panel`) las imágenes se sirven sin transformar (el worker no tiene `sharp`): úsalas con moderación ahí.
+- Casi todas son imágenes ajenas: sirven mientras la web es personal; antes de compartirla, hay que cambiarlas.
+
+## Movimiento
+
+Instalado: **motion** (animaciones; su versión para el DOM funciona con Preact) y **Lenis** (scroll suave). Todo pasa por `src/scripts/movimiento.ts`, que `Base.astro` carga en cada página y que funciona con atributos:
+
+| Atributo | Efecto |
+|---|---|
+| `data-revelar` | El elemento sube y aparece al entrar en pantalla |
+| `data-revelar="hijos"` | Igual, con cada hijo uno detrás de otro |
+| `data-crecer` | Los hijos crecen de izquierda a derecha (barras) |
+| `data-paralaje` (+ `data-marco` en su contenedor) | La imagen se mueve más lento que la página |
+| `data-cabecera` | Recibe `data-desplazado` al bajar (la cabecera gana fondo) |
+| `data-lenis-prevent-wheel` | Zonas con desplazamiento horizontal propio |
+
+- **Nunca queda contenido oculto:** el estado inicial (opacidad 0) solo se aplica si `<html>` tiene la clase `movimiento`, que pone un script en `<head>` cuando el sistema no pide menos movimiento. Si `movimiento.ts` no carga en 2,5 s, la clase se quita.
+- Las islas que animan (`PartituraNoventaDias`, `IndiceRutas`) comprueban esa misma clase antes de animar.
+- **Cambio de página:** View Transitions nativas entre documentos (`@view-transition` en `global.css`), sin router de JavaScript.
 
 ## Documentación del código
 
@@ -171,13 +207,13 @@ Reglas que cumple cada página. **`pnpm auditar`** comprueba sobre el HTML gener
 - **Plegables:** `<details>` nativo antes que JavaScript. Controles propios: `aria-expanded`, `aria-pressed`, `aria-controls` o el patrón de pestañas de WAI-ARIA.
 - **Movimiento:** la regla global de `global.css` anula animaciones y transiciones con `prefers-reduced-motion`; no hace falta `motion-reduce:` en cada clase. El desplazamiento suave por JavaScript sí debe comprobarlo (ver `ListaRama`).
 - **Foco visible** global (`:focus-visible` en `global.css`) y enlace «Saltar al contenido» en `Base`.
-- **Contraste:** mínimo 4.5 : 1 en texto; los pares de `tokens.css` se comprobaron en claro y oscuro.
+- **Contraste:** mínimo 4.5 : 1 en texto; los pares de `tokens.css` se comprobaron sobre los fondos del tema oscuro.
 
 ## Páginas
 
 | Ruta | Archivo | Datos |
 |---|---|---|
-| `/` | `pages/index.astro` | `sesionDeReferencia`, `construirSendero` + `siguientePaso`, `diaDelJefe` |
+| `/` | `pages/index.astro` | `sesionDeReferencia`, `diasParaPartitura` → isla `PartituraNoventaDias`, `construirSendero`, `diaDelJefe`, rutas con `getImage` → isla `IndiceRutas` |
 | `/mapa` | `pages/mapa.astro` | `construirSendero` |
 | `/arbol` | `pages/arbol.astro` | `construirNodosArbol` → isla `ArbolTalentos` |
 | `/niveles/[id]` | `pages/niveles/[id].astro` | `construirSendero` (su zona), `logrosConEstado` |

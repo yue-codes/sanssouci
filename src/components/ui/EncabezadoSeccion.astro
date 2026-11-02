@@ -1,11 +1,9 @@
 ---
 /**
  * @component EncabezadoSeccion
- * Antetítulo + título de una sección, con un enlace opcional a la derecha
+ * Antetítulo + título de una sección, con una entradilla y un enlace opcionales
  * («Ver todas →»). Mantiene igual todas las secciones de las páginas.
  */
-import { ArrowRight } from "lucide-preact";
-
 interface Props {
   /** Texto pequeño sobre el título. */
   eyebrow?: string;
@@ -13,20 +11,25 @@ interface Props {
   titulo: string;
   /** Id del título, para enlazarlo con `aria-labelledby` desde la sección. */
   id?: string;
+  /** Entradilla opcional bajo el título. */
+  descripcion?: string;
   /** Enlace opcional a la derecha. */
   enlace?: { href: string; texto: string };
+  /** `grande` para las secciones principales de la portada. */
+  tamano?: "normal" | "grande";
 }
-const { eyebrow, titulo, id, enlace } = Astro.props;
+const { eyebrow, titulo, id, descripcion, enlace, tamano = "normal" } = Astro.props;
 ---
 
-<div class="mb-5 flex flex-wrap items-end justify-between gap-x-4 gap-y-2">
-  <div>
+<div class="mb-8 flex flex-wrap items-end justify-between gap-x-8 gap-y-3" data-revelar>
+  <div class="max-w-2xl">
     {eyebrow && <p class="eyebrow">{eyebrow}</p>}
-    <h2 id={id} class="mt-1.5 text-2xl font-semibold sm:text-3xl">{titulo}</h2>
+    <h2 id={id} class:list={["mt-2 leading-[1.02]", tamano === "grande" ? "text-4xl sm:text-6xl" : "text-3xl sm:text-4xl"]}>{titulo}</h2>
+    {descripcion && <p class="mt-3 text-tenue">{descripcion}</p>}
   </div>
   {enlace && (
-    <a href={enlace.href} class="inline-flex items-center gap-1 text-sm font-medium text-acento hover:underline">
-      {enlace.texto} <ArrowRight size={14} aria-hidden="true" />
+    <a href={enlace.href} class="enlace-flecha">
+      {enlace.texto} <span aria-hidden="true">→</span>
     </a>
   )}
 </div>

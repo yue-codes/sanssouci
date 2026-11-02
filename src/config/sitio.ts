@@ -17,6 +17,16 @@ export const SITIO = {
   zonaHoraria: "America/Mexico_City",
 } as const;
 
+/**
+ * Horario de práctica (decidido con el usuario). La sesión empieza a la hora de
+ * `inicio` y dura lo que sumen sus bloques (45 a 60 min).
+ */
+export const HORARIO = {
+  dias: "lun, mar, mié, vie y sáb",
+  inicio: "20:00",
+  fin: "22:00",
+} as const;
+
 /** Un enlace de la navegación principal. */
 export interface EnlaceNavegacion {
   /** Ruta interna, empezando por "/". */

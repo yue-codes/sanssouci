@@ -3,89 +3,104 @@
  *  TOKENS DE DISEÑO — el único archivo que hay que tocar para cambiar colores
  * ============================================================================
  *
- * Los colores se organizan en tres capas:
+ * Paleta «Cian» (2 nov 2026), sacada de la imagen principal (`anime-cian.webp`):
+ * su cian, su rosa pálido, su lavanda, su azul cobalto y el rosa fuerte de sus
+ * cintas. Sobre una noche azul índigo, la hora de practicar (8 a 10 pm).
  *
- *  1. PALETA: asigna valores a los primitivos por papel (`--neutro-*`,
- *     `--marca-*`, `--apoyo-*`, `--calido-*`…). Hoy hay una, «Bosque».
+ * SOLO TEMA OSCURO, a propósito: el diseño entero (imágenes a sangre, grano,
+ * colores que brillan sobre la noche) está pensado así. Por eso no hay
+ * `light-dark()` ni selector de tema.
  *
- *  2. PRIMITIVOS POR PAPEL: neutro (fondos, bordes, texto), marca (el color
- *     principal), apoyo (secundario), cálido (lo que llama la atención),
- *     éxito y peligro. Nunca se usan directamente en componentes.
+ * Dos capas:
  *
- *  3. SEMÁNTICOS: el papel de cada color en la interfaz (`--fondo`, `--acento`…),
- *     con `light-dark(claro, oscuro)`. Los componentes solo usan estos, vía
- *     Tailwind (`bg-fondo`, `text-acento`, `border-borde/50`…).
+ *  1. PALETA: los colores con nombre propio (`--noche-*`, `--cian-*`…).
+ *     Nunca se usan directamente en componentes.
  *
- * Cómo cambiar la paleta:
- *  - Ajustar un tono: edita su valor en el bloque de la paleta.
- *  - Cambiar un papel entero (p. ej. el contraste ámbar por lila): cambia
- *    sus primitivos (`--calido-300` y `--calido-700`). Ningún componente cambia.
- *  - Varias paletas a la vez: añade bloques `:root[data-paleta="…"]` que solo
- *    redefinan lo que cambia y fija `data-paleta` en <html>.
+ *  2. SEMÁNTICOS: el papel de cada color en la interfaz (`--fondo`, `--acento`…).
+ *     Los componentes solo usan estos, vía Tailwind (`bg-fondo`, `text-acento`,
+ *     `border-borde/50`…). Cambiar el cian por otro color es cambiar una línea.
  *
- * Contraste: el texto (`--texto`, `--tenue`) y los colores usados como texto
- * (`--acento`, `--resalte`…) cumplen WCAG AA (≥ 4.5:1) sobre `--fondo` y
- * `--superficie-2` en ambos temas. Si cambias un valor, compruébalo de nuevo
- * (por ejemplo, con https://webaim.org/resources/contrastchecker/).
+ * Contraste: `--texto`, `--tenue` y los colores usados como texto (`--acento`,
+ * `--resalte`, `--exito`, `--peligro`, `--secundario`) cumplen WCAG AA (≥ 4.5:1)
+ * sobre `--fondo`, `--superficie` y `--superficie-2`. Si cambias un valor,
+ * compruébalo (https://webaim.org/resources/contrastchecker/).
  */
 
 /* ============================================================================
- * 1. Paleta
+ * 1. Paleta «Cian» (colores medidos en anime-cian.webp, ajustados para contraste)
  * ========================================================================== */
-
-/* --- Bosque: verde jade + ámbar (decidida el 2 nov 2026) --- */
 :root {
-  --neutro-50: #f3f6f1;  --neutro-75: #fbfdf9;  --neutro-100: #e6eee5; --neutro-200: #cfdccf;
-  --neutro-300: #a9bfb0; --neutro-600: #435a4e; --neutro-700: #2b4034; --neutro-800: #1a2c23;
-  --neutro-900: #14211b; --neutro-925: #0d1914; --neutro-950: #08110d; --neutro-texto-oscuro: #e7f1ea;
-  --marca-100: #d4ecdc;  --marca-400: #5cd69a;  --marca-700: #1c7149;  --marca-900: #173528;
-  --apoyo-300: #b9d3c4;  --apoyo-700: #4f6b5f;
-  --calido-300: #f0c35a; --calido-700: #8a5a00;
-  --exito-300: #6fdcc4;  --exito-700: #0d6b64;
-  --peligro-300: #ff8f80; --peligro-700: #b3261e;
+  /* Noche: azul índigo muy oscuro, del cobalto de la imagen (#2871CB) apagado. */
+  --noche-950: #070b18;
+  --noche-900: #0b1122;
+  --noche-850: #0f1630;
+  --noche-800: #141c38;
+  --noche-700: #233052;
+  --noche-600: #34446d;
+
+  /* Rosa pálido: el texto (de #F3DBE9, más claro para leer bien). */
+  --perla-100: #f4ebf2;
+  /* Lavanda grisácea: el texto secundario. */
+  --bruma-400: #a5aed2;
+
+  /* Cian: el color de la imagen y de la marca (de #09ACED, un poco más luminoso). */
+  --cian-300: #8fdcff;
+  --cian-400: #26c2ff;
+  --cian-950: #04263a;
+
+  /* Lavanda (de #C2AAD6): lo que ya se puede hacer. */
+  --lavanda-300: #c9b4f2;
+
+  /* Cielo (de #59A7D9): acento discreto. */
+  --cielo-300: #8dbfe9;
+
+  /* Menta: lo conseguido. No está en la imagen, pero es el verde que convive con el cian. */
+  --menta-400: #6ee3b8;
+
+  /* Rosa fuerte: las cintas de la imagen. Los jefes. */
+  --rosa-400: #ff5f9e;
+
+  /* Cobalto (de #2871CB, más profundo): el velo que tiñe las fotos cálidas. */
+  --cobalto-700: #2a3f9e;
 }
 
 /* ============================================================================
- * 2. Semánticos: light-dark(tema claro, tema oscuro)
- *    No dependen de la paleta: siempre apuntan a los mismos primitivos por papel.
+ * 2. Semánticos
  * ========================================================================== */
 :root {
-  --fondo: light-dark(var(--neutro-50), var(--neutro-950));
-  --superficie: light-dark(var(--neutro-75), var(--neutro-925));
-  --superficie-2: light-dark(var(--neutro-100), var(--neutro-800));
-  --borde: light-dark(var(--neutro-200), var(--neutro-700));
-  --texto: light-dark(var(--neutro-900), var(--neutro-texto-oscuro));
-  --tenue: light-dark(var(--neutro-600), var(--neutro-300));
+  color-scheme: dark;
 
-  /** Color de marca: botones, zona actual, logros conseguidos. */
-  --acento: light-dark(var(--marca-700), var(--marca-400));
+  --fondo: var(--noche-950);
+  --superficie: var(--noche-900);
+  --superficie-2: var(--noche-800);
+  --borde: var(--noche-700);
+  --borde-fuerte: var(--noche-600);
+  --texto: var(--perla-100);
+  --tenue: var(--bruma-400);
+
+  /** Marca: botones, hoy, la zona actual. */
+  --acento: var(--cian-400);
+  /** Versión clara del acento (texto pequeño sobre fondos con tinte, hover). */
+  --acento-claro: var(--cian-300);
   /** Fondo suave a juego con el acento. */
-  --acento-suave: light-dark(var(--marca-100), var(--marca-900));
-  /** Acento secundario, más discreto. */
-  --secundario: light-dark(var(--apoyo-700), var(--apoyo-300));
-  /** Lo que pide atención: logros disponibles, retos. */
-  --resalte: light-dark(var(--calido-700), var(--calido-300));
-  /** Lo completado: bloques hechos, zonas superadas. */
-  --exito: light-dark(var(--exito-700), var(--exito-300));
-  /** Errores y jefes. */
-  --peligro: light-dark(var(--peligro-700), var(--peligro-300));
-
-  /* Decoración del fondo: resplandores derivados de la marca (sirven en cualquier paleta). */
-  --brillo-1: color-mix(in oklab, var(--acento) 16%, transparent);
-  --brillo-2: color-mix(in oklab, var(--resalte) 8%, transparent);
-  --estrellas: light-dark(transparent, rgb(245 245 230 / 0.5));
+  --acento-suave: var(--cian-950);
+  /** Acento discreto. */
+  --secundario: var(--cielo-300);
+  /** Lo que ya se puede hacer: logros disponibles, retos. */
+  --resalte: var(--lavanda-300);
+  /** Lo completado: sesiones hechas, zonas superadas, logros conseguidos. */
+  --exito: var(--menta-400);
+  /** Jefes y errores. */
+  --peligro: var(--rosa-400);
+  /** Color del velo que entona las imágenes con la paleta (clase `.velo`). */
+  --tinte: var(--cobalto-700);
 
   /* Tipografía (fuentes instaladas con Fontsource: ver global.css). */
-  --fuente-titulos: "Fraunces Variable", Georgia, serif;
-  --fuente-texto: "Inter Variable", system-ui, sans-serif;
+  --fuente-titulos: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --fuente-texto: "Bricolage Grotesque Variable", system-ui, sans-serif;
+  --fuente-mono: "Martian Mono Variable", ui-monospace, "SFMono-Regular", monospace;
   --fuente-pixel: "Pixelify Sans Variable", ui-monospace, monospace;
-}
 
-/**
- * Elección de tema. `light-dark()` elige según `color-scheme`:
- *  - Por defecto, "light dark" = sigue la preferencia del sistema.
- *  - El selector de tema fija `data-theme` en <html> para forzar uno.
- */
-:root { color-scheme: light dark; }
-:root[data-theme="light"] { color-scheme: light; }
-:root[data-theme="dark"] { color-scheme: dark; }
+  /* Curva de las animaciones: arranca rápido y frena suave (como un arco que se apoya). */
+  --curva-suave: cubic-bezier(0.2, 0.7, 0.2, 1);
+}

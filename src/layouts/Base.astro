@@ -2,10 +2,12 @@
 /**
  * @layout Base
  * Esqueleto HTML de todas las páginas: <head>, enlace «saltar al contenido»,
- * cabecera, contenido principal (`<slot />`) y pie.
+ * cabecera, contenido principal (`<slot />`) y pie. Carga también el movimiento
+ * de toda la web (`src/scripts/movimiento.ts`).
  *
  * @example
  * <Base titulo="Mapa" descripcion="Las nueve zonas del camino">…</Base>
+ * <Base titulo="Inicio" ancho="completo">…</Base>  // la página pone sus propios contenedores
  */
 import "@/styles/global.css";
 import Cabecera from "@/components/layout/Cabecera.astro";
@@ -17,38 +19,52 @@ interface Props {
   titulo: string;
   /** Descripción para buscadores y vistas previas. Por defecto, la del sitio. */
   descripcion?: string;
+  /**
+   * `normal` (por defecto): el contenido va en un contenedor centrado con márgenes.
+   * `completo`: sin contenedor, para páginas con secciones a sangre (la portada);
+   * cada sección usa la clase `contenedor` donde la necesite.
+   */
+  ancho?: "normal" | "completo";
 }
-const { titulo, descripcion = SITIO.descripcion } = Astro.props;
+const { titulo, descripcion = SITIO.descripcion, ancho = "normal" } = Astro.props;
 ---
 
 <!doctype html>
 <html lang={SITIO.idioma}>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="description" content={descripcion} />
+    <meta name="theme-color" content="#070b18" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{titulo} · {SITIO.nombre}</title>
     <!--
-      Aplica el tema guardado ANTES de pintar la página, para evitar un parpadeo de color.
-      Va `is:inline` (sin procesar ni diferir) precisamente para que se ejecute ya.
-      La clave "tema" la escribe el componente SelectorTema.
+      Activa las animaciones de entrada ANTES de pintar, para que lo que se revela al
+      hacer scroll no aparezca y luego desaparezca. Solo si el sistema no pide menos
+      movimiento. Si el script de movimiento no llega a cargar en 2,5 s, se quita la
+      clase y todo queda visible (nunca se queda contenido oculto).
     -->
     <script is:inline>
       try {
-        const t = localStorage.getItem("tema");
-        if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+        if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          const r = document.documentElement;
+          r.classList.add("movimiento");
+          setTimeout(() => r.classList.contains("movimiento-listo") || r.classList.remove("movimiento"), 2500);
+        }
       } catch {}
     </script>
   </head>
   <body>
-    <a href="#contenido" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 tarjeta px-4 py-2">
+    <a href="#contenido" class="sr-only z-50 rounded-[3px] bg-acento px-4 py-2 font-semibold text-fondo focus:not-sr-only focus:fixed focus:top-3 focus:left-3">
       Saltar al contenido
     </a>
     <Cabecera />
-    <main id="contenido" class="mx-auto max-w-6xl px-4 py-8 sm:py-12">
+    <main id="contenido" class:list={[ancho === "normal" && "contenedor py-10 sm:py-14"]}>
       <slot />
     </main>
     <PiePagina />
+    <script>
+      import "@/scripts/movimiento";
+    </script>
   </body>
 </html>

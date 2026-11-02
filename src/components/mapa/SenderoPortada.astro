@@ -1,0 +1,122 @@
+---
+/**
+ * @component SenderoPortada
+ * El sendero de zonas en horizontal, para la portada y el panel: cada zona con su
+ * imagen, su jefe y su estado. Lo cercano se ve con detalle; lo lejano, en niebla
+ * (imagen borrosa y jefe sin nombre), igual que en /mapa.
+ *
+ * La zona actual es más ancha y lleva la barra de requisitos y el siguiente paso.
+ * Las imágenes llevan un velo de color (`.velo`) que se retira al pasar el ratón.
+ * Cada tarjeta enlaza a su zona con un «enlace estirado» (el `::after` del título
+ * cubre toda la tarjeta), así el chip del siguiente paso puede ser otro enlace sin
+ * anidar enlaces, que no es HTML válido.
+ */
+import { Picture } from "astro:assets";
+import ChipLogro from "@/components/logros/ChipLogro.astro";
+import { siguientePaso, type ParadaSendero } from "@/lib/mapa";
+import { IMAGEN_ZONA, IMAGENES } from "@/config/imagenes";
+
+interface Props {
+  /** Paradas del sendero (ver `construirSendero`). */
+  paradas: ParadaSendero[];
+}
+const { paradas } = Astro.props;
+---
+
+<ol
+  class="-mx-4 flex snap-x snap-mandatory scroll-px-4 gap-5 overflow-x-auto px-4 pt-1 pb-6 [scrollbar-width:thin] sm:-mx-8 sm:scroll-px-8 sm:px-8"
+  aria-label="Zonas del camino, de la primera a la cumbre"
+  data-revelar="hijos"
+  data-lenis-prevent-wheel
+>
+  {paradas.map((p, i) => {
+    const n = p.nivel.data;
+    const imagen = IMAGEN_ZONA[p.nivel.id] ?? IMAGENES.animeDorada;
+    const actual = p.estado === "actual";
+    const paso = actual ? siguientePaso(p) : undefined;
+    const ultima = i === paradas.length - 1;
+    return (
+      <li
+        data-estado={p.estado}
+        data-lejana={p.lejana || undefined}
+        class:list={[
+          "group relative shrink-0 snap-start",
+          actual ? "w-[18rem] sm:w-[22rem]" : "w-[12.5rem] sm:w-[14.5rem]",
+        ]}
+      >
+        {/* Tramo del sendero hasta la siguiente parada */}
+        {!ultima && (
+          <span
+            class="absolute top-[1.0625rem] left-10 -right-5 h-px bg-borde group-data-[estado=superada]:bg-exito/60 group-data-[estado=actual]:bg-linear-to-r group-data-[estado=actual]:from-acento group-data-[estado=actual]:to-borde"
+            aria-hidden="true"
+          />
+        )}
+        <span
+          class="relative grid size-9 place-items-center rounded-full border border-borde-fuerte bg-fondo font-mono text-xs text-tenue
+                 group-data-[estado=superada]:border-exito group-data-[estado=superada]:text-exito
+                 group-data-[estado=actual]:border-acento group-data-[estado=actual]:bg-acento group-data-[estado=actual]:text-fondo group-data-[estado=actual]:shadow-[0_0_0_6px_color-mix(in_oklab,var(--acento)_18%,transparent),0_0_32px_var(--acento)]"
+          aria-hidden="true"
+        >
+          {n.orden}
+        </span>
+
+        <div class="relative mt-4 aspect-[4/5] overflow-hidden rounded-[3px] bg-superficie">
+          <Picture
+            src={imagen.src}
+            alt=""
+            widths={actual ? [360, 720] : [260, 520]}
+            sizes={actual ? "22rem" : "15rem"}
+            formats={["avif"]}
+            fallbackFormat="webp"
+            loading="lazy"
+            class="size-full object-cover transition duration-[1.4s] ease-suave group-hover:scale-105
+                   group-data-lejana:scale-110 group-data-lejana:opacity-40 group-data-lejana:blur-[6px] group-data-lejana:grayscale"
+            style={{ objectPosition: imagen.enfoque }}
+          />
+          {!p.lejana && <span class="velo group-hover:opacity-0" aria-hidden="true" />}
+          {p.lejana && (
+            <span class="absolute inset-0 grid place-items-center font-mono text-[0.625rem] tracking-[0.1em] text-texto/70 uppercase">
+              en la niebla
+            </span>
+          )}
+          {actual && (
+            <span class="absolute top-3 left-3 rounded-[2px] bg-acento px-2 py-1 font-mono text-[0.625rem] font-medium text-fondo uppercase">
+              Estás aquí
+            </span>
+          )}
+        </div>
+
+        <h3 class:list={["mt-4 leading-tight", actual ? "text-3xl" : "text-2xl group-data-lejana:text-tenue"]}>
+          <a href={`/niveles/${p.nivel.id}`} class="after:absolute after:inset-0 after:content-[''] hover:text-acento-claro focus-visible:outline-none">
+            {n.nombre}
+          </a>
+        </h3>
+        <p class="mt-1 text-sm text-tenue">{n.zona}</p>
+        {p.jefes.length > 0 && (
+          <p class="mt-3 font-mono text-[0.625rem] tracking-wide text-peligro/90 uppercase group-data-lejana:text-tenue">
+            {p.lejana ? "Jefe · ???" : `Jefe · ${p.jefes.map((j) => j.jefe.data.nombre).join(" y ")}`}
+          </p>
+        )}
+
+        {actual && (
+          <div class="relative z-10 mt-5">
+            <div class="flex items-baseline justify-between font-mono text-[0.625rem] text-tenue uppercase">
+              <span>Requisitos para pasar</span>
+              <span class="tabular-nums">{p.hechos} / {p.requisitos.length}</span>
+            </div>
+            <div class="mt-1.5 h-1 overflow-hidden rounded-full bg-superficie-2" aria-hidden="true" data-crecer>
+              <span class="block h-full rounded-full bg-acento" style={{ width: `${p.requisitos.length ? (p.hechos / p.requisitos.length) * 100 : 0}%` }} />
+            </div>
+            {paso && (
+              <p class="mt-4 flex flex-wrap items-center gap-2 text-sm text-tenue">
+                Siguiente paso: <ChipLogro logro={paso.logro} estado={paso.estado} />
+              </p>
+            )}
+          </div>
+        )}
+        {/* Foco visible del enlace estirado: se dibuja en toda la tarjeta. */}
+        <span class="pointer-events-none absolute -inset-2 rounded-md outline-2 outline-offset-0 outline-acento opacity-0 group-has-[a:focus-visible]:opacity-100" aria-hidden="true" />
+      </li>
+    );
+  })}
+</ol>
