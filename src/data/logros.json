@@ -577,7 +577,7 @@
     "id": "logro-primera-clase",
     "nombre": "Maestro encontrado",
     "categoria": "habito",
-    "nivelSugerido": "nivel-0",
+    "nivelSugerido": "nivel-1",
     "requiere": [],
     "descripcion": "Tener la primera clase con maestro.",
     "criterio": "Primera clase tomada y apuntes guardados."
@@ -612,17 +612,6 @@
     ],
     "descripcion": "Publicar tu primer video.",
     "criterio": "Video publicado en la red que elijas."
-  },
-  {
-    "id": "logro-audio-externo",
-    "nombre": "Buen audio",
-    "categoria": "grabacion",
-    "nivelSugerido": "nivel-4",
-    "requiere": [
-      "logro-primer-video"
-    ],
-    "descripcion": "Grabar con micrófono externo.",
-    "criterio": "Un video con audio de micrófono externo bien nivelado (sin saturar)."
   },
   {
     "id": "logro-primera-pieza",

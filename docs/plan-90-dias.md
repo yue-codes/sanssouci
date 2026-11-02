@@ -163,28 +163,24 @@ Del **2 nov 2026** al **30 ene 2027**. Práctica de lunes, martes, miércoles, v
 
 **Día 18 · jueves 19 nov 2026**: descanso.
 
-### Día 19 · viernes 20 nov 2026 · Preparar la primera clase
+### Día 19 · viernes 20 nov 2026 · Cerrar Isabella's Lullaby
 
-*Sesión 14 · 50 min* — Llegar a la clase con preguntas y una muestra de tu nivel.
+*Sesión 14 · 50 min* — Terminar la transcripción y medir tu lectura a mitad de fase.
 
 - [ ] **respiracion** (8 min): Rutina de respiración completa.
-- [ ] **repaso** (15 min): Prepara la lista de preguntas para el maestro (está en docs/plan.md, sección Guía de la flauta).
-- [ ] **lectura** (12 min): Test de lectura: lleva el resultado a la clase. *(musictheory.net (Exercises → Note Identification))*
+- [ ] **lectura** (12 min): Test de lectura de mitad de fase: compáralo con el del día 1.
 - [ ] **oido** (15 min): Termina Isabella's Lullaby.
+- [ ] **teoria** (15 min): Repaso: armaduras e intervalos.
 
 🏅 Logros posibles: Primera transcripción
 
-> Mañana se abre la ventana para la primera clase (días 20 a 25).
+### Día 20 · sábado 21 nov 2026 · Repaso de la semana
 
-### Día 20 · sábado 21 nov 2026 · Ventana de la primera clase
+*Sesión 15 · 50 min* — Afianzar lo de las tres primeras semanas.
 
-*Sesión 15 · 50 min* — Primera clase con maestro, o repaso si aún no hay clase.
-
-- [ ] **clase** (50 min): Si hoy tienes clase, esa es la sesión: toma notas de todo lo que te corrija. Si no hay clase: repaso de la semana (armaduras, intervalos e Isabella completa en guitarra).
-
-🏅 Logros posibles: Maestro encontrado
-
-> Si el maestro te da otras indicaciones, lo que él diga manda sobre el plan.
+- [ ] **repaso** (20 min): Armaduras e intervalos: 10 ejercicios en papel, sin mirar las respuestas.
+- [ ] **guitarra** (20 min): Isabella's Lullaby completa en guitarra con metrónomo.
+- [ ] **lectura** (10 min): Drill de notas, con foco en las agudas.
 
 **Día 21 · domingo 22 nov 2026**: descanso.
 
@@ -200,8 +196,6 @@ Del **2 nov 2026** al **30 ene 2027**. Práctica de lunes, martes, miércoles, v
 - [ ] **lectura** (7 min): Drill de notas. *(musictheory.net (Exercises → Note Identification))*
 
 🏅 Logros posibles: Oído afinado
-
-> Posible día de clase: si la tuviste, aplica hoy lo que te dijo el maestro.
 
 ### Día 23 · martes 24 nov 2026 · Hallownest, sección A
 
@@ -231,8 +225,8 @@ Del **2 nov 2026** al **30 ene 2027**. Práctica de lunes, martes, miércoles, v
 
 - [ ] **respiracion** (8 min): Rutina de respiración.
 - [ ] **guitarra** (25 min): Enter Hallownest en guitarra con metrónomo: 50 → 55 → 60.
-- [ ] **grabacion** (12 min): Prueba de grabación con la Canon R50: encuadre, luz y audio (ver docs/plan.md).
-- [ ] **repaso** (5 min): Lee la lista de revisión de la flauta (llega pronto).
+- [ ] **grabacion** (12 min): Prueba de grabación: graba una toma corta y escúchala.
+- [ ] **repaso** (5 min): Prepara la llegada de la flauta y del maestro: lee la lista de revisión y las preguntas para la primera clase (docs/plan.md, Guía de la flauta).
 
 ### Día 27 · sábado 28 nov 2026 · ⚔️ JEFE 0: El Eco de Hallownest
 
@@ -263,7 +257,7 @@ Del **2 nov 2026** al **30 ene 2027**. Práctica de lunes, martes, miércoles, v
 
 🏅 Logros posibles: Primer aliento
 
-> Fecha estimada. Si la flauta no ha llegado, repite una sesión de lectura y oído, y empieza esta el día que llegue. Sopla en bloques de 3 a 5 min con descansos. Si te mareas, para y respira normal; si te duelen los labios, termina la parte de soplar.
+> Fecha estimada. Si la flauta no ha llegado, repite una sesión de lectura y oído, y empieza esta el día que llegue. Esta semana se abre la ventana de la primera clase: lleva la flauta para que el maestro la revise. Sopla en bloques de 3 a 5 min con descansos. Si te mareas, para y respira normal; si te duelen los labios, termina la parte de soplar.
 
 ### Día 30 · martes 1 dic 2026 · Embocadura frente al espejo
 
@@ -289,16 +283,15 @@ Del **2 nov 2026** al **30 ene 2027**. Práctica de lunes, martes, miércoles, v
 
 **Día 32 · jueves 3 dic 2026**: descanso.
 
-### Día 33 · viernes 4 dic 2026 · Melodías de 3 notas
+### Día 33 · viernes 4 dic 2026 · Ventana de la primera clase
 
-*Sesión 24 · 45 min* — Tocar con pulso.
+*Sesión 24 · 45 min* — Primera clase con maestro y revisión de la flauta, o la sesión normal si aún no hay clase.
 
-- [ ] **calentamiento** (8 min): Notas largas Si-La-Sol.
-- [ ] **estudios** (15 min): Inventa y lee melodías con Si-La-Sol con metrónomo a 60.
-- [ ] **tecnica** (10 min): Respiraciones: inhala en los silencios, nunca a mitad de la nota.
-- [ ] **oido** (12 min): Toca de oído en la flauta frases simples con esas 3 notas.
+- [ ] **clase** (45 min): Si hoy tienes clase, esa es la sesión: lleva la flauta para que la revise (sellado, ajuste y afinación), haz las preguntas de docs/plan.md y toma notas de todo lo que te corrija. Si no hay clase: Notas largas Si-La-Sol; Inventa y lee melodías con Si-La-Sol con metrónomo a 60; Respiraciones: inhala en los silencios, nunca a mitad de la nota; Toca de oído en la flauta frases simples con esas 3 notas.
 
-> Sopla en bloques de 3 a 5 min con descansos. Si te mareas, para y respira normal; si te duelen los labios, termina la parte de soplar.
+🏅 Logros posibles: Maestro encontrado, Flauta revisada
+
+> Si el maestro te da otras indicaciones, lo que él diga manda sobre el plan. Si la clase cae otro día de esta semana o la siguiente, cambia esa sesión por la clase. Sopla en bloques de 3 a 5 min con descansos.
 
 ### Día 34 · sábado 5 dic 2026 · Repaso de la semana
 
@@ -326,7 +319,7 @@ Del **2 nov 2026** al **30 ene 2027**. Práctica de lunes, martes, miércoles, v
 - [ ] **estudios** (12 min): Escalitas Sol-Fa-Mi y Do-Si-La-Sol.
 - [ ] **repertorio** (8 min): Wellerman: digita la frase 1 al aire y luego tócala despacio.
 
-> Sopla en bloques de 3 a 5 min con descansos. Si te mareas, para y respira normal; si te duelen los labios, termina la parte de soplar.
+> Si ya tuviste la primera clase, aplica hoy lo que te dijo el maestro. Sopla en bloques de 3 a 5 min con descansos. Si te mareas, para y respira normal; si te duelen los labios, termina la parte de soplar.
 
 ### Día 37 · martes 8 dic 2026 · Re grave
 
@@ -483,7 +476,7 @@ Del **2 nov 2026** al **30 ene 2027**. Práctica de lunes, martes, miércoles, v
 
 - [ ] **calentamiento** (10 min): Notas largas.
 - [ ] **repertorio** (20 min): Marca las respiraciones en la partitura y respétalas.
-- [ ] **grabacion** (15 min): Prueba de video con la R50.
+- [ ] **grabacion** (15 min): Prueba de video: graba una toma corta y escúchala.
 
 ### Día 58 · martes 29 dic 2026 · Tomas de prueba
 

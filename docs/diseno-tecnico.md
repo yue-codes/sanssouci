@@ -122,8 +122,8 @@ Six Trillion Years se divide en dos obras: el cover normal (dificultad ≈ 7) y 
   - Semana 2: ritmo y notas agudas.
   - Semana 3: armaduras, intervalos y digitación «al aire».
   - Semana 4: preparación y **jefe 0** (día 27).
-  - **Ventana de la primera clase:** días 20–25 (21–26 de noviembre). El día 19 se dedica a prepararla.
 - **Fase con flauta**, semanas 5–13 (días 29–90):
+  - **Ventana de la primera clase:** la primera semana con flauta (días 29–34; día 33 de referencia), para que el maestro revise la flauta dentro del plazo de devolución. *Cambió el 2-nov-2026: antes eran los días 20–25.*
   - Revisión de la flauta, sonido solo con la cabeza en bloques cortos con descanso (para no marearte ni forzar los labios), Si-La-Sol y registro grave.
   - Segunda octava, Sol y Re mayor, picado.
   - **Jefe 1, Wellerman** (día 62). **Jefe 2, Always With Me** (día 90).
@@ -134,7 +134,7 @@ Six Trillion Years se divide en dos obras: el cover normal (dificultad ≈ 7) y 
 
 ## 6. Documentos (`docs/`)
 
-- `docs/plan.md`, escrito a mano: el mapa del juego (sección 4), la guía de grabación con la Canon R50 (encuadre, luz, audio y cuándo comprar micrófono), la guía de la flauta JP FL-430 (revisión al recibirla) y las preguntas para la primera clase.
+- `docs/plan.md`, escrito a mano: el mapa del juego (sección 4), una nota corta sobre grabar (el equipo de grabación queda fuera del proyecto), la guía de la flauta JP FL-430 (revisión al recibirla) y las preguntas para la primera clase.
 - `docs/catalogo.md` y `docs/plan-90-dias.md` se **generan** con `scripts/generar-docs.mjs` a partir de los JSON (`pnpm docs`). Así hay una sola fuente de verdad: si cambias un dato, regeneras los documentos y no se desincronizan.
 - `docs/clasificar-cancion.md`: la plantilla y el criterio para que pidas «clasifícame esta nueva».
 
@@ -150,7 +150,8 @@ Six Trillion Years se divide en dos obras: el cover normal (dificultad ≈ 7) y 
 | `/` | Inicio: qué es y acceso |
 | `/entrar` | Inicio de sesión con enlace mágico al correo, con opción de Google |
 | `/panel` | Hoy: la sesión del día, racha, nivel actual, próximo jefe |
-| `/mapa` | Mapa visual de las zonas con su estado (bloqueada, actual, superada) |
+| `/mapa` | El camino como sendero: zona → jefe → zona, con su estado (bloqueada, actual, superada); lo cercano con detalle y lo lejano «en niebla» |
+| `/arbol` | Árbol de talentos estilo RPG: ramas = categorías de logro, líneas = requisitos (conseguido, disponible, bloqueado) |
 | `/niveles/[id]` | Detalle de cada nivel: temario, requisitos y jefe |
 | `/jefes/[id]` | Detalle de cada jefe; en su página se registra la victoria con el link al video |
 | `/calendario` | Los 90 días |

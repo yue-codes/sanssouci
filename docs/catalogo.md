@@ -2,7 +2,7 @@
 
 # Catálogo de canciones
 
-**123 obras** a partir de **181 videos** (5 no son pieza para flauta traversa; ver al final).
+**124 obras** a partir de **182 videos** (5 no son pieza para flauta traversa; ver al final).
 
 - **Dificultad 1–10** y criterio: ver [clasificar-cancion.md](clasificar-cancion.md).
 - 🎧 = **reto de oído**: no hay partitura en tu lista, así que es para transcribir con la guitarra.
@@ -42,7 +42,7 @@ Repertorio de concierto: de Pachelbel y Fauré a Bach, Saint-Saëns y Paganini. 
 | **Estudio op. 25 nº 2** — Frédéric Chopin<br>*Transcripción para flauta con respiración circular.* | 10 | Cumbre de Paganini | Lengua de rayo, Triple picado | [Natalia Jarząbek](https://www.youtube.com/watch?v=DCTqGzHsZ5A) (referencia; flauta y piano; 1:48) |
 | **La Campanella** — Paganini / Liszt<br>*Jefe final.* | 10 | Cumbre de Paganini | Lengua de rayo, Triple picado | [Anastasia Goldin](https://www.youtube.com/watch?v=keazZMovk1g) (clip; flauta sola; 0:14)<br>[Flute n Park 박재환](https://www.youtube.com/watch?v=1wrDL4tU22o) (referencia; flauta y piano; 6:37) — Denis Bouriakov en vivo.<br>[matveydemin](https://www.youtube.com/watch?v=Kimy-h2Z6Xw) (referencia; flauta y piano; 6:21) — Arreglo de Bouriakov.<br>[Monica Park](https://www.youtube.com/watch?v=LLXOgPz9RGE) (clip; flauta sola; 0:14) — Clip de broma (el título engaña).<br>[Dr. Sarah Dunbar](https://www.youtube.com/watch?v=jkvVdZoPrJY) (referencia; flauta y piano; 8:29) |
 
-## Ruta Ghibli (5)
+## Ruta Ghibli (6)
 
 Joe Hisaishi y compañía: melodías cantables, ideales para trabajar sonido, respiración y fraseo.
 
@@ -50,6 +50,7 @@ Joe Hisaishi y compañía: melodías cantables, ideales para trabajar sonido, re
 |---|---|---|---|---|
 | **Always With Me (Itsumo Nando Demo)** — Spirited Away<br>*Jefe del día 90.* | 2 | Aldea de las Melodías | Registro grave | [Yayoi FLUTE](https://www.youtube.com/watch?v=37o_w10YsYg) (partitura, acompañamiento; flauta y pista; 6:45) — Partitura en pantalla y karaoke desde el minuto 3:15.<br>[Yayoi FLUTE](https://www.youtube.com/watch?v=BUoJ7Dh5nvI) (partitura, acompañamiento; pífano (multipista); 4:42) — Pífano, no flauta traversa de concierto; pista a partir del minuto 2:08.<br>[そのちゃんフルート](https://www.youtube.com/watch?v=4lS92Awu6uU) (partitura, referencia; flauta y pista; 1:55) — Marcada como fácil para principiantes 🔰.<br>[群馬フルート研究所【まさとぅ】](https://www.youtube.com/watch?v=ClHUv0lIIp8) (referencia; flauta sola; 1:43) — Referencia de sonido de un flautista profesional. |
 | **Promise of the World (Sekai no Yakusoku)** — Howl's Moving Castle<br>*Recomendada para principiantes.* | 2 | Aldea de las Melodías | Registro grave | [Yayoi FLUTE](https://www.youtube.com/watch?v=sqIdnoqrEgs) (partitura, tutorial; flauta y pista; 6:43) — Tutorial con nombres de notas y digitación.<br>[さとみん フルート / Satomin Flute Channel　楽譜配信](https://www.youtube.com/watch?v=tE_EoOmcEFo) (partitura; flauta y pista; 4:22) — Partitura en Piascore, marcada para principiantes. |
+| **Arrietty's Song** — The Secret World of Arrietty<br>*Dificultad estimada sin ver la partitura completa: melodía cantable que sube a la segunda octava. Revísala al abrir la partitura; si el arreglo pide más, súbela.* | 3 | Bosque de las Escalas | Salto de octava, Sol mayor, Puntillos y ligaduras | [Yayoi FLUTE](https://www.youtube.com/watch?v=OSrnIgKexPU) (partitura, acompañamiento; flauta y pista; 6:37) — Partitura en pantalla; pista para tocar encima desde el 3:14. |
 | **One Summer's Day (Ano Natsu e)** — Spirited Away | 3 | Bosque de las Escalas | Salto de octava, Sol mayor, Puntillos y ligaduras | [フルート もりたあいか](https://www.youtube.com/watch?v=bUJ87IahnM8) (partitura, referencia; flauta y piano; 3:46) — Partitura en kokomu.<br>[Yayoi FLUTE](https://www.youtube.com/watch?v=OT4P9LwyCg0) (partitura, acompañamiento; flauta y pista; 4:17) — Partitura y acompañamiento de piano (karaoke desde el minuto 2:07). |
 | **Merry-Go-Round of Life** — Howl's Moving Castle<br>*Jefe del nivel 3.* | 4 | Bosque de las Escalas | Salto de octava, Sol mayor, Puntillos y ligaduras | [Yayoi FLUTE](https://www.youtube.com/watch?v=PnYftv8ZguU) (partitura, acompañamiento; flauta y pista; 2:18) — Partitura en pantalla; acompañamiento en video aparte.<br>[ariaaaa](https://www.youtube.com/watch?v=zP4WRU3K9jU) (partitura; flauta y piano; 2:37) — Partitura en MuseScore. |
 | **A Town with an Ocean View** — Kiki's Delivery Service | 5 | Torre del Canto | Tercera octava (hasta Sol6), Cromática, Contratiempo | [shvaboshka](https://www.youtube.com/watch?v=_LY9qkTZq-Y) (partitura; flauta y pista; 2:27) — Partitura con articulaciones.<br>[Fuesou](https://www.youtube.com/watch?v=xStrQLBeyZI) (referencia; flauta y piano; 2:56) |

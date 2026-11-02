@@ -585,8 +585,8 @@
     "fase": "sin-flauta",
     "tipo": "practica",
     "sesion": 14,
-    "titulo": "Preparar la primera clase",
-    "objetivo": "Llegar a la clase con preguntas y una muestra de tu nivel.",
+    "titulo": "Cerrar Isabella's Lullaby",
+    "objetivo": "Terminar la transcripción y medir tu lectura a mitad de fase.",
     "bloques": [
       {
         "tipo": "respiracion",
@@ -594,26 +594,24 @@
         "actividad": "Rutina de respiración completa."
       },
       {
-        "tipo": "repaso",
-        "minutos": 15,
-        "actividad": "Prepara la lista de preguntas para el maestro (está en docs/plan.md, sección Guía de la flauta)."
-      },
-      {
         "tipo": "lectura",
         "minutos": 12,
-        "actividad": "Test de lectura: lleva el resultado a la clase.",
-        "recurso": "musictheory.net (Exercises → Note Identification)"
+        "actividad": "Test de lectura de mitad de fase: compáralo con el del día 1."
       },
       {
         "tipo": "oido",
         "minutos": 15,
         "actividad": "Termina Isabella's Lullaby."
+      },
+      {
+        "tipo": "teoria",
+        "minutos": 15,
+        "actividad": "Repaso: armaduras e intervalos."
       }
     ],
     "logrosPosibles": [
       "logro-primera-transcripcion"
-    ],
-    "notas": "Mañana se abre la ventana para la primera clase (días 20 a 25)."
+    ]
   },
   {
     "id": "dia-20",
@@ -624,19 +622,26 @@
     "fase": "sin-flauta",
     "tipo": "practica",
     "sesion": 15,
-    "titulo": "Ventana de la primera clase",
-    "objetivo": "Primera clase con maestro, o repaso si aún no hay clase.",
+    "titulo": "Repaso de la semana",
+    "objetivo": "Afianzar lo de las tres primeras semanas.",
     "bloques": [
       {
-        "tipo": "clase",
-        "minutos": 50,
-        "actividad": "Si hoy tienes clase, esa es la sesión: toma notas de todo lo que te corrija. Si no hay clase: repaso de la semana (armaduras, intervalos e Isabella completa en guitarra)."
+        "tipo": "repaso",
+        "minutos": 20,
+        "actividad": "Armaduras e intervalos: 10 ejercicios en papel, sin mirar las respuestas."
+      },
+      {
+        "tipo": "guitarra",
+        "minutos": 20,
+        "actividad": "Isabella's Lullaby completa en guitarra con metrónomo."
+      },
+      {
+        "tipo": "lectura",
+        "minutos": 10,
+        "actividad": "Drill de notas, con foco en las agudas."
       }
     ],
-    "logrosPosibles": [
-      "logro-primera-clase"
-    ],
-    "notas": "Si el maestro te da otras indicaciones, lo que él diga manda sobre el plan."
+    "logrosPosibles": []
   },
   {
     "id": "dia-21",
@@ -688,8 +693,7 @@
     ],
     "logrosPosibles": [
       "logro-oido-intervalos"
-    ],
-    "notas": "Posible día de clase: si la tuviste, aplica hoy lo que te dijo el maestro."
+    ]
   },
   {
     "id": "dia-23",
@@ -794,12 +798,12 @@
       {
         "tipo": "grabacion",
         "minutos": 12,
-        "actividad": "Prueba de grabación con la Canon R50: encuadre, luz y audio (ver docs/plan.md)."
+        "actividad": "Prueba de grabación: graba una toma corta y escúchala."
       },
       {
         "tipo": "repaso",
         "minutos": 5,
-        "actividad": "Lee la lista de revisión de la flauta (llega pronto)."
+        "actividad": "Prepara la llegada de la flauta y del maestro: lee la lista de revisión y las preguntas para la primera clase (docs/plan.md, Guía de la flauta)."
       }
     ],
     "logrosPosibles": []
@@ -888,7 +892,7 @@
     "logrosPosibles": [
       "logro-primer-sonido"
     ],
-    "notas": "Fecha estimada. Si la flauta no ha llegado, repite una sesión de lectura y oído, y empieza esta el día que llegue. Sopla en bloques de 3 a 5 min con descansos. Si te mareas, para y respira normal; si te duelen los labios, termina la parte de soplar."
+    "notas": "Fecha estimada. Si la flauta no ha llegado, repite una sesión de lectura y oído, y empieza esta el día que llegue. Esta semana se abre la ventana de la primera clase: lleva la flauta para que el maestro la revise. Sopla en bloques de 3 a 5 min con descansos. Si te mareas, para y respira normal; si te duelen los labios, termina la parte de soplar."
   },
   {
     "id": "dia-30",
@@ -985,32 +989,20 @@
     "fase": "con-flauta",
     "tipo": "practica",
     "sesion": 24,
-    "titulo": "Melodías de 3 notas",
-    "objetivo": "Tocar con pulso.",
+    "titulo": "Ventana de la primera clase",
+    "objetivo": "Primera clase con maestro y revisión de la flauta, o la sesión normal si aún no hay clase.",
     "bloques": [
       {
-        "tipo": "calentamiento",
-        "minutos": 8,
-        "actividad": "Notas largas Si-La-Sol."
-      },
-      {
-        "tipo": "estudios",
-        "minutos": 15,
-        "actividad": "Inventa y lee melodías con Si-La-Sol con metrónomo a 60."
-      },
-      {
-        "tipo": "tecnica",
-        "minutos": 10,
-        "actividad": "Respiraciones: inhala en los silencios, nunca a mitad de la nota."
-      },
-      {
-        "tipo": "oido",
-        "minutos": 12,
-        "actividad": "Toca de oído en la flauta frases simples con esas 3 notas."
+        "tipo": "clase",
+        "minutos": 45,
+        "actividad": "Si hoy tienes clase, esa es la sesión: lleva la flauta para que la revise (sellado, ajuste y afinación), haz las preguntas de docs/plan.md y toma notas de todo lo que te corrija. Si no hay clase: Notas largas Si-La-Sol; Inventa y lee melodías con Si-La-Sol con metrónomo a 60; Respiraciones: inhala en los silencios, nunca a mitad de la nota; Toca de oído en la flauta frases simples con esas 3 notas."
       }
     ],
-    "logrosPosibles": [],
-    "notas": "Sopla en bloques de 3 a 5 min con descansos. Si te mareas, para y respira normal; si te duelen los labios, termina la parte de soplar."
+    "logrosPosibles": [
+      "logro-primera-clase",
+      "logro-flauta-revisada"
+    ],
+    "notas": "Si el maestro te da otras indicaciones, lo que él diga manda sobre el plan. Si la clase cae otro día de esta semana o la siguiente, cambia esa sesión por la clase. Sopla en bloques de 3 a 5 min con descansos."
   },
   {
     "id": "dia-34",
@@ -1097,7 +1089,7 @@
       }
     ],
     "logrosPosibles": [],
-    "notas": "Sopla en bloques de 3 a 5 min con descansos. Si te mareas, para y respira normal; si te duelen los labios, termina la parte de soplar."
+    "notas": "Si ya tuviste la primera clase, aplica hoy lo que te dijo el maestro. Sopla en bloques de 3 a 5 min con descansos. Si te mareas, para y respira normal; si te duelen los labios, termina la parte de soplar."
   },
   {
     "id": "dia-37",
@@ -1647,7 +1639,7 @@
       {
         "tipo": "grabacion",
         "minutos": 15,
-        "actividad": "Prueba de video con la R50."
+        "actividad": "Prueba de video: graba una toma corta y escúchala."
       }
     ],
     "logrosPosibles": []

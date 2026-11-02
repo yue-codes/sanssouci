@@ -5,6 +5,7 @@
  * es de EJEMPLO hasta que exista el login (fase 4).
  */
 import Base from "../layouts/Base.astro";
+import PestanasMuestra from "../components/ui/PestanasMuestra.astro";
 import SesionDeHoy from "../components/islas/SesionDeHoy";
 import TarjetaZona from "../components/ui/TarjetaZona.astro";
 import TarjetaJefe from "../components/ui/TarjetaJefe.astro";
@@ -40,9 +41,7 @@ const paleta = ["fondo", "superficie", "superficie-2", "borde", "tenue", "texto"
 ---
 
 <Base titulo="Muestra de diseño">
-  <p class="mb-8 rounded-xl border border-dashed border-oro/50 bg-oro-suave/40 px-4 py-3 text-sm">
-    <strong>Página de muestra.</strong> El contenido es real (tus JSON); el progreso es de ejemplo hasta que exista el login.
-  </p>
+  <PestanasMuestra />
 
   <!-- ============ HERO ============ -->
   <section class="relative">

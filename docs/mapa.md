@@ -456,7 +456,7 @@ Jefe final. Tema y variaciones de Paganini, en la versión de Jasmine Choi.
 | Constancia | 4 semanas seguidas con al menos 4 de 5 sesiones. | Pradera del Silencio | Primera semana |
 | Bitácora | 20 sesiones registradas con minutos y notas. | Pradera del Silencio | — |
 | Los 90 días | Al menos 58 de las 65 sesiones del plan completadas (≈ 90 %). | Aldea de las Melodías | Constancia |
-| Maestro encontrado | Primera clase tomada y apuntes guardados. | Pradera del Silencio | — |
+| Maestro encontrado | Primera clase tomada y apuntes guardados. | Valle del Primer Aliento | — |
 | Flauta revisada | Sellado, ajuste y afinación revisados por tu maestro. | Valle del Primer Aliento | Maestro encontrado |
 
 ### Grabacion
@@ -465,7 +465,6 @@ Jefe final. Tema y variaciones de Paganini, en la versión de Jasmine Choi.
 |---|---|---|---|
 | Luces, cámara… | Un video completo grabado (publicarlo es opcional). | Pradera del Silencio | — |
 | Estreno | Video publicado en la red que elijas. | Aldea de las Melodías | Luces, cámara… |
-| Buen audio | Un video con audio de micrófono externo bien nivelado (sin saturar). | Ciudad del Ritmo | Luces, cámara… |
 
 ### Repertorio
 

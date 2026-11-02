@@ -2574,6 +2574,40 @@
     "compositor": "Joe Hisaishi"
   },
   {
+    "id": "arriettys-song",
+    "titulo": "Arrietty's Song",
+    "obra": "The Secret World of Arrietty",
+    "compositor": "Cécile Corbel y Simon Caby",
+    "categoria": "ghibli",
+    "ruta": "ghibli",
+    "dificultad": 3,
+    "nivel": "nivel-3",
+    "tecnicas": [
+      "logro-dos-octavas",
+      "logro-legato"
+    ],
+    "requiere": [
+      "logro-segunda-octava",
+      "logro-escala-sol-mayor",
+      "logro-ritmo-puntillo"
+    ],
+    "notas": "Dificultad estimada sin ver la partitura completa: melodía cantable que sube a la segunda octava. Revísala al abrir la partitura; si el arreglo pide más, súbela.",
+    "versiones": [
+      {
+        "youtubeId": "OSrnIgKexPU",
+        "tituloVideo": "Flute cover - Arrietty's Song",
+        "canal": "Yayoi FLUTE",
+        "duracionSeg": 397,
+        "usos": [
+          "partitura",
+          "acompanamiento"
+        ],
+        "instrumentacion": "flauta y pista",
+        "nota": "Partitura en pantalla; pista para tocar encima desde el 3:14."
+      }
+    ]
+  },
+  {
     "id": "akuma-no-ko",
     "titulo": "Akuma no Ko",
     "obra": "Attack on Titan (Final Season ED)",

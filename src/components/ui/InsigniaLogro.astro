@@ -1,5 +1,5 @@
 ---
-import { BookOpen, Brain, Wind, Waves, Hand, Music, Ear, Flame, Video, Library } from "lucide-preact";
+import { ICONO_CATEGORIA } from "./categorias";
 import type { Logro } from "../../lib/contenido";
 
 interface Props {
@@ -8,12 +8,7 @@ interface Props {
 }
 const { logro, obtenido = false } = Astro.props;
 const l = logro.data;
-// Un icono por categoría: si se añade una categoría al esquema, TypeScript avisará aquí.
-const ICONOS: Record<typeof l.categoria, typeof Wind> = {
-  lectura: BookOpen, teoria: Brain, respiracion: Wind, sonido: Waves, tecnica: Hand,
-  escalas: Music, oido: Ear, habito: Flame, grabacion: Video, repertorio: Library,
-};
-const Icono = ICONOS[l.categoria];
+const Icono = ICONO_CATEGORIA[l.categoria];
 ---
 
 <div data-obtenido={obtenido} class="group tarjeta flex items-start gap-3 p-4 data-[obtenido=false]:opacity-70">

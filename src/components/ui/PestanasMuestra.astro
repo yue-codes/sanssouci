@@ -1,0 +1,21 @@
+---
+/** Navegación entre las páginas de muestra de diseño. */
+const pestanas = [
+  { href: "/muestra", texto: "Original" },
+  { href: "/muestra/sendero", texto: "A · Sendero" },
+  { href: "/muestra/arbol", texto: "C · Árbol de talentos" },
+];
+const actual = Astro.url.pathname.replace(/\/$/, "");
+---
+
+<nav aria-label="Muestras de diseño" class="mb-8 flex flex-wrap items-center gap-2 rounded-xl border border-dashed border-oro/50 bg-oro-suave/40 p-2 text-sm">
+  <span class="px-2 font-semibold">Muestras:</span>
+  {pestanas.map((p) => (
+    <a
+      href={p.href}
+      aria-current={actual === p.href ? "page" : undefined}
+      class="rounded-lg px-3 py-1.5 text-tenue hover:bg-superficie hover:text-texto aria-[current=page]:bg-superficie aria-[current=page]:font-semibold aria-[current=page]:text-texto"
+    >{p.texto}</a>
+  ))}
+  <span class="px-2 text-xs text-tenue">Contenido real · progreso de ejemplo</span>
+</nav>
