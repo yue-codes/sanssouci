@@ -1,0 +1,127 @@
+---
+/**
+ * Página /jefes/[id]: detalle de un jefe.
+ * Video de referencia, condiciones de victoria, requisitos, día del plan (si cae
+ * dentro de los 90 días) y las demás versiones de la canción.
+ * En la fase 4, aquí se registrará la victoria con el enlace al video.
+ */
+import { getCollection } from "astro:content";
+import { Swords, Crown, CalendarDays, Check } from "lucide-preact";
+import Base from "@/layouts/Base.astro";
+import Aviso from "@/components/ui/Aviso.astro";
+import MigasDePan from "@/components/ui/MigasDePan.astro";
+import EncabezadoSeccion from "@/components/ui/EncabezadoSeccion.astro";
+import NavegacionVecinos from "@/components/ui/NavegacionVecinos.astro";
+import ReproductorYoutube from "@/components/ui/ReproductorYoutube.astro";
+import ChipLogro from "@/components/logros/ChipLogro.astro";
+import CondicionesVictoria from "@/components/jefes/CondicionesVictoria.astro";
+import ListaVersiones from "@/components/canciones/ListaVersiones.astro";
+import ChipRuta from "@/components/canciones/ChipRuta.astro";
+import Dificultad from "@/components/canciones/Dificultad.astro";
+import { cargarContenido } from "@/lib/contenido";
+import { logrosConEstado } from "@/lib/logros";
+import { diaDelJefe, jefesEnOrden } from "@/lib/jefes";
+import { estaDesbloqueado } from "@/lib/progreso";
+import { fechaLarga } from "@/lib/fechas";
+import { PROGRESO_EJEMPLO } from "@/lib/ejemplo";
+
+export async function getStaticPaths() {
+  const jefes = await getCollection("jefes");
+  return jefes.map((j) => ({ params: { id: j.id } }));
+}
+
+const { id } = Astro.params;
+const c = await cargarContenido();
+const jefes = jefesEnOrden(c);
+const i = jefes.findIndex((j) => j.id === id);
+const jefe = jefes[i];
+const j = jefe.data;
+const nivel = c.nivelPorId.get(j.nivel.id)!;
+const cancion = c.cancionPorId.get(j.cancion.id)!;
+const ruta = c.rutaPorId.get(cancion.data.ruta.id)!;
+const dia = diaDelJefe(c, id);
+
+const requisitos = logrosConEstado(c, j.requiere.map((r) => r.id), PROGRESO_EJEMPLO.obtenidos);
+const vencido = PROGRESO_EJEMPLO.jefesVencidos.has(id);
+const listo = estaDesbloqueado(j.requiere.map((r) => r.id), PROGRESO_EJEMPLO.obtenidos);
+
+// Versión de referencia: la que indica el jefe o, si no, la primera.
+const referencia = cancion.data.versiones.find((v) => v.youtubeId === j.version) ?? cancion.data.versiones[0];
+const otrasVersiones = cancion.data.versiones.filter((v) => v !== referencia);
+
+const Icono = j.final ? Crown : Swords;
+const vecino = (x?: (typeof jefes)[number]) =>
+  x && { href: `/jefes/${x.id}`, etiqueta: `Zona ${c.nivelPorId.get(x.data.nivel.id)!.data.orden}`, titulo: x.data.nombre };
+---
+
+<Base titulo={`Jefe: ${j.nombre}`} descripcion={j.descripcion}>
+  <MigasDePan items={[
+    { texto: "Mapa", href: "/mapa" },
+    { texto: `Zona ${nivel.data.orden}`, href: `/niveles/${nivel.id}` },
+    { texto: j.nombre },
+  ]} />
+
+  <!-- ============ CABECERA ============ -->
+  <header class="max-w-3xl">
+    <p class="eyebrow flex items-center gap-2 text-peligro"><Icono size={14} aria-hidden="true" /> {j.final ? "Jefe final" : "Jefe"} · Zona {nivel.data.orden}</p>
+    <h1 class="mt-3 text-4xl font-semibold leading-tight sm:text-6xl">{j.nombre}</h1>
+    <p class="mt-3 text-lg text-tenue">
+      {cancion.data.titulo} · {cancion.data.obra}{cancion.data.compositor && ` · ${cancion.data.compositor}`}
+    </p>
+    <div class="mt-4 flex flex-wrap items-center gap-3">
+      <ChipRuta ruta={ruta} />
+      <Dificultad valor={cancion.data.dificultad} />
+    </div>
+    <p class="mt-5 leading-relaxed">{j.descripcion}</p>
+  </header>
+
+  <!-- ============ ESTADO Y FECHA ============ -->
+  <div class="mt-6 flex flex-wrap gap-3 text-sm">
+    <span class:list={[
+      "inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-semibold",
+      vencido ? "bg-acento text-fondo" : listo ? "bg-resalte text-fondo" : "bg-superficie-2 text-tenue",
+    ]}>
+      {vencido && <Check size={14} aria-hidden="true" />}
+      {vencido ? "Vencido" : listo ? "Listo para enfrentarlo" : "Aún te faltan requisitos"}
+    </span>
+    {dia && (
+      <a href={`/dias/${dia.data.numero}`} class="inline-flex items-center gap-1.5 rounded-full border border-borde px-3 py-1 hover:bg-superficie-2">
+        <CalendarDays size={14} aria-hidden="true" /> Día {dia.data.numero} del plan · {fechaLarga(dia.data.fecha)}
+      </a>
+    )}
+  </div>
+
+  <Aviso class="mt-6">El progreso es de ejemplo hasta que exista el inicio de sesión. Aquí podrás registrar tu victoria con el enlace a tu video.</Aviso>
+
+  <!-- ============ VIDEO + CONDICIONES ============ -->
+  <section class="mt-10 grid gap-6 lg:grid-cols-[1.4fr_1fr] lg:items-start" aria-label="La batalla">
+    <div>
+      <ReproductorYoutube youtubeId={referencia.youtubeId} titulo={`${referencia.tituloVideo} (${referencia.canal})`} />
+      <p class="mt-2 text-xs text-tenue">Versión de referencia: {referencia.canal} · {referencia.instrumentacion}</p>
+    </div>
+    <div class="tarjeta p-5">
+      <CondicionesVictoria condicion={j.condicionVictoria} nivelTitulo="h2" />
+      {j.notas && <p class="mt-4 border-t border-borde pt-3 text-sm text-tenue">💡 {j.notas}</p>}
+    </div>
+  </section>
+
+  <!-- ============ REQUISITOS ============ -->
+  {requisitos.length > 0 && (
+    <section class="mt-12" aria-labelledby="requisitos">
+      <EncabezadoSeccion id="requisitos" eyebrow="Antes de la batalla" titulo="Lo que necesitas" enlace={{ href: "/arbol", texto: "Ver en el árbol" }} />
+      <div class="flex flex-wrap gap-2">
+        {requisitos.map((r) => <ChipLogro logro={r.logro} estado={r.estado} />)}
+      </div>
+    </section>
+  )}
+
+  <!-- ============ OTRAS VERSIONES ============ -->
+  {otrasVersiones.length > 0 && (
+    <section class="mt-12" aria-labelledby="versiones">
+      <EncabezadoSeccion id="versiones" eyebrow={cancion.data.titulo} titulo="Otras versiones" enlace={{ href: `/canciones/${cancion.id}`, texto: "Ficha de la canción" }} />
+      <ListaVersiones versiones={otrasVersiones} />
+    </section>
+  )}
+
+  <NavegacionVecinos anterior={vecino(jefes[i - 1])} siguiente={vecino(jefes[i + 1])} />
+</Base>

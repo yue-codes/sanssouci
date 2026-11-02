@@ -1,0 +1,44 @@
+---
+/**
+ * @component NavegacionVecinos
+ * Enlaces «anterior» y «siguiente» al pie de una página de detalle
+ * (zona anterior y siguiente, jefe anterior y siguiente…).
+ */
+import { ArrowLeft, ArrowRight } from "lucide-preact";
+
+/** Un vecino: a dónde lleva y qué se muestra. */
+interface Vecino {
+  href: string;
+  /** Texto pequeño, p. ej. «Zona 3». */
+  etiqueta: string;
+  /** Texto principal, p. ej. el nombre de la zona. */
+  titulo: string;
+}
+
+interface Props {
+  anterior?: Vecino;
+  siguiente?: Vecino;
+}
+const { anterior, siguiente } = Astro.props;
+---
+
+<nav aria-label="Anterior y siguiente" class="mt-16 grid gap-3 border-t border-borde pt-6 sm:grid-cols-2">
+  {anterior ? (
+    <a href={anterior.href} class="tarjeta group flex items-center gap-3 p-4 transition hover:border-acento/50">
+      <ArrowLeft size={18} class="shrink-0 text-tenue transition group-hover:-translate-x-1" aria-hidden="true" />
+      <span>
+        <span class="block text-xs text-tenue">Anterior · {anterior.etiqueta}</span>
+        <span class="font-semibold">{anterior.titulo}</span>
+      </span>
+    </a>
+  ) : <span />}
+  {siguiente && (
+    <a href={siguiente.href} class="tarjeta group flex items-center justify-end gap-3 p-4 text-right transition hover:border-acento/50 sm:col-start-2">
+      <span>
+        <span class="block text-xs text-tenue">Siguiente · {siguiente.etiqueta}</span>
+        <span class="font-semibold">{siguiente.titulo}</span>
+      </span>
+      <ArrowRight size={18} class="shrink-0 text-tenue transition group-hover:translate-x-1" aria-hidden="true" />
+    </a>
+  )}
+</nav>

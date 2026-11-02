@@ -14,14 +14,19 @@ src/
 │   ├── fechas.ts      utilidades de fechas (puras)
 │   ├── progreso.ts    reglas del progreso: Progreso, estadoLogro, ordenZonaActual… (puras)
 │   ├── mapa.ts        datos del sendero: construirSendero, siguientePaso
+│   ├── logros.ts      logrosConEstado (logros + su estado para el jugador)
+│   ├── jefes.ts       jefesEnOrden, diaDelJefe
+│   ├── formato.ts     formato para mostrar: duracion (pura)
 │   ├── arbol.ts       nodos y disposición del árbol: construirNodosArbol, posicionarArbol
 │   └── ejemplo.ts     PROGRESO_EJEMPLO, inventado (temporal, hasta la fase 4)
 ├── components/      Componentes agrupados por DOMINIO (de qué tratan):
 │   ├── layout/        Cabecera, PiePagina
-│   ├── ui/            genéricos, sin conocer el juego (AnilloProgreso, Aviso)
+│   ├── ui/            genéricos, sin conocer el juego: AnilloProgreso, Aviso, MigasDePan,
+│   │                  EncabezadoSeccion, NavegacionVecinos, ReproductorYoutube
 │   ├── mapa/          Sendero → TramoSendero + ParadaZona + PuertaJefe; ResumenZona; TarjetaZona
-│   ├── jefes/
-│   ├── canciones/     TarjetaCancion, ChipRuta, Dificultad
+│   ├── niveles/       TemarioZona
+│   ├── jefes/         TarjetaJefe, CondicionesVictoria
+│   ├── canciones/     TarjetaCancion, ChipRuta, Dificultad, ListaVersiones, usos.ts
 │   ├── logros/        InsigniaLogro, ChipLogro, categorias.ts
 │   │   └── arbol/       isla ArbolTalentos y sus piezas (LienzoArbol, ListaRama,
 │   │                    PestanasRamas, DetalleTalento, Hexagono, estilos.ts)
@@ -100,3 +105,7 @@ src/
 ## Separar datos y presentación
 
 Una página no calcula: pide los datos ya preparados a `src/lib/` y se los pasa a los componentes. Por ejemplo, `/mapa` llama a `construirSendero(contenido, progreso)` y solo pinta el resultado. Ventajas: la lógica se puede probar sin interfaz, y en la fase 4 solo cambia de dónde sale `progreso`, no las páginas ni los componentes.
+
+## Páginas de detalle (`[id].astro`)
+
+Las rutas con corchetes son dinámicas: `src/pages/niveles/[id].astro` genera `/niveles/nivel-0`, `/niveles/nivel-1`… Como el sitio es estático, Astro necesita saber al compilar qué ids existen, y eso es lo que devuelve `getStaticPaths()`. Se genera desde la colección, así que una zona o un jefe nuevo en los JSON tiene su página sin tocar código. Todas las páginas de detalle siguen el mismo esqueleto: `MigasDePan` → cabecera → secciones con `EncabezadoSeccion` → `NavegacionVecinos`.

@@ -5,14 +5,9 @@
  * Prepara todo lo que pinta la página /mapa para que los componentes solo
  * tengan que mostrarlo (separar datos de presentación).
  */
-import type { Cancion, Contenido, Jefe, Logro, Nivel } from "@/lib/contenido";
-import { estadoLogro, estadoZona, ordenZonaActual, type EstadoLogro, type EstadoZona, type Progreso } from "@/lib/progreso";
-
-/** Un requisito para pasar de zona, con su estado para el jugador. */
-export interface RequisitoZona {
-  logro: Logro;
-  estado: EstadoLogro;
-}
+import type { Cancion, Contenido, Jefe, Nivel } from "@/lib/contenido";
+import { logrosConEstado, type LogroConEstado } from "@/lib/logros";
+import { estadoZona, ordenZonaActual, type EstadoZona, type Progreso } from "@/lib/progreso";
 
 /** Un jefe de la zona, con su canción y si ya se venció. */
 export interface JefeZona {
@@ -27,7 +22,8 @@ export interface ParadaSendero {
   estado: EstadoZona;
   /** Más de una zona por delante de la actual: se muestra «en niebla», sin detalle. */
   lejana: boolean;
-  requisitos: RequisitoZona[];
+  /** Requisitos para pasar, con su estado. */
+  requisitos: LogroConEstado[];
   /** Cuántos requisitos están conseguidos. */
   hechos: number;
   /** Jefes de la zona (normalmente uno; la zona 8 tiene dos). */
@@ -48,10 +44,7 @@ export function construirSendero(c: Contenido, progreso: Progreso): ParadaSender
   );
 
   return c.niveles.map((nivel) => {
-    const requisitos = nivel.data.requisitosParaPasar.map(({ id }) => {
-      const logro = c.logroPorId.get(id)!;
-      return { logro, estado: estadoLogro(id, logro.data.requiere.map((r) => r.id), progreso.obtenidos) };
-    });
+    const requisitos = logrosConEstado(c, nivel.data.requisitosParaPasar.map((r) => r.id), progreso.obtenidos);
     return {
       nivel,
       estado: estadoZona(nivel.data.orden, actual),
@@ -71,6 +64,6 @@ export function construirSendero(c: Contenido, progreso: Progreso): ParadaSender
  * Primer requisito de la zona que ya se puede conseguir: el «siguiente paso».
  * @returns `undefined` si no queda ninguno disponible (todos conseguidos o bloqueados).
  */
-export function siguientePaso(parada: ParadaSendero): RequisitoZona | undefined {
+export function siguientePaso(parada: ParadaSendero): LogroConEstado | undefined {
   return parada.requisitos.find((r) => r.estado === "disponible");
 }

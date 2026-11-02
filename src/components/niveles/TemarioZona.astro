@@ -1,0 +1,43 @@
+---
+/**
+ * @component TemarioZona
+ * El temario serio de una zona, área por área (lectura, teoría, respiración…).
+ * Es lo que hay debajo del juego: el juego lo organiza, no lo sustituye.
+ */
+import { BookOpen, Brain, Wind, Waves, Music, NotebookPen, Library } from "lucide-preact";
+import type { Nivel } from "@/lib/contenido";
+
+type Temario = Nivel["data"]["temario"];
+
+interface Props {
+  /** Temario de la zona. */
+  temario: Temario;
+}
+const { temario } = Astro.props;
+
+/** Orden, nombre e icono de cada área. `Record` obliga a cubrirlas todas. */
+const AREAS: Record<keyof Temario, { nombre: string; Icono: typeof Wind }> = {
+  lectura: { nombre: "Lectura", Icono: BookOpen },
+  teoria: { nombre: "Teoría", Icono: Brain },
+  respiracion: { nombre: "Respiración", Icono: Wind },
+  sonido: { nombre: "Sonido", Icono: Waves },
+  escalas: { nombre: "Escalas", Icono: Music },
+  estudios: { nombre: "Estudios", Icono: NotebookPen },
+  repertorio: { nombre: "Repertorio", Icono: Library },
+};
+---
+
+<dl class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+  {(Object.keys(AREAS) as (keyof Temario)[]).map((area) => {
+    const { nombre, Icono } = AREAS[area];
+    return (
+      <div class="tarjeta p-4">
+        <dt class="flex items-center gap-2 text-sm font-semibold">
+          <span class="grid size-8 place-items-center rounded-lg bg-acento-suave text-acento"><Icono size={16} aria-hidden="true" /></span>
+          {nombre}
+        </dt>
+        <dd class="mt-2 text-sm leading-relaxed text-tenue">{temario[area]}</dd>
+      </div>
+    );
+  })}
+</dl>

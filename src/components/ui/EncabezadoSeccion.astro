@@ -1,0 +1,32 @@
+---
+/**
+ * @component EncabezadoSeccion
+ * Antetítulo + título de una sección, con un enlace opcional a la derecha
+ * («Ver todas →»). Mantiene igual todas las secciones de las páginas.
+ */
+import { ArrowRight } from "lucide-preact";
+
+interface Props {
+  /** Texto pequeño sobre el título. */
+  eyebrow?: string;
+  /** Título de la sección (se pinta como h2). */
+  titulo: string;
+  /** Id del título, para enlazarlo con `aria-labelledby` desde la sección. */
+  id?: string;
+  /** Enlace opcional a la derecha. */
+  enlace?: { href: string; texto: string };
+}
+const { eyebrow, titulo, id, enlace } = Astro.props;
+---
+
+<div class="mb-5 flex flex-wrap items-end justify-between gap-x-4 gap-y-2">
+  <div>
+    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+    <h2 id={id} class="mt-1.5 text-2xl font-semibold sm:text-3xl">{titulo}</h2>
+  </div>
+  {enlace && (
+    <a href={enlace.href} class="inline-flex items-center gap-1 text-sm font-medium text-acento hover:underline">
+      {enlace.texto} <ArrowRight size={14} aria-hidden="true" />
+    </a>
+  )}
+</div>

@@ -1,0 +1,29 @@
+---
+/**
+ * @component ReproductorYoutube
+ * Video de YouTube incrustado en 16:9. Usa el dominio «nocookie» y
+ * `loading="lazy"`, así no carga nada de YouTube hasta que el video se acerca
+ * a la pantalla.
+ */
+import { urlEmbedYoutube } from "@/lib/contenido";
+
+interface Props {
+  /** Id del video en YouTube. */
+  youtubeId: string;
+  /** Título accesible del iframe (lo anuncian los lectores de pantalla). */
+  titulo: string;
+}
+const { youtubeId, titulo } = Astro.props;
+---
+
+<div class="aspect-video overflow-hidden rounded-2xl border border-borde bg-superficie-2">
+  <iframe
+    src={urlEmbedYoutube(youtubeId)}
+    title={titulo}
+    loading="lazy"
+    allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    referrerpolicy="strict-origin-when-cross-origin"
+    allowfullscreen
+    class="size-full"
+  ></iframe>
+</div>

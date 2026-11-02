@@ -1,0 +1,35 @@
+---
+/**
+ * @component MigasDePan
+ * Ruta de navegación («Mapa › Zona 2 › Jefe»). El último elemento es la página
+ * actual: va sin enlace y con `aria-current="page"`.
+ *
+ * @example
+ * <MigasDePan items={[{ texto: "Mapa", href: "/mapa" }, { texto: "Zona 2" }]} />
+ */
+import { ChevronRight } from "lucide-preact";
+
+interface Props {
+  /** Elementos en orden; todos menos el último deberían llevar `href`. */
+  items: { texto: string; href?: string }[];
+}
+const { items } = Astro.props;
+---
+
+<nav aria-label="Ruta de navegación" class="mb-6 text-sm">
+  <ol class="flex flex-wrap items-center gap-1.5 text-tenue">
+    {items.map((item, i) => {
+      const ultimo = i === items.length - 1;
+      return (
+        <li class="flex items-center gap-1.5">
+          {item.href && !ultimo ? (
+            <a href={item.href} class="hover:text-texto hover:underline">{item.texto}</a>
+          ) : (
+            <span aria-current={ultimo ? "page" : undefined} class:list={{ "font-medium text-texto": ultimo }}>{item.texto}</span>
+          )}
+          {!ultimo && <ChevronRight size={14} aria-hidden="true" />}
+        </li>
+      );
+    })}
+  </ol>
+</nav>

@@ -1,10 +1,12 @@
 ---
 /**
  * @component TarjetaJefe
- * Tarjeta destacada de un jefe: canción, condiciones de victoria y cuenta atrás.
- * De fondo usa la miniatura de la versión de referencia, muy atenuada.
+ * Tarjeta destacada de un jefe: canción, descripción, condiciones de victoria y,
+ * si se indica, cuenta atrás. De fondo usa la miniatura de la versión de
+ * referencia, muy atenuada. El nombre lleva a la página del jefe.
  */
-import { Swords, Video, Crown } from "lucide-preact";
+import { Swords, Video, Crown, ArrowRight } from "lucide-preact";
+import CondicionesVictoria from "./CondicionesVictoria.astro";
 import type { Jefe, Cancion } from "@/lib/contenido";
 import { miniaturaYoutube } from "@/lib/contenido";
 
@@ -13,46 +15,44 @@ interface Props {
   jefe: Jefe;
   /** Canción del jefe (se pasa aparte para no volver a buscarla). */
   cancion: Cancion;
+  /** Antetítulo. Por defecto, «Jefe» o «Jefe final». */
+  etiqueta?: string;
   /** Si se indica, muestra «En N días». */
   diasRestantes?: number;
 }
 const { jefe, cancion, diasRestantes } = Astro.props;
 const j = jefe.data;
 const Icono = j.final ? Crown : Swords;
+const etiqueta = Astro.props.etiqueta ?? (j.final ? "Jefe final" : "Jefe");
 ---
 
 <article class="relative overflow-hidden rounded-3xl border border-acento/40 bg-superficie">
-  <!-- Miniatura de la versión de referencia como fondo, muy oscurecida -->
   {j.version && (
-    <img src={miniaturaYoutube(j.version)} alt="" loading="lazy" class="absolute inset-0 size-full object-cover opacity-25 blur-[2px] scale-110" />
+    <img src={miniaturaYoutube(j.version)} alt="" loading="lazy" class="absolute inset-0 size-full scale-110 object-cover opacity-25 blur-[2px]" />
   )}
   <div class="absolute inset-0 bg-gradient-to-br from-superficie via-superficie/90 to-acento-suave/60"></div>
   <div class="relative grid gap-6 p-6 sm:p-8 md:grid-cols-[1.2fr_1fr]">
     <div>
-      <p class="eyebrow flex items-center gap-2"><Icono size={14} aria-hidden="true" /> {j.final ? "Jefe final" : "Próximo jefe"}</p>
-      <h3 class="mt-3 text-3xl font-semibold sm:text-4xl">{j.nombre}</h3>
+      <p class="eyebrow flex items-center gap-2"><Icono size={14} aria-hidden="true" /> {etiqueta}</p>
+      <h3 class="mt-3 text-3xl font-semibold sm:text-4xl">
+        <a href={`/jefes/${jefe.id}`} class="hover:underline">{j.nombre}</a>
+      </h3>
       <p class="mt-2 text-tenue">{cancion.data.titulo} · {cancion.data.obra}</p>
       <p class="mt-4 max-w-prose leading-relaxed">{j.descripcion}</p>
       <div class="mt-6 flex flex-wrap gap-3 text-sm">
-        <span class="rounded-full border border-borde bg-superficie-2/70 px-3 py-1">⏱ {j.condicionVictoria.tempo}</span>
         <span class="inline-flex items-center gap-1.5 rounded-full border border-acento/50 bg-acento-suave/70 px-3 py-1 font-medium">
           <Video size={14} aria-hidden="true" /> Grabar es parte de la victoria
         </span>
         {diasRestantes !== undefined && (
           <span class="rounded-full bg-acento px-3 py-1 font-semibold text-fondo">En {diasRestantes} días</span>
         )}
+        <a href={`/jefes/${jefe.id}`} class="inline-flex items-center gap-1 px-1 py-1 font-medium text-acento hover:underline">
+          Ver el jefe <ArrowRight size={14} aria-hidden="true" />
+        </a>
       </div>
     </div>
     <div class="rounded-2xl border border-borde bg-fondo/50 p-5">
-      <p class="text-sm font-semibold">Condiciones de victoria</p>
-      <ul class="mt-3 grid gap-2.5 text-sm">
-        {j.condicionVictoria.criterios.map((c) => (
-          <li class="flex gap-2.5">
-            <span class="mt-1 size-4 shrink-0 rounded border-2 border-acento/70" aria-hidden="true"></span>
-            <span class="leading-relaxed">{c}</span>
-          </li>
-        ))}
-      </ul>
+      <CondicionesVictoria condicion={j.condicionVictoria} />
       {j.notas && <p class="mt-4 border-t border-borde pt-3 text-xs text-tenue">{j.notas}</p>}
     </div>
   </div>
