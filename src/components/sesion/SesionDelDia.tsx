@@ -1,10 +1,11 @@
 import { useComputed, useSignal } from "@preact/signals";
 import { Check } from "lucide-preact";
 import AnilloProgreso from "@/components/ui/AnilloProgreso";
+import { TIPO_BLOQUE, type TipoBloque } from "./bloques";
 
 /** Un bloque de la sesión (mismo formato que en dias.json). */
 export interface Bloque {
-  tipo: string;
+  tipo: TipoBloque;
   minutos: number;
   actividad: string;
   recurso?: string;
@@ -16,13 +17,14 @@ interface Props {
 }
 
 /**
- * @component SesionDeHoy (isla: `client:visible`)
- * Lista de bloques de la sesión con progreso en vivo.
+ * @component SesionDelDia (isla: `client:visible`)
+ * Lista de bloques de una sesión con progreso en vivo: marcas cada bloque al
+ * terminarlo y el anillo suma los minutos.
  * Usa signals: al marcar un bloque, solo se vuelve a pintar lo que depende de ese dato
  * (el anillo y los minutos), sin re-renderizar toda la lista.
  * En la fase 4, `hechos` se guardará en Supabase; ahora es solo de demostración.
  */
-export default function SesionDeHoy({ bloques }: Props) {
+export default function SesionDelDia({ bloques }: Props) {
   const hechos = useSignal<Set<number>>(new Set());
   const total = bloques.reduce((s, b) => s + b.minutos, 0);
   const minutosHechos = useComputed(() => bloques.reduce((s, b, i) => (hechos.value.has(i) ? s + b.minutos : s), 0));
@@ -45,6 +47,7 @@ export default function SesionDeHoy({ bloques }: Props) {
       <ol class="grid gap-2">
         {bloques.map((b, i) => {
           const hecho = hechos.value.has(i);
+          const { nombre, Icono } = TIPO_BLOQUE[b.tipo];
           return (
             <li key={i}>
               <button
@@ -63,7 +66,9 @@ export default function SesionDeHoy({ bloques }: Props) {
                 </span>
                 <span class="min-w-0 flex-1">
                   <span class="flex flex-wrap items-baseline gap-x-2">
-                    <span class="text-xs font-semibold uppercase tracking-wider text-acento">{b.tipo}</span>
+                    <span class="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-acento">
+                      <Icono size={13} aria-hidden="true" /> {nombre}
+                    </span>
                     <span class="text-xs text-tenue">{b.minutos} min</span>
                   </span>
                   <span class={`mt-1 block text-sm leading-relaxed ${hecho ? "text-tenue line-through decoration-exito/60" : ""}`}>

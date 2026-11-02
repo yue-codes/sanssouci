@@ -11,20 +11,25 @@ import { file } from "astro/loaders";
 import { z } from "astro/zod";
 
 // --- Enumeraciones compartidas (una sola fuente de verdad para los valores válidos)
+
+/** Categorías de un logro (cada una es una rama del árbol de habilidades). */
 export const CATEGORIAS_LOGRO = [
   "lectura", "teoria", "respiracion", "sonido", "tecnica",
   "escalas", "oido", "habito", "grabacion", "repertorio",
 ] as const;
 
+/** Categorías de una canción (cada una se asigna a una ruta: ver docs/clasificar-cancion.md). */
 export const CATEGORIAS_CANCION = [
   "clasica", "ghibli", "videojuegos", "anime", "vocaloid",
   "jpop", "folk", "latino", "cine-tv", "pop",
 ] as const;
 
+/** Para qué sirve una versión de YouTube de una obra. */
 export const USOS_VERSION = [
   "partitura", "referencia", "de-oido", "acompanamiento", "tutorial", "clip",
 ] as const;
 
+/** Tipos de bloque de una sesión del plan. */
 export const TIPOS_BLOQUE = [
   "calentamiento", "respiracion", "lectura", "teoria", "ritmo", "oido", "guitarra",
   "escucha", "sonido", "tecnica", "escalas", "estudios", "repertorio",
@@ -160,4 +165,5 @@ const dias = defineCollection({
   }),
 });
 
+/** Colecciones que Astro registra (los nombres son los de `getCollection("…")`). */
 export const collections = { rutas, logros, niveles, jefes, canciones, extras, dias };

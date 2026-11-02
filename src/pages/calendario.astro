@@ -1,0 +1,81 @@
+---
+/**
+ * Página /calendario: los 90 días del plan en 13 semanas, de lunes a domingo.
+ * «Hoy» es la fecha del build mientras el sitio sea estático (en la fase 4 se
+ * calculará en cada visita).
+ */
+import { ArrowRight, Moon } from "lucide-preact";
+import Base from "@/layouts/Base.astro";
+import SemanaCalendario from "@/components/calendario/SemanaCalendario.astro";
+import { HITO } from "@/components/calendario/hitos";
+import { cargarContenido } from "@/lib/contenido";
+import { semanasDelPlan, primerDiaConFlauta, minutosDelDia, type Hito } from "@/lib/calendario";
+import { diaDelPlan, fechaLarga } from "@/lib/fechas";
+
+const c = await cargarContenido();
+const dias = [...c.dias].sort((a, b) => a.data.numero - b.data.numero);
+const semanas = semanasDelPlan(dias);
+const diaFlauta = primerDiaConFlauta(dias);
+const hoy = diaDelPlan(new Date(), dias[0].data.fecha);
+
+// La próxima sesión desde hoy (si hoy es descanso, la siguiente).
+const proxima = dias.find((d) => d.data.numero >= Math.max(1, hoy) && d.data.tipo !== "descanso");
+const sesiones = dias.filter((d) => d.data.tipo !== "descanso");
+const horas = Math.round(sesiones.reduce((s, d) => s + minutosDelDia(d), 0) / 60);
+
+const estadisticas = [
+  { valor: sesiones.length, texto: "sesiones" },
+  { valor: horas, texto: "horas de práctica" },
+  { valor: dias.filter((d) => d.data.jefe).length, texto: "jefes" },
+];
+---
+
+<Base titulo="Calendario" descripcion="Los 90 días del plan, del 2 de noviembre de 2026 al 30 de enero de 2027.">
+  <header class="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-end">
+    <div class="max-w-2xl">
+      <p class="eyebrow">90 días · 2 nov 2026 → 30 ene 2027</p>
+      <h1 class="mt-3 text-4xl font-semibold leading-tight sm:text-6xl">Calendario</h1>
+      <p class="mt-4 text-lg leading-relaxed text-tenue">
+        Práctica de lunes a sábado salvo el jueves, de 8 a 10 pm, en sesiones de 45 a 60 minutos.
+        Jueves y domingo, descanso.
+      </p>
+    </div>
+    <dl class="flex gap-6">
+      {estadisticas.map((e) => (
+        <div>
+          <dd class="font-display text-4xl font-semibold leading-none">{e.valor}</dd>
+          <dt class="mt-1 text-xs text-tenue">{e.texto}</dt>
+        </div>
+      ))}
+    </dl>
+  </header>
+
+  {proxima && (
+    <a href={`/dias/${proxima.data.numero}`} class="tarjeta group mt-8 flex flex-wrap items-center gap-4 border-acento/50 p-5 transition hover:border-acento">
+      <span class="grid size-14 shrink-0 place-items-center rounded-2xl bg-acento font-display text-2xl font-semibold text-fondo">{proxima.data.numero}</span>
+      <span class="min-w-0 flex-1">
+        <span class="eyebrow block">{proxima.data.numero === hoy ? "Hoy" : "Próxima sesión"} · {fechaLarga(proxima.data.fecha)}</span>
+        <span class="mt-1 block text-xl font-semibold">{proxima.data.titulo}</span>
+        <span class="text-sm text-tenue">{proxima.data.objetivo}</span>
+      </span>
+      <ArrowRight size={20} class="text-acento transition group-hover:translate-x-1" aria-hidden="true" />
+    </a>
+  )}
+
+  <!-- Leyenda -->
+  <ul class="mt-8 flex flex-wrap gap-x-5 gap-y-2 text-xs text-tenue" aria-label="Leyenda">
+    {(Object.keys(HITO) as Hito[]).map((h) => {
+      const { nombre, Icono, clase } = HITO[h];
+      return <li class="flex items-center gap-1.5"><Icono size={14} class={clase} aria-hidden="true" /> {nombre}</li>;
+    })}
+    <li class="flex items-center gap-1.5"><Moon size={14} aria-hidden="true" /> Descanso</li>
+  </ul>
+
+  <div class="mt-8 grid gap-10">
+    {semanas.map((s) => <SemanaCalendario semana={s} diaFlauta={diaFlauta} hoy={hoy} />)}
+  </div>
+
+  <p class="mt-10 text-sm text-tenue">
+    La llegada de la flauta (día {diaFlauta}) es una estimación. Si llega otro día, la fase con flauta empieza cuando llegue.
+  </p>
+</Base>

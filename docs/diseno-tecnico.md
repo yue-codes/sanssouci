@@ -1,5 +1,6 @@
 > Diseño técnico aprobado por el usuario el 1-nov-2026 (copia versionada del plan de Claude Code).
 > Estado de cada fase: ver la sección «Estado» de CLAUDE.md.
+> Las cifras del análisis inicial (181 videos, unas 125 obras) son las de ese momento. La arquitectura del código tal como está hoy se describe en `docs/arquitectura.md`; donde este documento y aquel difieran, manda `docs/arquitectura.md`.
 
 # Diseño: Camino del Flautista (contenido + datos + web)
 
@@ -135,7 +136,7 @@ Six Trillion Years se divide en dos obras: el cover normal (dificultad ≈ 7) y 
 ## 6. Documentos (`docs/`)
 
 - `docs/plan.md`, escrito a mano: el mapa del juego (sección 4), una nota corta sobre grabar (el equipo de grabación queda fuera del proyecto), la guía de la flauta JP FL-430 (revisión al recibirla) y las preguntas para la primera clase.
-- `docs/catalogo.md` y `docs/plan-90-dias.md` se **generan** con `scripts/generar-docs.mjs` a partir de los JSON (`pnpm docs`). Así hay una sola fuente de verdad: si cambias un dato, regeneras los documentos y no se desincronizan.
+- `docs/mapa.md`, `docs/catalogo.md` y `docs/plan-90-dias.md` se **generan** con `scripts/generar-docs.mjs` a partir de los JSON (`pnpm generar-docs`). Así hay una sola fuente de verdad: si cambias un dato, regeneras los documentos y no se desincronizan.
 - `docs/clasificar-cancion.md`: la plantilla y el criterio para que pidas «clasifícame esta nueva».
 
 ---
@@ -161,10 +162,7 @@ Six Trillion Years se divide en dos obras: el cover normal (dificultad ≈ 7) y 
 | `/perfil` | Datos de tu cuenta |
 
 - **Rendimiento:** las páginas de contenido se **prerenderizan**, porque son estáticas y muy rápidas. Las que muestran progreso se renderizan en el servidor. Un **middleware** comprueba la sesión y protege `/panel` y `/perfil`.
-- **Organización del código:**
-  - `src/lib/`: cliente de Supabase y funciones puras como `estaDesbloqueado(item, logrosObtenidos)`, `racha(dias)` y `nivelActual()`, separadas de la interfaz y reutilizables.
-  - `src/components/`: componentes Astro pequeños como `Tarjeta`, `Insignia` y `BarraProgreso`.
-  - `src/components/islas/`: componentes Preact interactivos como `MarcarDia`, `FiltroCanciones` y `RegistrarVictoria`.
+- **Organización del código:** ver `docs/arquitectura.md` (carpetas por dominio, funciones puras en `src/lib/`, islas de Preact indicadas en su cabecera). En la fase 4 se añadirán el cliente de Supabase en `src/lib/` y la función `racha(dias)`; `estaDesbloqueado` y `ordenZonaActual` (el «nivel actual») ya existen.
 
 **Tablas en Supabase** (todas con `user_id` y RLS `auth.uid() = user_id`):
 ```
@@ -178,7 +176,7 @@ estado_canciones(user_id, cancion_id, estado: pendiente|aprendiendo|dominada, ac
 - El esquema se guarda como migraciones SQL en `supabase/migrations/`, versionadas en git.
 - Las claves de Supabase van en `.env`, que no se sube a git, y en los secretos de Cloudflare.
 
-**Diseño visual:** estética de «mapa de aventura» sobria. Modo claro y oscuro, tipografía legible, buen contraste y foco visible para navegar con teclado, y un diseño que funciona primero en el móvil.
+**Diseño visual:** estética de «mapa de aventura» sobria. Aprobado en la fase 3: mapa como sendero + árbol de talentos estilo RPG, paleta «Bosque» (verde jade + ámbar) en `src/styles/tokens.css`. Modo claro y oscuro, tipografía legible, buen contraste y foco visible para navegar con teclado, y un diseño que funciona primero en el móvil.
 
 ---
 
@@ -186,7 +184,7 @@ estado_canciones(user_id, cancion_id, estado: pendiente|aprendiendo|dominada, ac
 
 1. **Datos:** `src/data/*.json`, `src/content.config.ts` y la instalación de `@astrojs/check`. Pausa para que revises la clasificación y me digas qué son las líneas 3, 86 y 155.
 2. **Documentos:** `docs/plan.md`, `scripts/generar-docs.mjs` y los `.md` generados; actualización de `CLAUDE.md` con las decisiones nuevas. Pausa.
-3. **Base de la web:** añadir Tailwind, Preact y el adaptador de Cloudflare; layout, navegación y las páginas de contenido sin login. Pausa.
+3. **Base de la web:** añadir Tailwind y Preact (el adaptador de Cloudflare se aplazó a cuando haga falta el modo servidor); layout, navegación y las páginas de contenido sin login. Pausa.
 4. **Login y progreso:** proyecto de Supabase (lo creas tú en su web; te guío paso a paso), migraciones, middleware y las islas para marcar progreso. Pausa.
 5. **Despliegue en Cloudflare Workers**, con una guía para ti.
 
@@ -197,6 +195,6 @@ Hago commits por fase solo si me los pides.
 - `pnpm astro check`: comprueba tipos y valida los esquemas. Detecta referencias rotas entre JSON.
 - `pnpm build`: compila todo el sitio, incluido el modo servidor de Cloudflare.
 - Un script de comprobación verifica que:
-  - los 181 videos de `canciones.txt` aparezcan exactamente una vez en `canciones.json` o `extras.json`;
+  - cada video de `canciones.txt` aparezca exactamente una vez en `canciones.json` o `extras.json`;
   - haya 90 días, 65 de práctica, con jueves y domingo como descanso y el 30-ene-2027 como día 90.
 - **No ejecuto `pnpm dev`.** Tú revisas la web en el navegador y me dices qué ves.

@@ -13,7 +13,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 |---|---|
 | 1. Datos (`src/data`, esquemas, `pnpm verificar`) | ✅ hecha (commit `a70629b`) |
 | 2. Documentos (`docs/`, `pnpm generar-docs`) | ✅ hecha (commit `5a31193`) |
-| 3. Base de la web (Tailwind, Preact, layout, páginas de contenido) | 🟡 **en curso**: el 2 nov 2026 el usuario **aprobó la dirección A + C**: `/mapa` como sendero (muestra en `src/pages/muestra/sendero.astro`) y un árbol de talentos estilo RPG en una página nueva `/arbol` (muestra en `src/pages/muestra/arbol.astro`, isla `ArbolTalentos`). Paso 0 hecho (alias `@/`, carpetas por dominio, paleta en `tokens.css`, código documentado, `docs/arquitectura.md`). **Paso 1 hecho:** `/mapa` (sendero) y `/arbol` (isla en piezas en `src/components/logros/arbol/`, con vista de celular por pestañas); se borraron las muestras A y C (queda `/muestra`, la original, hasta el cierre de la fase). **Paso 2 hecho:** `/niveles/[id]` y `/jefes/[id]` (con `getStaticPaths`). Siguiente (paso 3): `/calendario` y `/dias/[n]`. Después: `/canciones`, `/canciones/[id]`, `/logros` y la portada `/` (hoy `src/pages/index.astro` es la plantilla de Astro). El adaptador de Cloudflare aún no está instalado (se añade cuando haga falta el modo servidor). |
+| 3. Base de la web (Tailwind, Preact, layout, páginas de contenido) | 🟡 **en curso**. Dirección visual aprobada (A + C, paleta «Bosque»). Hechos: paso 0 (estructura, alias `@/`, tokens, documentación), paso 1 (`/mapa`, `/arbol`), paso 2 (`/niveles/[id]`, `/jefes/[id]`) y paso 3 (`/calendario`, `/dias/[n]`). **Siguiente (paso 4): `/canciones` y `/canciones/[id]`**; después `/logros`, la portada `/` (hoy `src/pages/index.astro` es la plantilla de Astro) y el cierre (borrar `/muestra`, revisar accesibilidad). `/panel` es de la fase 4. El adaptador de Cloudflare se instala cuando haga falta el modo servidor. |
 | 4. Login y progreso (Supabase, migraciones, middleware, islas que guardan) | ⏳ pendiente. El usuario crea el proyecto en Supabase; guíale paso a paso. |
 | 5. Despliegue en Cloudflare Workers | ⏳ pendiente |
 
@@ -23,11 +23,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Comandos (no existe linter ni tests):
   - `pnpm build`: compila; es la verificación principal.
   - `pnpm astro check`: tipos y validación de los esquemas del contenido (incluidas las referencias rotas entre JSON).
-  - `pnpm verificar`: reglas entre archivos que Zod no ve (los 181 videos aparecen una sola vez, 90 días, 65 sesiones de 45 a 60 min, jueves y domingo de descanso, jefe ↔ nivel).
+  - `pnpm verificar`: reglas entre archivos que Zod no ve (cada video de `canciones.txt` aparece una sola vez, 90 días, 65 sesiones de 45 a 60 min, jueves y domingo de descanso, jefe ↔ nivel).
   - `pnpm generar-docs`: regenera `docs/mapa.md`, `docs/catalogo.md` y `docs/plan-90-dias.md` desde `src/data`. **Ojo:** el script no se llama `docs` porque `pnpm docs` es un comando propio de pnpm.
 - Para editar `package.json` usa `pnpm pkg set …`, nunca `npm`.
 - **Conflicto con `AGENTS.md`:** ese archivo (generado por Astro) sugiere arrancar `astro dev --background`. **Ignóralo:** nunca arranques el servidor de desarrollo.
 - Ramas: se trabaja en `master`. Haz commits solo cuando el usuario lo pida.
+- **Shell de las herramientas:** zsh. Entrecomilla las rutas con corchetes (`"src/pages/dias/[n].astro"`), o zsh las toma como patrón y el comando falla.
 
 ### Arquitectura de datos (decidida)
 
@@ -76,13 +77,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ### 3.1 Plan y catálogo (hecho)
 - `docs/plan.md`: reglas del juego, cuidado del cuerpo, guía de la FL-430 con las preguntas para la primera clase, y libros.
 - `docs/mapa.md`, `docs/plan-90-dias.md` y `docs/catalogo.md`: generados desde `src/data`.
-- Catálogo: 123 obras a partir de los 181 videos de `canciones.txt` (metadatos sacados con `yt-dlp`). Lo que no es pieza para flauta traversa va en `extras.json`. Canciones nuevas: seguir `docs/clasificar-cancion.md`.
+- Catálogo: 124 obras a partir de los 182 videos de `canciones.txt` (cifras al 2 nov 2026; crecen al añadir canciones) (metadatos sacados con `yt-dlp`). Lo que no es pieza para flauta traversa va en `extras.json`. Canciones nuevas: seguir `docs/clasificar-cancion.md`.
 
 ### 3.2 La web (fases 3–5)
 - Decidido con el usuario: **Supabase** (login con enlace mágico y Google, Postgres con RLS), **Cloudflare Workers** (`@astrojs/cloudflare`, Astro en modo servidor) y **varios usuarios** (cada uno con su propio progreso).
 - **El rendimiento no es prioridad:** usa **Preact a fondo** (páginas interactivas como componentes completos) y `@preact/signals` para el estado compartido entre islas.
-- **Diseño:** el usuario quiere que impresione, con Tailwind (v4). **Antes de construir las páginas, enséñale una página de muestra con la dirección visual** (paleta, tipografía, tarjetas de zona y de jefe) y espera su aprobación.
-- Páginas previstas: `/`, `/entrar`, `/panel`, `/mapa`, `/arbol`, `/niveles/[id]`, `/jefes/[id]`, `/calendario`, `/dias/[n]`, `/logros`, `/canciones`, `/canciones/[id]` y `/perfil`. Middleware de sesión para las rutas privadas. Funciones puras (por ejemplo `estaDesbloqueado`, `racha`, `nivelActual`) en `src/lib/`.
+- **Diseño:** el usuario quiere que impresione, con Tailwind (v4). La dirección visual ya está aprobada (ver 3.3). Para cambios visuales grandes, enséñale antes una muestra y espera su aprobación.
+- Páginas previstas: `/`, `/entrar`, `/panel`, `/mapa`, `/arbol`, `/niveles/[id]`, `/jefes/[id]`, `/calendario`, `/dias/[n]`, `/logros`, `/canciones`, `/canciones/[id]` y `/perfil`. Middleware de sesión para las rutas privadas. Funciones puras en `src/lib/` (ya existen `estaDesbloqueado`, `estadoLogro` y `ordenZonaActual`; `racha` llegará con el progreso real en la fase 4).
 - Las claves de Supabase van en `.env` (fuera de git) y en los secretos de Cloudflare.
 
 ### 3.3 Arquitectura del frontend (fase 3, ya en el código)
@@ -90,12 +91,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 **Detalle completo y convenciones en `docs/arquitectura.md`** (estructura de carpetas, imports, tokens, documentación y nombres). Síguelo y actualízalo si cambia algo. Lo esencial:
 
 - **Instalado:** Tailwind v4 (plugin de Vite en `astro.config.mjs`, sin `tailwind.config`), `@astrojs/preact` (Preact 11), `@preact/signals`, `lucide-preact` (iconos) y fuentes de **Fontsource instaladas con `pnpm add`** (nunca Google Fonts): Fraunces (títulos), Inter (texto) y Pixelify Sans (solo títulos cortos del árbol, clase `font-pixel`).
-- **Carpetas por dominio:** `src/components/{layout,ui,mapa,jefes,canciones,logros,sesion,tema,muestra}`, lógica pura en `src/lib/`, configuración del sitio (nombre, navegación) en `src/config/sitio.ts`. Que un componente sea isla se decide al usarlo (`client:*`) y se indica en su cabecera.
+- **Carpetas por dominio:** `src/components/{layout,ui,mapa,niveles,jefes,canciones,logros,calendario,sesion,tema}`, lógica pura en `src/lib/`, configuración del sitio (nombre, navegación) en `src/config/sitio.ts`. Que un componente sea isla se decide al usarlo (`client:*`) y se indica en su cabecera.
 - **Imports con alias `@/`** (→ `src/`, en `tsconfig.json`). `./` solo dentro de la misma carpeta; nunca `../`.
 - **Paleta «Bosque»: verde jade + ámbar** (decidida el 2 nov 2026; se probaron moradas y otros contrastes —lila, cerezo, lima, cielo— y se descartaron). **Toda la paleta está en `src/styles/tokens.css`**: paleta → primitivos por papel (`--neutro-*`, `--marca-*`, `--apoyo-*`, `--calido-*`…) → semánticos con `light-dark(claro, oscuro)`.
 - **Tema:** `color-scheme: light dark` por defecto; el selector fija `data-theme` en `<html>` y lo guarda en `localStorage` (clave `tema`).
-- **Documentación del código:** cabecera `@file` / `@component` en cada archivo, JSDoc (`@param`, `@returns`, `@example`) en todo lo exportado y comentario en cada prop. Comentarios internos solo para el porqué.
-- **Funciones clave:** `cargarContenido()` en `src/lib/contenido.ts` (úsalo en vez de `getCollection` en cada página; tipo `Contenido`), `Progreso`, `estadoLogro`, `ordenZonaActual` y `estadoZona` en `src/lib/progreso.ts`, `construirSendero` / `siguientePaso` en `src/lib/mapa.ts`, `construirNodosArbol` en `src/lib/arbol.ts`, fechas en `src/lib/fechas.ts`. `PROGRESO_EJEMPLO` (`src/lib/ejemplo.ts`) es progreso inventado hasta la fase 4: las páginas reciben un `Progreso` y en la fase 4 solo cambia de dónde sale.
+- **Documentación del código:** cabecera `@file` / `@component` en cada archivo (en los `.tsx`, el JSDoc `@component` va justo encima de la función del componente), JSDoc (`@param`, `@returns`, `@example`) en todo lo exportado y comentario en cada prop. Comentarios internos solo para el porqué.
+- **Funciones clave:** `cargarContenido()` en `src/lib/contenido.ts` (úsalo en vez de `getCollection` en cada página; tipo `Contenido`), `Progreso`, `estadoLogro`, `ordenZonaActual` y `estadoZona` en `src/lib/progreso.ts`, `construirSendero` / `siguientePaso` en `src/lib/mapa.ts`, `construirNodosArbol` en `src/lib/arbol.ts`, `logrosConEstado` en `src/lib/logros.ts`, `jefesEnOrden` / `diaDelJefe` en `src/lib/jefes.ts`, `semanasDelPlan` / `hitosDelDia` en `src/lib/calendario.ts`, fechas en `src/lib/fechas.ts` y `duracion` en `src/lib/formato.ts`. `PROGRESO_EJEMPLO` (`src/lib/ejemplo.ts`) es progreso inventado hasta la fase 4: las páginas reciben un `Progreso` y en la fase 4 solo cambia de dónde sale.
 - **Dirección visual aprobada: A + C.** `/mapa` como sendero (zona → jefe como puerta → zona; lo cercano con detalle, lo lejano «en niebla») y `/arbol` como árbol de talentos estilo RPG (ramas = categorías de logro, líneas = `requiere`).
 - **Signals:** dentro de un componente usa `useSignal` y `useComputed`, no `signal` y `computed`.
 - **Detalle temporal:** las páginas son estáticas, así que «hoy» es la fecha del build. Con el modo servidor (fase 4) se calculará en cada visita.
@@ -117,7 +118,7 @@ Calentamiento (aire/sonido) → escalas y técnica → estudios → repertorio m
 ## 5. Fases de los primeros 90 días
 
 - **Semanas 1 a 4 (2 nov a ~29 nov), sin flauta:** test inicial de lectura de notas (con foco en agudas), lectura desde cero con metrónomo, teoría (escalas mayores, armaduras, intervalos, ritmo), respiración y soplido sostenido, tabla de digitaciones "al aire", oído y transcripción con la guitarra, escuchar flautistas (Galway, Pahud, Rampal). **Primera clase: cuando llegue la flauta** (antes se había previsto entre el 21 y el 26 de noviembre).
-- **Semanas 5 a 13 (≈ 30 nov a 30 ene), con flauta:** revisión de la flauta, sonido y embocadura (Trevor Wye, Practice Book vol. 1: Tono), primeras notas y escalas, primeras piezas fáciles de su lista (p. ej. Always With Me, Merry-Go-Round of Life, Tetris, Bella Ciao, Wellerman), **primer jefe** con grabación al final de los 90 días.
+- **Semanas 5 a 13 (≈ 30 nov a 30 ene), con flauta:** revisión de la flauta, sonido y embocadura (Trevor Wye, Practice Book vol. 1: Tono), primeras notas y escalas, primeras piezas fáciles de su lista (p. ej. Always With Me, Merry-Go-Round of Life, Tetris, Bella Ciao, Wellerman). **Tres jefes en los 90 días**, todos con grabación: jefe 0 (día 27, de oído y en guitarra), jefe 1 Wellerman (día 62) y jefe 2 Always With Me (día 90).
 - Ajustar la fecha real de llegada de la flauta cuando la sepa.
 - Libro más adelante: Taffanel & Gaubert.
 

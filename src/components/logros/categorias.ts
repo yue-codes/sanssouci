@@ -9,11 +9,13 @@ import type { CategoriaLogro } from "@/lib/contenido";
 
 export type { CategoriaLogro };
 
+/** Icono de cada categoría. */
 export const ICONO_CATEGORIA: Record<CategoriaLogro, typeof Wind> = {
   lectura: BookOpen, teoria: Brain, respiracion: Wind, sonido: Waves, tecnica: Hand,
   escalas: Music, oido: Ear, habito: Flame, grabacion: Video, repertorio: Library,
 };
 
+/** Nombre visible de cada categoría (con acentos). */
 export const NOMBRE_CATEGORIA: Record<CategoriaLogro, string> = {
   lectura: "Lectura", teoria: "Teoría", respiracion: "Respiración", sonido: "Sonido", tecnica: "Técnica",
   escalas: "Escalas", oido: "Oído", habito: "Hábitos", grabacion: "Grabación", repertorio: "Repertorio",

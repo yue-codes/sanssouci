@@ -48,3 +48,19 @@ export function diaDelPlan(hoy: Date, inicioIso: string): number {
 export function fechaLarga(iso: string): string {
   return parsearFecha(iso).toLocaleDateString("es-MX", { weekday: "long", day: "numeric", month: "long" });
 }
+
+/**
+ * Fecha corta, sin día de la semana.
+ * @example fechaCorta("2026-11-02") // → "2 nov"
+ */
+export function fechaCorta(iso: string): string {
+  return parsearFecha(iso).toLocaleDateString("es-MX", { day: "numeric", month: "short" }).replace(".", "");
+}
+
+/**
+ * Posición del día en una semana que empieza en lunes: 0 = lunes … 6 = domingo.
+ * (`Date.getDay()` empieza en domingo = 0; aquí se desplaza).
+ */
+export function indiceDiaSemana(iso: string): number {
+  return (parsearFecha(iso).getDay() + 6) % 7;
+}

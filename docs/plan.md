@@ -6,7 +6,7 @@ Este es el documento de entrada. Lo que cambia con frecuencia está en `src/data
 |---|---|
 | [mapa.md](mapa.md) | Las 9 zonas, sus jefes con las condiciones de victoria, el temario por zona y todos los logros |
 | [plan-90-dias.md](plan-90-dias.md) | Los 90 días, día por día, con fecha real (2 nov 2026 – 30 ene 2027) |
-| [catalogo.md](catalogo.md) | Las 123 obras de tu lista, por ruta y dificultad, con sus versiones |
+| [catalogo.md](catalogo.md) | Todas las obras de tu lista, por ruta y dificultad, con sus versiones |
 | [clasificar-cancion.md](clasificar-cancion.md) | Cómo clasificar una canción nueva |
 
 ---
