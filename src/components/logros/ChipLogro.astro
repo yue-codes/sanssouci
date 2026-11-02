@@ -2,6 +2,7 @@
 /**
  * @component ChipLogro
  * Logro en pequeño (nombre + estado), enlazado a su nodo en el árbol.
+ * Colores de la paleta: menta = conseguido, lavanda = disponible, gris = bloqueado.
  */
 import { Check, Sparkles, Lock } from "lucide-preact";
 import type { Logro } from "@/lib/contenido";
@@ -21,12 +22,12 @@ const texto = { conseguido: "conseguido", disponible: "disponible", bloqueado: "
 <a
   href={`/arbol#${logro.id}`}
   data-estado={estado}
-  class="inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs transition hover:bg-superficie-2
-         data-[estado=conseguido]:border-acento/50 data-[estado=conseguido]:text-acento
+  class="inline-flex items-center gap-1.5 rounded-[3px] border px-2 py-0.5 text-xs transition-colors hover:bg-superficie-2
+         data-[estado=conseguido]:border-exito/50 data-[estado=conseguido]:text-exito
          data-[estado=disponible]:border-resalte/60 data-[estado=disponible]:text-resalte
-         data-[estado=bloqueado]:border-borde data-[estado=bloqueado]:text-tenue"
+         data-[estado=bloqueado]:border-borde-fuerte data-[estado=bloqueado]:text-tenue"
 >
-  <Icono size={12} aria-hidden="true" />
+  <Icono size={11} aria-hidden="true" />
   {logro.data.nombre}
   <span class="sr-only">({texto})</span>
 </a>

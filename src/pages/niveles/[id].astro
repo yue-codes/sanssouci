@@ -1,27 +1,34 @@
 ---
 /**
- * Página /niveles/[id]: detalle de una zona del mapa.
- * Estado, requisitos para pasar, temario, jefe(s), canciones y logros de la zona.
+ * Página /niveles/[id]: una zona del mapa, como entrar a una región de un juego.
+ * Portada con su imagen, el minimapa de las 9 zonas (`MiniMapa`) y las misiones
+ * para pasar (`BarraMisiones`). Debajo: la lista de misiones, el temario serio,
+ * el guardián (`AnuncioJefe`, el jefe como puerta), las canciones y las misiones
+ * secundarias (logros opcionales de la zona).
  *
  * `getStaticPaths` le dice a Astro qué páginas generar al compilar: una por zona.
  * Si mañana se añade una zona en niveles.json, su página aparece sola.
  */
 import { getCollection } from "astro:content";
-import { Check, Footprints, Lock } from "lucide-preact";
+import { Picture } from "astro:assets";
+import { Check, CloudFog, Footprints, Lock, Music2 } from "lucide-preact";
 import Base from "@/layouts/Base.astro";
-import Aviso from "@/components/ui/Aviso.astro";
 import MigasDePan from "@/components/ui/MigasDePan.astro";
 import EncabezadoSeccion from "@/components/ui/EncabezadoSeccion.astro";
 import NavegacionVecinos from "@/components/ui/NavegacionVecinos.astro";
-import ChipLogro from "@/components/logros/ChipLogro.astro";
+import MiniMapa from "@/components/mapa/MiniMapa.astro";
+import BarraMisiones from "@/components/logros/BarraMisiones.astro";
+import ListaMisiones from "@/components/logros/ListaMisiones.astro";
 import TemarioZona from "@/components/niveles/TemarioZona.astro";
-import TarjetaJefe from "@/components/jefes/TarjetaJefe.astro";
+import AnuncioJefe from "@/components/jefes/AnuncioJefe.astro";
 import TarjetaCancion from "@/components/canciones/TarjetaCancion";
 import { cargarContenido } from "@/lib/contenido";
 import { construirSendero } from "@/lib/mapa";
 import { logrosConEstado } from "@/lib/logros";
 import { resumirCancion } from "@/lib/canciones";
+import { diaDelPlan } from "@/lib/fechas";
 import { PROGRESO_EJEMPLO } from "@/lib/ejemplo";
+import { IMAGEN_ZONA, IMAGENES } from "@/config/imagenes";
 
 export async function getStaticPaths() {
   const niveles = await getCollection("niveles");
@@ -34,14 +41,16 @@ const paradas = construirSendero(c, PROGRESO_EJEMPLO);
 const i = paradas.findIndex((p) => p.nivel.id === id);
 const parada = paradas[i];
 const n = parada.nivel.data;
+const imagen = IMAGEN_ZONA[id] ?? IMAGENES.animeCian;
+const hoy = diaDelPlan(new Date(), c.dias[0].data.fecha);
 
 const canciones = c.canciones
   .filter((s) => s.data.nivel.id === id)
   .sort((a, b) => a.data.dificultad - b.data.dificultad || a.data.titulo.localeCompare(b.data.titulo));
 
-// Logros sugeridos para esta zona que no son requisito para pasar.
+// Misiones secundarias: logros sugeridos para esta zona que no son requisito para pasar.
 const idsRequisitos = new Set(parada.requisitos.map((r) => r.logro.id));
-const otrosLogros = logrosConEstado(
+const secundarias = logrosConEstado(
   c,
   c.logros.filter((l) => l.data.nivelSugerido.id === id && !idsRequisitos.has(l.id)).map((l) => l.id),
   PROGRESO_EJEMPLO.obtenidos,
@@ -50,72 +59,137 @@ const otrosLogros = logrosConEstado(
 const ESTADO = {
   superada: { texto: "Superada", Icono: Check, clase: "bg-exito text-fondo" },
   actual: { texto: "Estás aquí", Icono: Footprints, clase: "bg-acento text-fondo" },
-  bloqueada: { texto: "Bloqueada", Icono: Lock, clase: "bg-superficie-2 text-tenue" },
+  bloqueada: { texto: parada.lejana ? "En la niebla" : "Bloqueada", Icono: parada.lejana ? CloudFog : Lock, clase: "bg-fondo/80 text-tenue border border-borde-fuerte" },
 }[parada.estado];
 
 const vecino = (p?: (typeof paradas)[number]) =>
   p && { href: `/niveles/${p.nivel.id}`, etiqueta: `Zona ${p.nivel.data.orden}`, titulo: p.nivel.data.nombre };
 ---
 
-<Base titulo={`Zona ${n.orden}: ${n.nombre}`} descripcion={n.resumen}>
-  <MigasDePan items={[{ texto: "Mapa", href: "/mapa" }, { texto: `Zona ${n.orden}` }]} />
-
-  <!-- ============ CABECERA ============ -->
-  <header class="max-w-3xl">
-    <p class="eyebrow">Zona {n.orden} · {n.zona}</p>
-    <h1 class="mt-3 text-4xl font-semibold leading-tight sm:text-6xl">{n.nombre}</h1>
-    <p class="mt-4 text-lg leading-relaxed text-tenue">{n.resumen}</p>
-    <div class="mt-5 flex flex-wrap items-center gap-3 text-sm">
-      <span class:list={["inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-semibold", ESTADO.clase]}>
-        <ESTADO.Icono size={14} aria-hidden="true" /> {ESTADO.texto}
-      </span>
-      <span class="text-tenue">Estimación: {n.estimacion}</span>
+<Base titulo={`Zona ${n.orden}: ${n.nombre}`} descripcion={n.resumen} ancho="completo">
+  <!-- ============ PORTADA ============ -->
+  <section class="relative isolate overflow-hidden border-b border-borde" aria-labelledby="titulo-zona">
+    <div class="absolute inset-0 -z-10 animate-acercar">
+      <Picture src={imagen.src} alt="" widths={[960, 1440, 2000]} sizes="100vw" formats={["avif"]} fallbackFormat="webp" loading="eager"
+        class:list={["size-full object-cover", parada.lejana && "blur-[2px] grayscale-[0.5]"]} style={{ objectPosition: imagen.enfoque }} />
     </div>
-  </header>
+    <span class="velo -z-10 opacity-60" aria-hidden="true"></span>
+    {parada.lejana && <span class="niebla -z-10" style="--densidad:0.9" aria-hidden="true"></span>}
+    <span class="absolute inset-0 -z-10 bg-linear-to-r from-fondo via-fondo/85 to-fondo/25" aria-hidden="true"></span>
+    <span class="absolute inset-0 -z-10 bg-linear-to-t from-fondo to-transparent to-45%" aria-hidden="true"></span>
 
-  <Aviso class="mt-6">El progreso es de ejemplo hasta que exista el inicio de sesión. Las estimaciones son orientativas: tu ritmo y tu maestro mandan.</Aviso>
+    <div class="contenedor pt-8 pb-14 sm:pb-20">
+      <MigasDePan items={[{ texto: "Mapa", href: "/mapa" }, { texto: `Zona ${n.orden}` }]} />
 
-  <!-- ============ REQUISITOS ============ -->
-  {parada.requisitos.length > 0 && (
-    <section class="mt-12" aria-labelledby="requisitos">
-      <EncabezadoSeccion id="requisitos" eyebrow={`${parada.hechos} de ${parada.requisitos.length}`} titulo="Para pasar al jefe" enlace={{ href: "/arbol", texto: "Ver en el árbol" }} />
-      <div class="flex flex-wrap gap-2">
-        {parada.requisitos.map((r) => <ChipLogro logro={r.logro} estado={r.estado} />)}
+      <div class="mt-8 max-w-2xl">
+        <MiniMapa paradas={paradas} vista={id} />
       </div>
-    </section>
-  )}
 
-  <!-- ============ TEMARIO ============ -->
-  <section class="mt-12" aria-labelledby="temario">
-    <EncabezadoSeccion id="temario" eyebrow="Lo que se estudia aquí" titulo="Temario" />
-    <TemarioZona temario={n.temario} />
+      <div class="mt-12 grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:items-end lg:gap-16">
+        <div data-revelar="hijos">
+          <p class="eyebrow">Zona {n.orden} · {n.zona}</p>
+          <h1 id="titulo-zona" class="mt-4 text-6xl leading-[0.92] sm:text-8xl">{n.nombre}</h1>
+          <p class="mt-5 max-w-[52ch] text-lg text-tenue">{n.resumen}</p>
+          <p class:list={["mt-6 inline-flex items-center gap-1.5 rounded-[2px] px-2 py-1 font-mono text-[0.625rem] font-semibold uppercase", ESTADO.clase]}>
+            <ESTADO.Icono size={12} aria-hidden="true" /> {ESTADO.texto}
+          </p>
+        </div>
+
+        <dl class="grid grid-cols-2 gap-px overflow-hidden rounded-md border border-borde bg-borde" data-revelar>
+          {parada.requisitos.length > 0 && (
+            <div class="col-span-2 bg-fondo/85 p-4 backdrop-blur-md">
+              <dt class="sr-only">Misiones para pasar</dt>
+              <dd><BarraMisiones misiones={parada.requisitos} etiqueta="Misiones para pasar" /></dd>
+            </div>
+          )}
+          <div class="flex flex-col-reverse bg-fondo/85 p-4 backdrop-blur-md">
+            <dt class="mt-1 font-mono text-[0.625rem] text-tenue uppercase">Canciones</dt>
+            <dd class="font-display text-4xl leading-none tabular-nums">{canciones.length}</dd>
+          </div>
+          <div class="flex flex-col-reverse bg-fondo/85 p-4 backdrop-blur-md">
+            <dt class="mt-1 font-mono text-[0.625rem] text-tenue uppercase">{parada.jefes.length > 1 ? "Guardianes" : "Guardián"}</dt>
+            <dd class="font-display text-xl leading-tight">
+              {parada.jefes.map((j, k) => (
+                <>{k > 0 && " · "}<a href={`/jefes/${j.jefe.id}`} class="text-peligro hover:underline">{parada.lejana ? "???" : j.jefe.data.nombre}</a></>
+              ))}
+            </dd>
+          </div>
+          <div class="col-span-2 bg-fondo/85 p-4 backdrop-blur-md">
+            <dt class="font-mono text-[0.625rem] text-tenue uppercase">Estimación</dt>
+            <dd class="mt-1 text-sm">{n.estimacion}</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
   </section>
 
-  <!-- ============ JEFE(S) ============ -->
-  <section class="mt-12 grid gap-6" aria-labelledby="jefe">
-    <EncabezadoSeccion id="jefe" eyebrow="Al final de la zona" titulo={parada.jefes.length > 1 ? "Los jefes" : "El jefe"} />
-    {parada.jefes.map((j) => <TarjetaJefe jefe={j.jefe} cancion={j.cancion} />)}
-  </section>
+  <div class="contenedor py-14 sm:py-20">
+    <!-- ============ MISIONES ============ -->
+    {parada.requisitos.length > 0 && (
+      <section aria-labelledby="titulo-misiones">
+        <EncabezadoSeccion id="titulo-misiones" eyebrow={`${parada.hechos} de ${parada.requisitos.length} cumplidas`} titulo="Misiones para pasar" descripcion="Lo que tienes que dominar antes de enfrentarte al guardián. Cada una lleva a su talento en el árbol." enlace={{ href: "/arbol", texto: "Ver en el árbol" }} />
+        <div class="max-w-3xl rounded-md border border-borde bg-superficie p-3 sm:p-4">
+          <ListaMisiones misiones={parada.requisitos} conDescripcion />
+        </div>
+      </section>
+    )}
 
-  <!-- ============ CANCIONES ============ -->
-  {canciones.length > 0 && (
-    <section class="mt-12" aria-labelledby="canciones">
-      <EncabezadoSeccion id="canciones" eyebrow={`${canciones.length} ${canciones.length === 1 ? "obra" : "obras"}`} titulo="Canciones de la zona" enlace={{ href: `/canciones?zona=${id}`, texto: "Filtrar en el catálogo" }} />
-      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {canciones.map((s) => <TarjetaCancion cancion={resumirCancion(c, s)} />)}
+    <!-- ============ TEMARIO ============ -->
+    <section class="mt-20" aria-labelledby="titulo-temario">
+      <EncabezadoSeccion id="titulo-temario" eyebrow="Debajo del juego" titulo="El temario" descripcion="Lo que se estudia en esta zona. El juego lo organiza; no lo sustituye." />
+      <TemarioZona temario={n.temario} />
+    </section>
+
+    <!-- ============ GUARDIÁN(ES) ============ -->
+    <section class="mt-20" aria-labelledby="titulo-guardian">
+      <EncabezadoSeccion id="titulo-guardian" eyebrow="Al final de la zona" titulo={parada.jefes.length > 1 ? "Los guardianes" : "El guardián"} />
+      <div class:list={["grid gap-6", parada.jefes.length > 1 && "lg:grid-cols-2"]}>
+        {parada.jefes.map((j) => parada.lejana ? (
+          <div class="relative grid min-h-64 place-items-center overflow-hidden rounded-md border border-dashed border-peligro/40 bg-superficie/60 p-8 text-center">
+            <span class="niebla" style="--densidad:0.7" aria-hidden="true"></span>
+            <div class="relative">
+              <p class="font-mono text-[0.625rem] tracking-[0.08em] text-peligro uppercase">{j.jefe.data.final ? "Jefe final" : "Guardián"} · en la niebla</p>
+              <p class="mt-2 font-display text-6xl text-texto/70">???</p>
+              <p class="mt-2 text-sm text-tenue">Se revela cuando te acerques a esta zona.</p>
+            </div>
+          </div>
+        ) : (
+          <AnuncioJefe
+            jefe={j.jefe}
+            cancion={j.cancion}
+            zona={n.orden}
+            diaDelPlan={j.dia}
+            diasRestantes={j.dia !== undefined && !j.vencido && hoy <= j.dia ? j.dia - Math.max(hoy, 0) : undefined}
+            etiqueta={j.jefe.data.final ? "Jefe final" : "Guardián"}
+          />
+        ))}
       </div>
     </section>
-  )}
 
-  <!-- ============ OTROS LOGROS ============ -->
-  {otrosLogros.length > 0 && (
-    <section class="mt-12" aria-labelledby="logros">
-      <EncabezadoSeccion id="logros" eyebrow="Opcionales" titulo="Otros logros de la zona" />
-      <div class="flex flex-wrap gap-2">
-        {otrosLogros.map((r) => <ChipLogro logro={r.logro} estado={r.estado} />)}
-      </div>
-    </section>
-  )}
+    <!-- ============ CANCIONES ============ -->
+    {canciones.length > 0 && (
+      <section class="mt-20" aria-labelledby="titulo-canciones">
+        <EncabezadoSeccion id="titulo-canciones" eyebrow={`${canciones.length} ${canciones.length === 1 ? "obra" : "obras"} · de fácil a difícil`} titulo="Canciones de la zona" descripcion="Lo que puedes tocar con lo que ya tienes al llegar aquí." enlace={{ href: `/canciones?zona=${id}`, texto: "Filtrar en el catálogo" }} />
+        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {canciones.map((s) => <TarjetaCancion cancion={resumirCancion(c, s, PROGRESO_EJEMPLO.obtenidos)} />)}
+        </div>
+      </section>
+    )}
 
-  <NavegacionVecinos anterior={vecino(paradas[i - 1])} siguiente={vecino(paradas[i + 1])} />
+    <!-- ============ MISIONES SECUNDARIAS ============ -->
+    {secundarias.length > 0 && (
+      <section class="mt-20" aria-labelledby="titulo-secundarias">
+        <EncabezadoSeccion id="titulo-secundarias" eyebrow="Opcionales" titulo="Misiones secundarias" descripcion="Talentos de esta zona que no hacen falta para pasar, pero suman." />
+        <div class="max-w-3xl rounded-md border border-borde bg-superficie/60 p-3 sm:p-4">
+          <ListaMisiones misiones={secundarias} conDescripcion />
+        </div>
+      </section>
+    )}
+
+    {canciones.length === 0 && (
+      <p class="mt-12 flex items-center gap-2 text-sm text-tenue"><Music2 size={14} aria-hidden="true" /> Aún no hay canciones clasificadas en esta zona.</p>
+    )}
+
+    <NavegacionVecinos anterior={vecino(paradas[i - 1])} siguiente={vecino(paradas[i + 1])} />
+  </div>
 </Base>

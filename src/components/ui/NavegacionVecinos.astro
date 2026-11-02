@@ -2,7 +2,7 @@
 /**
  * @component NavegacionVecinos
  * Enlaces «anterior» y «siguiente» al pie de una página de detalle
- * (zona anterior y siguiente, jefe anterior y siguiente…).
+ * (zona anterior y siguiente, jefe anterior y siguiente, día anterior y siguiente…).
  */
 import { ArrowLeft, ArrowRight } from "lucide-preact";
 
@@ -20,25 +20,26 @@ interface Props {
   siguiente?: Vecino;
 }
 const { anterior, siguiente } = Astro.props;
+const CLASE = "group flex items-center gap-4 rounded-md border border-borde bg-superficie p-4 transition-colors duration-300 hover:border-acento/50 hover:bg-superficie-2";
 ---
 
-<nav aria-label="Anterior y siguiente" class="mt-16 grid gap-3 border-t border-borde pt-6 sm:grid-cols-2">
+<nav aria-label="Anterior y siguiente" class="mt-20 grid gap-3 border-t border-borde pt-8 sm:grid-cols-2">
   {anterior ? (
-    <a href={anterior.href} class="tarjeta group flex items-center gap-3 p-4 transition hover:border-acento/50">
-      <ArrowLeft size={18} class="shrink-0 text-tenue transition group-hover:-translate-x-1" aria-hidden="true" />
-      <span>
-        <span class="block text-xs text-tenue">Anterior · {anterior.etiqueta}</span>
-        <span class="font-semibold">{anterior.titulo}</span>
+    <a href={anterior.href} class={CLASE}>
+      <ArrowLeft size={18} class="shrink-0 text-tenue transition-transform duration-300 group-hover:-translate-x-1 group-hover:text-acento" aria-hidden="true" />
+      <span class="min-w-0">
+        <span class="block font-mono text-[0.625rem] tracking-[0.06em] text-tenue uppercase">Anterior · {anterior.etiqueta}</span>
+        <span class="mt-0.5 block truncate font-display text-2xl leading-tight">{anterior.titulo}</span>
       </span>
     </a>
   ) : <span />}
   {siguiente && (
-    <a href={siguiente.href} class="tarjeta group flex items-center justify-end gap-3 p-4 text-right transition hover:border-acento/50 sm:col-start-2">
-      <span>
-        <span class="block text-xs text-tenue">Siguiente · {siguiente.etiqueta}</span>
-        <span class="font-semibold">{siguiente.titulo}</span>
+    <a href={siguiente.href} class:list={[CLASE, "justify-end text-right sm:col-start-2"]}>
+      <span class="min-w-0">
+        <span class="block font-mono text-[0.625rem] tracking-[0.06em] text-tenue uppercase">Siguiente · {siguiente.etiqueta}</span>
+        <span class="mt-0.5 block truncate font-display text-2xl leading-tight">{siguiente.titulo}</span>
       </span>
-      <ArrowRight size={18} class="shrink-0 text-tenue transition group-hover:translate-x-1" aria-hidden="true" />
+      <ArrowRight size={18} class="shrink-0 text-tenue transition-transform duration-300 group-hover:translate-x-1 group-hover:text-acento" aria-hidden="true" />
     </a>
   )}
 </nav>

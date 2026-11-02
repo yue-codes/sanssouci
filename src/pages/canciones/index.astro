@@ -1,32 +1,94 @@
 ---
 /**
- * Página /canciones: el catálogo completo con filtros (isla `CatalogoCanciones`).
+ * Página /canciones: el repertorio como un mazo de cartas. Portada con lo que
+ * tienes (cuántas puedes tocar ya, retos de oído, legendarias) y la leyenda de
+ * rarezas; debajo, el catálogo con filtros (isla `CatalogoCanciones`).
  * Datos: `resumirCancion` (src/lib/canciones.ts). Acepta filtros en la URL,
- * p. ej. /canciones?zona=nivel-3&oido=1.
+ * p. ej. /canciones?zona=nivel-3&oido=1 o /canciones?listas=1.
+ * Progreso: de ejemplo hasta la fase 4.
  */
+import { Picture } from "astro:assets";
 import Base from "@/layouts/Base.astro";
 import CatalogoCanciones from "@/components/canciones/catalogo/CatalogoCanciones";
+import { RAREZAS } from "@/components/canciones/rareza";
 import { cargarContenido, nombreCortoRuta } from "@/lib/contenido";
 import { resumirCancion } from "@/lib/canciones";
+import { PROGRESO_EJEMPLO } from "@/lib/ejemplo";
+import { IMAGENES } from "@/config/imagenes";
 
 const c = await cargarContenido();
-const canciones = c.canciones.map((s) => resumirCancion(c, s));
+const canciones = c.canciones.map((s) => resumirCancion(c, s, PROGRESO_EJEMPLO.obtenidos));
 const rutas = c.rutas.map((r) => ({ id: r.id, nombre: nombreCortoRuta(r), color: r.data.color }));
 const zonas = c.niveles.map((n) => ({ id: n.id, orden: n.data.orden, nombre: n.data.nombre }));
-const retos = canciones.filter((s) => s.retoDeOido).length;
+const imagen = IMAGENES.animeAula;
+
+const estadisticas = [
+  { valor: canciones.length, texto: "obras" },
+  { valor: canciones.filter((s) => s.faltan === 0).length, texto: "puedes tocar ya", href: "/canciones?listas=1" },
+  { valor: canciones.filter((s) => s.faltan === 1).length, texto: "a un talento" },
+  { valor: canciones.filter((s) => s.retoDeOido).length, texto: "retos de oído", href: "/canciones?oido=1" },
+  { valor: canciones.filter((s) => s.jefe).length, texto: "de jefe" },
+];
+// Cuántas cartas hay de cada rareza (el tramo empieza donde acaba el anterior).
+const porRareza = RAREZAS.map((r, i) => ({
+  ...r,
+  desde: i === 0 ? 1 : RAREZAS[i - 1].hasta + 1,
+  n: canciones.filter((s) => s.dificultad <= r.hasta && (i === 0 || s.dificultad > RAREZAS[i - 1].hasta)).length,
+}));
 ---
 
-<Base titulo="Canciones" descripcion="El catálogo de obras para flauta traversa, por ruta, zona y dificultad.">
-  <header class="max-w-3xl">
-    <p class="eyebrow">Catálogo · {canciones.length} obras · {retos} retos de oído</p>
-    <h1 class="mt-3 text-4xl font-semibold leading-tight sm:text-6xl">Canciones</h1>
-    <p class="mt-4 text-lg leading-relaxed text-tenue">
-      Cada obra está en la zona donde ya tienes lo que exige. Las que no tienen partitura son
-      <span class="font-semibold text-resalte">retos de oído</span>: se sacan con la guitarra.
-    </p>
-  </header>
+<Base titulo="Canciones" descripcion="El repertorio: las obras para flauta traversa, por ruta, zona y dificultad." ancho="completo">
+  <!-- ============ PORTADA ============ -->
+  <section class="relative isolate overflow-hidden border-b border-borde" aria-labelledby="titulo-canciones">
+    <div class="absolute inset-0 -z-10 animate-acercar">
+      <Picture src={imagen.src} alt="" widths={[960, 1440, 2000]} sizes="100vw" formats={["avif"]} fallbackFormat="webp" loading="eager"
+        class="size-full object-cover" style={{ objectPosition: imagen.enfoque }} />
+    </div>
+    <span class="velo -z-10 opacity-60" aria-hidden="true"></span>
+    <span class="absolute inset-0 -z-10 bg-linear-to-r from-fondo via-fondo/85 to-fondo/30" aria-hidden="true"></span>
+    <span class="absolute inset-0 -z-10 bg-linear-to-t from-fondo to-transparent to-50%" aria-hidden="true"></span>
 
-  <div class="mt-8">
+    <div class="contenedor grid gap-10 py-14 sm:py-20 lg:grid-cols-[1.3fr_1fr] lg:items-end lg:gap-16">
+      <div data-revelar="hijos">
+        <p class="eyebrow">El repertorio · {rutas.length} rutas</p>
+        <h1 id="titulo-canciones" class="mt-4 text-6xl leading-[0.92] sm:text-8xl">Canciones</h1>
+        <p class="mt-5 max-w-[50ch] text-lg text-tenue">
+          Cada obra es una carta: se desbloquea cuando tienes los talentos que pide. Las que no
+          tienen partitura son <span class="text-resalte">retos de oído</span>: se sacan con la guitarra.
+        </p>
+        <dl class="mt-8 flex flex-wrap gap-x-10 gap-y-4">
+          {estadisticas.map((e) => (
+            <div class="flex flex-col-reverse">
+              <dt class="mt-1 font-mono text-[0.625rem] tracking-[0.06em] text-tenue uppercase">
+                {e.href ? <a href={e.href} class="underline-offset-2 hover:text-acento hover:underline">{e.texto}</a> : e.texto}
+              </dt>
+              <dd class="font-display text-5xl leading-none tabular-nums">{e.valor}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+
+      <!-- Leyenda de rarezas -->
+      <section aria-labelledby="titulo-rarezas" data-revelar>
+        <h2 id="titulo-rarezas" class="mb-3 font-mono text-[0.625rem] tracking-[0.08em] text-tenue uppercase">Rareza, según la dificultad</h2>
+        <ul class="grid grid-cols-2 gap-px overflow-hidden rounded-md border border-borde bg-borde">
+          {porRareza.map((r) => (
+            <li class="bg-fondo/85 p-4 backdrop-blur-md">
+              <span class:list={["flex items-center gap-2 font-mono text-[0.625rem] tracking-[0.08em] uppercase", r.texto]}>
+                <span class:list={["size-2 rotate-45", r.fondo]} aria-hidden="true"></span>{r.nombre}
+              </span>
+              <span class="mt-2 flex items-baseline justify-between gap-2">
+                <span class="font-display text-4xl leading-none tabular-nums">{r.n}</span>
+                <span class="font-mono text-[0.625rem] text-tenue">dificultad {r.desde === r.hasta ? r.desde : `${r.desde}–${r.hasta}`}</span>
+              </span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </div>
+  </section>
+
+  <div class="contenedor py-14 sm:py-20">
     <CatalogoCanciones client:load canciones={canciones} rutas={rutas} zonas={zonas} />
   </div>
 </Base>

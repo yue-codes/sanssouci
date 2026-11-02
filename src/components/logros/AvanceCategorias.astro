@@ -1,8 +1,10 @@
 ---
 /**
  * @component AvanceCategorias
- * Una barra por categoría de logro (rama del árbol): cuántos tienes de cuántos.
- * Las barras son decorativas (`aria-hidden`); el dato lo da el texto «3 / 7».
+ * Las ramas del árbol como estandartes: icono, nombre y una fila de casillas
+ * (una por logro; llenas las conseguidas), como las barras de experiencia de un
+ * juego. Una rama completa se pinta en menta.
+ * Las casillas son decorativas (`aria-hidden`); el dato lo da el texto «3 / 7».
  */
 import { ICONO_CATEGORIA, NOMBRE_CATEGORIA } from "./categorias";
 import type { AvanceCategoria } from "@/lib/logros";
@@ -10,29 +12,34 @@ import type { AvanceCategoria } from "@/lib/logros";
 interface Props {
   /** Avance de cada categoría (ver `avancePorCategoria`). */
   avance: AvanceCategoria[];
+  /** Clases extra para la lista. */
+  class?: string;
 }
-const { avance } = Astro.props;
+const { avance, class: clase = "" } = Astro.props;
 ---
 
-<ul class="grid gap-x-8 gap-y-3 sm:grid-cols-2">
+<ul class:list={["grid gap-px overflow-hidden rounded-md border border-borde bg-borde sm:grid-cols-2", clase]}>
   {avance.map(({ categoria, total, conseguidos }) => {
     const Icono = ICONO_CATEGORIA[categoria];
     const completa = total > 0 && conseguidos === total;
     return (
-      <li class="grid grid-cols-[auto_1fr_auto] items-center gap-3 text-sm">
-        <Icono size={16} class="text-tenue" aria-hidden="true" />
-        <div>
-          <span class="font-medium">{NOMBRE_CATEGORIA[categoria]}</span>
-          <div class="mt-1 h-1.5 overflow-hidden rounded-full bg-superficie-2" aria-hidden="true">
-            <div
-              class:list={["h-full rounded-full", completa ? "bg-exito" : "bg-acento"]}
-              style={{ width: `${total ? (conseguidos / total) * 100 : 0}%` }}
-            />
+      <li data-completa={completa || undefined} class="group flex items-center gap-3 bg-fondo/85 px-3.5 py-3 backdrop-blur-md">
+        <span class="grid size-8 shrink-0 place-items-center rounded-full border border-borde-fuerte text-tenue group-data-completa:border-exito group-data-completa:text-exito" aria-hidden="true">
+          <Icono size={15} />
+        </span>
+        <div class="min-w-0 flex-1">
+          <div class="flex items-baseline justify-between gap-2">
+            <span class="text-sm font-medium">{NOMBRE_CATEGORIA[categoria]}</span>
+            <span class="font-mono text-[0.625rem] text-tenue tabular-nums">
+              {conseguidos} / {total}<span class="sr-only"> conseguidos</span>
+            </span>
+          </div>
+          <div class="mt-1.5 flex gap-0.5" aria-hidden="true">
+            {Array.from({ length: total }, (_, k) => (
+              <span class:list={["h-1.5 flex-1 rounded-[1px]", k < conseguidos ? (completa ? "bg-exito" : "bg-acento") : "bg-superficie-2"]}></span>
+            ))}
           </div>
         </div>
-        <span class="text-tenue tabular-nums">
-          {conseguidos} / {total}<span class="sr-only"> conseguidos</span>
-        </span>
       </li>
     );
   })}

@@ -22,14 +22,20 @@ export interface CancionResumen {
   versiones: number;
   conPartitura: boolean;
   retoDeOido: boolean;
+  /** Cuántos de sus requisitos (logros) te faltan; 0 = ya puedes tocarla. */
+  faltan: number;
+  /** Nombre del jefe, si es la canción de un jefe. */
+  jefe?: string;
 }
 
 /**
  * Convierte una entrada del catálogo en su resumen plano.
  * @param c Contenido cargado con `cargarContenido()`.
  * @param cancion Obra a resumir.
+ * @param obtenidos Ids de los logros del jugador (para saber si ya puede tocarla).
+ * @example resumirCancion(c, cancion, progreso.obtenidos).faltan // → 2
  */
-export function resumirCancion(c: Contenido, cancion: Cancion): CancionResumen {
+export function resumirCancion(c: Contenido, cancion: Cancion, obtenidos: ReadonlySet<string>): CancionResumen {
   const d = cancion.data;
   const ruta = c.rutaPorId.get(d.ruta.id)!;
   const nivel = c.nivelPorId.get(d.nivel.id)!;
@@ -45,5 +51,7 @@ export function resumirCancion(c: Contenido, cancion: Cancion): CancionResumen {
     versiones: d.versiones.length,
     conPartitura: d.versiones.some((v) => v.usos.includes("partitura")),
     retoDeOido: esRetoDeOido(cancion),
+    faltan: d.requiere.filter((r) => !obtenidos.has(r.id)).length,
+    jefe: c.jefes.find((j) => j.data.cancion.id === cancion.id)?.data.nombre,
   };
 }

@@ -4,7 +4,7 @@ import { ChevronDown } from "lucide-preact";
 import type { NodoTalento } from "@/lib/arbol";
 import type { EstadoLogro } from "@/lib/progreso";
 import { ESTILO_ESTADO } from "./estilos";
-import Estallido from "./Estallido";
+import Estallido from "@/components/ui/Estallido";
 import Hexagono from "./Hexagono";
 import { ID_PANEL_RAMA } from "./PestanasRamas";
 

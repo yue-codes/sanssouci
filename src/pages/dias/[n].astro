@@ -1,25 +1,30 @@
 ---
 /**
- * Página /dias/[n]: un día del plan. Sesión con sus bloques (marcables, demo
- * hasta la fase 4), logros posibles, jefe del día y notas.
+ * Página /dias/[n]: un día del plan como «misión del día».
+ * Arriba, la portada con la imagen de su zona (o de su jefe), el objetivo y el
+ * recorrido de los 90 días (`RecorridoPlan`). Debajo, el combate si hay jefe
+ * (`AnuncioJefe`), la sesión como misión con cronómetro (isla `MisionDelDia`) y
+ * las recompensas posibles. Los días de descanso son un campamento.
  * `getStaticPaths` genera las 90 páginas (/dias/1 … /dias/90).
  */
 import { getCollection } from "astro:content";
-import { Clock, Moon } from "lucide-preact";
+import { Picture } from "astro:assets";
+import { Clock, Lightbulb, Moon, Target, Tent } from "lucide-preact";
 import Base from "@/layouts/Base.astro";
-import Aviso from "@/components/ui/Aviso.astro";
 import MigasDePan from "@/components/ui/MigasDePan.astro";
 import EncabezadoSeccion from "@/components/ui/EncabezadoSeccion.astro";
 import NavegacionVecinos from "@/components/ui/NavegacionVecinos.astro";
-import SesionDelDia from "@/components/sesion/SesionDelDia";
+import MisionDelDia from "@/components/sesion/MisionDelDia";
 import ChipLogro from "@/components/logros/ChipLogro.astro";
-import TarjetaJefe from "@/components/jefes/TarjetaJefe.astro";
+import AnuncioJefe from "@/components/jefes/AnuncioJefe.astro";
+import RecorridoPlan from "@/components/calendario/RecorridoPlan.astro";
 import { HITO } from "@/components/calendario/hitos";
 import { cargarContenido } from "@/lib/contenido";
-import { hitosDelDia, minutosDelDia, primerDiaConFlauta } from "@/lib/calendario";
+import { hitosDelDia, minutosDelDia, primerDiaConFlauta, zonaDelDia } from "@/lib/calendario";
 import { logrosConEstado } from "@/lib/logros";
 import { fechaLarga, fechaCorta } from "@/lib/fechas";
 import { PROGRESO_EJEMPLO } from "@/lib/ejemplo";
+import { IMAGEN_ZONA, IMAGENES, imagenDeJefe } from "@/config/imagenes";
 
 export async function getStaticPaths() {
   const dias = await getCollection("dias");
@@ -33,76 +38,122 @@ const i = dias.findIndex((x) => x.data.numero === numero);
 const dia = dias[i];
 const d = dia.data;
 const descanso = d.tipo === "descanso";
-const hitos = hitosDelDia(dia, primerDiaConFlauta(dias));
+const conFlauta = primerDiaConFlauta(dias);
+const hitos = hitosDelDia(dia, conFlauta);
 const logros = logrosConEstado(c, d.logrosPosibles.map((l) => l.id), PROGRESO_EJEMPLO.obtenidos);
 const jefe = d.jefe && c.jefePorId.get(d.jefe.id)!;
+const zona = zonaDelDia(c, numero);
+const siguientePractica = dias.slice(i + 1).find((x) => x.data.tipo !== "descanso");
+
+// La imagen: la del jefe en su día, una tranquila en los descansos y la de la zona el resto.
+const imagen = jefe ? imagenDeJefe(jefe.id) : descanso ? IMAGENES.siluetaVentana : (IMAGEN_ZONA[zona.id] ?? IMAGENES.animeCian);
 
 const vecino = (x?: (typeof dias)[number]) =>
   x && { href: `/dias/${x.data.numero}`, etiqueta: `Día ${x.data.numero} · ${fechaCorta(x.data.fecha)}`, titulo: x.data.titulo };
 ---
 
-<Base titulo={`Día ${d.numero}: ${d.titulo}`} descripcion={d.objetivo}>
-  <MigasDePan items={[{ texto: "Calendario", href: "/calendario" }, { texto: `Día ${d.numero}` }]} />
-
-  <!-- ============ CABECERA ============ -->
-  <header class="max-w-3xl">
-    <p class="eyebrow">Día {d.numero} de 90 · Semana {d.semana} · {d.fase === "sin-flauta" ? "sin flauta" : "con flauta"}</p>
-    <h1 class="mt-3 text-4xl font-semibold leading-tight sm:text-6xl">{d.titulo}</h1>
-    <p class="mt-3 text-lg text-tenue first-letter:uppercase">{fechaLarga(d.fecha)}</p>
-    <p class="mt-4 text-lg leading-relaxed">{d.objetivo}</p>
-
-    <div class="mt-5 flex flex-wrap gap-2 text-sm">
-      {!descanso && (
-        <span class="inline-flex items-center gap-1.5 rounded-full border border-borde px-3 py-1">
-          <Clock size={14} aria-hidden="true" /> {minutosDelDia(dia)} min{d.sesion && ` · sesión ${d.sesion} de 65`}
-        </span>
-      )}
-      {hitos.map((h) => {
-        const { nombre, Icono, clase } = HITO[h];
-        return (
-          <span class:list={["inline-flex items-center gap-1.5 rounded-full border border-borde px-3 py-1 font-medium", clase]}>
-            <Icono size={14} aria-hidden="true" /> {nombre}
-          </span>
-        );
-      })}
+<Base titulo={`Día ${d.numero}: ${d.titulo}`} descripcion={d.objetivo} ancho="completo">
+  <!-- ============ PORTADA ============ -->
+  <section class:list={["relative isolate overflow-hidden border-b", jefe ? "border-peligro/30" : "border-borde"]} aria-labelledby="titulo-dia">
+    <div class="absolute inset-0 -z-10 animate-acercar">
+      <Picture src={imagen.src} alt="" widths={[960, 1440, 2000]} sizes="100vw" formats={["avif"]} fallbackFormat="webp" loading="eager"
+        class="size-full object-cover" style={{ objectPosition: imagen.enfoque }} />
     </div>
-  </header>
+    <span class="velo -z-10 opacity-60" aria-hidden="true"></span>
+    <span class="absolute inset-0 -z-10 bg-linear-to-r from-fondo via-fondo/85 to-fondo/30" aria-hidden="true"></span>
+    <span class="absolute inset-0 -z-10 bg-linear-to-t from-fondo to-transparent to-50%" aria-hidden="true"></span>
 
-  {d.notas && <Aviso class="mt-6">{d.notas}</Aviso>}
+    <div class="contenedor pt-8 pb-12 sm:pb-16">
+      <MigasDePan items={[{ texto: "Calendario", href: "/calendario" }, { texto: `Día ${d.numero}` }]} />
 
-  <!-- ============ SESIÓN ============ -->
-  {descanso ? (
-    <section class="tarjeta mt-10 flex items-center gap-4 p-6" aria-label="Descanso">
-      <span class="grid size-12 shrink-0 place-items-center rounded-2xl bg-superficie-2 text-secundario"><Moon size={22} aria-hidden="true" /></span>
-      <p class="leading-relaxed">Hoy toca descansar. No es tiempo perdido: los labios, la respiración y la memoria se consolidan mientras descansas.</p>
-    </section>
-  ) : (
-    <section class="mt-10" aria-labelledby="sesion">
-      <EncabezadoSeccion id="sesion" eyebrow="Calentamiento → técnica → estudios → repertorio" titulo="La sesión" />
-      <div class="tarjeta p-5 sm:p-6">
-        <SesionDelDia client:visible bloques={d.bloques} />
+      <div class="mt-8 max-w-3xl" data-revelar="hijos">
+        <p class="eyebrow">
+          {descanso ? "Día de descanso" : d.sesion ? `Misión ${d.sesion} de 65` : "Día opcional"} · Semana {d.semana} · {d.fase === "sin-flauta" ? "sin flauta" : "con flauta"}
+        </p>
+        <h1 id="titulo-dia" class="mt-4 text-5xl leading-[0.95] sm:text-7xl">{d.titulo}</h1>
+        <p class="mt-4 text-tenue">
+          <span class="inline-block text-texto first-letter:uppercase">{fechaLarga(d.fecha)}</span>{" · "}<a href={`/niveles/${zona.id}`} class="hover:text-acento-claro">Zona {zona.data.orden} · {zona.data.nombre}</a>
+        </p>
+
+        <p class="mt-6 flex max-w-[60ch] gap-3 text-lg leading-relaxed">
+          <Target size={20} class="mt-1 shrink-0 text-acento" aria-hidden="true" />
+          <span><span class="sr-only">Objetivo: </span>{d.objetivo}</span>
+        </p>
+
+        <div class="mt-6 flex flex-wrap gap-2 text-sm">
+          {!descanso && (
+            <span class="inline-flex items-center gap-1.5 rounded-[3px] border border-borde bg-fondo/60 px-2.5 py-1 backdrop-blur-sm">
+              <Clock size={14} aria-hidden="true" /> {minutosDelDia(dia)} min
+            </span>
+          )}
+          {hitos.map((h) => {
+            const { nombre, Icono, clase } = HITO[h];
+            return (
+              <span class:list={["inline-flex items-center gap-1.5 rounded-[3px] border border-borde bg-fondo/60 px-2.5 py-1 font-medium backdrop-blur-sm", clase]}>
+                <Icono size={14} aria-hidden="true" /> {nombre}
+              </span>
+            );
+          })}
+        </div>
       </div>
-      <p class="mt-2 text-xs text-tenue">Marcar bloques es una demostración: aún no se guarda (llegará con el inicio de sesión).</p>
-    </section>
-  )}
 
-  <!-- ============ JEFE ============ -->
-  {jefe && (
-    <section class="mt-12" aria-labelledby="jefe-del-dia">
-      <EncabezadoSeccion id="jefe-del-dia" eyebrow="Hoy es la batalla" titulo="El jefe del día" />
-      <TarjetaJefe jefe={jefe} cancion={c.cancionPorId.get(jefe.data.cancion.id)!} />
-    </section>
-  )}
-
-  <!-- ============ LOGROS ============ -->
-  {logros.length > 0 && (
-    <section class="mt-12" aria-labelledby="logros-del-dia">
-      <EncabezadoSeccion id="logros-del-dia" eyebrow="Si lo consigues hoy" titulo="Logros posibles" enlace={{ href: "/arbol", texto: "Ver en el árbol" }} />
-      <div class="flex flex-wrap gap-2">
-        {logros.map((r) => <ChipLogro logro={r.logro} estado={r.estado} />)}
+      <div class="mt-10 max-w-4xl" data-revelar>
+        <RecorridoPlan dias={dias} actual={d.numero} primerConFlauta={conFlauta} />
       </div>
-    </section>
-  )}
+    </div>
+  </section>
 
-  <NavegacionVecinos anterior={vecino(dias[i - 1])} siguiente={vecino(dias[i + 1])} />
+  <div class="contenedor py-14 sm:py-20">
+    {d.notas && (
+      <p class="mb-12 flex max-w-3xl gap-3 rounded-md border border-resalte/30 bg-resalte/5 p-4 text-sm leading-relaxed">
+        <Lightbulb size={18} class="mt-0.5 shrink-0 text-resalte" aria-hidden="true" />
+        <span><span class="font-semibold text-resalte">Nota:</span> {d.notas}</span>
+      </p>
+    )}
+
+    <!-- ============ JEFE ============ -->
+    {jefe && (
+      <section class="mb-16" aria-labelledby="jefe-del-dia">
+        <EncabezadoSeccion id="jefe-del-dia" eyebrow="Hoy hay combate" titulo="El jefe del día" />
+        <AnuncioJefe jefe={jefe} cancion={c.cancionPorId.get(jefe.data.cancion.id)!} zona={zona.data.orden} diaDelPlan={d.numero} etiqueta="Combate de hoy" />
+      </section>
+    )}
+
+    <!-- ============ SESIÓN ============ -->
+    {descanso ? (
+      <section class="grid max-w-3xl gap-6 rounded-md border border-borde bg-superficie p-6 sm:grid-cols-[auto_1fr] sm:p-8" aria-labelledby="campamento">
+        <span class="grid size-14 place-items-center rounded-full bg-secundario/15 text-secundario" aria-hidden="true"><Tent size={26} /></span>
+        <div>
+          <p class="eyebrow flex items-center gap-2"><Moon size={13} aria-hidden="true" /> Campamento</p>
+          <h2 id="campamento" class="mt-2 text-4xl">Hoy se descansa</h2>
+          <p class="mt-3 max-w-[60ch] leading-relaxed text-tenue">
+            No es tiempo perdido: los labios, la respiración y la memoria se consolidan mientras descansas.
+            Si te apetece, escucha a un flautista sin analizar nada.
+          </p>
+          {siguientePractica && (
+            <a href={`/dias/${siguientePractica.data.numero}`} class="enlace-flecha mt-5">
+              Próxima misión: día {siguientePractica.data.numero} · {siguientePractica.data.titulo} <span aria-hidden="true">→</span>
+            </a>
+          )}
+        </div>
+      </section>
+    ) : (
+      <section aria-labelledby="sesion">
+        <EncabezadoSeccion id="sesion" eyebrow="Calentamiento → técnica → estudios → repertorio" titulo="La misión" descripcion="Cada bloque es una etapa. Márcala al terminarla, o juégala con el cronómetro." />
+        <MisionDelDia client:load bloques={d.bloques} />
+      </section>
+    )}
+
+    <!-- ============ RECOMPENSAS ============ -->
+    {logros.length > 0 && (
+      <section class="mt-20" aria-labelledby="logros-del-dia">
+        <EncabezadoSeccion id="logros-del-dia" eyebrow="Si lo consigues hoy" titulo="Recompensas posibles" descripcion="Talentos del árbol que esta sesión te acerca." enlace={{ href: "/arbol", texto: "Ver en el árbol" }} />
+        <div class="flex flex-wrap gap-2">
+          {logros.map((r) => <ChipLogro logro={r.logro} estado={r.estado} />)}
+        </div>
+      </section>
+    )}
+
+    <NavegacionVecinos anterior={vecino(dias[i - 1])} siguiente={vecino(dias[i + 1])} />
+  </div>
 </Base>

@@ -1,25 +1,35 @@
 ---
 /**
- * Página /logros: el libro de logros. Complementa al árbol (que enseña las
- * dependencias): aquí se leen en orden, agrupados por la zona en que se
- * sugieren, con lo que tienes al alcance arriba.
- * Datos: `logrosConEstado`, `usosDeLogros`, `avancePorCategoria` (src/lib/logros.ts).
- * Progreso: de ejemplo hasta la fase 4.
+ * Página /logros: la sala de trofeos. Complementa al árbol (que enseña cómo se
+ * conectan): aquí cada logro es un trofeo en su vitrina, agrupado por la zona en
+ * que se sugiere. Portada con tu rango y el avance de cada rama; luego lo que
+ * tienes al alcance y las vitrinas, con un filtro por estado.
+ *
+ * El filtro no usa JavaScript: son botones de radio nativos y CSS con `:has()`
+ * («si la sala tiene marcado el radio X, oculta los trofeos que no son X»). Así
+ * funciona con teclado y lector de pantalla sin código extra.
+ *
+ * Datos: `logrosConEstado`, `usosDeLogros`, `avancePorCategoria` (src/lib/logros.ts)
+ * y `rangoTalentos` (src/lib/arbol.ts). Progreso: de ejemplo hasta la fase 4.
  */
-import { Sparkles } from "lucide-preact";
+import { Picture } from "astro:assets";
+import { ArrowRight, Crown, Sparkles } from "lucide-preact";
 import Base from "@/layouts/Base.astro";
 import Aviso from "@/components/ui/Aviso.astro";
-import AnilloProgreso from "@/components/ui/AnilloProgreso";
 import EncabezadoSeccion from "@/components/ui/EncabezadoSeccion.astro";
 import AvanceCategorias from "@/components/logros/AvanceCategorias.astro";
 import TarjetaLogro from "@/components/logros/TarjetaLogro.astro";
-import { ICONO_CATEGORIA, ORDEN_RAMAS } from "@/components/logros/categorias";
+import Hexagono from "@/components/logros/arbol/Hexagono";
+import { ORDEN_RAMAS } from "@/components/logros/categorias";
 import { cargarContenido } from "@/lib/contenido";
 import { avancePorCategoria, logrosConEstado, usosDeLogros } from "@/lib/logros";
+import { rangoTalentos } from "@/lib/arbol";
 import { PROGRESO_EJEMPLO } from "@/lib/ejemplo";
+import { IMAGENES } from "@/config/imagenes";
 
 const c = await cargarContenido();
 const { obtenidos } = PROGRESO_EJEMPLO;
+const imagen = IMAGENES.animeLago;
 
 // Dentro de cada zona, por rama (el mismo orden que el árbol) y luego por nombre.
 const ordenRama = (l: (typeof c.logros)[number]) => ORDEN_RAMAS.indexOf(l.data.categoria);
@@ -30,89 +40,177 @@ const todos = logrosConEstado(c, ordenados.map((l) => l.id), obtenidos);
 const usos = usosDeLogros(c);
 const requisitos = (id: string) => logrosConEstado(c, c.logroPorId.get(id)!.data.requiere.map((r) => r.id), obtenidos);
 
-const conseguidos = todos.filter((t) => t.estado === "conseguido").length;
+const cuenta = (estado: string) => todos.filter((t) => t.estado === estado).length;
+const conseguidos = cuenta("conseguido");
 const alAlcance = todos.filter((t) => t.estado === "disponible");
+const rango = rangoTalentos(conseguidos, todos.length);
 const zonas = c.niveles
   .map((n) => ({ nivel: n, logros: todos.filter((t) => t.logro.data.nivelSugerido.id === n.id) }))
   .filter((z) => z.logros.length > 0);
+
+const FILTROS = [
+  { valor: "todos", texto: "Todos", n: todos.length },
+  { valor: "conseguido", texto: "Conseguidos", n: conseguidos },
+  { valor: "disponible", texto: "Al alcance", n: alAlcance.length },
+  { valor: "bloqueado", texto: "Bloqueados", n: cuenta("bloqueado") },
+];
 ---
 
-<Base titulo="Logros" descripcion="Todos los logros del camino: cómo se consigue cada uno, qué requiere y qué abre.">
-  <Aviso class="mb-6">El progreso es de ejemplo hasta que exista el inicio de sesión.</Aviso>
-
-  <!-- ============ CABECERA ============ -->
-  <header class="flex flex-wrap items-center justify-between gap-8">
-    <div class="max-w-2xl">
-      <p class="eyebrow">Libro de logros · {todos.length} en total</p>
-      <h1 class="mt-3 text-4xl leading-tight font-semibold sm:text-6xl">Logros</h1>
-      <p class="mt-4 text-lg leading-relaxed text-tenue">
-        Cada logro tiene un criterio claro para darlo por conseguido. Aquí están en el orden en que llegan;
-        en el <a href="/arbol" class="font-medium text-acento hover:underline">árbol</a> se ve cómo se conectan.
-      </p>
+<Base titulo="Logros" descripcion="La sala de trofeos: todos los logros del camino, cómo se consigue cada uno, qué requiere y qué abre." ancho="completo">
+  <!-- ============ PORTADA ============ -->
+  <section class="relative isolate overflow-hidden border-b border-borde" aria-labelledby="titulo-logros">
+    <div class="absolute inset-0 -z-10 animate-acercar">
+      <Picture src={imagen.src} alt="" widths={[960, 1440, 2000]} sizes="100vw" formats={["avif"]} fallbackFormat="webp" loading="eager"
+        class="size-full object-cover" style={{ objectPosition: imagen.enfoque }} />
     </div>
-    <AnilloProgreso valor={conseguidos / todos.length} etiqueta={`${conseguidos} / ${todos.length}`} tamano={140} />
-  </header>
+    <span class="velo -z-10 opacity-60" aria-hidden="true"></span>
+    <span class="absolute inset-0 -z-10 bg-linear-to-r from-fondo via-fondo/85 to-fondo/30" aria-hidden="true"></span>
+    <span class="absolute inset-0 -z-10 bg-linear-to-t from-fondo to-transparent to-50%" aria-hidden="true"></span>
 
-  <!-- ============ AVANCE POR RAMA ============ -->
-  <section class="tarjeta mt-10 p-6" aria-labelledby="ramas">
-    <EncabezadoSeccion id="ramas" eyebrow="Avance" titulo="Por rama" enlace={{ href: "/arbol", texto: "Ver el árbol" }} />
-    <AvanceCategorias avance={avancePorCategoria(todos, ORDEN_RAMAS)} />
+    <div class="contenedor grid gap-10 py-14 sm:py-20 lg:grid-cols-[1fr_1.15fr] lg:items-end lg:gap-16">
+      <div data-revelar="hijos">
+        <p class="eyebrow">Sala de trofeos · {todos.length} logros</p>
+        <h1 id="titulo-logros" class="mt-4 text-6xl leading-[0.92] sm:text-8xl">Logros</h1>
+        <p class="mt-5 max-w-[48ch] text-lg text-tenue">
+          Cada trofeo tiene un criterio claro para darlo por conseguido. Aquí se ven por zona;
+          en el <a href="/arbol" class="text-acento underline-offset-2 hover:underline">árbol</a>, cómo se conectan.
+        </p>
+
+        <!-- Rango: el «nivel de personaje» -->
+        <div class="mt-8 flex items-center gap-5">
+          <span class="relative grid size-20 shrink-0 place-items-center rounded-full border-2 border-acento bg-acento-suave/60 text-acento-claro shadow-[0_0_32px_-8px_var(--acento)]" aria-hidden="true">
+            <Crown size={30} />
+          </span>
+          <dl class="grid gap-1">
+            <div>
+              <dt class="sr-only">Rango</dt>
+              <dd class="font-display text-4xl leading-none">{rango.nombre}</dd>
+            </div>
+            <div>
+              <dt class="sr-only">Trofeos</dt>
+              <dd class="font-mono text-xs text-tenue tabular-nums">{conseguidos} de {todos.length} trofeos</dd>
+            </div>
+            {rango.siguiente && (
+              <div>
+                <dt class="sr-only">Siguiente rango</dt>
+                <dd class="text-sm">Te faltan <strong class="text-acento-claro">{rango.faltan}</strong> para <span class="font-display text-lg">{rango.siguiente}</span></dd>
+              </div>
+            )}
+          </dl>
+        </div>
+        <Aviso class="mt-8 max-w-md bg-fondo/70 backdrop-blur-md">El progreso es de ejemplo hasta que exista el inicio de sesión.</Aviso>
+      </div>
+
+      <section aria-labelledby="titulo-ramas" data-revelar>
+        <h2 id="titulo-ramas" class="mb-3 font-mono text-[0.625rem] tracking-[0.08em] text-tenue uppercase">Avance por rama</h2>
+        <AvanceCategorias avance={avancePorCategoria(todos, ORDEN_RAMAS)} />
+      </section>
+    </div>
   </section>
 
-  <!-- ============ AL ALCANCE ============ -->
-  {alAlcance.length > 0 && (
-    <section class="mt-12" aria-labelledby="alcance">
-      <EncabezadoSeccion id="alcance" eyebrow={`${alAlcance.length} logros`} titulo="Al alcance ahora" />
-      <p class="-mt-2 mb-5 max-w-2xl text-sm text-tenue">Ya tienes todo lo que piden: puedes ir por ellos hoy.</p>
-      <ul class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-        {alAlcance.map(({ logro }) => {
-          const Icono = ICONO_CATEGORIA[logro.data.categoria];
-          return (
+  <div class="contenedor py-14 sm:py-20">
+    <!-- ============ AL ALCANCE ============ -->
+    {alAlcance.length > 0 && (
+      <section aria-labelledby="titulo-alcance">
+        <EncabezadoSeccion id="titulo-alcance" eyebrow={`${alAlcance.length} trofeos`} titulo="Al alcance ahora" descripcion="Ya tienes todo lo que piden: puedes ir por ellos hoy." />
+        <ul class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3" data-revelar="hijos">
+          {alAlcance.map(({ logro }) => (
             <li>
-              <a href={`#${logro.id}`} class="tarjeta flex h-full items-start gap-3 border-resalte/40 p-4 transition hover:border-resalte">
-                <span class="grid size-9 shrink-0 place-items-center rounded-lg border border-resalte/60 text-resalte">
-                  <Icono size={18} aria-hidden="true" />
-                </span>
-                <span>
-                  <span class="flex items-center gap-1.5 font-semibold">
-                    {logro.data.nombre} <Sparkles size={14} class="text-resalte" aria-hidden="true" />
+              <a href={`#${logro.id}`} class="group flex h-full items-center gap-4 rounded-md border border-resalte/40 bg-[color-mix(in_oklab,var(--resalte)_6%,var(--superficie))] p-4 transition-colors hover:border-resalte">
+                <Hexagono categoria={logro.data.categoria} estado="disponible" tamano={44} />
+                <span class="min-w-0 flex-1">
+                  <span class="flex items-center gap-1.5 font-display text-xl leading-tight">
+                    {logro.data.nombre} <Sparkles size={13} class="shrink-0 text-resalte" aria-hidden="true" />
                   </span>
                   <span class="mt-0.5 line-clamp-2 block text-xs text-tenue">{logro.data.criterio}</span>
                 </span>
+                <ArrowRight size={16} class="shrink-0 text-resalte transition-transform group-hover:translate-x-1" aria-hidden="true" />
               </a>
             </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    <!-- ============ LAS VITRINAS ============ -->
+    <div class="sala-trofeos mt-20">
+      <div class="flex flex-wrap items-end justify-between gap-6 border-b border-borde pb-6">
+        <div>
+          <p class="eyebrow">Por zona</p>
+          <h2 class="mt-2 text-3xl sm:text-4xl">Las vitrinas</h2>
+        </div>
+        <fieldset>
+          <legend class="sr-only">Mostrar</legend>
+          <div class="flex flex-wrap gap-1 rounded-md border border-borde bg-superficie p-1">
+            {FILTROS.map((f, k) => (
+              <label class="relative cursor-pointer">
+                <input type="radio" name="filtro" value={f.valor} id={`filtro-${f.valor}`} checked={k === 0} class="peer sr-only" />
+                <span class="flex items-center gap-1.5 rounded-[3px] px-3 py-1.5 text-sm text-tenue transition-colors hover:text-texto
+                             peer-checked:bg-superficie-2 peer-checked:text-texto peer-focus-visible:ring-2 peer-focus-visible:ring-acento">
+                  {f.texto} <span class="font-mono text-[0.625rem] tabular-nums opacity-70">{f.n}</span>
+                </span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+      </div>
+
+      <!-- Índice de zonas: cada una con su barra de avance -->
+      <nav class="mt-6 flex flex-wrap gap-2" aria-label="Vitrinas por zona">
+        {zonas.map(({ nivel, logros }) => {
+          const hechos = logros.filter((t) => t.estado === "conseguido").length;
+          return (
+            <a href={`#zona-${nivel.data.orden}`} class="group grid min-w-24 gap-1.5 rounded-[3px] border border-borde px-3 py-2 transition-colors hover:border-borde-fuerte hover:bg-superficie">
+              <span class="flex items-baseline justify-between gap-3 font-mono text-[0.625rem] uppercase">
+                <span>Zona {nivel.data.orden}</span>
+                <span class="text-tenue tabular-nums">{hechos}/{logros.length}</span>
+              </span>
+              <span class="h-0.5 overflow-hidden rounded-full bg-superficie-2" aria-hidden="true">
+                <span class:list={["block h-full", hechos === logros.length ? "bg-exito" : "bg-acento"]} style={{ width: `${(hechos / logros.length) * 100}%` }}></span>
+              </span>
+            </a>
           );
         })}
-      </ul>
-    </section>
-  )}
+      </nav>
 
-  <!-- ============ ÍNDICE DE ZONAS ============ -->
-  <nav class="mt-12 flex flex-wrap gap-2" aria-label="Zonas">
-    {zonas.map(({ nivel, logros }) => (
-      <a href={`#zona-${nivel.data.orden}`} class="rounded-full border border-borde px-3 py-1 text-sm hover:bg-superficie-2">
-        Zona {nivel.data.orden} <span class="text-tenue">· {logros.length}</span>
-      </a>
-    ))}
-  </nav>
+      {zonas.map(({ nivel, logros }) => {
+        const hechos = logros.filter((t) => t.estado === "conseguido").length;
+        return (
+          <section id={`zona-${nivel.data.orden}`} data-vitrina class="mt-16 scroll-mt-28" aria-labelledby={`titulo-zona-${nivel.data.orden}`}>
+            <header class="mb-6 flex flex-wrap items-end gap-x-5 gap-y-2" data-revelar>
+              <span class="font-display text-7xl leading-[0.8] text-acento/30 tabular-nums" aria-hidden="true">{nivel.data.orden}</span>
+              <div class="min-w-0 flex-1">
+                <p class="font-mono text-[0.625rem] tracking-[0.08em] text-tenue uppercase">Zona {nivel.data.orden} · {hechos} de {logros.length} conseguidos</p>
+                <h3 id={`titulo-zona-${nivel.data.orden}`} class="mt-1 text-3xl">{nivel.data.nombre}</h3>
+              </div>
+              <a href={`/niveles/${nivel.id}`} class="enlace-flecha">Ver la zona <span aria-hidden="true">→</span></a>
+            </header>
+            <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+              {logros.map(({ logro, estado }) => (
+                <TarjetaLogro logro={logro} estado={estado} requiere={requisitos(logro.id)} usos={usos.get(logro.id)} />
+              ))}
+            </div>
+          </section>
+        );
+      })}
 
-  <!-- ============ LOGROS POR ZONA ============ -->
-  {zonas.map(({ nivel, logros }) => {
-    const hechos = logros.filter((t) => t.estado === "conseguido").length;
-    return (
-      <section id={`zona-${nivel.data.orden}`} class="mt-12 scroll-mt-24" aria-labelledby={`titulo-zona-${nivel.data.orden}`}>
-        <EncabezadoSeccion
-          id={`titulo-zona-${nivel.data.orden}`}
-          eyebrow={`Zona ${nivel.data.orden} · ${hechos} de ${logros.length} conseguidos`}
-          titulo={nivel.data.nombre}
-          enlace={{ href: `/niveles/${nivel.id}`, texto: "Ver la zona" }}
-        />
-        <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {logros.map(({ logro, estado }) => (
-            <TarjetaLogro logro={logro} estado={estado} requiere={requisitos(logro.id)} usos={usos.get(logro.id)} />
-          ))}
-        </div>
-      </section>
-    );
-  })}
+    </div>
+  </div>
 </Base>
+
+<style is:global>
+  /*
+   * Filtro de la sala sin JavaScript. Para cada estado: si su radio está marcado,
+   * se ocultan los trofeos de otro estado y las vitrinas que se quedan vacías.
+   * Es global porque las tarjetas vienen de otro componente (el CSS con ámbito de
+   * Astro solo alcanza a los elementos de este archivo).
+   */
+  .sala-trofeos:has(#filtro-conseguido:checked) article[data-estado]:not([data-estado="conseguido"]),
+  .sala-trofeos:has(#filtro-disponible:checked) article[data-estado]:not([data-estado="disponible"]),
+  .sala-trofeos:has(#filtro-bloqueado:checked) article[data-estado]:not([data-estado="bloqueado"]),
+  .sala-trofeos:has(#filtro-conseguido:checked) [data-vitrina]:not(:has(article[data-estado="conseguido"])),
+  .sala-trofeos:has(#filtro-disponible:checked) [data-vitrina]:not(:has(article[data-estado="disponible"])),
+  .sala-trofeos:has(#filtro-bloqueado:checked) [data-vitrina]:not(:has(article[data-estado="bloqueado"])) {
+    display: none;
+  }
+</style>

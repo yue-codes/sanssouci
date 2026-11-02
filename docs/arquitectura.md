@@ -33,20 +33,21 @@ src/
 ├── components/      Componentes agrupados por DOMINIO (de qué tratan):
 │   ├── layout/        Cabecera, PiePagina, Logo
 │   ├── ui/            genéricos, sin conocer el juego: AnilloProgreso, Aviso, MigasDePan,
-│   │                  EncabezadoSeccion, NavegacionVecinos, ReproductorYoutube
-│   ├── mapa/          HudMapa (marcador); MundoMapa → FilaCamino + RegionZona + PuertaJefe; TarjetaZona; EstasAqui;
+│   │                  EncabezadoSeccion, NavegacionVecinos, ReproductorYoutube, isla Estallido
+│   ├── mapa/          HudMapa (marcador); MundoMapa → FilaCamino + RegionZona + PuertaJefe; MiniMapa; EstasAqui;
 │   │                  SenderoPortada (el sendero en horizontal, con imágenes)
 │   ├── niveles/       TemarioZona
-│   ├── jefes/         TarjetaJefe, CondicionesVictoria, AnuncioJefe (el próximo jefe como puerta)
-│   ├── canciones/     TarjetaCancion, ChipRuta, Dificultad (.tsx: sirven en páginas e islas),
+│   ├── jefes/         CabeceraJefe; islas VidaJefe y CombateJefe (comparten estado en combate.ts);
+│   │                  AnuncioJefe (el jefe como puerta)
+│   ├── canciones/     TarjetaCancion, ChipRuta, Dificultad (.tsx: sirven en páginas e islas), rareza.ts,
 │   │                  isla IndiceRutas (rutas con imagen que sigue al cursor),
 │   │   │              ListaVersiones, usos.ts
 │   │   └── catalogo/    isla CatalogoCanciones → PanelFiltros
-│   ├── logros/        TarjetaLogro, ChipLogro, AvanceCategorias, categorias.ts
+│   ├── logros/        TarjetaLogro, ChipLogro, AvanceCategorias, ListaMisiones, BarraMisiones, categorias.ts
 │   │   └── arbol/       isla ArbolTalentos y sus piezas (LienzoArbol, ListaRama,
-│   │                    PestanasRamas, DetalleTalento, Hexagono, Estallido, AvisoDesbloqueo, estilos.ts)
-│   ├── calendario/    SemanaCalendario → CeldaDia; LineaNoventaDias; isla PartituraNoventaDias; hitos.ts
-│   └── sesion/        isla SesionDelDia; ResumenSesion; bloques.ts
+│   │                    PestanasRamas, DetalleTalento, Hexagono, AvisoDesbloqueo, estilos.ts)
+│   ├── calendario/    SemanaCalendario → CeldaDia; RecorridoPlan; isla PartituraNoventaDias; hitos.ts
+│   └── sesion/        isla MisionDelDia (cronómetro); ResumenSesion; bloques.ts
 ├── layouts/         Esqueletos de página (Base.astro)
 ├── middleware.ts    Sesión de cada petición de servidor y protección de RUTAS_PRIVADAS
 ├── env.d.ts         Tipos de Astro.locals (supabase, usuario)
@@ -101,6 +102,18 @@ Una isla se ejecuta **también en el navegador**, así que todo lo que importe (
 **El mapa del mundo (`/mapa`):** se sube de abajo (inicio) arriba (cumbre). En el HTML va en el orden del viaje y `flex-col-reverse` le da la vuelta solo a la vista, para que el lector de pantalla lo lea en orden. Cada fila (`FilaCamino`) tiene dos mitades de camino: andado (luz cian que fluye), pendiente (discontinuo) o en niebla (punteado). Los jefes son puertas con tres estados: cerrada (faltan llaves = logros que pide), abierta (late) y derrotado. La niebla (`.niebla`) espesa con la distancia y se sale por los lados, por eso su sección lleva `overflow-x-clip`. El anillo de cada zona se dibuja al entrar en pantalla (`data-trazar`).
 
 **El árbol de talentos (`/arbol`):** un mapa de estrellas con los mismos colores que el mapa (menta conseguido, lavanda disponible). Cada rama lleva su avance en segmentos; el jugador tiene un rango decorativo (`rangoTalentos`). Al pasar el ratón (o el foco del teclado) por un talento, o al elegirlo, se resalta en cian su ruta de requisitos (`ancestrosDe`) y en lavanda lo que abre. El filtro «¿Qué puedo hacer ya?» deja encendido solo lo disponible y lo que lo abrió. Las llaves de jefe (`llaveDe` en `NodoTalento`) son más grandes y llevan anillo rosa. Al entrar en pantalla las líneas se dibujan de arriba abajo (`clip-path` animado en un div, no en el `<svg>`) y los talentos aparecen por filas; lo conseguido lleva una luz que corre por la línea (`animate-trazo`). Al conseguir uno (demo hasta la fase 4) hay celebración: `Estallido` (chispas con `motion`, nada si se pide menos movimiento), marca «nuevo» en lo que se abre y `AvisoDesbloqueo` (región `aria-live`). El árbol se ve entero y a todo el ancho desde `lg`: el lienzo se escala (`transform: scale`, medido con `ResizeObserver`, entre 0,65 y 1,35) para llenar el ancho, y la ficha del talento es una barra `sticky` abajo que se puede minimizar (el aviso de desbloqueo sale arriba para no taparla). En pantallas más chicas, pestañas y lista con la ficha desplegada bajo el talento.
+
+**Los jefes (`/jefes/[id]`):** pantalla de combate. Arriba, el enemigo con su barra de vida (un segmento por condición de victoria, más la grabación) y su ficha (tempo, dificultad, llaves, ruta, cuándo). Abajo, la arena: el video de referencia y las condiciones como golpes; el último siempre es grabar. La barra (`VidaJefe`) y los golpes (`CombateJefe`) son **dos islas que comparten estado** con un `signal` a nivel de módulo (`jefes/combate.ts`): las islas de Astro se montan por separado, pero un módulo importado por las dos es el mismo. Al vencer, «¡Victoria!» con `Estallido` (en `ui/`, lo usa también el árbol). Demo hasta la fase 4.
+
+**Los días (`/dias/[n]`):** cada día es una «misión». Portada con la imagen de su zona (`zonaDelDia`), la del jefe en su día o una tranquila en los descansos; el objetivo; y `RecorridoPlan`, los 90 días en una línea con este día brillando. La sesión es la isla `MisionDelDia`: etapas sobre un camino y **cronómetro** por etapa (cuenta atrás; al llegar a cero avisa «¡Tiempo!» y tú decides cuándo darla por hecha). Al completar todas, «¡Misión cumplida!». Los descansos son un «campamento» con enlace a la próxima misión.
+
+**El calendario (`/calendario`):** «La campaña» en dos actos (sin flauta / con flauta, separados por la semana en que llega la flauta). Cada semana es una fila (`SemanaCalendario`) de casillas (`CeldaDia`) con tono por estado (`data-tono`: hoy, jefe, flauta, descanso, normal) y una línea cian en los días que ya pasaron. Tras la semana de cada jefe, una puerta dice a qué zona se pasa (`zonaDelDia`). Arriba, `RecorridoPlan` (sin su leyenda, porque la página tiene la suya) y la próxima misión.
+
+**Las zonas (`/niveles/[id]`):** como entrar a una región. Portada con su imagen (con niebla si está lejos), el `MiniMapa` de las 9 zonas (tu posición con «TÚ», la zona vista con anillo, los jefes como rombos) y un marcador con `BarraMisiones`. Debajo: las misiones para pasar (`ListaMisiones`, la misma lista que usa el mapa), el temario, el guardián (`AnuncioJefe`; «???» si la zona está en la niebla), las canciones y las misiones secundarias (logros opcionales).
+
+**Los logros (`/logros`):** la sala de trofeos. Portada con el rango (`rangoTalentos`, el mismo del árbol) y `AvanceCategorias` como estandartes con una casilla por logro. Luego «Al alcance ahora» y las vitrinas por zona: `TarjetaLogro` usa la medalla `Hexagono` del árbol (con anillo de llave si abre un jefe). El filtro por estado no usa JavaScript: radios nativos + CSS `:has()` en un `<style is:global>` de la página (global porque las tarjetas son de otro componente).
+
+**Las canciones (`/canciones`, `/canciones/[id]`):** el repertorio como un mazo de cartas. La rareza sale de la dificultad (`rarezaDe` en `components/canciones/rareza.ts`: común 1–3, rara 4–6, épica 7–8, legendaria 9–10) y colorea el borde de la carta y las barras de `Dificultad`. `resumirCancion(c, s, obtenidos)` añade `faltan` (requisitos que no tienes; la carta sale bloqueada si es > 0) y `jefe`. El catálogo filtra «¿Qué puedo tocar ya?» (`soloListas`, `?listas=1`). La ficha usa `ListaMisiones` para «Para desbloquearla» y «Lo que entrena», y `AnuncioJefe` si es canción de jefe.
 
 - **Solo tema oscuro**, a propósito: no hay `light-dark()`, ni selector de tema, ni `data-theme`.
 - **Dos capas** en `src/styles/tokens.css`:
@@ -163,7 +176,7 @@ Instalado: **motion** (animaciones; su versión para el DOM funciona con Preact)
 
 ## Nombres
 
-- Componentes: `PascalCase` (`TarjetaZona.astro`, `ArbolTalentos.tsx`).
+- Componentes: `PascalCase` (`MiniMapa.astro`, `ArbolTalentos.tsx`).
 - Módulos de `lib/` y `config/`: minúsculas (`progreso.ts`).
 - Funciones y variables: `camelCase` en español (`estaDesbloqueado`, `diasRestantes`).
 - Constantes de módulo: `MAYUSCULAS` (`NAVEGACION`, `ORDEN_RAMAS`).
@@ -220,12 +233,12 @@ Reglas que cumple cada página. **`pnpm auditar`** comprueba sobre el HTML gener
 | `/` | `pages/index.astro` | `sesionDeReferencia`, `diasParaPartitura` → isla `PartituraNoventaDias`, `construirSendero`, `diaDelJefe`, rutas con `getImage` → isla `IndiceRutas` |
 | `/mapa` | `pages/mapa.astro` | `construirSendero` (zonas, jefes con llaves, `abierto` y `dia`) → `HudMapa` + `MundoMapa` |
 | `/arbol` | `pages/arbol.astro` | `construirNodosArbol` → isla `ArbolTalentos` (usa `ancestrosDe` y `rangoTalentos`) |
-| `/niveles/[id]` | `pages/niveles/[id].astro` | `construirSendero` (su zona), `logrosConEstado` |
-| `/jefes/[id]` | `pages/jefes/[id].astro` | `jefesEnOrden`, `diaDelJefe`, `logrosConEstado` |
-| `/calendario` | `pages/calendario.astro` | `semanasDelPlan`, `hitosDelDia` |
-| `/dias/[n]` | `pages/dias/[n].astro` | `hitosDelDia`, `logrosConEstado` → isla `SesionDelDia` |
-| `/canciones` | `pages/canciones/index.astro` | `resumirCancion` → isla `CatalogoCanciones` (filtros en la URL: `?ruta=…&zona=…&max=…&oido=1&partitura=1&q=…&orden=…`) |
-| `/canciones/[id]` | `pages/canciones/[id].astro` | `logrosConEstado`; vecinos dentro de la misma ruta, por dificultad |
-| `/logros` | `pages/logros.astro` | `logrosConEstado`, `usosDeLogros`, `avancePorCategoria`; agrupados por `nivelSugerido` |
+| `/niveles/[id]` | `pages/niveles/[id].astro` | `construirSendero` (todas las zonas, para el `MiniMapa`), `logrosConEstado` (misiones secundarias) |
+| `/jefes/[id]` | `pages/jefes/[id].astro` | `jefesEnOrden`, `diaDelJefe`, `logrosConEstado` → `CabeceraJefe` (isla `VidaJefe`) + isla `CombateJefe` |
+| `/calendario` | `pages/calendario.astro` | `semanasDelPlan`, `hitosDelDia`, `zonaDelDia` (puertas tras cada jefe) → `RecorridoPlan` + `SemanaCalendario` → `CeldaDia` |
+| `/dias/[n]` | `pages/dias/[n].astro` | `hitosDelDia`, `zonaDelDia`, `logrosConEstado` → `RecorridoPlan`, `AnuncioJefe`, isla `MisionDelDia` |
+| `/canciones` | `pages/canciones/index.astro` | `resumirCancion` (con el progreso: `faltan`) → isla `CatalogoCanciones` (filtros en la URL: `?ruta=…&zona=…&max=…&oido=1&partitura=1&listas=1&q=…&orden=…`); leyenda con `RAREZAS` |
+| `/canciones/[id]` | `pages/canciones/[id].astro` | `logrosConEstado` → `ListaMisiones`, `rarezaDe`, `diaDelJefe` → `AnuncioJefe`; vecinos dentro de la misma ruta, por dificultad |
+| `/logros` | `pages/logros.astro` | `logrosConEstado`, `usosDeLogros`, `avancePorCategoria`, `rangoTalentos`; vitrinas por `nivelSugerido`, filtro con `:has()` |
 
 Pendientes: `/entrar`, `/panel` y `/perfil` (fase 4).

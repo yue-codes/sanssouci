@@ -1,0 +1,69 @@
+---
+/**
+ * @component RecorridoPlan
+ * Los 90 días en una sola línea, como la barra de progreso de un nivel: una
+ * marca por día (las de descanso, más cortas), lo recorrido hasta este día en
+ * cian, este día como un punto que brilla, los jefes como rombos rosas y la
+ * llegada de la flauta como una estrella.
+ *
+ * El dibujo es decorativo; el dato («día 12 de 90») va en texto.
+ */
+import type { Dia } from "@/lib/contenido";
+
+interface Props {
+  /** Los días del plan, en orden. */
+  dias: Dia[];
+  /** Número del día que se está viendo. */
+  actual: number;
+  /** Número del primer día con flauta. */
+  primerConFlauta: number;
+  /** Muestra la leyenda debajo. Por defecto, sí (quítala si la página ya tiene una). */
+  leyenda?: boolean;
+}
+const { dias, actual, primerConFlauta, leyenda = true } = Astro.props;
+const PASO = 10;
+const ancho = dias.length * PASO;
+const x = (n: number) => (n - 0.5) * PASO;
+const porcentaje = Math.round((actual / dias.length) * 100);
+---
+
+<div>
+  <div class="flex items-baseline justify-between font-mono text-[0.625rem] tracking-[0.08em] text-tenue uppercase">
+    <span>Recorrido · <span class="text-texto">día {actual} de {dias.length}</span></span>
+    <span class="tabular-nums">{porcentaje} %</span>
+  </div>
+  <svg viewBox={`0 -14 ${ancho} 44`} class="mt-2 w-full overflow-visible" aria-hidden="true">
+    <line x1="0" y1="15" x2={ancho} y2="15" class="stroke-borde" stroke-width="1" />
+    <line x1="0" y1="15" x2={x(actual)} y2="15" class="stroke-acento" stroke-width="2" />
+    {dias.map(({ data: d }) => {
+      const descanso = d.tipo === "descanso";
+      const pasado = d.numero < actual;
+      return (
+        <rect
+          x={x(d.numero) - 1.5}
+          y={descanso ? 11 : 5}
+          width="3"
+          height={descanso ? 8 : 20}
+          rx="1"
+          class:list={[
+            d.jefe ? "fill-peligro" : pasado ? "fill-acento" : descanso ? "fill-borde" : "fill-borde-fuerte",
+            !pasado && !d.jefe && "opacity-80",
+          ]}
+        />
+      );
+    })}
+    {dias.filter(({ data: d }) => d.jefe).map(({ data: d }) => (
+      <rect x={x(d.numero) - 4} y="-10" width="8" height="8" transform={`rotate(45 ${x(d.numero)} -6)`} class="fill-peligro" />
+    ))}
+    <path d={`M${x(primerConFlauta)} -13 l2.2 4.5 4.8 .6 -3.5 3.3 .9 4.8 -4.4 -2.4 -4.4 2.4 .9 -4.8 -3.5 -3.3 4.8 -.6z`} class="fill-resalte" />
+    <circle cx={x(actual)} cy="15" r="9" class="fill-acento/25 animate-pulse" />
+    <circle cx={x(actual)} cy="15" r="5" class="fill-acento-claro stroke-fondo" stroke-width="2" />
+  </svg>
+  {leyenda && (
+  <ul class="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-[0.6875rem] text-tenue">
+    <li class="flex items-center gap-1.5"><span class="size-2 rotate-45 bg-peligro" aria-hidden="true"></span> Jefe</li>
+    <li class="flex items-center gap-1.5"><span class="text-resalte" aria-hidden="true">★</span> Llega la flauta (estimado)</li>
+    <li class="flex items-center gap-1.5"><span class="h-1 w-2 rounded-full bg-borde" aria-hidden="true"></span> Descanso</li>
+  </ul>
+  )}
+</div>

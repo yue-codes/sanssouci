@@ -1,9 +1,13 @@
 ---
 /**
  * @component CeldaDia
- * Un día del calendario: número, fecha, título, minutos e hitos. Lleva a /dias/[n].
- * En el celular es una fila; desde `sm`, una casilla de la cuadrícula semanal.
- * Los días de descanso se ven atenuados y compactos.
+ * Un día del calendario como casilla de un tablero: número, título, minutos (en
+ * una barrita que crece con la duración) e hitos. Lleva a /dias/[n].
+ * En el celular es una fila; desde `md`, una casilla de la cuadrícula semanal.
+ *
+ * Estados: los días ya pasados llevan una línea cian abajo (el camino recorrido);
+ * hoy brilla en cian; el día de un jefe va en rosa con su nombre; la llegada de
+ * la flauta, en lavanda; los descansos, atenuados y compactos.
  */
 import { Moon } from "lucide-preact";
 import { HITO } from "./hitos";
@@ -18,53 +22,65 @@ interface Props {
   hitos: Hito[];
   /** Minutos de la sesión. */
   minutos: number;
-  /** Si es el día de hoy. */
-  esHoy?: boolean;
+  /** Nombre del jefe, si hoy hay uno. */
+  jefe?: string;
+  /** Número del día de hoy en el plan. */
+  hoy: number;
 }
-const { dia, hitos, minutos, esHoy = false } = Astro.props;
+const { dia, hitos, minutos, jefe, hoy } = Astro.props;
 const d = dia.data;
 const descanso = d.tipo === "descanso";
+const esHoy = d.numero === hoy;
+const pasado = d.numero < hoy;
+const tono = esHoy ? "hoy" : hitos.includes("jefe") ? "jefe" : hitos.includes("flauta") ? "flauta" : descanso ? "descanso" : "normal";
 ---
 
 <a
   href={`/dias/${d.numero}`}
   aria-current={esHoy ? "date" : undefined}
-  class:list={[
-    "group relative flex h-full gap-3 rounded-xl border p-3 transition hover:-translate-y-0.5 hover:border-acento/60 sm:flex-col sm:gap-1.5",
-    descanso ? "border-transparent bg-superficie-2/40 text-tenue" : "border-borde bg-superficie",
-    { "border-acento ring-2 ring-acento/40": esHoy },
-    { "border-peligro/50": hitos.includes("jefe") && !esHoy },
-  ]}
+  data-tono={tono}
+  class="group relative flex h-full gap-3 overflow-hidden rounded-md border p-3 transition duration-300 ease-suave hover:-translate-y-0.5 md:flex-col md:gap-1.5
+         data-[tono=normal]:border-borde data-[tono=normal]:bg-superficie data-[tono=normal]:hover:border-acento/50
+         data-[tono=descanso]:border-transparent data-[tono=descanso]:bg-superficie/40 data-[tono=descanso]:text-tenue
+         data-[tono=hoy]:border-acento data-[tono=hoy]:bg-acento-suave data-[tono=hoy]:shadow-[0_0_30px_-8px_var(--acento)]
+         data-[tono=jefe]:border-peligro/60 data-[tono=jefe]:bg-[color-mix(in_oklab,var(--peligro)_10%,var(--superficie))] data-[tono=jefe]:hover:border-peligro
+         data-[tono=flauta]:border-resalte data-[tono=flauta]:shadow-[0_0_24px_-10px_var(--resalte)] data-[tono=flauta]:bg-[color-mix(in_oklab,var(--resalte)_10%,var(--superficie))]"
 >
-  <span class="flex w-16 shrink-0 flex-col sm:w-auto sm:flex-row sm:items-baseline sm:justify-between">
-    <span class="text-xs font-semibold uppercase tracking-wider text-tenue sm:hidden">{d.diaSemana.slice(0, 3)}</span>
-    <span class="font-display text-lg leading-none font-semibold">{fechaCorta(d.fecha)}</span>
-    <span class="text-[11px] text-tenue">Día {d.numero}</span>
+  <span class="flex w-16 shrink-0 flex-col md:w-auto md:flex-row md:items-baseline md:justify-between">
+    <span class="font-mono text-[0.625rem] tracking-[0.06em] text-tenue uppercase md:hidden">{d.diaSemana.slice(0, 3)}</span>
+    <span class="font-display text-2xl leading-none group-data-[tono=hoy]:text-acento-claro">{d.numero}</span>
+    <span class="font-mono text-[0.625rem] text-tenue">{fechaCorta(d.fecha)}</span>
   </span>
 
   <span class="min-w-0 flex-1">
-    {esHoy && <span class="eyebrow block">Hoy</span>}
+    {esHoy && <span class="block font-mono text-[0.625rem] font-semibold tracking-[0.08em] text-acento uppercase">Hoy</span>}
     {descanso ? (
       <span class="flex items-center gap-1.5 text-sm"><Moon size={13} aria-hidden="true" /> Descanso</span>
     ) : (
       <>
-        <span class="line-clamp-2 text-sm font-medium leading-snug">{d.titulo}</span>
-        <span class="mt-1 block text-[11px] text-tenue">{minutos} min</span>
+        {jefe && <span class="block font-mono text-[0.625rem] font-semibold tracking-[0.06em] text-peligro uppercase">Jefe</span>}
+        <span class="line-clamp-2 text-sm leading-snug">{jefe ?? d.titulo}</span>
+        <span class="mt-1.5 flex items-center gap-2 font-mono text-[0.625rem] text-tenue">
+          <span class="h-1 rounded-full bg-current opacity-50" style={`width:${Math.round(minutos / 1.5)}%`} aria-hidden="true"></span>
+          {minutos} min
+        </span>
       </>
     )}
   </span>
 
   {hitos.length > 0 && (
-    <span class="flex shrink-0 items-start gap-1 sm:absolute sm:right-2 sm:bottom-2">
-      {hitos.map((h) => {
+    <span class="flex shrink-0 items-start gap-1 md:absolute md:right-2.5 md:bottom-2.5">
+      {hitos.filter((h) => h !== "jefe" || !jefe).map((h) => {
         const { Icono, nombre, clase } = HITO[h];
         return (
           <span title={nombre} class={clase}>
-            <Icono size={15} aria-hidden="true" />
+            <Icono size={14} aria-hidden="true" />
             <span class="sr-only">{nombre}</span>
           </span>
         );
       })}
     </span>
   )}
+  {pasado && <span class="absolute inset-x-0 bottom-0 h-0.5 bg-acento/70" aria-hidden="true"></span>}
+  {pasado && <span class="sr-only">(ya pasó)</span>}
 </a>

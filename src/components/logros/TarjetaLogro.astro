@@ -1,14 +1,20 @@
 ---
 /**
  * @component TarjetaLogro
- * Ficha de un logro: estado, cómo se consigue, qué requiere y, plegado, todo lo
- * que abre (logros, canciones, jefes, paso de zona) y en qué días del plan se
- * trabaja. El plegado usa `<details>`: accesible y sin JavaScript.
- * Lleva `id` = id del logro, así que se puede enlazar con `/logros#logro-…`.
+ * Un logro como trofeo en su vitrina: la medalla hexagonal del árbol (`Hexagono`),
+ * su estado, cómo se consigue y qué requiere. Lo conseguido brilla en menta, lo
+ * que está al alcance late en lavanda y lo bloqueado se ve apagado. Si es llave de
+ * algún jefe, la medalla lleva el anillo rosa.
+ * Plegado, todo lo que abre (logros, canciones, paso de zona) y en qué días
+ * del plan se trabaja (los jefes no van ahí: se ven arriba, como «Llave de…»). El plegado usa `<details>`: accesible y sin JavaScript.
+ * Lleva `id` = id del logro, así que se puede enlazar con `/logros#logro-…`, y
+ * `data-estado`, que usa el filtro de la página.
  */
-import { Check, Lock, Sparkles, ChevronDown } from "lucide-preact";
+import { ChevronDown, KeyRound } from "lucide-preact";
 import ChipLogro from "./ChipLogro.astro";
-import { ICONO_CATEGORIA, NOMBRE_CATEGORIA } from "./categorias";
+import Hexagono from "./arbol/Hexagono";
+import { ICONO_ESTADO } from "./arbol/estilos";
+import { NOMBRE_CATEGORIA } from "./categorias";
 import type { Logro } from "@/lib/contenido";
 import type { EstadoLogro } from "@/lib/progreso";
 import type { LogroConEstado, UsosLogro } from "@/lib/logros";
@@ -25,71 +31,78 @@ interface Props {
 }
 const { logro, estado, requiere = [], usos } = Astro.props;
 const l = logro.data;
-const Icono = ICONO_CATEGORIA[l.categoria];
-const ESTADO = {
-  conseguido: { texto: "Conseguido", Icono: Check },
-  disponible: { texto: "Al alcance", Icono: Sparkles },
-  bloqueado: { texto: "Bloqueado", Icono: Lock },
-}[estado];
+const IconoEstado = ICONO_ESTADO[estado];
+const textoEstado = { conseguido: "Conseguido", disponible: "Al alcance", bloqueado: "Bloqueado" }[estado];
+const colorEstado = { conseguido: "text-exito", disponible: "text-resalte", bloqueado: "text-tenue" }[estado];
+const esLlave = (usos?.jefes.length ?? 0) > 0;
 
 // Los días pueden ser muchos: se enseñan los primeros y el resto se resume.
 const MAX_DIAS = 8;
 const dias = usos?.dias ?? [];
-const nUsos = usos ? usos.abre.length + usos.canciones.length + usos.jefes.length + usos.zonas.length : 0;
+const nUsos = usos ? usos.abre.length + usos.canciones.length + usos.zonas.length : 0;
 const enlace = "underline-offset-2 hover:text-acento hover:underline";
 ---
 
 <article
   id={logro.id}
   data-estado={estado}
-  class="group tarjeta flex scroll-mt-24 flex-col p-5 data-[estado=disponible]:border-resalte/50 target:ring-2 target:ring-acento"
+  class="group relative flex scroll-mt-28 flex-col overflow-hidden rounded-md border border-borde bg-superficie p-5 transition-colors
+         data-[estado=conseguido]:border-exito/35 data-[estado=conseguido]:bg-[color-mix(in_oklab,var(--exito)_5%,var(--superficie))]
+         data-[estado=disponible]:border-resalte/50 data-[estado=bloqueado]:bg-superficie/50
+         target:ring-2 target:ring-acento"
 >
-  <div class="flex items-start gap-4">
+  <!-- Brillo de vitrina detrás de la medalla (solo lo conseguido y lo disponible) -->
+  {estado !== "bloqueado" && (
     <span
-      class="grid size-12 shrink-0 place-items-center rounded-xl border-2 border-borde text-tenue
-             group-data-[estado=disponible]:border-resalte group-data-[estado=disponible]:text-resalte
-             group-data-[estado=conseguido]:border-acento group-data-[estado=conseguido]:bg-gradient-to-br group-data-[estado=conseguido]:from-acento group-data-[estado=conseguido]:to-acento/60 group-data-[estado=conseguido]:text-fondo group-data-[estado=conseguido]:shadow-[0_8px_24px_-8px_var(--acento)]"
-    >
-      <Icono size={22} aria-hidden="true" />
-    </span>
-    <div class="min-w-0">
-      <p class="flex flex-wrap items-center gap-x-2 text-[11px] font-semibold tracking-wider uppercase">
+      class:list={["pointer-events-none absolute -top-16 -left-16 size-48 rounded-full blur-3xl", estado === "conseguido" ? "bg-exito/15" : "bg-resalte/12"]}
+      aria-hidden="true"
+    ></span>
+  )}
+
+  <div class="relative flex items-start gap-4">
+    <Hexagono categoria={l.categoria} estado={estado} tamano={56} llave={esLlave} />
+    <div class="min-w-0 flex-1">
+      <p class="flex flex-wrap items-center gap-x-2 font-mono text-[0.625rem] tracking-[0.06em] uppercase">
         <span class="text-tenue">{NOMBRE_CATEGORIA[l.categoria]}</span>
-        <span aria-hidden="true" class="text-borde">•</span>
-        <span class="inline-flex items-center gap-1 text-tenue group-data-[estado=conseguido]:text-acento group-data-[estado=disponible]:text-resalte">
-          <ESTADO.Icono size={12} aria-hidden="true" /> {ESTADO.texto}
+        <span aria-hidden="true" class="text-borde-fuerte">·</span>
+        <span class:list={["inline-flex items-center gap-1", colorEstado]}>
+          <IconoEstado size={11} aria-hidden="true" /> {textoEstado}
         </span>
       </p>
-      <h3 class="mt-1 font-display text-lg leading-snug font-semibold">{l.nombre}</h3>
+      <h3 class="mt-1.5 font-display text-2xl leading-tight group-data-[estado=bloqueado]:text-texto/75">{l.nombre}</h3>
       <p class="mt-1 text-sm leading-relaxed text-tenue">{l.descripcion}</p>
     </div>
   </div>
 
-  <p class="mt-4 rounded-xl bg-superficie-2 p-3 text-sm leading-relaxed">
-    <span class="font-semibold">Cómo se consigue:</span> {l.criterio}
+  <p class="relative mt-4 border-l-2 border-borde-fuerte py-0.5 pl-3 text-sm leading-relaxed group-data-[estado=conseguido]:border-exito group-data-[estado=disponible]:border-resalte">
+    <span class="font-mono text-[0.625rem] tracking-[0.06em] text-tenue uppercase">Cómo se consigue</span>
+    <span class="mt-0.5 block">{l.criterio}</span>
   </p>
 
+  {esLlave && (
+    <p class="relative mt-3 flex items-center gap-1.5 text-xs text-peligro">
+      <KeyRound size={12} aria-hidden="true" />
+      Llave de {usos!.jefes.map((j, i) => <>{i > 0 && ", "}<a href={`/jefes/${j.id}`} class="underline-offset-2 hover:underline">{j.data.nombre}</a></>)}
+    </p>
+  )}
+
   {requiere.length > 0 && (
-    <div class="mt-3 flex flex-wrap items-center gap-1.5">
+    <div class="relative mt-3 flex flex-wrap items-center gap-1.5">
       <span class="text-xs text-tenue">Requiere:</span>
       {requiere.map((r) => <ChipLogro logro={r.logro} estado={r.estado} />)}
     </div>
   )}
 
   {usos && (nUsos > 0 || dias.length > 0) && (
-    <details class="group/mas mt-auto pt-4">
-      <summary class="flex cursor-pointer list-none items-center gap-1.5 rounded-lg text-sm font-medium text-acento [&::-webkit-details-marker]:hidden">
-        <ChevronDown size={16} class="transition group-open/mas:rotate-180" aria-hidden="true" />
+    <details class="group/mas relative mt-auto pt-4">
+      <summary class="flex w-fit cursor-pointer list-none items-center gap-1.5 rounded-[3px] font-mono text-[0.6875rem] text-acento uppercase [&::-webkit-details-marker]:hidden">
+        <ChevronDown size={14} class="transition-transform group-open/mas:rotate-180" aria-hidden="true" />
         {nUsos > 0 ? `Qué abre (${nUsos})` : "Cuándo se trabaja"}
       </summary>
       <dl class="mt-3 grid gap-2.5 text-sm">
         {usos.zonas.length > 0 && (
           <div><dt class="text-xs text-tenue">Para pasar de zona</dt>
             <dd>{usos.zonas.map((n, i) => <>{i > 0 && ", "}<a href={`/niveles/${n.id}`} class={enlace}>Zona {n.data.orden} · {n.data.nombre}</a></>)}</dd></div>
-        )}
-        {usos.jefes.length > 0 && (
-          <div><dt class="text-xs text-tenue">Jefes</dt>
-            <dd>{usos.jefes.map((j, i) => <>{i > 0 && ", "}<a href={`/jefes/${j.id}`} class={enlace}>{j.data.nombre}</a></>)}</dd></div>
         )}
         {usos.abre.length > 0 && (
           <div><dt class="text-xs text-tenue">Logros siguientes</dt>

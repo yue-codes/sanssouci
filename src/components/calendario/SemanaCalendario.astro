@@ -1,10 +1,14 @@
 ---
 /**
  * @component SemanaCalendario
- * Una semana del plan: cabecera (número, fechas, fase) y sus 7 días de lunes a
- * domingo. Los huecos sin día (final del plan) quedan vacíos para no descuadrar.
+ * Una semana del plan como una fila del tablero: a la izquierda, su número,
+ * fechas y fase; a la derecha, sus 7 días de lunes a domingo. Los huecos sin día
+ * (final del plan) quedan vacíos para no descuadrar.
+ *
+ * Los nombres de los días (Lun… Dom) los pinta la página una sola vez, arriba.
  */
 import CeldaDia from "./CeldaDia.astro";
+import type { Contenido } from "@/lib/contenido";
 import type { Semana } from "@/lib/calendario";
 import { hitosDelDia, minutosDelDia } from "@/lib/calendario";
 import { fechaCorta } from "@/lib/fechas";
@@ -16,33 +20,38 @@ interface Props {
   diaFlauta: number;
   /** Número del día de hoy en el plan. */
   hoy: number;
+  /** Contenido (para el nombre de los jefes). */
+  c: Contenido;
 }
-const { semana, diaFlauta, hoy } = Astro.props;
+const { semana, diaFlauta, hoy, c } = Astro.props;
 const FASE = { "sin-flauta": "Sin flauta", "con-flauta": "Con flauta", mixta: "Llega la flauta" };
-const DIAS = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"];
+const enCurso = semana.dias.some((d) => d?.data.numero === hoy);
 ---
 
-<section aria-labelledby={`semana-${semana.numero}`}>
-  <div class="mb-3 flex flex-wrap items-baseline gap-x-3 gap-y-1">
-    <h2 id={`semana-${semana.numero}`} class="text-xl font-semibold">Semana {semana.numero}</h2>
-    <span class="text-sm text-tenue">{fechaCorta(semana.inicio)} – {fechaCorta(semana.fin)}</span>
-    <span
-      class:list={[
-        "rounded-full px-2.5 py-0.5 text-xs font-semibold",
-        semana.fase === "sin-flauta" ? "bg-superficie-2 text-secundario" : "bg-acento-suave text-acento",
-      ]}
-    >{FASE[semana.fase]}</span>
+<section aria-labelledby={`semana-${semana.numero}`} class="grid gap-2 md:grid-cols-[7.5rem_1fr] md:gap-3" data-revelar>
+  <div class="flex items-baseline gap-3 md:flex-col md:gap-1 md:pt-2">
+    <h3 id={`semana-${semana.numero}`} class:list={["font-display text-2xl leading-none", enCurso && "text-acento-claro"]}>
+      Semana {semana.numero}
+    </h3>
+    <span class="font-mono text-[0.625rem] text-tenue">{fechaCorta(semana.inicio)} – {fechaCorta(semana.fin)}</span>
+    <span class:list={[
+      "font-mono text-[0.625rem] tracking-[0.06em] uppercase",
+      semana.fase === "sin-flauta" ? "text-secundario" : "text-resalte",
+    ]}>{FASE[semana.fase]}</span>
   </div>
 
-  <!-- Nombres de los días: solo en la cuadrícula (desde sm) -->
-  <div class="mb-1.5 hidden grid-cols-7 gap-2 text-center text-[11px] font-semibold uppercase tracking-wider text-tenue sm:grid" aria-hidden="true">
-    {DIAS.map((d) => <span>{d}</span>)}
-  </div>
-
-  <ol class="grid gap-2 sm:grid-cols-7">
+  <ol class="grid gap-2 md:grid-cols-7">
     {semana.dias.map((dia) => (
-      <li class:list={["sm:min-h-32", { "hidden sm:block": !dia }]}>
-        {dia && <CeldaDia dia={dia} hitos={hitosDelDia(dia, diaFlauta)} minutos={minutosDelDia(dia)} esHoy={dia.data.numero === hoy} />}
+      <li class:list={["md:min-h-30", { "hidden md:block": !dia }]}>
+        {dia && (
+          <CeldaDia
+            dia={dia}
+            hitos={hitosDelDia(dia, diaFlauta)}
+            minutos={minutosDelDia(dia)}
+            jefe={dia.data.jefe && c.jefePorId.get(dia.data.jefe.id)!.data.nombre}
+            hoy={hoy}
+          />
+        )}
       </li>
     ))}
   </ol>

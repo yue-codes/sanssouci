@@ -1,0 +1,32 @@
+---
+/**
+ * @component BarraMisiones
+ * Las misiones de una zona en una barra por segmentos, uno por misión: menta las
+ * conseguidas, lavanda latiendo las disponibles, gris las bloqueadas. Encima, la
+ * etiqueta y la cuenta («3 / 7»). La barra es decorativa; la cuenta da el dato.
+ * La usan el marcador del mapa y la página de cada zona.
+ */
+import type { LogroConEstado } from "@/lib/logros";
+
+interface Props {
+  /** Las misiones, con su estado. */
+  misiones: LogroConEstado[];
+  /** Texto de la etiqueta. Por defecto, «Misiones de la zona». */
+  etiqueta?: string;
+  /** Clases extra. */
+  class?: string;
+}
+const { misiones, etiqueta = "Misiones de la zona", class: clase = "" } = Astro.props;
+const hechas = misiones.filter((m) => m.estado === "conseguido").length;
+const SEGMENTO = { conseguido: "bg-exito", disponible: "bg-resalte/70 animate-pulse", bloqueado: "bg-borde" };
+---
+
+<div class={clase}>
+  <div class="flex items-baseline justify-between font-mono text-[0.625rem] tracking-[0.06em] text-tenue uppercase">
+    <span>{etiqueta}</span>
+    <span class="tabular-nums">{hechas} / {misiones.length}</span>
+  </div>
+  <div class="mt-2 flex h-2 gap-1" data-crecer aria-hidden="true">
+    {misiones.map((r) => <span class:list={["flex-1 rounded-[1px]", SEGMENTO[r.estado]]} />)}
+  </div>
+</div>

@@ -48,18 +48,18 @@ export default function CatalogoCanciones({ canciones, rutas, zonas }: Props) {
   return (
     <div class="grid gap-6 lg:grid-cols-[17rem_minmax(0,1fr)] lg:items-start">
       {/* ---------- Filtros ---------- */}
-      <aside class="lg:sticky lg:top-20">
+      <aside class="lg:sticky lg:top-24">
         <button
           type="button"
           aria-expanded={panelAbierto.value}
           aria-controls="panel-filtros"
           onClick={() => (panelAbierto.value = !panelAbierto.value)}
-          class="tarjeta flex w-full items-center justify-between px-4 py-3 text-sm font-semibold lg:hidden"
+          class="flex w-full items-center justify-between rounded-md border border-borde bg-superficie px-4 py-3 text-sm lg:hidden"
         >
           <span class="flex items-center gap-2"><SlidersHorizontal size={16} aria-hidden="true" /> Filtros</span>
-          {activos.value > 0 && <span class="rounded-full bg-acento px-2 text-xs text-fondo">{activos.value}</span>}
+          {activos.value > 0 && <span class="rounded-[2px] bg-acento px-1.5 font-mono text-[0.625rem] text-fondo">{activos.value}</span>}
         </button>
-        <div id="panel-filtros" class={`tarjeta mt-2 p-5 lg:mt-0 lg:block ${panelAbierto.value ? "block" : "hidden"}`}>
+        <div id="panel-filtros" class={`mt-2 rounded-md border border-borde bg-superficie p-5 lg:mt-0 lg:block ${panelAbierto.value ? "block" : "hidden"}`}>
           <PanelFiltros
             filtros={filtros.value}
             rutas={rutas}
@@ -74,14 +74,21 @@ export default function CatalogoCanciones({ canciones, rutas, zonas }: Props) {
       {/* ---------- Resultados ---------- */}
       <section aria-labelledby="titulo-resultados">
         <h2 id="titulo-resultados" class="sr-only">Resultados</h2>
-        <p class="mb-4 text-sm text-tenue" aria-live="polite">
+        <p class="mb-4 font-mono text-[0.625rem] tracking-[0.08em] text-tenue uppercase" aria-live="polite">
           {total === canciones.length ? `${total} obras` : `${total} de ${canciones.length} obras`}
         </p>
         {total === 0 ? (
-          <div class="tarjeta grid place-items-center gap-3 p-10 text-center">
+          <div class="grid place-items-center gap-3 rounded-md border border-dashed border-borde-fuerte p-10 text-center">
             <SearchX size={32} class="text-tenue" aria-hidden="true" />
-            <p>Ninguna obra cumple todos los filtros.</p>
-            <button type="button" onClick={() => aplicar(FILTROS_VACIOS)} class="rounded-xl bg-acento px-4 py-2 text-sm font-semibold text-fondo">
+            {filtros.value.soloListas ? (
+              <p class="max-w-md">
+                Todavía no hay obras que puedas tocar con lo que tienes.{" "}
+                <a href="/arbol" class="text-acento underline-offset-2 hover:underline">Consigue talentos en el árbol</a> para desbloquearlas.
+              </p>
+            ) : (
+              <p>Ninguna obra cumple todos los filtros.</p>
+            )}
+            <button type="button" onClick={() => aplicar(FILTROS_VACIOS)} class="rounded-[3px] bg-acento px-4 py-2 text-sm font-medium text-fondo">
               Quitar filtros
             </button>
           </div>

@@ -1,22 +1,28 @@
 ---
 /**
- * Página /calendario: los 90 días del plan en 13 semanas, de lunes a domingo.
+ * Página /calendario: los 90 días como una campaña en dos actos (sin flauta y
+ * con flauta). Cada semana es una fila de casillas; tras la semana de cada jefe,
+ * una puerta marca el paso a la zona siguiente.
  * «Hoy» es la fecha del build mientras el sitio sea estático (en la fase 4 se
  * calculará en cada visita).
  */
-import { ArrowRight, Moon } from "lucide-preact";
+import { Picture } from "astro:assets";
+import { ArrowRight, DoorOpen, Flag, Moon } from "lucide-preact";
 import Base from "@/layouts/Base.astro";
 import SemanaCalendario from "@/components/calendario/SemanaCalendario.astro";
+import RecorridoPlan from "@/components/calendario/RecorridoPlan.astro";
 import { HITO } from "@/components/calendario/hitos";
 import { cargarContenido } from "@/lib/contenido";
-import { semanasDelPlan, primerDiaConFlauta, minutosDelDia, type Hito } from "@/lib/calendario";
+import { semanasDelPlan, primerDiaConFlauta, minutosDelDia, zonaDelDia, type Hito } from "@/lib/calendario";
 import { diaDelPlan, fechaLarga } from "@/lib/fechas";
+import { IMAGENES } from "@/config/imagenes";
 
 const c = await cargarContenido();
 const dias = [...c.dias].sort((a, b) => a.data.numero - b.data.numero);
 const semanas = semanasDelPlan(dias);
 const diaFlauta = primerDiaConFlauta(dias);
 const hoy = diaDelPlan(new Date(), dias[0].data.fecha);
+const imagen = IMAGENES.cuartoGhibli;
 
 // La próxima sesión desde hoy (si hoy es descanso, la siguiente).
 const proxima = dias.find((d) => d.data.numero >= Math.max(1, hoy) && d.data.tipo !== "descanso");
@@ -24,58 +30,149 @@ const sesiones = dias.filter((d) => d.data.tipo !== "descanso");
 const horas = Math.round(sesiones.reduce((s, d) => s + minutosDelDia(d), 0) / 60);
 
 const estadisticas = [
-  { valor: sesiones.length, texto: "sesiones" },
+  { valor: sesiones.length, texto: "misiones" },
   { valor: horas, texto: "horas de práctica" },
   { valor: dias.filter((d) => d.data.jefe).length, texto: "jefes" },
 ];
+
+// Dos actos: hasta que llega la flauta y desde entonces.
+const semanaFlauta = dias.find((d) => d.data.numero === diaFlauta)!.data.semana;
+const actos = [
+  {
+    numero: "I",
+    titulo: "Sin flauta",
+    texto: "Lectura, teoría, respiración, oído y guitarra. Preparas todo lo que la flauta va a pedir.",
+    semanas: semanas.filter((s) => s.numero < semanaFlauta),
+  },
+  {
+    numero: "II",
+    titulo: "Con flauta",
+    texto: "Llega la flauta: revisión con el maestro, sonido, primeras notas y primeras piezas.",
+    semanas: semanas.filter((s) => s.numero >= semanaFlauta),
+  },
+];
+
+/** La puerta tras la semana de un jefe: a qué zona se pasa (o el final de los 90 días). */
+function puertaTras(semana: (typeof semanas)[number]) {
+  const diaJefe = semana.dias.find((d) => d?.data.jefe);
+  if (!diaJefe) return undefined;
+  const jefe = c.jefePorId.get(diaJefe.data.jefe!.id)!;
+  const n = diaJefe.data.numero;
+  const siguiente = n < dias.length ? zonaDelDia(c, n + 1) : undefined;
+  return { jefe, dia: n, siguiente };
+}
+const DIAS_SEMANA = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"];
 ---
 
-<Base titulo="Calendario" descripcion="Los 90 días del plan, del 2 de noviembre de 2026 al 30 de enero de 2027.">
-  <header class="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-end">
-    <div class="max-w-2xl">
-      <p class="eyebrow">90 días · 2 nov 2026 → 30 ene 2027</p>
-      <h1 class="mt-3 text-4xl font-semibold leading-tight sm:text-6xl">Calendario</h1>
-      <p class="mt-4 text-lg leading-relaxed text-tenue">
-        Práctica de lunes a sábado salvo el jueves, de 8 a 10 pm, en sesiones de 45 a 60 minutos.
-        Jueves y domingo, descanso.
-      </p>
+<Base titulo="Calendario" descripcion="Los 90 días del plan, del 2 de noviembre de 2026 al 30 de enero de 2027." ancho="completo">
+  <!-- ============ PORTADA ============ -->
+  <section class="relative isolate overflow-hidden border-b border-borde" aria-labelledby="titulo-calendario">
+    <div class="absolute inset-0 -z-10 animate-acercar">
+      <Picture src={imagen.src} alt="" widths={[960, 1440, 2000]} sizes="100vw" formats={["avif"]} fallbackFormat="webp" loading="eager"
+        class="size-full object-cover" style={{ objectPosition: imagen.enfoque }} />
     </div>
-    <dl class="flex gap-6">
-      {estadisticas.map((e) => (
-        <div>
-          <dd class="font-display text-4xl font-semibold leading-none">{e.valor}</dd>
-          <dt class="mt-1 text-xs text-tenue">{e.texto}</dt>
+    <span class="velo -z-10 opacity-60" aria-hidden="true"></span>
+    <span class="absolute inset-0 -z-10 bg-linear-to-r from-fondo via-fondo/85 to-fondo/30" aria-hidden="true"></span>
+    <span class="absolute inset-0 -z-10 bg-linear-to-t from-fondo to-transparent to-50%" aria-hidden="true"></span>
+
+    <div class="contenedor grid gap-10 py-14 sm:py-20 lg:grid-cols-[1.3fr_1fr] lg:items-end">
+      <div data-revelar="hijos">
+        <p class="eyebrow">90 días · 2 nov 2026 → 30 ene 2027</p>
+        <h1 id="titulo-calendario" class="mt-4 text-6xl leading-[0.92] sm:text-8xl">La campaña</h1>
+        <p class="mt-5 max-w-[52ch] text-lg text-tenue">
+          Dos actos, tres jefes y 65 misiones. Práctica de 8 a 10 pm los lunes, martes, miércoles,
+          viernes y sábados; jueves y domingo, campamento.
+        </p>
+        <dl class="mt-8 flex flex-wrap gap-x-10 gap-y-4">
+          {estadisticas.map((e) => (
+            <div class="flex flex-col-reverse">
+              <dt class="mt-1 font-mono text-[0.625rem] tracking-[0.06em] text-tenue uppercase">{e.texto}</dt>
+              <dd class="font-display text-5xl leading-none tabular-nums">{e.valor}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+
+      {proxima && (
+        <a href={`/dias/${proxima.data.numero}`} class="group grid gap-3 rounded-md border border-acento/50 bg-fondo/80 p-5 backdrop-blur-md transition-colors hover:border-acento" data-revelar>
+          <span class="flex items-center justify-between font-mono text-[0.625rem] tracking-[0.08em] text-acento uppercase">
+            {proxima.data.numero === hoy ? "Misión de hoy" : "Próxima misión"} · día {proxima.data.numero}
+            <ArrowRight size={16} class="transition-transform group-hover:translate-x-1" aria-hidden="true" />
+          </span>
+          <span class="font-display text-3xl leading-tight">{proxima.data.titulo}</span>
+          <span class="text-sm text-tenue">{fechaLarga(proxima.data.fecha)} · {minutosDelDia(proxima)} min</span>
+          <span class="text-sm">{proxima.data.objetivo}</span>
+        </a>
+      )}
+    </div>
+  </section>
+
+  <div class="contenedor py-14 sm:py-20">
+    <div class="max-w-4xl">
+      <RecorridoPlan dias={dias} actual={Math.min(Math.max(hoy, 1), dias.length)} primerConFlauta={diaFlauta} leyenda={false} />
+    </div>
+
+    <!-- Leyenda -->
+    <ul class="mt-8 flex flex-wrap gap-x-5 gap-y-2 text-xs text-tenue" aria-label="Leyenda">
+      {(Object.keys(HITO) as Hito[]).map((h) => {
+        const { nombre, Icono, clase } = HITO[h];
+        return <li class="flex items-center gap-1.5"><Icono size={14} class={clase} aria-hidden="true" /> {nombre}</li>;
+      })}
+      <li class="flex items-center gap-1.5"><Moon size={14} aria-hidden="true" /> Descanso</li>
+      <li class="flex items-center gap-1.5"><span class="h-0.5 w-4 bg-acento" aria-hidden="true"></span> Ya pasó</li>
+    </ul>
+
+    {actos.map((acto) => (
+      <section class="mt-20" aria-labelledby={`acto-${acto.numero}`}>
+        <header class="mb-8 flex items-end gap-6 border-b border-borde pb-5" data-revelar>
+          <span class="font-display text-8xl leading-[0.8] text-acento/30" aria-hidden="true">{acto.numero}</span>
+          <div>
+            <p class="eyebrow">Acto {acto.numero}</p>
+            <h2 id={`acto-${acto.numero}`} class="mt-1 text-4xl sm:text-5xl">{acto.titulo}</h2>
+            <p class="mt-2 max-w-[60ch] text-tenue">{acto.texto}</p>
+          </div>
+        </header>
+
+        <!-- Nombres de los días: una sola vez por acto, alineados con la cuadrícula -->
+        <div class="mb-2 hidden grid-cols-[7.5rem_1fr] gap-3 md:grid" aria-hidden="true">
+          <span></span>
+          <div class="grid grid-cols-7 gap-2 text-center font-mono text-[0.625rem] tracking-[0.08em] text-tenue uppercase">
+            {DIAS_SEMANA.map((d) => <span>{d}</span>)}
+          </div>
         </div>
-      ))}
-    </dl>
-  </header>
 
-  {proxima && (
-    <a href={`/dias/${proxima.data.numero}`} class="tarjeta group mt-8 flex flex-wrap items-center gap-4 border-acento/50 p-5 transition hover:border-acento">
-      <span class="grid size-14 shrink-0 place-items-center rounded-2xl bg-acento font-display text-2xl font-semibold text-fondo">{proxima.data.numero}</span>
-      <span class="min-w-0 flex-1">
-        <span class="eyebrow block">{proxima.data.numero === hoy ? "Hoy" : "Próxima sesión"} · {fechaLarga(proxima.data.fecha)}</span>
-        <span class="mt-1 block text-xl font-semibold">{proxima.data.titulo}</span>
-        <span class="text-sm text-tenue">{proxima.data.objetivo}</span>
-      </span>
-      <ArrowRight size={20} class="text-acento transition group-hover:translate-x-1" aria-hidden="true" />
-    </a>
-  )}
+        <div class="grid gap-4">
+          {acto.semanas.map((s) => {
+            const puerta = puertaTras(s);
+            return (
+              <>
+                <SemanaCalendario semana={s} diaFlauta={diaFlauta} hoy={hoy} c={c} />
+                {puerta && (
+                  <a href={`/jefes/${puerta.jefe.id}`} class="group my-3 flex items-center gap-4 rounded-md border border-dashed border-peligro/50 bg-peligro/5 px-4 py-3 transition-colors hover:border-peligro md:ml-[8.25rem]">
+                    <span class="grid size-10 shrink-0 place-items-center rounded-full border border-peligro/60 text-peligro" aria-hidden="true">
+                      {puerta.siguiente ? <DoorOpen size={18} /> : <Flag size={18} />}
+                    </span>
+                    <span class="min-w-0 flex-1 text-sm">
+                      <span class="block font-mono text-[0.625rem] tracking-[0.08em] text-peligro uppercase">Puerta · día {puerta.dia}</span>
+                      <span class="font-display text-xl">{puerta.jefe.data.nombre}</span>
+                      <span class="text-tenue">
+                        {puerta.siguiente
+                          ? ` · si lo vences, pasas a la Zona ${puerta.siguiente.data.orden}: ${puerta.siguiente.data.nombre}`
+                          : " · fin de los 90 días; el camino sigue en el mapa"}
+                      </span>
+                    </span>
+                    <ArrowRight size={16} class="shrink-0 text-peligro transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                  </a>
+                )}
+              </>
+            );
+          })}
+        </div>
+      </section>
+    ))}
 
-  <!-- Leyenda -->
-  <ul class="mt-8 flex flex-wrap gap-x-5 gap-y-2 text-xs text-tenue" aria-label="Leyenda">
-    {(Object.keys(HITO) as Hito[]).map((h) => {
-      const { nombre, Icono, clase } = HITO[h];
-      return <li class="flex items-center gap-1.5"><Icono size={14} class={clase} aria-hidden="true" /> {nombre}</li>;
-    })}
-    <li class="flex items-center gap-1.5"><Moon size={14} aria-hidden="true" /> Descanso</li>
-  </ul>
-
-  <div class="mt-8 grid gap-10">
-    {semanas.map((s) => <SemanaCalendario semana={s} diaFlauta={diaFlauta} hoy={hoy} />)}
+    <p class="mt-16 max-w-[70ch] text-sm text-tenue">
+      La llegada de la flauta (día {diaFlauta}) es una estimación. Si llega otro día, el acto II empieza cuando llegue.
+    </p>
   </div>
-
-  <p class="mt-10 text-sm text-tenue">
-    La llegada de la flauta (día {diaFlauta}) es una estimación. Si llega otro día, la fase con flauta empieza cuando llegue.
-  </p>
 </Base>

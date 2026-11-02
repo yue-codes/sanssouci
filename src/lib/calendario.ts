@@ -2,9 +2,10 @@
  * @file Datos del calendario de 90 días: semanas, minutos e hitos de cada día.
  * Funciones puras sobre las entradas de `dias.json`.
  */
-import type { Contenido, Dia } from "@/lib/contenido";
+import type { Contenido, Dia, Nivel } from "@/lib/contenido";
 import type { DiaPartitura } from "@/lib/partitura";
 import { indiceDiaSemana } from "@/lib/fechas";
+import { diaDelJefe, jefesEnOrden } from "@/lib/jefes";
 
 /** Algo destacable de un día, que se marca en el calendario. */
 export type Hito = "jefe" | "clase" | "flauta" | "festivo";
@@ -141,4 +142,18 @@ export function diasParaPartitura(c: Contenido): DiaPartitura[] {
       conFlauta: d.fase === "con-flauta",
       jefe: d.jefe ? c.jefePorId.get(d.jefe.id)?.data.nombre : undefined,
     }));
+}
+
+/**
+ * Zona en la que cae un día del plan: la del primer jefe cuyo día aún no ha
+ * pasado (el día del jefe todavía es de su zona). Los 90 días cubren las zonas 0 a 2.
+ *
+ * @param c Contenido cargado con `cargarContenido()`.
+ * @param numero Número del día (1 a 90).
+ * @example zonaDelDia(c, 27) // → nivel-0 (el día 27 es el del jefe 0)
+ * @example zonaDelDia(c, 28) // → nivel-1
+ */
+export function zonaDelDia(c: Contenido, numero: number): Nivel {
+  const jefe = jefesEnOrden(c).find((j) => (diaDelJefe(c, j.id)?.data.numero ?? Infinity) >= numero);
+  return c.nivelPorId.get((jefe ?? c.jefes[c.jefes.length - 1]).data.nivel.id)!;
 }

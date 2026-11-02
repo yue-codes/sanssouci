@@ -1,0 +1,57 @@
+---
+/**
+ * @component MiniMapa
+ * Las zonas del camino en una línea, como el minimapa de un juego: cada zona es
+ * un punto (superada en menta, la tuya en cian con «TÚ», las demás apagadas), y
+ * entre zona y zona, el rombo rosa de su jefe. La zona de la página se resalta con
+ * un anillo y su nombre debajo. Cada punto enlaza a su zona.
+ */
+import { Check } from "lucide-preact";
+import type { ParadaSendero } from "@/lib/mapa";
+
+interface Props {
+  /** Todas las zonas (ver `construirSendero`). */
+  paradas: ParadaSendero[];
+  /** Id de la zona que se está viendo. */
+  vista: string;
+}
+const { paradas, vista } = Astro.props;
+---
+
+<nav aria-label="Minimapa de zonas">
+  <ol class="flex items-center">
+    {paradas.map((p, i) => {
+      const esVista = p.nivel.id === vista;
+      const ultima = i === paradas.length - 1;
+      const jefeVencido = p.jefes.every((j) => j.vencido);
+      return (
+        <li class:list={["relative flex items-center", !ultima && "flex-1"]}>
+          <a
+            href={`/niveles/${p.nivel.id}`}
+            data-estado={p.estado}
+            aria-current={esVista ? "page" : undefined}
+            aria-label={`Zona ${p.nivel.data.orden}: ${p.nivel.data.nombre} (${{ superada: "superada", actual: "estás aquí", bloqueada: "bloqueada" }[p.estado]})`}
+            class:list={[
+              "group relative grid size-8 shrink-0 place-items-center rounded-full border-2 font-mono text-[0.6875rem] transition-transform hover:scale-110",
+              "data-[estado=superada]:border-exito data-[estado=superada]:bg-exito data-[estado=superada]:text-fondo",
+              "data-[estado=actual]:border-acento data-[estado=actual]:bg-acento-suave data-[estado=actual]:text-acento-claro",
+              "data-[estado=bloqueada]:border-borde-fuerte data-[estado=bloqueada]:bg-fondo data-[estado=bloqueada]:text-tenue",
+              esVista && "ring-2 ring-texto ring-offset-2 ring-offset-fondo",
+            ]}
+          >
+            {p.estado === "superada" ? <Check size={14} strokeWidth={3} aria-hidden="true" /> : p.nivel.data.orden}
+            {p.estado === "actual" && (
+              <span class="absolute -top-6 left-1/2 -translate-x-1/2 animate-flotar rounded-[2px] bg-acento px-1 font-mono text-[0.5625rem] font-semibold text-fondo" aria-hidden="true">TÚ</span>
+            )}
+          </a>
+          {!ultima && (
+            <span class="relative mx-1 flex h-0.5 flex-1 items-center" aria-hidden="true">
+              <span class:list={["h-full w-full", p.estado === "superada" ? "bg-exito/70" : "bg-borde"]}></span>
+              <span class:list={["absolute left-1/2 size-2 -translate-x-1/2 rotate-45", jefeVencido ? "bg-exito" : "bg-peligro"]}></span>
+            </span>
+          )}
+        </li>
+      );
+    })}
+  </ol>
+</nav>

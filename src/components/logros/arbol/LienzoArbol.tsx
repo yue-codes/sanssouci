@@ -6,7 +6,7 @@ import type { CategoriaLogro } from "@/lib/contenido";
 import type { EstadoLogro } from "@/lib/progreso";
 import { ICONO_CATEGORIA, NOMBRE_CATEGORIA } from "../categorias";
 import { COLOR_ESTADO, ESTILO_ESTADO } from "./estilos";
-import Estallido from "./Estallido";
+import Estallido from "@/components/ui/Estallido";
 import Hexagono from "./Hexagono";
 
 interface Props {

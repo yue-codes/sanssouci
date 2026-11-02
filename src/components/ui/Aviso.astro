@@ -15,7 +15,7 @@ interface Props {
 const { class: clase = "" } = Astro.props;
 ---
 
-<p class:list={["flex items-start gap-2.5 rounded-xl border border-dashed border-acento/50 bg-acento-suave/40 px-4 py-3 text-sm", clase]}>
+<p class:list={["flex items-start gap-2.5 rounded-md border border-dashed border-acento/50 bg-acento-suave/30 px-4 py-3 text-sm", clase]}>
   <Info size={16} class="mt-0.5 shrink-0 text-acento" aria-hidden="true" />
   <span><slot /></span>
 </p>

@@ -14,10 +14,10 @@ interface Props {
 export default function ChipRuta({ nombre, color }: Props) {
   return (
     <span
-      class="inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-xs font-medium"
+      class="inline-flex items-center gap-1.5 rounded-[3px] border px-2 py-0.5 text-xs"
       style={{
         borderColor: `color-mix(in oklab, ${color} 45%, transparent)`,
-        background: `color-mix(in oklab, ${color} 14%, transparent)`,
+        background: `color-mix(in oklab, ${color} 12%, transparent)`,
       }}
     >
       <span class="size-1.5 rounded-full" style={{ background: color }} aria-hidden="true" />

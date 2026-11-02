@@ -24,6 +24,8 @@ export interface Filtros {
   dificultadMax: number;
   soloOido: boolean;
   soloPartitura: boolean;
+  /** Solo las que ya puedes tocar (no te falta ningún requisito). */
+  soloListas: boolean;
   orden: Orden;
 }
 
@@ -34,6 +36,7 @@ export const FILTROS_VACIOS: Filtros = {
   dificultadMax: 10,
   soloOido: false,
   soloPartitura: false,
+  soloListas: false,
   orden: "dificultad",
 };
 
@@ -58,7 +61,8 @@ export function filtrarCanciones(lista: readonly CancionResumen[], f: Filtros): 
       (!f.zona || s.zona.id === f.zona) &&
       s.dificultad <= f.dificultadMax &&
       (!f.soloOido || s.retoDeOido) &&
-      (!f.soloPartitura || s.conPartitura),
+      (!f.soloPartitura || s.conPartitura) &&
+      (!f.soloListas || s.faltan === 0),
   );
   const porTitulo = (a: CancionResumen, b: CancionResumen) => a.titulo.localeCompare(b.titulo, "es");
   const comparar = {
@@ -71,7 +75,7 @@ export function filtrarCanciones(lista: readonly CancionResumen[], f: Filtros): 
 
 /** Cuántos filtros (sin contar el orden) están activos. */
 export function filtrosActivos(f: Filtros): number {
-  return [f.texto.trim() !== "", f.rutas.length > 0, f.zona !== "", f.dificultadMax < 10, f.soloOido, f.soloPartitura].filter(Boolean).length;
+  return [f.texto.trim() !== "", f.rutas.length > 0, f.zona !== "", f.dificultadMax < 10, f.soloOido, f.soloPartitura, f.soloListas].filter(Boolean).length;
 }
 
 /**
@@ -89,6 +93,7 @@ export function filtrosDesdeURL(p: URLSearchParams): Filtros {
     dificultadMax: max >= 1 && max <= 10 ? max : 10,
     soloOido: p.get("oido") === "1",
     soloPartitura: p.get("partitura") === "1",
+    soloListas: p.get("listas") === "1",
     orden: orden === "titulo" || orden === "zona" ? orden : "dificultad",
   };
 }
@@ -105,6 +110,7 @@ export function filtrosAURL(f: Filtros): URLSearchParams {
   if (f.dificultadMax < 10) p.set("max", String(f.dificultadMax));
   if (f.soloOido) p.set("oido", "1");
   if (f.soloPartitura) p.set("partitura", "1");
+  if (f.soloListas) p.set("listas", "1");
   if (f.orden !== "dificultad") p.set("orden", f.orden);
   return p;
 }

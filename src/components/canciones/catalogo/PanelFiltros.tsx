@@ -1,4 +1,4 @@
-import { Search, X } from "lucide-preact";
+import { Search, Sparkles, X } from "lucide-preact";
 import type { Filtros, Orden } from "@/lib/catalogo";
 
 /** Una opción de ruta para los botones de filtro. */
@@ -35,22 +35,35 @@ const ORDENES: { valor: Orden; texto: string }[] = [
 ];
 
 /** Clases compartidas por los campos del formulario. */
-const CAMPO = "w-full rounded-xl border border-borde bg-superficie px-3 py-2 text-sm";
-const ETIQUETA = "mb-1.5 block text-xs font-semibold uppercase tracking-wider text-tenue";
+const CAMPO = "w-full rounded-[3px] border border-borde bg-fondo px-3 py-2 text-sm";
+const ETIQUETA = "mb-2 block font-mono text-[0.625rem] tracking-[0.08em] text-tenue uppercase";
 
 /**
  * @component PanelFiltros
  * Formulario de filtros del catálogo. No guarda estado: muestra `filtros` y
  * avisa de cada cambio con `onCambiar` (lo gestiona `CatalogoCanciones`).
- * Cada control tiene su etiqueta visible o `sr-only`, y las rutas son botones
- * con `aria-pressed` porque se pueden activar varias a la vez.
+ * Cada control tiene su etiqueta visible o `sr-only`. Las rutas y «¿Qué puedo
+ * tocar ya?» son botones con `aria-pressed` (interruptores: se encienden y apagan).
  */
 export default function PanelFiltros({ filtros: f, rutas, zonas, activos, onCambiar, onLimpiar }: Props) {
   const alternarRuta = (id: string) =>
     onCambiar({ rutas: f.rutas.includes(id) ? f.rutas.filter((r) => r !== id) : [...f.rutas, id] });
 
   return (
-    <form class="grid gap-5" role="search" onSubmit={(e) => e.preventDefault()}>
+    <form class="grid gap-6" role="search" onSubmit={(e) => e.preventDefault()}>
+      <button
+        type="button"
+        aria-pressed={f.soloListas}
+        onClick={() => onCambiar({ soloListas: !f.soloListas })}
+        class="flex items-center gap-2.5 rounded-[3px] border border-resalte/40 px-3 py-2.5 text-left text-sm transition-colors hover:border-resalte aria-pressed:border-resalte aria-pressed:bg-resalte aria-pressed:text-fondo"
+      >
+        <Sparkles size={16} class="shrink-0" aria-hidden="true" />
+        <span>
+          <span class="block font-medium">¿Qué puedo tocar ya?</span>
+          <span class="block text-xs opacity-75">Solo las que no piden talentos que te falten</span>
+        </span>
+      </button>
+
       <div>
         <label for="buscar" class="sr-only">Buscar por título, obra o compositor</label>
         <div class="relative">
@@ -77,7 +90,7 @@ export default function PanelFiltros({ filtros: f, rutas, zonas, activos, onCamb
                 type="button"
                 aria-pressed={activa}
                 onClick={() => alternarRuta(r.id)}
-                class="inline-flex items-center gap-1.5 rounded-full border border-borde px-3 py-1 text-xs font-medium text-tenue transition hover:text-texto aria-pressed:text-texto"
+                class="inline-flex items-center gap-1.5 rounded-[3px] border border-borde px-2.5 py-1 text-xs text-tenue transition-colors hover:text-texto aria-pressed:text-texto"
                 style={activa ? { borderColor: r.color, background: `color-mix(in oklab, ${r.color} 18%, transparent)` } : undefined}
               >
                 <span class="size-2 rounded-full" style={{ background: r.color }} aria-hidden="true" />
@@ -107,7 +120,7 @@ export default function PanelFiltros({ filtros: f, rutas, zonas, activos, onCamb
           onInput={(e) => onCambiar({ dificultadMax: Number(e.currentTarget.value) })}
           class="w-full accent-acento"
         />
-        <div class="flex justify-between text-[11px] text-tenue" aria-hidden="true"><span>1</span><span>10</span></div>
+        <div class="flex justify-between font-mono text-[0.625rem] text-tenue" aria-hidden="true"><span>1</span><span>10</span></div>
       </div>
 
       <fieldset class="grid gap-2 text-sm">
@@ -130,7 +143,7 @@ export default function PanelFiltros({ filtros: f, rutas, zonas, activos, onCamb
       </div>
 
       {activos > 0 && (
-        <button type="button" onClick={onLimpiar} class="inline-flex items-center justify-center gap-1.5 rounded-xl border border-borde px-3 py-2 text-sm font-medium hover:bg-superficie-2">
+        <button type="button" onClick={onLimpiar} class="inline-flex items-center justify-center gap-1.5 rounded-[3px] border border-borde px-3 py-2 text-sm hover:bg-superficie-2">
           <X size={14} aria-hidden="true" /> Quitar filtros ({activos})
         </button>
       )}

@@ -7,6 +7,7 @@
  */
 import { Picture } from "astro:assets";
 import ChipLogro from "@/components/logros/ChipLogro.astro";
+import BarraMisiones from "@/components/logros/BarraMisiones.astro";
 import { siguientePaso, type JefeZona, type ParadaSendero } from "@/lib/mapa";
 import { IMAGEN_ZONA, IMAGENES } from "@/config/imagenes";
 
@@ -30,7 +31,6 @@ const imagen = IMAGEN_ZONA[actual.nivel.id] ?? IMAGENES.animeCian;
 const paso = siguientePaso(actual);
 const faltan = proximo?.dia !== undefined && hoy <= proximo.dia ? proximo.dia - Math.max(hoy, 0) : undefined;
 
-const SEGMENTO = { conseguido: "bg-exito", disponible: "bg-resalte/70 animate-pulse", bloqueado: "bg-borde" };
 ---
 
 <section class="relative isolate overflow-hidden border-b border-borde" aria-labelledby="titulo-mapa">
@@ -50,17 +50,7 @@ const SEGMENTO = { conseguido: "bg-exito", disponible: "bg-resalte/70 animate-pu
         <span class="text-texto">Zona {n.orden} · {n.zona}.</span> {n.resumen}
       </p>
 
-      {actual.requisitos.length > 0 && (
-        <div class="mt-8 max-w-lg">
-          <div class="flex items-baseline justify-between font-mono text-[0.625rem] tracking-[0.06em] text-tenue uppercase">
-            <span>Misiones de la zona</span>
-            <span class="tabular-nums">{actual.hechos} / {actual.requisitos.length}</span>
-          </div>
-          <div class="mt-2 flex h-2 gap-1" data-crecer aria-hidden="true">
-            {actual.requisitos.map((r) => <span class:list={["flex-1 rounded-[1px]", SEGMENTO[r.estado]]} />)}
-          </div>
-        </div>
-      )}
+      {actual.requisitos.length > 0 && <BarraMisiones misiones={actual.requisitos} class="mt-8 max-w-lg" />}
 
       <div class="mt-8 flex flex-wrap gap-3">
         <a href="#tu-posicion" class="boton">Ir a tu posición <span aria-hidden="true">↓</span></a>

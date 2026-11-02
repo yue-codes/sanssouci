@@ -1,0 +1,59 @@
+---
+/**
+ * @component ListaMisiones
+ * Logros como lista de misiones de un juego: un círculo con su estado
+ * (conseguida ✓, disponible ✦, bloqueada 🔒), el nombre (tachado si ya la tienes)
+ * y «ve por ella» en las disponibles. Cada una enlaza a su nodo del árbol.
+ * La usan el mapa (misiones de cada zona) y la página de cada zona.
+ */
+import { Check, Lock, Sparkles } from "lucide-preact";
+import type { LogroConEstado } from "@/lib/logros";
+import type { EstadoLogro } from "@/lib/progreso";
+
+interface Props {
+  /** Las misiones, con su estado. */
+  misiones: LogroConEstado[];
+  /** Muestra también la descripción de cada logro (en páginas con espacio). */
+  conDescripcion?: boolean;
+  /** Clases extra para la lista. */
+  class?: string;
+}
+const { misiones, conDescripcion = false, class: clase = "" } = Astro.props;
+
+const ICONO: Record<EstadoLogro, typeof Check> = { conseguido: Check, disponible: Sparkles, bloqueado: Lock };
+const TEXTO: Record<EstadoLogro, string> = { conseguido: "conseguida", disponible: "disponible", bloqueado: "bloqueada" };
+---
+
+<ul class:list={["grid gap-1.5 text-sm", clase]}>
+  {misiones.map((r) => {
+    const Icono = ICONO[r.estado];
+    return (
+      <li>
+        <a
+          href={`/arbol#${r.logro.id}`}
+          data-estado={r.estado}
+          class="group/m flex items-start gap-2.5 rounded-[3px] px-2 py-1.5 transition-colors hover:bg-superficie-2
+                 data-[estado=conseguido]:text-tenue data-[estado=bloqueado]:text-tenue"
+        >
+          <span
+            class="mt-px grid size-5 shrink-0 place-items-center rounded-full border
+                   group-data-[estado=conseguido]/m:border-exito group-data-[estado=conseguido]/m:bg-exito group-data-[estado=conseguido]/m:text-fondo
+                   group-data-[estado=disponible]/m:border-resalte group-data-[estado=disponible]/m:text-resalte
+                   group-data-[estado=bloqueado]/m:border-borde-fuerte"
+            aria-hidden="true"
+          >
+            <Icono size={11} strokeWidth={2.5} />
+          </span>
+          <span class="min-w-0 flex-1">
+            <span class="group-data-[estado=conseguido]/m:line-through group-data-[estado=conseguido]/m:decoration-exito/60">{r.logro.data.nombre}</span>
+            <span class="sr-only">({TEXTO[r.estado]})</span>
+            {conDescripcion && <span class="mt-0.5 block text-xs leading-relaxed text-tenue">{r.logro.data.criterio}</span>}
+          </span>
+          {r.estado === "disponible" && (
+            <span class="mt-0.5 ml-auto hidden shrink-0 font-mono text-[0.5625rem] text-resalte uppercase sm:inline" aria-hidden="true">ve por ella</span>
+          )}
+        </a>
+      </li>
+    );
+  })}
+</ul>

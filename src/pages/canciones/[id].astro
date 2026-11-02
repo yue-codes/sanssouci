@@ -1,23 +1,30 @@
 ---
 /**
- * Página /canciones/[id]: ficha de una obra. Video principal, qué necesitas
- * antes, qué técnicas trabaja, si es canción de jefe y todas sus versiones.
+ * Página /canciones/[id]: la ficha de una obra, como la carta abierta.
+ * Portada con su miniatura de fondo, rareza, ruta, dificultad, zona y su estado
+ * (lista para tocar o cuántos talentos faltan); el video principal al lado.
+ * Debajo: qué la desbloquea y qué entrena (`ListaMisiones`, la misma lista de
+ * misiones del mapa y las zonas), su jefe si la tiene (`AnuncioJefe`) y las
+ * demás versiones.
  * `getStaticPaths` genera una página por obra del catálogo.
  */
 import { getCollection } from "astro:content";
-import { Headphones, MapPin, Swords } from "lucide-preact";
+import { Ear, Lock, MapPin, Sparkles } from "lucide-preact";
 import Base from "@/layouts/Base.astro";
-import Aviso from "@/components/ui/Aviso.astro";
 import MigasDePan from "@/components/ui/MigasDePan.astro";
 import EncabezadoSeccion from "@/components/ui/EncabezadoSeccion.astro";
 import NavegacionVecinos from "@/components/ui/NavegacionVecinos.astro";
 import ReproductorYoutube from "@/components/ui/ReproductorYoutube.astro";
-import ChipLogro from "@/components/logros/ChipLogro.astro";
+import ListaMisiones from "@/components/logros/ListaMisiones.astro";
+import AnuncioJefe from "@/components/jefes/AnuncioJefe.astro";
 import ChipRuta from "@/components/canciones/ChipRuta";
 import Dificultad from "@/components/canciones/Dificultad";
 import ListaVersiones from "@/components/canciones/ListaVersiones.astro";
+import { rarezaDe } from "@/components/canciones/rareza";
 import { cargarContenido, esRetoDeOido, nombreCortoRuta } from "@/lib/contenido";
 import { logrosConEstado } from "@/lib/logros";
+import { diaDelJefe } from "@/lib/jefes";
+import { miniaturaYoutube } from "@/lib/youtube";
 import { PROGRESO_EJEMPLO } from "@/lib/ejemplo";
 
 export async function getStaticPaths() {
@@ -32,10 +39,12 @@ const d = cancion.data;
 const ruta = c.rutaPorId.get(d.ruta.id)!;
 const nivel = c.nivelPorId.get(d.nivel.id)!;
 const retoDeOido = esRetoDeOido(cancion);
+const rareza = rarezaDe(d.dificultad);
 const jefes = c.jefes.filter((j) => j.data.cancion.id === id);
 
 const requiere = logrosConEstado(c, d.requiere.map((l) => l.id), PROGRESO_EJEMPLO.obtenidos);
 const tecnicas = logrosConEstado(c, d.tecnicas.map((l) => l.id), PROGRESO_EJEMPLO.obtenidos);
+const faltan = requiere.filter((r) => r.estado !== "conseguido").length;
 
 // Video principal: el de partitura si hay (es el más útil para aprender); si no, el primero.
 const principal = d.versiones.find((v) => v.usos.includes("partitura")) ?? d.versiones[0];
@@ -50,73 +59,102 @@ const vecino = (s?: (typeof deRuta)[number]) =>
   s && { href: `/canciones/${s.id}`, etiqueta: `${nombreCortoRuta(ruta)} · dificultad ${s.data.dificultad}`, titulo: s.data.titulo };
 ---
 
-<Base titulo={d.titulo} descripcion={`${d.titulo} (${d.obra}) en el catálogo: dificultad ${d.dificultad}/10, zona ${nivel.data.orden}.`}>
-  <MigasDePan items={[{ texto: "Canciones", href: "/canciones" }, { texto: d.titulo }]} />
+<Base titulo={d.titulo} descripcion={`${d.titulo} (${d.obra}) en el catálogo: dificultad ${d.dificultad}/10, zona ${nivel.data.orden}.`} ancho="completo">
+  <!-- ============ PORTADA ============ -->
+  <section class="relative isolate overflow-hidden border-b border-borde" aria-labelledby="titulo-cancion">
+    <!-- Fondo: la miniatura del video, muy desenfocada (es pequeña: así no se nota) -->
+    <img src={miniaturaYoutube(principal.youtubeId)} alt="" class="absolute inset-0 -z-10 size-full scale-110 object-cover opacity-50 blur-2xl" />
+    <span class="velo -z-10 opacity-70" aria-hidden="true"></span>
+    <span class="absolute inset-0 -z-10 bg-linear-to-t from-fondo via-fondo/70 to-fondo/40" aria-hidden="true"></span>
 
-  <!-- ============ CABECERA ============ -->
-  <header class="max-w-3xl">
-    <p class="eyebrow">{d.obra}{d.compositor && ` · ${d.compositor}`}</p>
-    <h1 class="mt-3 text-4xl font-semibold leading-tight sm:text-6xl">{d.titulo}</h1>
-    <div class="mt-5 flex flex-wrap items-center gap-3 text-sm">
-      <ChipRuta nombre={nombreCortoRuta(ruta)} color={ruta.data.color} />
-      <Dificultad valor={d.dificultad} />
-      <a href={`/niveles/${nivel.id}`} class="inline-flex items-center gap-1.5 rounded-full border border-borde px-3 py-1 hover:bg-superficie-2">
-        <MapPin size={14} aria-hidden="true" /> Zona {nivel.data.orden} · {nivel.data.nombre}
-      </a>
-      {retoDeOido && (
-        <span class="inline-flex items-center gap-1.5 rounded-full bg-resalte px-3 py-1 font-semibold text-fondo">
-          <Headphones size={14} aria-hidden="true" /> Reto de oído
-        </span>
-      )}
+    <div class="contenedor pt-8 pb-14 sm:pb-20">
+      <MigasDePan items={[{ texto: "Canciones", href: "/canciones" }, { texto: d.titulo }]} />
+
+      <div class="mt-6 grid gap-10 lg:grid-cols-[1fr_1.15fr] lg:items-center lg:gap-14">
+        <div data-revelar="hijos">
+          <p class:list={["flex items-center gap-2 font-mono text-[0.625rem] tracking-[0.08em] uppercase", rareza.texto]}>
+            <span class:list={["size-2 rotate-45", rareza.fondo]} aria-hidden="true"></span>
+            Carta {rareza.nombre.toLowerCase()}
+          </p>
+          <h1 id="titulo-cancion" class="mt-4 text-5xl leading-[0.95] sm:text-7xl">{d.titulo}</h1>
+          <p class="mt-3 text-lg text-tenue">{d.obra}{d.compositor && ` · ${d.compositor}`}</p>
+
+          <div class="mt-6 flex flex-wrap items-center gap-3">
+            <ChipRuta nombre={nombreCortoRuta(ruta)} color={ruta.data.color} />
+            <Dificultad valor={d.dificultad} />
+            <a href={`/niveles/${nivel.id}`} class="inline-flex items-center gap-1.5 rounded-[3px] border border-borde px-2 py-0.5 text-xs transition-colors hover:bg-superficie-2">
+              <MapPin size={12} aria-hidden="true" /> Zona {nivel.data.orden} · {nivel.data.nombre}
+            </a>
+          </div>
+
+          <!-- Estado: el sello de la carta -->
+          <p class:list={[
+            "mt-6 inline-flex items-center gap-1.5 rounded-[2px] px-2 py-1 font-mono text-[0.625rem] font-semibold uppercase",
+            faltan === 0 ? "bg-resalte text-fondo" : "border border-borde-fuerte bg-fondo/80 text-tenue",
+          ]}>
+            {faltan === 0
+              ? <><Sparkles size={12} aria-hidden="true" /> Lista para tocar</>
+              : <><Lock size={12} aria-hidden="true" /> Bloqueada · te {faltan === 1 ? "falta 1 talento" : `faltan ${faltan} talentos`}</>}
+          </p>
+
+          {retoDeOido && (
+            <p class="mt-6 flex max-w-md items-start gap-3 rounded-md border border-resalte/40 bg-fondo/70 p-4 text-sm backdrop-blur-md">
+              <Ear size={18} class="mt-0.5 shrink-0 text-resalte" aria-hidden="true" />
+              <span><strong class="font-medium text-resalte">Reto de oído.</strong> No hay partitura: sácala de oído con la guitarra, escríbela y luego tócala.</span>
+            </p>
+          )}
+          {d.notas && <p class="mt-6 max-w-[55ch] text-sm leading-relaxed text-tenue">{d.notas}</p>}
+        </div>
+
+        <section aria-label="Video principal" data-revelar>
+          <ReproductorYoutube youtubeId={principal.youtubeId} titulo={`${principal.tituloVideo} (${principal.canal})`} />
+          <p class="mt-2 font-mono text-[0.625rem] text-tenue">{principal.canal} · {principal.instrumentacion}{principal.nota && ` · ${principal.nota}`}</p>
+        </section>
+      </div>
     </div>
-  </header>
-
-  {retoDeOido && <Aviso class="mt-6">No hay partitura: el reto es sacarla de oído con la guitarra, escribirla y luego tocarla.</Aviso>}
-  {d.notas && <p class="mt-6 max-w-3xl leading-relaxed text-tenue">{d.notas}</p>}
-
-  <!-- ============ VIDEO ============ -->
-  <section class="mt-10 max-w-4xl" aria-label="Video principal">
-    <ReproductorYoutube youtubeId={principal.youtubeId} titulo={`${principal.tituloVideo} (${principal.canal})`} />
-    <p class="mt-2 text-xs text-tenue">{principal.canal} · {principal.instrumentacion}{principal.nota && ` · ${principal.nota}`}</p>
   </section>
 
-  <!-- ============ JEFE ============ -->
-  {jefes.map((j) => (
-    <a href={`/jefes/${j.id}`} class="tarjeta group mt-8 flex items-center gap-4 border-peligro/40 p-5 transition hover:border-peligro">
-      <span class="grid size-12 shrink-0 rotate-45 place-items-center rounded-lg border-2 border-peligro/70 text-peligro">
-        <Swords size={20} class="-rotate-45" aria-hidden="true" />
-      </span>
-      <span>
-        <span class="block text-xs font-semibold uppercase tracking-wider text-peligro">Canción de jefe · Zona {nivel.data.orden}</span>
-        <span class="font-display text-xl font-semibold group-hover:underline">{j.data.nombre}</span>
-        <span class="block text-sm text-tenue">{j.data.condicionVictoria.tempo}</span>
-      </span>
-    </a>
-  ))}
+  <div class="contenedor py-14 sm:py-20">
+    <!-- ============ DESBLOQUEO Y ENTRENAMIENTO ============ -->
+    <div class="grid gap-12 lg:grid-cols-2">
+      {requiere.length > 0 && (
+        <section aria-labelledby="titulo-requiere">
+          <EncabezadoSeccion id="titulo-requiere" eyebrow={`${requiere.length - faltan} de ${requiere.length} conseguidos`} titulo="Para desbloquearla" descripcion="Los talentos que pide antes de empezarla." />
+          <div class="rounded-md border border-borde bg-superficie p-3 sm:p-4">
+            <ListaMisiones misiones={requiere} conDescripcion />
+          </div>
+        </section>
+      )}
+      {tecnicas.length > 0 && (
+        <section aria-labelledby="titulo-tecnicas">
+          <EncabezadoSeccion id="titulo-tecnicas" eyebrow="Mientras la estudias" titulo="Lo que entrena" descripcion="Talentos que esta obra te ayuda a conseguir." />
+          <div class="rounded-md border border-borde bg-superficie/60 p-3 sm:p-4">
+            <ListaMisiones misiones={tecnicas} conDescripcion />
+          </div>
+        </section>
+      )}
+    </div>
 
-  <!-- ============ REQUISITOS Y TÉCNICAS ============ -->
-  <div class="mt-12 grid gap-10 md:grid-cols-2">
-    {requiere.length > 0 && (
-      <section aria-labelledby="requiere">
-        <EncabezadoSeccion id="requiere" eyebrow="Antes de empezarla" titulo="Lo que necesitas" />
-        <div class="flex flex-wrap gap-2">{requiere.map((r) => <ChipLogro logro={r.logro} estado={r.estado} />)}</div>
+    <!-- ============ JEFE ============ -->
+    {jefes.length > 0 && (
+      <section class="mt-20" aria-labelledby="titulo-jefe">
+        <EncabezadoSeccion id="titulo-jefe" eyebrow={`Zona ${nivel.data.orden}`} titulo="Es la canción de un jefe" descripcion="Para vencerlo hay que tocarla con las condiciones de victoria y grabarla." />
+        <div class="grid gap-6">
+          {jefes.map((j) => (
+            <AnuncioJefe jefe={j} cancion={cancion} zona={nivel.data.orden} diaDelPlan={diaDelJefe(c, j.id)?.data.numero} etiqueta={j.data.final ? "Jefe final" : "Guardián"} />
+          ))}
+        </div>
       </section>
     )}
-    {tecnicas.length > 0 && (
-      <section aria-labelledby="tecnicas">
-        <EncabezadoSeccion id="tecnicas" eyebrow="Mientras la estudias" titulo="Lo que trabaja" />
-        <div class="flex flex-wrap gap-2">{tecnicas.map((r) => <ChipLogro logro={r.logro} estado={r.estado} />)}</div>
+
+    <!-- ============ VERSIONES ============ -->
+    {otras.length > 0 && (
+      <section class="mt-20" aria-labelledby="titulo-versiones">
+        <EncabezadoSeccion id="titulo-versiones" eyebrow={`${d.versiones.length} en total`} titulo="Otras versiones" />
+        <ListaVersiones versiones={otras} />
       </section>
     )}
+
+    <NavegacionVecinos anterior={vecino(deRuta[i - 1])} siguiente={vecino(deRuta[i + 1])} />
   </div>
-
-  <!-- ============ VERSIONES ============ -->
-  {otras.length > 0 && (
-    <section class="mt-12" aria-labelledby="versiones">
-      <EncabezadoSeccion id="versiones" eyebrow={`${d.versiones.length} en total`} titulo="Otras versiones" />
-      <ListaVersiones versiones={otras} />
-    </section>
-  )}
-
-  <NavegacionVecinos anterior={vecino(deRuta[i - 1])} siguiente={vecino(deRuta[i + 1])} />
 </Base>

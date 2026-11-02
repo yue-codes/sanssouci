@@ -16,7 +16,7 @@ interface Props {
 const { youtubeId, titulo } = Astro.props;
 ---
 
-<div class="aspect-video overflow-hidden rounded-2xl border border-borde bg-superficie-2">
+<div class="aspect-video overflow-hidden rounded-md border border-borde bg-superficie-2">
   <iframe
     src={urlEmbedYoutube(youtubeId)}
     title={titulo}

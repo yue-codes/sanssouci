@@ -3,6 +3,8 @@
  * @component TemarioZona
  * El temario serio de una zona, área por área (lectura, teoría, respiración…).
  * Es lo que hay debajo del juego: el juego lo organiza, no lo sustituye.
+ * Cada área es una casilla con su icono; el número de orden le da ritmo de índice.
+ * Son siempre 7 áreas: la última ocupa la fila entera para no dejar huecos.
  */
 import { BookOpen, Brain, Wind, Waves, Music, NotebookPen, Library } from "lucide-preact";
 import type { Nivel } from "@/lib/contenido";
@@ -27,16 +29,17 @@ const AREAS: Record<keyof Temario, { nombre: string; Icono: typeof Wind }> = {
 };
 ---
 
-<dl class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-  {(Object.keys(AREAS) as (keyof Temario)[]).map((area) => {
+<dl class="grid gap-px overflow-hidden rounded-md border border-borde bg-borde sm:grid-cols-2 lg:grid-cols-3" data-revelar="hijos">
+  {(Object.keys(AREAS) as (keyof Temario)[]).map((area, i) => {
     const { nombre, Icono } = AREAS[area];
     return (
-      <div class="tarjeta p-4">
-        <dt class="flex items-center gap-2 text-sm font-semibold">
-          <span class="grid size-8 place-items-center rounded-lg bg-acento-suave text-acento"><Icono size={16} aria-hidden="true" /></span>
-          {nombre}
+      <div class="bg-superficie p-5 transition-colors hover:bg-superficie-2 sm:last:col-span-2 lg:last:col-span-3">
+        <dt class="flex items-center gap-3">
+          <span class="grid size-9 place-items-center rounded-full border border-acento/40 text-acento"><Icono size={16} aria-hidden="true" /></span>
+          <span class="font-display text-2xl">{nombre}</span>
+          <span class="ml-auto font-mono text-[0.625rem] text-tenue tabular-nums" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
         </dt>
-        <dd class="mt-2 text-sm leading-relaxed text-tenue">{temario[area]}</dd>
+        <dd class="mt-3 text-sm leading-relaxed text-tenue">{temario[area]}</dd>
       </div>
     );
   })}
