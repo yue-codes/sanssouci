@@ -8,8 +8,8 @@
  * `getStaticPaths` genera las 90 páginas (/dias/1 … /dias/90).
  */
 import { getCollection } from "astro:content";
-import { Picture } from "astro:assets";
 import { Clock, Lightbulb, Moon, Target, Tent } from "lucide-preact";
+import FondoPortada from "@/components/ui/FondoPortada.astro";
 import Base from "@/layouts/Base.astro";
 import MigasDePan from "@/components/ui/MigasDePan.astro";
 import EncabezadoSeccion from "@/components/ui/EncabezadoSeccion.astro";
@@ -55,13 +55,7 @@ const vecino = (x?: (typeof dias)[number]) =>
 <Base titulo={`Día ${d.numero}: ${d.titulo}`} descripcion={d.objetivo} ancho="completo">
   <!-- ============ PORTADA ============ -->
   <section class:list={["relative isolate overflow-hidden border-b", jefe ? "border-peligro/30" : "border-borde"]} aria-labelledby="titulo-dia">
-    <div class="absolute inset-0 -z-10 animate-acercar">
-      <Picture src={imagen.src} alt="" widths={[960, 1440, 2000]} sizes="100vw" formats={["avif"]} fallbackFormat="webp" loading="eager"
-        class="size-full object-cover" style={{ objectPosition: imagen.enfoque }} />
-    </div>
-    <span class="velo -z-10 opacity-60" aria-hidden="true"></span>
-    <span class="absolute inset-0 -z-10 bg-linear-to-r from-fondo via-fondo/85 to-fondo/30" aria-hidden="true"></span>
-    <span class="absolute inset-0 -z-10 bg-linear-to-t from-fondo to-transparent to-50%" aria-hidden="true"></span>
+    <FondoPortada imagen={imagen} />
 
     <div class="contenedor pt-8 pb-12 sm:pb-16">
       <MigasDePan items={[{ texto: "Calendario", href: "/calendario" }, { texto: `Día ${d.numero}` }]} />

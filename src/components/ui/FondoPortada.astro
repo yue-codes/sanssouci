@@ -1,0 +1,52 @@
+---
+/**
+ * @component FondoPortada
+ * Las capas de fondo de las portadas con imagen a sangre: la imagen (con zoom
+ * lento al cargar), el velo de color que la entona con la paleta y dos
+ * degradados hacia el fondo (desde la izquierda, donde va el texto, y desde
+ * abajo, para fundirla con la página).
+ *
+ * Va DENTRO de una `<section class="relative isolate overflow-hidden …">`: cada
+ * página conserva su sección (borde, alto, `aria-labelledby`) y solo comparte el
+ * fondo. `isolate` hace que el `-z-10` de las capas quede detrás del contenido de
+ * la sección y no detrás de toda la página.
+ *
+ * Capas propias de una página (la niebla de una zona lejana, el brillo rosa de un
+ * jefe) van en el slot: se pintan entre el velo y los degradados.
+ *
+ * Los degradados usan estilos en línea porque sus valores cambian por página, y
+ * Tailwind solo genera clases que encuentra escritas enteras en el código.
+ *
+ * @example
+ * <section class="relative isolate overflow-hidden border-b border-borde">
+ *   <FondoPortada imagen={IMAGENES.animeLago} />
+ *   <div class="contenedor">…</div>
+ * </section>
+ */
+import { Picture } from "astro:assets";
+import type { ImagenSitio } from "@/config/imagenes";
+
+interface Props {
+  /** Imagen del catálogo (`src/config/imagenes.ts`). Es decorativa: `alt` vacío. */
+  imagen: ImagenSitio;
+  /** Opacidad del velo de color (0–1). Por defecto, 0.6. */
+  velo?: number;
+  /** Cuánto fondo queda en el lado derecho del degradado lateral (0–1). Por defecto, 0.3. */
+  lateral?: number;
+  /** Hasta dónde sube el degradado desde abajo, en % de la altura. Por defecto, 50. */
+  base?: number;
+  /** Imagen apagada (desenfocada y casi sin color), para lo que aún está lejos. */
+  apagada?: boolean;
+}
+const { imagen, velo = 0.6, lateral = 0.3, base = 50, apagada = false } = Astro.props;
+const fondo = (porcentaje: number) => `color-mix(in oklab, var(--fondo) ${porcentaje}%, transparent)`;
+---
+
+<div class="absolute inset-0 -z-10 animate-acercar">
+  <Picture src={imagen.src} alt="" widths={[960, 1440, 2000]} sizes="100vw" formats={["avif"]} fallbackFormat="webp" loading="eager"
+    class:list={["size-full object-cover", apagada && "blur-[2px] grayscale-[0.5]"]} style={{ objectPosition: imagen.enfoque }} />
+</div>
+<span class="velo -z-10" style={{ opacity: velo }} aria-hidden="true"></span>
+<slot />
+<span class="absolute inset-0 -z-10" style={{ background: `linear-gradient(to right in oklab, var(--fondo), ${fondo(85)}, ${fondo(lateral * 100)})` }} aria-hidden="true"></span>
+<span class="absolute inset-0 -z-10" style={{ background: `linear-gradient(to top in oklab, var(--fondo), transparent ${base}%)` }} aria-hidden="true"></span>

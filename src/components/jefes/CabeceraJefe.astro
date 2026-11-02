@@ -6,8 +6,8 @@
  * grande, su barra de vida (isla `VidaJefe`) y la ficha del enemigo: tempo,
  * dificultad, ruta, llaves y cuándo toca enfrentarlo.
  */
-import { Picture } from "astro:assets";
 import { CalendarDays, Crown, KeyRound, Swords } from "lucide-preact";
+import FondoPortada from "@/components/ui/FondoPortada.astro";
 import MigasDePan from "@/components/ui/MigasDePan.astro";
 import ChipRuta from "@/components/canciones/ChipRuta";
 import Dificultad from "@/components/canciones/Dificultad";
@@ -49,14 +49,9 @@ const SELLO = {
 ---
 
 <section class="relative isolate overflow-hidden border-b border-peligro/30" aria-labelledby="titulo-jefe">
-  <div class="absolute inset-0 -z-10 animate-acercar">
-    <Picture src={imagen.src} alt="" widths={[960, 1440, 2000]} sizes="100vw" formats={["avif"]} fallbackFormat="webp" loading="eager"
-      class="size-full object-cover" style={{ objectPosition: imagen.enfoque }} />
-  </div>
-  <span class="velo -z-10 opacity-70" aria-hidden="true"></span>
-  <span class="absolute inset-0 -z-10 bg-[radial-gradient(60%_80%_at_80%_40%,color-mix(in_oklab,var(--peligro)_28%,transparent),transparent_70%)] mix-blend-screen" aria-hidden="true"></span>
-  <span class="absolute inset-0 -z-10 bg-linear-to-r from-fondo via-fondo/85 to-fondo/25" aria-hidden="true"></span>
-  <span class="absolute inset-0 -z-10 bg-linear-to-t from-fondo to-transparent to-45%" aria-hidden="true"></span>
+  <FondoPortada imagen={imagen} velo={0.7} lateral={0.25} base={45}>
+    <span class="absolute inset-0 -z-10 bg-[radial-gradient(60%_80%_at_80%_40%,color-mix(in_oklab,var(--peligro)_28%,transparent),transparent_70%)] mix-blend-screen" aria-hidden="true"></span>
+  </FondoPortada>
 
   <div class="contenedor pt-8 pb-14 sm:pb-20">
     <MigasDePan items={[

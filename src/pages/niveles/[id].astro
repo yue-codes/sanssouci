@@ -10,8 +10,8 @@
  * Si mañana se añade una zona en niveles.json, su página aparece sola.
  */
 import { getCollection } from "astro:content";
-import { Picture } from "astro:assets";
 import { Check, CloudFog, Footprints, Lock, Music2 } from "lucide-preact";
+import FondoPortada from "@/components/ui/FondoPortada.astro";
 import Base from "@/layouts/Base.astro";
 import MigasDePan from "@/components/ui/MigasDePan.astro";
 import EncabezadoSeccion from "@/components/ui/EncabezadoSeccion.astro";
@@ -69,14 +69,9 @@ const vecino = (p?: (typeof paradas)[number]) =>
 <Base titulo={`Zona ${n.orden}: ${n.nombre}`} descripcion={n.resumen} ancho="completo">
   <!-- ============ PORTADA ============ -->
   <section class="relative isolate overflow-hidden border-b border-borde" aria-labelledby="titulo-zona">
-    <div class="absolute inset-0 -z-10 animate-acercar">
-      <Picture src={imagen.src} alt="" widths={[960, 1440, 2000]} sizes="100vw" formats={["avif"]} fallbackFormat="webp" loading="eager"
-        class:list={["size-full object-cover", parada.lejana && "blur-[2px] grayscale-[0.5]"]} style={{ objectPosition: imagen.enfoque }} />
-    </div>
-    <span class="velo -z-10 opacity-60" aria-hidden="true"></span>
-    {parada.lejana && <span class="niebla -z-10" style="--densidad:0.9" aria-hidden="true"></span>}
-    <span class="absolute inset-0 -z-10 bg-linear-to-r from-fondo via-fondo/85 to-fondo/25" aria-hidden="true"></span>
-    <span class="absolute inset-0 -z-10 bg-linear-to-t from-fondo to-transparent to-45%" aria-hidden="true"></span>
+    <FondoPortada imagen={imagen} lateral={0.25} base={45} apagada={parada.lejana}>
+      {parada.lejana && <span class="niebla -z-10" style="--densidad:0.9" aria-hidden="true"></span>}
+    </FondoPortada>
 
     <div class="contenedor pt-8 pb-14 sm:pb-20">
       <MigasDePan items={[{ texto: "Mapa", href: "/mapa" }, { texto: `Zona ${n.orden}` }]} />

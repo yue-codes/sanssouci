@@ -5,7 +5,7 @@
  * en una barra por segmentos (una por misión) y, al lado, tus cifras: zona,
  * jefes vencidos, logros, el próximo jefe y la siguiente misión.
  */
-import { Picture } from "astro:assets";
+import FondoPortada from "@/components/ui/FondoPortada.astro";
 import ChipLogro from "@/components/logros/ChipLogro.astro";
 import BarraMisiones from "@/components/logros/BarraMisiones.astro";
 import { siguientePaso, type JefeZona, type ParadaSendero } from "@/lib/mapa";
@@ -34,13 +34,7 @@ const faltan = proximo?.dia !== undefined && hoy <= proximo.dia ? proximo.dia - 
 ---
 
 <section class="relative isolate overflow-hidden border-b border-borde" aria-labelledby="titulo-mapa">
-  <div class="absolute inset-0 -z-10 animate-acercar">
-    <Picture src={imagen.src} alt="" widths={[960, 1440, 2000]} sizes="100vw" formats={["avif"]} fallbackFormat="webp" loading="eager"
-      class="size-full object-cover" style={{ objectPosition: imagen.enfoque }} />
-  </div>
-  <span class="velo -z-10 opacity-60" aria-hidden="true"></span>
-  <span class="absolute inset-0 -z-10 bg-linear-to-r from-fondo via-fondo/85 to-fondo/30" aria-hidden="true"></span>
-  <span class="absolute inset-0 -z-10 bg-linear-to-t from-fondo to-transparent to-40%" aria-hidden="true"></span>
+  <FondoPortada imagen={imagen} base={40} />
 
   <div class="contenedor grid gap-10 py-14 sm:py-20 lg:grid-cols-[1.25fr_1fr] lg:items-end lg:gap-16">
     <div data-revelar="hijos">

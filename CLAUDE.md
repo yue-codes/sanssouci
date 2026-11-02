@@ -5,7 +5,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 # Proyecto: Sanssouci (antes «Camino del Flautista»; plan de 90 días + mapa de niveles y jefes + web en Astro)
 
 > Empezó como traspaso de una conversación en claude.ai. Todo lo de aquí ya fue decidido con el usuario salvo la sección "Pendiente".
-> El diseño técnico aprobado (fases 1–5) está en `docs/diseno-tecnico.md`. Se trabaja **por fases y con pausa de revisión al final de cada una**: no adelantes fases sin el visto bueno del usuario.
+> El diseño técnico aprobado (fases 1–5) está en `docs/diseno-tecnico.md`.
+> Se trabaja **por fases y con pausa de revisión al final de cada una**: no adelantes fases sin el visto bueno del usuario.
+> **Lo que falta, paso a paso (empieza por aquí al retomar): `docs/hoja-de-ruta.md`.**
 
 ## Estado (actualízalo al cerrar cada fase)
 
@@ -14,9 +16,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 | 1. Datos (`src/data`, esquemas, `pnpm verificar`) | ✅ hecha (commit `a70629b`) |
 | 2. Documentos (`docs/`, `pnpm generar-docs`) | ✅ hecha (commit `5a31193`) |
 | 3. Base de la web (Tailwind, Preact, layout, páginas de contenido) | ✅ hecha (pasos 0–6 y cierre, commits `ed4e419` a `457049d`). Dirección visual A + C, paleta «Bosque». Todas las páginas de contenido están hechas; `/panel`, `/entrar` y `/perfil` son de la fase 4. El adaptador de Cloudflare se instala cuando haga falta el modo servidor. |
-| 4. Login y progreso (Supabase, migraciones, middleware, islas que guardan) | 🟡 **en curso**. Pasos 1, 2 y 4 de `docs/supabase.md` hechos: proyecto creado, `.env` verificado, instalados `@supabase/supabase-js`, `@supabase/ssr`, `@astrojs/cloudflare` y `wrangler` (adaptador en `astro.config.mjs`, salida estática por defecto + `prerender = false` en las páginas de progreso). Pasos 3 y 5 hechos: migraciones `progreso_inicial` y `permisos_minimos` aplicadas (cómo, en `docs/supabase.md` §5). Paso 6 con el código hecho (`src/lib/supabase.ts`, `src/middleware.ts`, `/auth/confirmar`, `/auth/salir`, `/entrar`; reglas en `docs/arquitectura.md` «Sesión y páginas de servidor»). Diseño de `/entrar` aprobado y login probado (el perfil se crea solo). `/panel` hecho con progreso real (`cargarProgresoUsuario`, `racha`, `hoyIso`); rediseñado después (ver fila siguiente). **En pausa** por el rediseño (fila siguiente); después: islas que guardan (marcar día hecho en `/dias/[n]`, etc.). |
-| Rediseño «Nocturno» (paleta «Cian») | 🟡 **todas las páginas rediseñadas** (2 nov 2026). Base: tokens, solo tema oscuro, fuentes, imágenes con `astro:assets`, `motion` + Lenis, cabecera y pie. **Aprobadas:** portada, `/mapa` (mapa del mundo), `/arbol` (constelación con rango, ruta, filtro, llaves de jefe, ficha como barra inferior y celebración), `/jefes/[id]` (pantalla de combate), `/dias/[n]` (misión con cronómetro) y `/calendario` («La campaña» en dos actos). **Pendientes del visto bueno:** `/niveles/[id]` (la zona como región), `/logros` (sala de trofeos, filtro sin JS), `/canciones` y `/canciones/[id]` (mazo de cartas con rareza y bloqueo), `/panel` (pantalla de personaje, pinta `PantallaPanel`) y `/entrar` («Continúa tu partida», pinta `TarjetaEntrar`). **Siguiente:** visto bueno del usuario y volver a la fase 4 (islas que guardan). Detalle en `docs/arquitectura.md` («Colores, tipografía y tema», «Imágenes», «Movimiento» y una nota por página). |
-| 5. Despliegue en Cloudflare Workers | ⏳ pendiente |
+| 4. Login y progreso (Supabase, migraciones, middleware, islas que guardan) | 🟡 **en curso**. Pasos 1, 2 y 4 de `docs/supabase.md` hechos: proyecto creado, `.env` verificado, instalados `@supabase/supabase-js`, `@supabase/ssr`, `@astrojs/cloudflare` y `wrangler` (adaptador en `astro.config.mjs`, salida estática por defecto + `prerender = false` en las páginas de progreso). Pasos 3 y 5 hechos: migraciones `progreso_inicial` y `permisos_minimos` aplicadas (cómo, en `docs/supabase.md` §5). Paso 6 con el código hecho (`src/lib/supabase.ts`, `src/middleware.ts`, `/auth/confirmar`, `/auth/salir`, `/entrar`; reglas en `docs/arquitectura.md` «Sesión y páginas de servidor»). Diseño de `/entrar` aprobado y login probado (el perfil se crea solo). `/panel` hecho con progreso real (`cargarProgresoUsuario`, `racha`, `hoyIso`); rediseñado después (ver fila siguiente). **Siguiente:** escribir progreso con Astro Actions (marcar día, logros, victorias, canciones), `/perfil` y que las páginas lean el progreso real; pasos a–g y la decisión pendiente (modo servidor o no) en `docs/hoja-de-ruta.md` §1. |
+| Rediseño «Nocturno» (paleta «Cian») | 🟡 **todas las páginas rediseñadas** (2 nov 2026). Base: tokens, solo tema oscuro, fuentes, imágenes con `astro:assets`, `motion` + Lenis, cabecera y pie. **Aprobadas:** portada, `/mapa` (mapa del mundo), `/arbol` (constelación con rango, ruta, filtro, llaves de jefe, ficha como barra inferior y celebración), `/jefes/[id]` (pantalla de combate), `/dias/[n]` (misión con cronómetro) y `/calendario` («La campaña» en dos actos). **Pendientes del visto bueno:** `/niveles/[id]` (la zona como región), `/logros` (sala de trofeos, filtro sin JS), `/canciones` y `/canciones/[id]` (mazo de cartas con rareza y bloqueo), `/panel` (pantalla de personaje, pinta `PantallaPanel`) y `/entrar` («Continúa tu partida», pinta `TarjetaEntrar`). Las portadas con imagen usan `FondoPortada` (`components/ui/`). **Siguiente:** visto bueno del usuario y volver a la fase 4. Detalle en `docs/arquitectura.md` («Colores, tipografía y tema», «Imágenes», «Movimiento» y una nota por página). |
+| 5. Despliegue en Cloudflare Workers | ⏳ pendiente (pasos en `docs/hoja-de-ruta.md` §2) |
 
 ## 0. Estado técnico del repo y comandos
 
@@ -133,6 +135,8 @@ Calentamiento (aire/sonido) → escalas y técnica → estudios → repertorio m
 - Si un dato es incierto, dilo.
 
 ## 7. Pendiente
+
+Detalle técnico de lo que falta: `docs/hoja-de-ruta.md`. Datos que solo sabe el usuario:
 
 - Confirmar la **fecha real de llegada de la flauta** cuando la compre.
 - Fecha exacta de la primera clase (será al llegar la flauta, ≈ principios de diciembre).

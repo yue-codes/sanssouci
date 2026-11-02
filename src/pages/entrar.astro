@@ -11,8 +11,8 @@
  * Parámetros de la URL: `siguiente` (a dónde volver tras entrar; lo pone el middleware)
  * y `error=enlace` (lo pone /auth/confirmar si el enlace no sirvió).
  */
-import { Picture } from "astro:assets";
 import { BookCheck, Swords, Trophy } from "lucide-preact";
+import FondoPortada from "@/components/ui/FondoPortada.astro";
 import Base from "@/layouts/Base.astro";
 import TarjetaEntrar from "@/components/cuenta/TarjetaEntrar.astro";
 import type { EstadoEntrar } from "@/components/cuenta/estado-entrar";
@@ -72,13 +72,7 @@ const ventajas = [
 
 <Base titulo="Entrar" descripcion="Inicia sesión para guardar tu progreso en Sanssouci." ancho="completo">
   <section class="relative isolate flex min-h-[calc(100svh-5rem)] items-center overflow-hidden" aria-labelledby="titulo-entrar">
-    <div class="absolute inset-0 -z-10 animate-acercar">
-      <Picture src={imagen.src} alt="" widths={[960, 1440, 2000]} sizes="100vw" formats={["avif"]} fallbackFormat="webp" loading="eager"
-        class="size-full object-cover" style={{ objectPosition: imagen.enfoque }} />
-    </div>
-    <span class="velo -z-10 opacity-60" aria-hidden="true"></span>
-    <span class="absolute inset-0 -z-10 bg-linear-to-r from-fondo via-fondo/80 to-fondo/30" aria-hidden="true"></span>
-    <span class="absolute inset-0 -z-10 bg-linear-to-t from-fondo to-transparent to-40%" aria-hidden="true"></span>
+    <FondoPortada imagen={imagen} base={40} />
 
     <div class="contenedor grid w-full gap-10 py-12 lg:grid-cols-[1.1fr_1fr] lg:items-center lg:gap-20">
       <!-- ============ Por qué entrar ============ -->

@@ -6,7 +6,7 @@
  * Progreso: de ejemplo hasta la fase 4.
  */
 import "@fontsource-variable/pixelify-sans";
-import { Picture } from "astro:assets";
+import FondoPortada from "@/components/ui/FondoPortada.astro";
 import Base from "@/layouts/Base.astro";
 import ArbolTalentos from "@/components/logros/arbol/ArbolTalentos";
 import { ORDEN_RAMAS } from "@/components/logros/categorias";
@@ -26,13 +26,7 @@ const imagen = IMAGENES.animeLago;
   ancho="completo"
 >
   <section class="relative isolate overflow-hidden border-b border-borde" aria-labelledby="titulo-arbol">
-    <div class="absolute inset-0 -z-10 animate-acercar">
-      <Picture src={imagen.src} alt="" widths={[960, 1440, 2000]} sizes="100vw" formats={["avif"]} fallbackFormat="webp" loading="eager"
-        class="size-full object-cover" style={{ objectPosition: imagen.enfoque }} />
-    </div>
-    <span class="velo -z-10 opacity-50" aria-hidden="true"></span>
-    <span class="absolute inset-0 -z-10 bg-linear-to-r from-fondo via-fondo/80 to-fondo/20" aria-hidden="true"></span>
-    <span class="absolute inset-0 -z-10 bg-linear-to-t from-fondo to-transparent to-50%" aria-hidden="true"></span>
+    <FondoPortada imagen={imagen} velo={0.5} lateral={0.2} />
     <span class="absolute inset-0 -z-10 bg-fondo/50 sm:hidden" aria-hidden="true"></span>
 
     <div class="contenedor py-14 sm:py-20" data-revelar="hijos">

@@ -33,7 +33,7 @@ src/
 ├── components/      Componentes agrupados por DOMINIO (de qué tratan):
 │   ├── layout/        Cabecera, PiePagina, Logo
 │   ├── ui/            genéricos, sin conocer el juego: AnilloProgreso, Aviso, MigasDePan,
-│   │                  EncabezadoSeccion, NavegacionVecinos, ReproductorYoutube, isla Estallido
+│   │                  EncabezadoSeccion, NavegacionVecinos, ReproductorYoutube, FondoPortada, isla Estallido
 │   ├── mapa/          HudMapa (marcador); MundoMapa → FilaCamino + RegionZona + PuertaJefe; MiniMapa;
 │   │                  SenderoPortada (el sendero en horizontal, con imágenes)
 │   ├── niveles/       TemarioZona
@@ -147,6 +147,7 @@ Una isla se ejecuta **también en el navegador**, así que todo lo que importe (
 - Viven en `src/assets/imagenes/` (no en `public/`), para que Astro las optimice **al compilar**: AVIF con respaldo WebP, en varios tamaños, con `width`/`height` y nombre con hash. El adaptador de Cloudflare va con `imageService: "compile"` (usa `sharp`); sin eso usaría Cloudflare Images, un servicio aparte.
 - **Catálogo único:** `src/config/imagenes.ts` las importa, les da su `alt` y su punto de enfoque, y dice qué imagen va con cada zona (`IMAGEN_ZONA`), jefe (`imagenDeJefe`) y ruta (`IMAGEN_RUTA`). Los componentes las piden ahí; no importan imágenes sueltas.
 - En componentes `.astro`: `<Picture src={img.src} widths={[…]} sizes="…" formats={["avif"]} fallbackFormat="webp" />`. El respaldo en WebP es a propósito: con una fuente WebP, Astro usaría PNG como respaldo, de varios MB.
+- **Portadas con imagen a sangre:** usa `FondoPortada` (`components/ui/`) dentro de una `<section class="relative isolate overflow-hidden …">`. Pinta la imagen con zoom lento, el velo y los dos degradados; se ajusta con `velo`, `lateral`, `base` y `apagada`, y las capas propias de la página (niebla, brillo de jefe) van en su slot. No copies esas capas a mano en una página nueva.
 - **En una isla** no se puede usar `<Picture>`: la página llama a `getImage()` y le pasa la URL ya optimizada (ver `IndiceRutas`).
 - En las páginas de servidor (`/panel`, `/entrar`) las imágenes se sirven sin transformar (el worker no tiene `sharp`): úsalas con moderación ahí. Por eso sus portadas usan las dos más ligeras: `silueta-ventana.jpg` (34 KB) y `anime-nubes.jpg` (135 KB).
 - Casi todas son imágenes ajenas: sirven mientras la web es personal; antes de compartirla, hay que cambiarlas.

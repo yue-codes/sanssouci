@@ -176,7 +176,7 @@ estado_canciones(user_id, cancion_id, estado: pendiente|aprendiendo|dominada, ac
 - El esquema se guarda como migraciones SQL en `supabase/migrations/`, versionadas en git.
 - Las claves de Supabase van en `.env`, que no se sube a git, y en los secretos de Cloudflare. Configuración del proyecto y variables: `docs/supabase.md`.
 
-**Diseño visual:** estética de «mapa de aventura» sobria. Aprobado en la fase 3: mapa como sendero + árbol de talentos estilo RPG, paleta «Bosque» (verde jade + ámbar) en `src/styles/tokens.css`. Modo claro y oscuro, tipografía legible, buen contraste y foco visible para navegar con teclado, y un diseño que funciona primero en el móvil.
+**Diseño visual:** que se sienta videojuego. La fase 3 fijó la estructura (mapa del mundo que se sube de abajo arriba + árbol de talentos estilo RPG) con la paleta «Bosque». El 2 nov 2026 se cambió a la dirección **«Nocturno»** con paleta **«Cian»** (sacada de la imagen principal), **solo tema oscuro**: noche índigo, cian como marca, lavanda para lo disponible, menta para lo conseguido y rosa para los jefes. Tokens en `src/styles/tokens.css`; detalle y una nota por página en `docs/arquitectura.md`. Se mantienen la tipografía legible, el buen contraste, el foco visible para el teclado y el diseño que funciona primero en el móvil.
 
 ---
 
