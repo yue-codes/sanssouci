@@ -1,0 +1,17 @@
+---
+import type { Ruta } from "../../lib/contenido";
+
+/** Etiqueta de ruta con su color (definido en rutas.json). */
+interface Props {
+  ruta: Ruta;
+}
+const { ruta } = Astro.props;
+---
+
+<span
+  class="inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-xs font-medium"
+  style={`--ruta:${ruta.data.color}; border-color: color-mix(in oklab, var(--ruta) 45%, transparent); background: color-mix(in oklab, var(--ruta) 14%, transparent)`}
+>
+  <span class="size-1.5 rounded-full" style="background: var(--ruta)" aria-hidden="true"></span>
+  {ruta.data.nombre.replace("Ruta ", "")}
+</span>

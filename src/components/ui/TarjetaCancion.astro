@@ -1,0 +1,47 @@
+---
+import { Headphones, FileMusic, Music2 } from "lucide-preact";
+import Dificultad from "./Dificultad.astro";
+import ChipRuta from "./ChipRuta.astro";
+import type { Cancion, Ruta } from "../../lib/contenido";
+import { esRetoDeOido, miniaturaYoutube } from "../../lib/contenido";
+
+interface Props {
+  cancion: Cancion;
+  ruta: Ruta;
+}
+const { cancion, ruta } = Astro.props;
+const c = cancion.data;
+const deOido = esRetoDeOido(cancion);
+const conPartitura = c.versiones.some((v) => v.usos.includes("partitura"));
+---
+
+<a href={`/canciones/${cancion.id}`} class="tarjeta group flex flex-col overflow-hidden transition hover:-translate-y-1 hover:border-oro/50">
+  <div class="relative aspect-video overflow-hidden bg-superficie-2">
+    <img
+      src={miniaturaYoutube(c.versiones[0].youtubeId)}
+      alt=""
+      loading="lazy"
+      class="size-full object-cover transition duration-500 group-hover:scale-105"
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-superficie via-transparent"></div>
+    {deOido && (
+      <span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-aurora px-2.5 py-1 text-xs font-semibold text-fondo">
+        <Headphones size={12} aria-hidden="true" /> Reto de oído
+      </span>
+    )}
+  </div>
+  <div class="flex flex-1 flex-col gap-3 p-4">
+    <div>
+      <h3 class="text-lg font-semibold leading-snug">{c.titulo}</h3>
+      <p class="text-sm text-tenue">{c.obra}</p>
+    </div>
+    <div class="mt-auto flex flex-wrap items-center justify-between gap-2">
+      <ChipRuta ruta={ruta} />
+      <Dificultad valor={c.dificultad} />
+    </div>
+    <p class="flex items-center gap-3 border-t border-borde pt-3 text-xs text-tenue">
+      <span class="inline-flex items-center gap-1"><Music2 size={13} aria-hidden="true" /> {c.versiones.length} {c.versiones.length === 1 ? "versión" : "versiones"}</span>
+      {conPartitura && <span class="inline-flex items-center gap-1"><FileMusic size={13} aria-hidden="true" /> partitura</span>}
+    </p>
+  </div>
+</a>

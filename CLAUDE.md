@@ -5,7 +5,17 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 # Proyecto: Camino del Flautista (plan de 90 días + mapa de niveles y jefes + web en Astro)
 
 > Empezó como traspaso de una conversación en claude.ai. Todo lo de aquí ya fue decidido con el usuario salvo la sección "Pendiente".
-> El diseño aprobado (fases 1–5) está en `~/.claude/plans/compiled-humming-rainbow.md`. **Fases 1 (datos) y 2 (documentos) hechas**; la siguiente es la 3 (base de la web).
+> El diseño técnico aprobado (fases 1–5) está en `docs/diseno-tecnico.md`. Se trabaja **por fases y con pausa de revisión al final de cada una**: no adelantes fases sin el visto bueno del usuario.
+
+## Estado (actualízalo al cerrar cada fase)
+
+| Fase | Estado |
+|---|---|
+| 1. Datos (`src/data`, esquemas, `pnpm verificar`) | ✅ hecha (commit `a70629b`) |
+| 2. Documentos (`docs/`, `pnpm generar-docs`) | ✅ hecha (commit `5a31193`) |
+| 3. Base de la web (Tailwind, Preact, layout, páginas de contenido) | 🟡 **en curso**: hay una página de muestra en `/muestra` (`src/pages/muestra.astro`) **pendiente de que el usuario apruebe la dirección visual**. Después: construir las páginas de contenido sin login (`/mapa`, `/niveles/[id]`, `/jefes/[id]`, `/calendario`, `/dias/[n]`, `/logros`, `/canciones`, `/canciones/[id]`) reutilizando los componentes, y portada `/` (hoy `src/pages/index.astro` es la plantilla de Astro). El adaptador de Cloudflare aún no está instalado (se añade cuando haga falta el modo servidor). |
+| 4. Login y progreso (Supabase, migraciones, middleware, islas que guardan) | ⏳ pendiente. El usuario crea el proyecto en Supabase; guíale paso a paso. |
+| 5. Despliegue en Cloudflare Workers | ⏳ pendiente |
 
 ## 0. Estado técnico del repo y comandos
 
@@ -68,12 +78,27 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `docs/mapa.md`, `docs/plan-90-dias.md` y `docs/catalogo.md`: generados desde `src/data`.
 - Catálogo: 123 obras a partir de los 181 videos de `canciones.txt` (metadatos sacados con `yt-dlp`). Lo que no es pieza para flauta traversa va en `extras.json`. Canciones nuevas: seguir `docs/clasificar-cancion.md`.
 
-### 3.2 La web (fases 3–5; pendiente)
+### 3.2 La web (fases 3–5)
 - Decidido con el usuario: **Supabase** (login con enlace mágico y Google, Postgres con RLS), **Cloudflare Workers** (`@astrojs/cloudflare`, Astro en modo servidor) y **varios usuarios** (cada uno con su propio progreso).
 - **El rendimiento no es prioridad:** usa **Preact a fondo** (páginas interactivas como componentes completos) y `@preact/signals` para el estado compartido entre islas.
 - **Diseño:** el usuario quiere que impresione, con Tailwind (v4). **Antes de construir las páginas, enséñale una página de muestra con la dirección visual** (paleta, tipografía, tarjetas de zona y de jefe) y espera su aprobación.
 - Páginas previstas: `/`, `/entrar`, `/panel`, `/mapa`, `/niveles/[id]`, `/jefes/[id]`, `/calendario`, `/dias/[n]`, `/logros`, `/canciones`, `/canciones/[id]` y `/perfil`. Middleware de sesión para las rutas privadas. Funciones puras (por ejemplo `estaDesbloqueado`, `racha`, `nivelActual`) en `src/lib/`.
 - Las claves de Supabase van en `.env` (fuera de git) y en los secretos de Cloudflare.
+
+### 3.3 Arquitectura del frontend (fase 3, ya en el código)
+
+- **Instalado:** Tailwind v4 (plugin de Vite en `astro.config.mjs`, sin `tailwind.config`), `@astrojs/preact` (Preact 11), `@preact/signals`, `lucide-preact` (iconos) y las fuentes `@fontsource-variable/fraunces` (títulos) e `@fontsource-variable/inter` (texto), incluidas en el proyecto, sin Google Fonts.
+- **Tokens de diseño en `src/styles/global.css`:** colores **semánticos** (`fondo`, `superficie`, `superficie-2`, `texto`, `tenue`, `borde`, `oro`, `oro-suave`, `plata`, `aurora`, `exito`, `peligro`), definidos como variables CSS y expuestos con `@theme inline`. Usa siempre `bg-superficie`, `text-tenue`, etc.; **no uses clases `dark:` ni colores literales** en los componentes. El tema oscuro sale de `prefers-color-scheme` o de `data-theme="dark|light"` en `<html>` (el selector lo guarda en `localStorage` con la clave `tema`). Clases propias: `.tarjeta` y `.eyebrow`.
+- **Dirección visual:** «noche de práctica» (cielo oscuro con estrellas y acentos oro y plata) / «pergamino» en claro. Estética de mapa de aventura sobria.
+- **Estructura:**
+  - `src/layouts/Base.astro`: html, cabecera con navegación, selector de tema y enlace «saltar al contenido».
+  - `src/components/ui/`: presentacionales, sin estado (`TarjetaZona`, `TarjetaJefe`, `TarjetaCancion`, `InsigniaLogro`, `Dificultad`, `ChipRuta`, `AnilloProgreso.tsx`). Los `.tsx` que no tienen `client:` se renderizan como HTML fijo.
+  - `src/components/islas/`: Preact interactivo, con `client:*` (`SelectorTema`, `SesionDeHoy`).
+  - `src/lib/contenido.ts`: `cargarContenido()` carga todas las colecciones y devuelve índices por id (`cancionPorId`, `nivelPorId`…), más `esRetoDeOido`, `urlYoutube` y `miniaturaYoutube`. Úsalo en vez de llamar a `getCollection` en cada página.
+  - `src/lib/fechas.ts`: funciones puras (`diaDelPlan`, `diasEntre`, `parsearFecha`, `fechaLarga`).
+- **Signals:** dentro de un componente usa `useSignal` y `useComputed`, no `signal` y `computed`, que crearían uno nuevo en cada render.
+- **Detalle temporal:** las páginas son estáticas, así que «hoy» es la fecha del build. Con el modo servidor (fase 4) se calculará en cada visita.
+- **Accesibilidad mínima en cada componente:** foco visible, textos `sr-only` en los gráficos, `aria-*` en los controles y respeto de `prefers-reduced-motion`.
 
 ## 4. Diseño del sistema estilo videojuego
 

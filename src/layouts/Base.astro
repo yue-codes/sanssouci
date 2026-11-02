@@ -1,0 +1,71 @@
+---
+import "../styles/global.css";
+import SelectorTema from "../components/islas/SelectorTema";
+import { Wind } from "lucide-preact";
+
+interface Props {
+  titulo: string;
+  descripcion?: string;
+}
+const { titulo, descripcion = "Plan de práctica de flauta traversa con niveles, jefes y logros." } = Astro.props;
+
+const enlaces = [
+  { href: "/panel", texto: "Panel" },
+  { href: "/mapa", texto: "Mapa" },
+  { href: "/calendario", texto: "Calendario" },
+  { href: "/canciones", texto: "Canciones" },
+  { href: "/logros", texto: "Logros" },
+];
+const actual = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={descripcion} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{titulo} · Camino del Flautista</title>
+    <!-- Aplica el tema guardado ANTES de pintar, para evitar un parpadeo de color. -->
+    <script is:inline>
+      try {
+        const t = localStorage.getItem("tema");
+        if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+      } catch {}
+    </script>
+  </head>
+  <body>
+    <a href="#contenido" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 tarjeta px-4 py-2">
+      Saltar al contenido
+    </a>
+    <header class="sticky top-0 z-40 border-b border-borde/60 bg-fondo/70 backdrop-blur-md">
+      <nav class="mx-auto flex max-w-6xl items-center gap-4 px-4 py-3" aria-label="Principal">
+        <a href="/" class="flex items-center gap-2 font-display text-lg font-semibold">
+          <span class="grid size-8 place-items-center rounded-lg bg-oro text-fondo"><Wind size={18} aria-hidden="true" /></span>
+          <span class="hidden sm:inline">Camino del Flautista</span>
+        </a>
+        <ul class="ml-auto flex items-center gap-1 overflow-x-auto text-sm">
+          {enlaces.map((e) => (
+            <li>
+              <a
+                href={e.href}
+                aria-current={actual.startsWith(e.href) ? "page" : undefined}
+                class="rounded-lg px-3 py-2 text-tenue transition hover:bg-superficie-2 hover:text-texto aria-[current=page]:bg-superficie-2 aria-[current=page]:text-texto"
+              >
+                {e.texto}
+              </a>
+            </li>
+          ))}
+        </ul>
+        <SelectorTema client:load />
+      </nav>
+    </header>
+    <main id="contenido" class="mx-auto max-w-6xl px-4 py-8 sm:py-12">
+      <slot />
+    </main>
+    <footer class="mx-auto max-w-6xl px-4 pb-10 text-sm text-tenue">
+      Lo que diga tu maestro manda sobre este plan.
+    </footer>
+  </body>
+</html>
