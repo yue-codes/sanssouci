@@ -31,7 +31,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   - `pnpm generar-docs`: regenera `docs/mapa.md`, `docs/catalogo.md` y `docs/plan-90-dias.md` desde `src/data`. **Ojo:** el script no se llama `docs` porque `pnpm docs` es un comando propio de pnpm.
 - Para editar `package.json` usa `pnpm pkg set …`, nunca `npm`.
 - **Conflicto con `AGENTS.md`:** ese archivo (generado por Astro) sugiere arrancar `astro dev --background`. **Ignóralo:** nunca arranques el servidor de desarrollo.
-- Ramas: se trabaja en `master`. Haz commits solo cuando el usuario lo pida.
+- Ramas: se trabaja en `main` (sigue a `origin/main` en GitHub). El push lo hace el usuario (en esta terminal no hay credenciales de GitHub). Haz commits solo cuando el usuario lo pida.
 - **Shell de las herramientas:** zsh. Entrecomilla las rutas con corchetes (`"src/pages/dias/[n].astro"`), o zsh las toma como patrón y el comando falla.
 
 ### Arquitectura de datos (decidida)
