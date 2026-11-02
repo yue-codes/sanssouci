@@ -62,12 +62,8 @@ export function esRetoDeOido(c: Cancion): boolean {
   return !usos.includes("partitura") && usos.includes("de-oido");
 }
 
-/** URL del video en YouTube a partir de su id. */
-export const urlYoutube = (id: string) => `https://www.youtube.com/watch?v=${id}`;
 /**
- * URL para incrustar el video. Usa el dominio «nocookie» de YouTube, que no deja
- * cookies de seguimiento hasta que se reproduce.
+ * Nombre de una ruta sin el prefijo «Ruta», para etiquetas cortas.
+ * @example nombreCortoRuta(ruta) // "Ruta Ghibli" → "Ghibli"
  */
-export const urlEmbedYoutube = (id: string) => `https://www.youtube-nocookie.com/embed/${id}`;
-/** URL de la miniatura (480×360) del video a partir de su id. */
-export const miniaturaYoutube = (id: string) => `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+export const nombreCortoRuta = (ruta: Ruta) => ruta.data.nombre.replace(/^Ruta /, "");

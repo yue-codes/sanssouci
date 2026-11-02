@@ -1,0 +1,122 @@
+---
+/**
+ * Página /canciones/[id]: ficha de una obra. Video principal, qué necesitas
+ * antes, qué técnicas trabaja, si es canción de jefe y todas sus versiones.
+ * `getStaticPaths` genera una página por obra del catálogo.
+ */
+import { getCollection } from "astro:content";
+import { Headphones, MapPin, Swords } from "lucide-preact";
+import Base from "@/layouts/Base.astro";
+import Aviso from "@/components/ui/Aviso.astro";
+import MigasDePan from "@/components/ui/MigasDePan.astro";
+import EncabezadoSeccion from "@/components/ui/EncabezadoSeccion.astro";
+import NavegacionVecinos from "@/components/ui/NavegacionVecinos.astro";
+import ReproductorYoutube from "@/components/ui/ReproductorYoutube.astro";
+import ChipLogro from "@/components/logros/ChipLogro.astro";
+import ChipRuta from "@/components/canciones/ChipRuta";
+import Dificultad from "@/components/canciones/Dificultad";
+import ListaVersiones from "@/components/canciones/ListaVersiones.astro";
+import { cargarContenido, esRetoDeOido, nombreCortoRuta } from "@/lib/contenido";
+import { logrosConEstado } from "@/lib/logros";
+import { PROGRESO_EJEMPLO } from "@/lib/ejemplo";
+
+export async function getStaticPaths() {
+  const canciones = await getCollection("canciones");
+  return canciones.map((s) => ({ params: { id: s.id } }));
+}
+
+const { id } = Astro.params;
+const c = await cargarContenido();
+const cancion = c.cancionPorId.get(id)!;
+const d = cancion.data;
+const ruta = c.rutaPorId.get(d.ruta.id)!;
+const nivel = c.nivelPorId.get(d.nivel.id)!;
+const retoDeOido = esRetoDeOido(cancion);
+const jefes = c.jefes.filter((j) => j.data.cancion.id === id);
+
+const requiere = logrosConEstado(c, d.requiere.map((l) => l.id), PROGRESO_EJEMPLO.obtenidos);
+const tecnicas = logrosConEstado(c, d.tecnicas.map((l) => l.id), PROGRESO_EJEMPLO.obtenidos);
+
+// Video principal: el de partitura si hay (es el más útil para aprender); si no, el primero.
+const principal = d.versiones.find((v) => v.usos.includes("partitura")) ?? d.versiones[0];
+const otras = d.versiones.filter((v) => v !== principal);
+
+// Vecinos: la anterior y la siguiente de la misma ruta, por dificultad.
+const deRuta = c.canciones
+  .filter((s) => s.data.ruta.id === ruta.id)
+  .sort((a, b) => a.data.dificultad - b.data.dificultad || a.data.titulo.localeCompare(b.data.titulo, "es"));
+const i = deRuta.findIndex((s) => s.id === id);
+const vecino = (s?: (typeof deRuta)[number]) =>
+  s && { href: `/canciones/${s.id}`, etiqueta: `${nombreCortoRuta(ruta)} · dificultad ${s.data.dificultad}`, titulo: s.data.titulo };
+---
+
+<Base titulo={d.titulo} descripcion={`${d.titulo} (${d.obra}) en el catálogo: dificultad ${d.dificultad}/10, zona ${nivel.data.orden}.`}>
+  <MigasDePan items={[{ texto: "Canciones", href: "/canciones" }, { texto: d.titulo }]} />
+
+  <!-- ============ CABECERA ============ -->
+  <header class="max-w-3xl">
+    <p class="eyebrow">{d.obra}{d.compositor && ` · ${d.compositor}`}</p>
+    <h1 class="mt-3 text-4xl font-semibold leading-tight sm:text-6xl">{d.titulo}</h1>
+    <div class="mt-5 flex flex-wrap items-center gap-3 text-sm">
+      <ChipRuta nombre={nombreCortoRuta(ruta)} color={ruta.data.color} />
+      <Dificultad valor={d.dificultad} />
+      <a href={`/niveles/${nivel.id}`} class="inline-flex items-center gap-1.5 rounded-full border border-borde px-3 py-1 hover:bg-superficie-2">
+        <MapPin size={14} aria-hidden="true" /> Zona {nivel.data.orden} · {nivel.data.nombre}
+      </a>
+      {retoDeOido && (
+        <span class="inline-flex items-center gap-1.5 rounded-full bg-resalte px-3 py-1 font-semibold text-fondo">
+          <Headphones size={14} aria-hidden="true" /> Reto de oído
+        </span>
+      )}
+    </div>
+  </header>
+
+  {retoDeOido && <Aviso class="mt-6">No hay partitura: el reto es sacarla de oído con la guitarra, escribirla y luego tocarla.</Aviso>}
+  {d.notas && <p class="mt-6 max-w-3xl leading-relaxed text-tenue">{d.notas}</p>}
+
+  <!-- ============ VIDEO ============ -->
+  <section class="mt-10 max-w-4xl" aria-label="Video principal">
+    <ReproductorYoutube youtubeId={principal.youtubeId} titulo={`${principal.tituloVideo} (${principal.canal})`} />
+    <p class="mt-2 text-xs text-tenue">{principal.canal} · {principal.instrumentacion}{principal.nota && ` · ${principal.nota}`}</p>
+  </section>
+
+  <!-- ============ JEFE ============ -->
+  {jefes.map((j) => (
+    <a href={`/jefes/${j.id}`} class="tarjeta group mt-8 flex items-center gap-4 border-peligro/40 p-5 transition hover:border-peligro">
+      <span class="grid size-12 shrink-0 rotate-45 place-items-center rounded-lg border-2 border-peligro/70 text-peligro">
+        <Swords size={20} class="-rotate-45" aria-hidden="true" />
+      </span>
+      <span>
+        <span class="block text-xs font-semibold uppercase tracking-wider text-peligro">Canción de jefe · Zona {nivel.data.orden}</span>
+        <span class="font-display text-xl font-semibold group-hover:underline">{j.data.nombre}</span>
+        <span class="block text-sm text-tenue">{j.data.condicionVictoria.tempo}</span>
+      </span>
+    </a>
+  ))}
+
+  <!-- ============ REQUISITOS Y TÉCNICAS ============ -->
+  <div class="mt-12 grid gap-10 md:grid-cols-2">
+    {requiere.length > 0 && (
+      <section aria-labelledby="requiere">
+        <EncabezadoSeccion id="requiere" eyebrow="Antes de empezarla" titulo="Lo que necesitas" />
+        <div class="flex flex-wrap gap-2">{requiere.map((r) => <ChipLogro logro={r.logro} estado={r.estado} />)}</div>
+      </section>
+    )}
+    {tecnicas.length > 0 && (
+      <section aria-labelledby="tecnicas">
+        <EncabezadoSeccion id="tecnicas" eyebrow="Mientras la estudias" titulo="Lo que trabaja" />
+        <div class="flex flex-wrap gap-2">{tecnicas.map((r) => <ChipLogro logro={r.logro} estado={r.estado} />)}</div>
+      </section>
+    )}
+  </div>
+
+  <!-- ============ VERSIONES ============ -->
+  {otras.length > 0 && (
+    <section class="mt-12" aria-labelledby="versiones">
+      <EncabezadoSeccion id="versiones" eyebrow={`${d.versiones.length} en total`} titulo="Otras versiones" />
+      <ListaVersiones versiones={otras} />
+    </section>
+  )}
+
+  <NavegacionVecinos anterior={vecino(deRuta[i - 1])} siguiente={vecino(deRuta[i + 1])} />
+</Base>

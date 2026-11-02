@@ -11,6 +11,9 @@ src/
 ├── content.config.ts  Esquemas (Zod) de las colecciones de src/data.
 ├── lib/             Lógica en TypeScript, sin interfaz:
 │   ├── contenido.ts   acceso a las colecciones (solo servidor)
+│   ├── youtube.ts     URLs de YouTube: urlYoutube, urlEmbedYoutube, miniaturaYoutube (puras)
+│   ├── canciones.ts   resumirCancion → CancionResumen (datos planos para las islas)
+│   ├── catalogo.ts    filtros del catálogo: filtrarCanciones, filtrosDesdeURL… (puras, van al navegador)
 │   ├── fechas.ts      utilidades de fechas: diaDelPlan, fechaLarga, fechaCorta… (puras)
 │   ├── progreso.ts    reglas del progreso: Progreso, estadoLogro, ordenZonaActual… (puras)
 │   ├── mapa.ts        datos del sendero: construirSendero, siguientePaso
@@ -27,7 +30,9 @@ src/
 │   ├── mapa/          Sendero → TramoSendero + ParadaZona + PuertaJefe; ResumenZona; TarjetaZona
 │   ├── niveles/       TemarioZona
 │   ├── jefes/         TarjetaJefe, CondicionesVictoria
-│   ├── canciones/     TarjetaCancion, ChipRuta, Dificultad, ListaVersiones, usos.ts
+│   ├── canciones/     TarjetaCancion, ChipRuta, Dificultad (.tsx: sirven en páginas e islas),
+│   │   │              ListaVersiones, usos.ts
+│   │   └── catalogo/    isla CatalogoCanciones → PanelFiltros
 │   ├── logros/        InsigniaLogro, ChipLogro, categorias.ts
 │   │   └── arbol/       isla ArbolTalentos y sus piezas (LienzoArbol, ListaRama,
 │   │                    PestanasRamas, DetalleTalento, Hexagono, estilos.ts)
@@ -55,6 +60,14 @@ src/
   `import { cargarContenido } from "@/lib/contenido";`
 - Dentro de la misma carpeta: **`./`**. `import Dificultad from "./Dificultad.astro";`
 - Nunca `../`: si lo necesitas, usa `@/`.
+
+### Qué puede importar una isla
+
+Una isla se ejecuta **también en el navegador**, así que todo lo que importe (y lo que eso importe) viaja al navegador. `@/lib/contenido` depende de `astro:content`, que **solo existe en el servidor**: si una isla lo importa, aunque sea indirectamente, el build falla con `ServerOnlyModule`.
+
+- Una isla recibe **datos planos** por props (p. ej. `CancionResumen`), calculados en la página.
+- Solo puede importar módulos «seguros»: `@/lib/catalogo`, `@/lib/youtube`, `@/lib/progreso`… Si un módulo seguro necesita tipos de `contenido`, usa **`import type`**, que TypeScript borra al compilar.
+- Si una función pura vive junto a código de servidor y la necesita una isla, se saca a su propio archivo (así nacieron `youtube.ts` y `catalogo.ts`).
 
 ## Colores y tema
 
@@ -136,6 +149,8 @@ Se escriben como `Record<Tipo, …>`, con el tipo sacado del esquema (por ejempl
 | `/jefes/[id]` | `pages/jefes/[id].astro` | `jefesEnOrden`, `diaDelJefe`, `logrosConEstado` |
 | `/calendario` | `pages/calendario.astro` | `semanasDelPlan`, `hitosDelDia` |
 | `/dias/[n]` | `pages/dias/[n].astro` | `hitosDelDia`, `logrosConEstado` → isla `SesionDelDia` |
+| `/canciones` | `pages/canciones/index.astro` | `resumirCancion` → isla `CatalogoCanciones` (filtros en la URL: `?ruta=…&zona=…&max=…&oido=1&partitura=1&q=…&orden=…`) |
+| `/canciones/[id]` | `pages/canciones/[id].astro` | `logrosConEstado`; vecinos dentro de la misma ruta, por dificultad |
 | `/muestra` | `pages/muestra.astro` | Muestra de diseño; **temporal**, se borra al cerrar la fase 3 |
 
-Pendientes: `/canciones`, `/canciones/[id]`, `/logros` y `/` (fase 3); `/entrar`, `/panel` y `/perfil` (fase 4).
+Pendientes: `/logros` y `/` (fase 3); `/entrar`, `/panel` y `/perfil` (fase 4).

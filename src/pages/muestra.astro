@@ -9,7 +9,8 @@ import Aviso from "@/components/ui/Aviso.astro";
 import SesionDelDia from "@/components/sesion/SesionDelDia";
 import TarjetaZona from "@/components/mapa/TarjetaZona.astro";
 import TarjetaJefe from "@/components/jefes/TarjetaJefe.astro";
-import TarjetaCancion from "@/components/canciones/TarjetaCancion.astro";
+import TarjetaCancion from "@/components/canciones/TarjetaCancion";
+import { resumirCancion } from "@/lib/canciones";
 import InsigniaLogro from "@/components/logros/InsigniaLogro.astro";
 import { cargarContenido } from "@/lib/contenido";
 import { diaDelPlan, fechaLarga } from "@/lib/fechas";
@@ -147,7 +148,7 @@ const paleta = ["fondo", "superficie", "superficie-2", "borde", "tenue", "texto"
       <p class="eyebrow">Repertorio</p>
       <h2 class="mt-2 text-3xl font-semibold">Canciones de tus primeras zonas</h2>
       <div class="mt-6 grid gap-4 sm:grid-cols-2">
-        {destacadas.map((s) => <TarjetaCancion cancion={s} ruta={c.rutaPorId.get(s.data.ruta.id)!} />)}
+        {destacadas.map((s) => <TarjetaCancion cancion={resumirCancion(c, s)} />)}
       </div>
     </div>
   </section>

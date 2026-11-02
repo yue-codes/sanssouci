@@ -16,10 +16,11 @@ import NavegacionVecinos from "@/components/ui/NavegacionVecinos.astro";
 import ChipLogro from "@/components/logros/ChipLogro.astro";
 import TemarioZona from "@/components/niveles/TemarioZona.astro";
 import TarjetaJefe from "@/components/jefes/TarjetaJefe.astro";
-import TarjetaCancion from "@/components/canciones/TarjetaCancion.astro";
+import TarjetaCancion from "@/components/canciones/TarjetaCancion";
 import { cargarContenido } from "@/lib/contenido";
 import { construirSendero } from "@/lib/mapa";
 import { logrosConEstado } from "@/lib/logros";
+import { resumirCancion } from "@/lib/canciones";
 import { PROGRESO_EJEMPLO } from "@/lib/ejemplo";
 
 export async function getStaticPaths() {
@@ -99,9 +100,9 @@ const vecino = (p?: (typeof paradas)[number]) =>
   <!-- ============ CANCIONES ============ -->
   {canciones.length > 0 && (
     <section class="mt-12" aria-labelledby="canciones">
-      <EncabezadoSeccion id="canciones" eyebrow={`${canciones.length} ${canciones.length === 1 ? "obra" : "obras"}`} titulo="Canciones de la zona" />
+      <EncabezadoSeccion id="canciones" eyebrow={`${canciones.length} ${canciones.length === 1 ? "obra" : "obras"}`} titulo="Canciones de la zona" enlace={{ href: `/canciones?zona=${id}`, texto: "Filtrar en el catálogo" }} />
       <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {canciones.map((s) => <TarjetaCancion cancion={s} ruta={c.rutaPorId.get(s.data.ruta.id)!} />)}
+        {canciones.map((s) => <TarjetaCancion cancion={resumirCancion(c, s)} />)}
       </div>
     </section>
   )}

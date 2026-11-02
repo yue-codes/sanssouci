@@ -1,0 +1,27 @@
+interface Props {
+  /** Dificultad de 1 a 10. */
+  valor: number;
+}
+
+/**
+ * @component Dificultad
+ * Dificultad de 1 a 10 como diez barritas, con el número al lado.
+ * El color cambia por tramos: 1–4 resalte, 5–7 acento, 8–10 peligro.
+ * Sin estado: sirve en Astro y dentro de islas.
+ */
+export default function Dificultad({ valor }: Props) {
+  const color = valor >= 8 ? "bg-peligro" : valor >= 5 ? "bg-acento" : "bg-resalte";
+  return (
+    <span class="inline-flex items-center gap-2" title={`Dificultad ${valor} de 10`}>
+      <span class="flex gap-0.5" aria-hidden="true">
+        {Array.from({ length: 10 }, (_, i) => (
+          <span key={i} class={`h-3 w-1.5 rounded-full ${i < valor ? color : "bg-borde"}`} />
+        ))}
+      </span>
+      <span class="text-xs font-semibold tabular-nums text-tenue">
+        <span class="sr-only">Dificultad </span>
+        {valor}/10
+      </span>
+    </span>
+  );
+}

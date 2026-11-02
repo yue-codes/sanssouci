@@ -16,9 +16,9 @@ import ReproductorYoutube from "@/components/ui/ReproductorYoutube.astro";
 import ChipLogro from "@/components/logros/ChipLogro.astro";
 import CondicionesVictoria from "@/components/jefes/CondicionesVictoria.astro";
 import ListaVersiones from "@/components/canciones/ListaVersiones.astro";
-import ChipRuta from "@/components/canciones/ChipRuta.astro";
-import Dificultad from "@/components/canciones/Dificultad.astro";
-import { cargarContenido } from "@/lib/contenido";
+import ChipRuta from "@/components/canciones/ChipRuta";
+import Dificultad from "@/components/canciones/Dificultad";
+import { cargarContenido, nombreCortoRuta } from "@/lib/contenido";
 import { logrosConEstado } from "@/lib/logros";
 import { diaDelJefe, jefesEnOrden } from "@/lib/jefes";
 import { estaDesbloqueado } from "@/lib/progreso";
@@ -69,7 +69,7 @@ const vecino = (x?: (typeof jefes)[number]) =>
       {cancion.data.titulo} · {cancion.data.obra}{cancion.data.compositor && ` · ${cancion.data.compositor}`}
     </p>
     <div class="mt-4 flex flex-wrap items-center gap-3">
-      <ChipRuta ruta={ruta} />
+      <ChipRuta nombre={nombreCortoRuta(ruta)} color={ruta.data.color} />
       <Dificultad valor={cancion.data.dificultad} />
     </div>
     <p class="mt-5 leading-relaxed">{j.descripcion}</p>
