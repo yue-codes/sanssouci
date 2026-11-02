@@ -12,7 +12,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 - Proyecto recién creado con la plantilla **minimal de Astro 7** (`astro ^7.4.4`, Node `>=22.23.4`). Solo existe `src/pages/index.astro`; TypeScript en modo `strict` (`tsconfig.json` extiende `astro/tsconfigs/strict`).
 - **Aún no instalados:** Tailwind CSS ni Preact. Añádelos con `pnpm astro add tailwind` / `pnpm astro add preact` cuando toque (y explica qué cambia en `astro.config.mjs`).
-- **Aún no existen:** `canciones.txt`, `docs/`, `src/data/`. Si falta `canciones.txt` al llegar a la sección 3.2, pídeselo al usuario en vez de inventar la lista.
+- `canciones.txt` ya está en la raíz (181 títulos, uno por línea). **Aún no existen:** `docs/` ni `src/data/`.
 - Comandos:
   - `pnpm install` — dependencias.
   - `pnpm build` — compila a `dist/`; es la forma de verificar que todo funciona.
