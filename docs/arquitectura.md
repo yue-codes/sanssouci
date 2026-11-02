@@ -17,7 +17,7 @@ src/
 │   ├── fechas.ts      utilidades de fechas: diaDelPlan, fechaLarga, fechaCorta… (puras)
 │   ├── progreso.ts    reglas del progreso: Progreso, estadoLogro, ordenZonaActual… (puras)
 │   ├── mapa.ts        datos del sendero: construirSendero, siguientePaso
-│   ├── logros.ts      logrosConEstado (logros + su estado para el jugador)
+│   ├── logros.ts      logrosConEstado, usosDeLogros (qué abre cada logro), avancePorCategoria
 │   ├── jefes.ts       jefesEnOrden, diaDelJefe
 │   ├── calendario.ts  semanasDelPlan, minutosDelDia, hitosDelDia, primerDiaConFlauta (puras)
 │   ├── formato.ts     formato para mostrar: duracion (pura)
@@ -33,7 +33,7 @@ src/
 │   ├── canciones/     TarjetaCancion, ChipRuta, Dificultad (.tsx: sirven en páginas e islas),
 │   │   │              ListaVersiones, usos.ts
 │   │   └── catalogo/    isla CatalogoCanciones → PanelFiltros
-│   ├── logros/        InsigniaLogro, ChipLogro, categorias.ts
+│   ├── logros/        TarjetaLogro, ChipLogro, AvanceCategorias, categorias.ts
 │   │   └── arbol/       isla ArbolTalentos y sus piezas (LienzoArbol, ListaRama,
 │   │                    PestanasRamas, DetalleTalento, Hexagono, estilos.ts)
 │   ├── calendario/    SemanaCalendario → CeldaDia; hitos.ts
@@ -151,6 +151,7 @@ Se escriben como `Record<Tipo, …>`, con el tipo sacado del esquema (por ejempl
 | `/dias/[n]` | `pages/dias/[n].astro` | `hitosDelDia`, `logrosConEstado` → isla `SesionDelDia` |
 | `/canciones` | `pages/canciones/index.astro` | `resumirCancion` → isla `CatalogoCanciones` (filtros en la URL: `?ruta=…&zona=…&max=…&oido=1&partitura=1&q=…&orden=…`) |
 | `/canciones/[id]` | `pages/canciones/[id].astro` | `logrosConEstado`; vecinos dentro de la misma ruta, por dificultad |
+| `/logros` | `pages/logros.astro` | `logrosConEstado`, `usosDeLogros`, `avancePorCategoria`; agrupados por `nivelSugerido` |
 | `/muestra` | `pages/muestra.astro` | Muestra de diseño; **temporal**, se borra al cerrar la fase 3 |
 
-Pendientes: `/logros` y `/` (fase 3); `/entrar`, `/panel` y `/perfil` (fase 4).
+Pendiente: `/` (fase 3); `/entrar`, `/panel` y `/perfil` (fase 4).

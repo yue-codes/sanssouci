@@ -1,6 +1,6 @@
 /**
  * @file Icono, nombre y orden de cada categoría de logro (cada una es una "rama" del árbol).
- * Vive aquí para que InsigniaLogro, ChipLogro y el árbol usen exactamente lo mismo.
+ * Vive aquí para que TarjetaLogro, ChipLogro, AvanceCategorias y el árbol usen exactamente lo mismo.
  * Con `Record<CategoriaLogro, …>`, si se añade una categoría al esquema y falta aquí,
  * TypeScript avisa.
  */

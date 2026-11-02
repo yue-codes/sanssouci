@@ -1,0 +1,39 @@
+---
+/**
+ * @component AvanceCategorias
+ * Una barra por categoría de logro (rama del árbol): cuántos tienes de cuántos.
+ * Las barras son decorativas (`aria-hidden`); el dato lo da el texto «3 / 7».
+ */
+import { ICONO_CATEGORIA, NOMBRE_CATEGORIA } from "./categorias";
+import type { AvanceCategoria } from "@/lib/logros";
+
+interface Props {
+  /** Avance de cada categoría (ver `avancePorCategoria`). */
+  avance: AvanceCategoria[];
+}
+const { avance } = Astro.props;
+---
+
+<ul class="grid gap-x-8 gap-y-3 sm:grid-cols-2">
+  {avance.map(({ categoria, total, conseguidos }) => {
+    const Icono = ICONO_CATEGORIA[categoria];
+    const completa = total > 0 && conseguidos === total;
+    return (
+      <li class="grid grid-cols-[auto_1fr_auto] items-center gap-3 text-sm">
+        <Icono size={16} class="text-tenue" aria-hidden="true" />
+        <div>
+          <span class="font-medium">{NOMBRE_CATEGORIA[categoria]}</span>
+          <div class="mt-1 h-1.5 overflow-hidden rounded-full bg-superficie-2" aria-hidden="true">
+            <div
+              class:list={["h-full rounded-full", completa ? "bg-exito" : "bg-acento"]}
+              style={{ width: `${total ? (conseguidos / total) * 100 : 0}%` }}
+            />
+          </div>
+        </div>
+        <span class="text-tenue tabular-nums">
+          {conseguidos} / {total}<span class="sr-only"> conseguidos</span>
+        </span>
+      </li>
+    );
+  })}
+</ul>

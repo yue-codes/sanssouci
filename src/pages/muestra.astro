@@ -11,7 +11,7 @@ import TarjetaZona from "@/components/mapa/TarjetaZona.astro";
 import TarjetaJefe from "@/components/jefes/TarjetaJefe.astro";
 import TarjetaCancion from "@/components/canciones/TarjetaCancion";
 import { resumirCancion } from "@/lib/canciones";
-import InsigniaLogro from "@/components/logros/InsigniaLogro.astro";
+import TarjetaLogro from "@/components/logros/TarjetaLogro.astro";
 import { cargarContenido } from "@/lib/contenido";
 import { diaDelPlan, fechaLarga } from "@/lib/fechas";
 import { Flame, CalendarDays, Swords, Library } from "lucide-preact";
@@ -141,7 +141,7 @@ const paleta = ["fondo", "superficie", "superficie-2", "borde", "tenue", "texto"
       <p class="eyebrow">Logros · Zona 0</p>
       <h2 class="mt-2 text-3xl font-semibold">Tus primeras insignias</h2>
       <div class="mt-6 grid gap-3">
-        {logrosZona0.map((l) => <InsigniaLogro logro={l} obtenido={OBTENIDOS_EJEMPLO.has(l.id)} />)}
+        {logrosZona0.map((l) => <TarjetaLogro logro={l} estado={OBTENIDOS_EJEMPLO.has(l.id) ? "conseguido" : "disponible"} />)}
       </div>
     </div>
     <div>

@@ -1,0 +1,112 @@
+---
+/**
+ * @component TarjetaLogro
+ * Ficha de un logro: estado, cómo se consigue, qué requiere y, plegado, todo lo
+ * que abre (logros, canciones, jefes, paso de zona) y en qué días del plan se
+ * trabaja. El plegado usa `<details>`: accesible y sin JavaScript.
+ * Lleva `id` = id del logro, así que se puede enlazar con `/logros#logro-…`.
+ */
+import { Check, Lock, Sparkles, ChevronDown } from "lucide-preact";
+import ChipLogro from "./ChipLogro.astro";
+import { ICONO_CATEGORIA, NOMBRE_CATEGORIA } from "./categorias";
+import type { Logro } from "@/lib/contenido";
+import type { EstadoLogro } from "@/lib/progreso";
+import type { LogroConEstado, UsosLogro } from "@/lib/logros";
+
+interface Props {
+  /** Logro a mostrar. */
+  logro: Logro;
+  /** Su estado para el jugador (ver `estadoLogro`). */
+  estado: EstadoLogro;
+  /** Sus requisitos, con estado (ver `logrosConEstado`). */
+  requiere?: LogroConEstado[];
+  /** Dónde se usa (ver `usosDeLogros`). Sin él, no se muestra la parte plegable. */
+  usos?: UsosLogro;
+}
+const { logro, estado, requiere = [], usos } = Astro.props;
+const l = logro.data;
+const Icono = ICONO_CATEGORIA[l.categoria];
+const ESTADO = {
+  conseguido: { texto: "Conseguido", Icono: Check },
+  disponible: { texto: "Al alcance", Icono: Sparkles },
+  bloqueado: { texto: "Bloqueado", Icono: Lock },
+}[estado];
+
+// Los días pueden ser muchos: se enseñan los primeros y el resto se resume.
+const MAX_DIAS = 8;
+const dias = usos?.dias ?? [];
+const nUsos = usos ? usos.abre.length + usos.canciones.length + usos.jefes.length + usos.zonas.length : 0;
+const enlace = "underline-offset-2 hover:text-acento hover:underline";
+---
+
+<article
+  id={logro.id}
+  data-estado={estado}
+  class="group tarjeta flex scroll-mt-24 flex-col p-5 data-[estado=disponible]:border-resalte/50 target:ring-2 target:ring-acento"
+>
+  <div class="flex items-start gap-4">
+    <span
+      class="grid size-12 shrink-0 place-items-center rounded-xl border-2 border-borde text-tenue
+             group-data-[estado=disponible]:border-resalte group-data-[estado=disponible]:text-resalte
+             group-data-[estado=conseguido]:border-acento group-data-[estado=conseguido]:bg-gradient-to-br group-data-[estado=conseguido]:from-acento group-data-[estado=conseguido]:to-acento/60 group-data-[estado=conseguido]:text-fondo group-data-[estado=conseguido]:shadow-[0_8px_24px_-8px_var(--acento)]"
+    >
+      <Icono size={22} aria-hidden="true" />
+    </span>
+    <div class="min-w-0">
+      <p class="flex flex-wrap items-center gap-x-2 text-[11px] font-semibold tracking-wider uppercase">
+        <span class="text-tenue">{NOMBRE_CATEGORIA[l.categoria]}</span>
+        <span aria-hidden="true" class="text-borde">•</span>
+        <span class="inline-flex items-center gap-1 text-tenue group-data-[estado=conseguido]:text-acento group-data-[estado=disponible]:text-resalte">
+          <ESTADO.Icono size={12} aria-hidden="true" /> {ESTADO.texto}
+        </span>
+      </p>
+      <h3 class="mt-1 font-display text-lg leading-snug font-semibold">{l.nombre}</h3>
+      <p class="mt-1 text-sm leading-relaxed text-tenue">{l.descripcion}</p>
+    </div>
+  </div>
+
+  <p class="mt-4 rounded-xl bg-superficie-2 p-3 text-sm leading-relaxed">
+    <span class="font-semibold">Cómo se consigue:</span> {l.criterio}
+  </p>
+
+  {requiere.length > 0 && (
+    <div class="mt-3 flex flex-wrap items-center gap-1.5">
+      <span class="text-xs text-tenue">Requiere:</span>
+      {requiere.map((r) => <ChipLogro logro={r.logro} estado={r.estado} />)}
+    </div>
+  )}
+
+  {usos && (nUsos > 0 || dias.length > 0) && (
+    <details class="group/mas mt-auto pt-4">
+      <summary class="flex cursor-pointer list-none items-center gap-1.5 rounded-lg text-sm font-medium text-acento [&::-webkit-details-marker]:hidden">
+        <ChevronDown size={16} class="transition group-open/mas:rotate-180 motion-reduce:transition-none" aria-hidden="true" />
+        {nUsos > 0 ? `Qué abre (${nUsos})` : "Cuándo se trabaja"}
+      </summary>
+      <dl class="mt-3 grid gap-2.5 text-sm">
+        {usos.zonas.length > 0 && (
+          <div><dt class="text-xs text-tenue">Para pasar de zona</dt>
+            <dd>{usos.zonas.map((n, i) => <>{i > 0 && ", "}<a href={`/niveles/${n.id}`} class={enlace}>Zona {n.data.orden} · {n.data.nombre}</a></>)}</dd></div>
+        )}
+        {usos.jefes.length > 0 && (
+          <div><dt class="text-xs text-tenue">Jefes</dt>
+            <dd>{usos.jefes.map((j, i) => <>{i > 0 && ", "}<a href={`/jefes/${j.id}`} class={enlace}>{j.data.nombre}</a></>)}</dd></div>
+        )}
+        {usos.abre.length > 0 && (
+          <div><dt class="text-xs text-tenue">Logros siguientes</dt>
+            <dd>{usos.abre.map((x, i) => <>{i > 0 && ", "}<a href={`#${x.id}`} class={enlace}>{x.data.nombre}</a></>)}</dd></div>
+        )}
+        {usos.canciones.length > 0 && (
+          <div><dt class="text-xs text-tenue">Canciones</dt>
+            <dd>{usos.canciones.map((s, i) => <>{i > 0 && ", "}<a href={`/canciones/${s.id}`} class={enlace}>{s.data.titulo}</a></>)}</dd></div>
+        )}
+        {dias.length > 0 && (
+          <div><dt class="text-xs text-tenue">Días del plan en que se trabaja</dt>
+            <dd>
+              {dias.slice(0, MAX_DIAS).map((n, i) => <>{i > 0 && ", "}<a href={`/dias/${n}`} class={enlace}>{n}</a></>)}
+              {dias.length > MAX_DIAS && <span class="text-tenue"> y {dias.length - MAX_DIAS} más</span>}
+            </dd></div>
+        )}
+      </dl>
+    </details>
+  )}
+</article>
