@@ -14,7 +14,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 | 1. Datos (`src/data`, esquemas, `pnpm verificar`) | ✅ hecha (commit `a70629b`) |
 | 2. Documentos (`docs/`, `pnpm generar-docs`) | ✅ hecha (commit `5a31193`) |
 | 3. Base de la web (Tailwind, Preact, layout, páginas de contenido) | ✅ hecha (pasos 0–6 y cierre, commits `ed4e419` a `457049d`). Dirección visual A + C, paleta «Bosque». Todas las páginas de contenido están hechas; `/panel`, `/entrar` y `/perfil` son de la fase 4. El adaptador de Cloudflare se instala cuando haga falta el modo servidor. |
-| 4. Login y progreso (Supabase, migraciones, middleware, islas que guardan) | 🟡 **en curso**. Paso 1: el usuario está creando el proyecto en Supabase (guía y decisiones en `docs/supabase.md`, con su tabla de estado). **Siguiente: esperar su «listo»**, comprobar `.env` sin mostrar valores e instalar Supabase + adaptador de Cloudflare. |
+| 4. Login y progreso (Supabase, migraciones, middleware, islas que guardan) | 🟡 **en curso**. Pasos 1, 2 y 4 de `docs/supabase.md` hechos: proyecto creado, `.env` verificado, instalados `@supabase/supabase-js`, `@supabase/ssr`, `@astrojs/cloudflare` y `wrangler` (adaptador en `astro.config.mjs`, salida estática por defecto + `prerender = false` en las páginas de progreso). Pasos 3 y 5 hechos: migraciones `progreso_inicial` y `permisos_minimos` aplicadas (cómo, en `docs/supabase.md` §5). **Siguiente:** paso 6, cliente de Supabase en `src/lib/`, middleware y `/entrar` con enlace mágico. |
 | 5. Despliegue en Cloudflare Workers | ⏳ pendiente |
 
 ## 0. Estado técnico del repo y comandos
@@ -24,7 +24,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   - `pnpm build`: compila; es la verificación principal.
   - `pnpm astro check`: tipos y validación de los esquemas del contenido (incluidas las referencias rotas entre JSON).
   - `pnpm verificar`: reglas entre archivos que Zod no ve (cada video de `canciones.txt` aparece una sola vez, 90 días, 65 sesiones de 45 a 60 min, jueves y domingo de descanso, jefe ↔ nivel).
-  - `pnpm auditar`: compila y revisa la accesibilidad del HTML de `dist/` (`scripts/auditar.mjs`). Pásalo al terminar páginas nuevas. **En la fase 4** (modo servidor) las páginas prerenderizadas salen en `dist/client/`: ajusta la carpeta del script entonces.
+  - `pnpm auditar`: compila y revisa la accesibilidad del HTML de `dist/` (`scripts/auditar.mjs`). Pásalo al terminar páginas nuevas. Con el adaptador de Cloudflare las páginas prerenderizadas salen en `dist/client/` (el worker, en `dist/server/`); el script ya revisa esa carpeta.
   - `pnpm generar-docs`: regenera `docs/mapa.md`, `docs/catalogo.md` y `docs/plan-90-dias.md` desde `src/data`. **Ojo:** el script no se llama `docs` porque `pnpm docs` es un comando propio de pnpm.
 - Para editar `package.json` usa `pnpm pkg set …`, nunca `npm`.
 - **Conflicto con `AGENTS.md`:** ese archivo (generado por Astro) sugiere arrancar `astro dev --background`. **Ignóralo:** nunca arranques el servidor de desarrollo.

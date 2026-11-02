@@ -9,11 +9,11 @@ El esquema de la base de datos **no** se describe aquí: vive en `supabase/migra
 
 | Paso | Quién | Estado |
 |---|---|---|
-| 1. Crear la cuenta y el proyecto en supabase.com | Usuario | 🟡 en curso (2 nov 2026) |
-| 2. Copiar la URL y la clave *publishable* a `.env` | Usuario | ⏳ |
-| 3. Authentication → URL Configuration | Usuario | ⏳ |
-| 4. Instalar `@supabase/supabase-js`, `@supabase/ssr` y `@astrojs/cloudflare` (modo servidor) | Claude | ⏳ tras el «listo» del usuario |
-| 5. Primera migración: tablas + RLS | Claude | ⏳ |
+| 1. Crear la cuenta y el proyecto en supabase.com | Usuario | ✅ 2 nov 2026 |
+| 2. Copiar la URL y la clave *publishable* a `.env` | Usuario | ✅ verificado sin mostrar valores |
+| 3. Authentication → URL Configuration | Usuario | ✅ 2 nov 2026 |
+| 4. Instalar `@supabase/supabase-js`, `@supabase/ssr` y `@astrojs/cloudflare` (modo servidor) | Claude | ✅ + `wrangler` (peer del adaptador) |
+| 5. Primera migración: tablas + RLS | Claude | ✅ `progreso_inicial` + `permisos_minimos`, aplicadas por la API de Supabase (2 nov 2026) |
 | 6. Cliente de Supabase en `src/lib/`, middleware, `/entrar` con enlace mágico | Claude | ⏳ |
 | 7. Login con Google (credenciales en Google Cloud) | Ambos | ⏳ después de que funcione el enlace mágico |
 
@@ -23,9 +23,9 @@ Al recibir el «listo», comprobar que `.env` existe y tiene las dos variables *
 
 | Campo | Valor |
 |---|---|
-| Nombre | `camino-del-flautista` |
+| Nombre | El que puso Supabase por defecto («…'s Project»); no afecta a nada |
 | Plan | Free |
-| Región | East US (North Virginia), de las más cercanas a México |
+| Región | West US (Oregon), `us-west-2`. Se había previsto East US; las dos quedan cerca de México |
 | Contraseña de la base de datos | Generada; la guarda el usuario en su gestor de contraseñas. **No se pide ni se guarda en el proyecto.** |
 | Data API | Activada (la web habla con Postgres a través de ella) |
 | Automatic RLS | **Activada.** Toda tabla nueva nace con RLS encendida: sin reglas queda cerrada, así que un olvido falla «a cerrado». |
@@ -54,3 +54,11 @@ Plantilla en `.env.example` (sí está en git); los valores, en `.env` (fuera de
 ## 4. Tablas previstas
 
 Ver `docs/diseno-tecnico.md` (sección 7): `perfiles`, `dias_completados`, `logros_obtenidos`, `victorias_jefe` y `estado_canciones`, todas con `user_id` y RLS `auth.uid() = user_id`. Los ids de contenido que guardan (`dia_id`, `logro_id`…) son los de `src/data`: por eso esos ids no se renombran.
+
+## 5. Cómo se aplican las migraciones
+
+- Se escriben en `supabase/migrations/AAAAMMDDHHMMSS_nombre.sql`. **Una migración ya aplicada no se edita:** cualquier cambio va en una nueva.
+- Hasta ahora se aplicaron con la API de administración de Supabase (`POST /v1/projects/{ref}/database/query`), cada una dentro de `begin … commit`. Además se registraron en `supabase_migrations.schema_migrations`, la tabla que usa la CLI, así que `supabase db push` las reconocería como aplicadas.
+- Esa API necesita un *access token* personal (`sbp_…`), que da control total de la cuenta. Va solo en el comando y se revoca al terminar; nunca se escribe en un archivo.
+- **Permisos:** Supabase da por defecto a `authenticated` todos los permisos sobre las tablas de `public`, incluido `TRUNCATE`, que no pasa por RLS. Por eso cada tabla nueva necesita un `revoke all` y después un `grant` solo de lo que se usa (ver `20261102121000_permisos_minimos.sql`).
+- Comprobado: con la clave *publishable* y sin sesión, leer o escribir en las tablas da `permission denied` (HTTP 401).

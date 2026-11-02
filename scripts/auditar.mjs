@@ -1,5 +1,5 @@
 // Auditoría básica de accesibilidad sobre el HTML ya compilado.
-// Uso: pnpm auditar  (compila y luego revisa dist/). También: node scripts/auditar.mjs <carpeta>
+// Uso: pnpm auditar  (compila y luego revisa dist/client/, donde quedan las páginas prerenderizadas). También: node scripts/auditar.mjs <carpeta>
 //
 // Revisa lo que se puede comprobar leyendo el HTML: lang, <title>, un solo <h1>,
 // saltos de encabezado, alt, title de iframes, ids duplicados, aria-* que apuntan
@@ -10,7 +10,7 @@
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
 
-const raiz = process.argv[2] ?? "dist";
+const raiz = process.argv[2] ?? "dist/client";
 
 // --- utilidades -------------------------------------------------------------
 const paginas = [];
