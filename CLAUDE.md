@@ -13,7 +13,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 |---|---|
 | 1. Datos (`src/data`, esquemas, `pnpm verificar`) | ✅ hecha (commit `a70629b`) |
 | 2. Documentos (`docs/`, `pnpm generar-docs`) | ✅ hecha (commit `5a31193`) |
-| 3. Base de la web (Tailwind, Preact, layout, páginas de contenido) | ✅ hecha (pasos 0–6 y cierre, commits `ed4e419`…«Fase 3, cierre»). Dirección visual A + C, paleta «Bosque». Todas las páginas de contenido están hechas; `/panel`, `/entrar` y `/perfil` son de la fase 4. El adaptador de Cloudflare se instala cuando haga falta el modo servidor. |
+| 3. Base de la web (Tailwind, Preact, layout, páginas de contenido) | ✅ hecha (pasos 0–6 y cierre, commits `ed4e419` a `457049d`). Dirección visual A + C, paleta «Bosque». Todas las páginas de contenido están hechas; `/panel`, `/entrar` y `/perfil` son de la fase 4. El adaptador de Cloudflare se instala cuando haga falta el modo servidor. |
 | 4. Login y progreso (Supabase, migraciones, middleware, islas que guardan) | ⏳ **siguiente**, a la espera del visto bueno. El usuario crea el proyecto en Supabase; guíale paso a paso. |
 | 5. Despliegue en Cloudflare Workers | ⏳ pendiente |
 
