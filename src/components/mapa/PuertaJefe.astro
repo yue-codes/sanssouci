@@ -1,34 +1,105 @@
 ---
 /**
  * @component PuertaJefe
- * Tarjeta compacta de un jefe en el sendero: la «puerta» al final de un tramo.
- * Lleva a la página del jefe.
+ * Un jefe en el mapa del mundo: la puerta que cierra su zona. Sobre el camino,
+ * un arco; a un lado, la tarjeta del jefe con sus **llaves** (los logros que pide).
+ *
+ * Tres estados, como en un juego:
+ * - **Cerrada:** te faltan llaves. Arco con candado.
+ * - **Abierta:** tienes todas las llaves; ya puedes enfrentarlo. El arco brilla.
+ * - **Derrotado:** vencido (y grabado). El arco pasa a verde.
+ * Si su zona está en la niebla, el jefe es «???».
  */
-import { Music2, Check } from "lucide-preact";
+import { Picture } from "astro:assets";
+import { Check, Crown, KeyRound, Lock } from "lucide-preact";
+import FilaCamino, { type TipoTramo } from "./FilaCamino.astro";
 import type { JefeZona } from "@/lib/mapa";
+import { imagenDeJefe } from "@/config/imagenes";
 
 interface Props {
-  /** El jefe, su canción y si ya se venció. */
+  /** El jefe, su canción, sus llaves y su estado (ver `construirSendero`). */
   jefe: JefeZona;
+  /** Orden de la zona que cierra. */
+  zona: number;
+  /** Lado de la tarjeta desde `md`. */
+  lado: "izquierda" | "derecha";
+  /** Su zona está en la niebla: no se revela quién es. */
+  lejano: boolean;
+  /** Densidad de la niebla si es lejano (0 a 1). */
+  densidad?: number;
+  /** Número de día de hoy, para la cuenta atrás. */
+  hoy: number;
 }
-const { jefe: { jefe, cancion, vencido } } = Astro.props;
+const { jefe: jz, zona, lado, lejano, densidad = 0.5, hoy } = Astro.props;
+const { jefe, cancion, vencido, llaves, abierto, dia } = jz;
+const j = jefe.data;
+const imagen = imagenDeJefe(jefe.id);
+const estado = vencido ? "derrotado" : abierto ? "abierta" : "cerrada";
+const conseguidas = llaves.filter((l) => l.estado === "conseguido").length;
+const tramo: TipoTramo = vencido ? "andado" : lejano ? "niebla" : "pendiente";
+const faltan = dia !== undefined && !vencido && hoy <= dia ? dia - Math.max(hoy, 0) : undefined;
+
+const TEXTO_ESTADO = { cerrada: "puerta cerrada", abierta: "puerta abierta", derrotado: "derrotado" }[estado];
 ---
 
-<a
-  href={`/jefes/${jefe.id}`}
-  class:list={[
-    "inline-flex max-w-full items-center gap-3 rounded-xl border bg-superficie/70 px-4 py-2.5 text-left text-sm transition",
-    vencido ? "border-acento/40 hover:border-acento" : "border-peligro/30 hover:border-peligro/70",
-  ]}
->
-  <span class="min-w-0">
-    <span class:list={["flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider", vencido ? "text-acento" : "text-peligro"]}>
-      {vencido && <Check size={12} aria-hidden="true" />}
-      {jefe.data.final ? "Jefe final" : "Jefe"}{vencido ? " · vencido" : ""}
-    </span>
-    <span class="block font-display text-lg font-semibold leading-tight">{jefe.data.nombre}</span>
-    <span class="flex items-center gap-1.5 text-xs text-tenue">
-      <Music2 size={12} aria-hidden="true" /> {cancion.data.titulo} · {jefe.data.condicionVictoria.tempo}
+<FilaCamino abajo={tramo} arriba={tramo} lado={lado} niebla={lejano ? densidad : undefined}>
+  <!-- La puerta: un arco sobre el camino -->
+  <span slot="marcador" data-estado={estado} class="group relative grid h-14 w-12 place-items-center" aria-hidden="true">
+    {estado === "abierta" && <span class="absolute inset-1 animate-latido rounded-t-full bg-peligro/50"></span>}
+    <svg viewBox="0 0 40 46" class="absolute inset-0 size-full overflow-visible">
+      <path
+        d="M5 44 V19 A15 15 0 0 1 35 19 V44 Z"
+        stroke-width="2.5"
+        class="fill-fondo stroke-peligro/70 group-data-[estado=abierta]:fill-peligro/25 group-data-[estado=abierta]:stroke-peligro group-data-[estado=derrotado]:fill-exito/15 group-data-[estado=derrotado]:stroke-exito"
+      />
+      {estado === "cerrada" && <line x1="20" y1="6" x2="20" y2="44" stroke-width="1.5" class="stroke-peligro/50" />}
+      <line x1="1" y1="44" x2="39" y2="44" stroke-width="2.5" class="stroke-borde-fuerte" />
+    </svg>
+    <span class="relative mt-2 text-peligro group-data-[estado=derrotado]:text-exito">
+      {estado === "cerrada" ? <Lock size={14} /> : estado === "derrotado" ? (j.final ? <Crown size={15} /> : <Check size={15} strokeWidth={3} />) : null}
     </span>
   </span>
-</a>
+
+  <a
+    href={`/jefes/${jefe.id}`}
+    data-estado={estado}
+    class="group relative flex w-full max-w-md items-center gap-4 overflow-hidden rounded-md border bg-superficie/90 p-3 pr-5 transition duration-500 ease-suave hover:-translate-y-0.5
+           data-[estado=cerrada]:border-peligro/30 data-[estado=cerrada]:hover:border-peligro/60
+           data-[estado=abierta]:border-peligro data-[estado=abierta]:shadow-[0_0_40px_-12px_var(--peligro)]
+           data-[estado=derrotado]:border-exito/50"
+    data-revelar
+  >
+    <span class="relative size-20 shrink-0 overflow-hidden rounded-[3px]">
+      <Picture src={imagen.src} alt="" widths={[160]} sizes="5rem" formats={["avif"]} fallbackFormat="webp" loading="lazy"
+        class:list={["size-full object-cover transition-transform duration-700 group-hover:scale-110", lejano && "blur-sm grayscale"]}
+        style={{ objectPosition: imagen.enfoque }} />
+      <span class="velo group-hover:opacity-0" aria-hidden="true"></span>
+    </span>
+    <span class="min-w-0">
+      <span class="block font-mono text-[0.625rem] tracking-[0.06em] uppercase group-data-[estado=derrotado]:text-exito group-data-[estado=abierta]:text-peligro group-data-[estado=cerrada]:text-peligro/90">
+        {j.final ? "Jefe final" : "Jefe"} · zona {zona} · {lejano ? "en la niebla" : TEXTO_ESTADO}
+      </span>
+      <span class="mt-0.5 block font-display text-2xl leading-tight">{lejano ? "???" : j.nombre}</span>
+      <span class="block truncate text-xs text-tenue">
+        {lejano ? "Jefe desconocido" : `${cancion.data.titulo} · ${j.condicionVictoria.tempo}`}
+      </span>
+      {llaves.length > 0 && (
+        <span class="mt-2 flex flex-wrap items-center gap-1">
+          {llaves.map((l) => (
+            <KeyRound
+              size={14}
+              aria-hidden="true"
+              class={lejano ? "text-borde-fuerte" : l.estado === "conseguido" ? "text-acento drop-shadow-[0_0_4px_var(--acento)]" : "text-borde-fuerte"}
+            />
+          ))}
+          <span class="ml-1 font-mono text-[0.625rem] text-tenue tabular-nums">
+            {lejano ? `? / ${llaves.length}` : `${conseguidas} / ${llaves.length}`} llaves
+          </span>
+        </span>
+      )}
+      {faltan !== undefined && !lejano && (
+        <span class="mt-1 block font-mono text-[0.625rem] text-tenue uppercase">Día {dia} · faltan {faltan} días</span>
+      )}
+    </span>
+  </a>
+</FilaCamino>

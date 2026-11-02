@@ -47,6 +47,23 @@
     0% { transform: scale(1); opacity: 0.55; }
     100% { transform: scale(1.45); opacity: 0; }
   }
+  /* `animate-flujo`: luz que recorre hacia arriba el camino ya andado (fondo con `bg-size` 100% 200%). */
+  --animate-flujo: flujo 2.8s linear infinite;
+  @keyframes flujo {
+    from { background-position: 0 100%; }
+    to { background-position: 0 -100%; }
+  }
+  /* `animate-trazo`: luz que corre por una línea SVG con `stroke-dasharray` (líneas del árbol). */
+  --animate-trazo: trazo 1.6s linear infinite;
+  @keyframes trazo {
+    to { stroke-dashoffset: -24; }
+  }
+  /* `animate-flotar`: sube y baja suave (el marcador «Tú»). */
+  --animate-flotar: flotar 2.6s ease-in-out infinite;
+  @keyframes flotar {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
   /* `animate-acercar`: zoom muy lento de las imágenes grandes al cargar. */
   --animate-acercar: acercar 9s var(--curva-suave) both;
   @keyframes acercar {
@@ -112,6 +129,9 @@
     opacity: 0;
     transform: translateY(1.5rem);
   }
+  html.movimiento [data-trazar] {
+    stroke-dashoffset: 100;
+  }
   html.movimiento [data-crecer] > * {
     transform: scaleX(0);
     transform-origin: left;
@@ -155,6 +175,28 @@
     @apply pointer-events-none absolute inset-0 opacity-70 transition-opacity duration-700 ease-suave;
     background: var(--tinte);
     mix-blend-mode: color;
+  }
+  /**
+   * Niebla que deriva despacio sobre lo lejano (zonas del mapa que aún no se ven).
+   * Va dentro de un elemento `relative`; su densidad se ajusta con `--densidad` (0 a 1).
+   * Se sale un poco por los lados: el contenedor debe llevar `overflow-x-clip`.
+   */
+  .niebla {
+    @apply pointer-events-none absolute -inset-x-[8%] -inset-y-8 z-20;
+    opacity: calc(0.35 + var(--densidad, 0.5) * 0.65);
+    background:
+      radial-gradient(38% 55% at 18% 45%, color-mix(in oklab, var(--tenue) 22%, transparent), transparent 70%),
+      radial-gradient(32% 50% at 62% 35%, color-mix(in oklab, var(--texto) 14%, transparent), transparent 70%),
+      radial-gradient(40% 60% at 85% 65%, color-mix(in oklab, var(--tenue) 18%, transparent), transparent 70%),
+      radial-gradient(30% 45% at 40% 80%, color-mix(in oklab, var(--secundario) 12%, transparent), transparent 70%);
+    filter: blur(18px);
+    /* Que se desvanezca por los lados en vez de cortarse en seco. */
+    mask-image: linear-gradient(to right, transparent, #000 18%, #000 82%, transparent);
+    animation: deriva 26s ease-in-out infinite alternate;
+  }
+  @keyframes deriva {
+    from { transform: translateX(-5%) scaleY(1); }
+    to { transform: translateX(5%) scaleY(1.15); }
   }
   /** Enlace con flecha que se desplaza al pasar por encima. */
   .enlace-flecha {

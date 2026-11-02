@@ -10,7 +10,7 @@
  * En móvil, los enlaces pasan a una segunda fila que se desplaza en horizontal.
  */
 import Logo from "./Logo.astro";
-import { NAVEGACION } from "@/config/sitio";
+import { NAVEGACION, SITIO } from "@/config/sitio";
 
 const rutaActual = Astro.url.pathname;
 ---
@@ -22,7 +22,7 @@ const rutaActual = Astro.url.pathname;
   style="padding-top: env(safe-area-inset-top, 0px)"
 >
   <nav class="contenedor flex flex-wrap items-center gap-x-8 gap-y-1 py-3 sm:py-4" aria-label="Principal">
-    <a href="/" class="py-1 text-base text-texto sm:text-lg" aria-label="Camino del Flautista, inicio">
+    <a href="/" class="py-1 text-base text-texto sm:text-lg" aria-label={`${SITIO.nombre}, inicio`}>
       <Logo />
     </a>
     <ul class="order-last -mx-2 flex w-full items-center gap-1 overflow-x-auto pb-1 text-sm [scrollbar-width:none] md:order-none md:mx-0 md:ml-auto md:w-auto md:pb-0">

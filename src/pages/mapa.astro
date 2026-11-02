@@ -1,25 +1,58 @@
 ---
 /**
- * Página /mapa: el camino completo como sendero, con la zona actual arriba.
- * Datos: `construirSendero` (src/lib/mapa.ts). Progreso: de ejemplo hasta la fase 4.
+ * Página /mapa: el camino completo como el mapa del mundo de un juego.
+ * Arriba, el marcador (`HudMapa`); debajo, el mapa que se sube de abajo arriba
+ * (`MundoMapa`). Datos: `construirSendero` (src/lib/mapa.ts). Progreso: de ejemplo
+ * hasta que la página pase a modo servidor (fase 4).
  */
 import Base from "@/layouts/Base.astro";
-import Aviso from "@/components/ui/Aviso.astro";
-import ResumenZona from "@/components/mapa/ResumenZona.astro";
-import Sendero from "@/components/mapa/Sendero.astro";
+import HudMapa from "@/components/mapa/HudMapa.astro";
+import MundoMapa from "@/components/mapa/MundoMapa.astro";
 import { cargarContenido } from "@/lib/contenido";
 import { construirSendero } from "@/lib/mapa";
+import { diaDelPlan } from "@/lib/fechas";
 import { PROGRESO_EJEMPLO } from "@/lib/ejemplo";
 
 const c = await cargarContenido();
-const paradas = construirSendero(c, PROGRESO_EJEMPLO);
+const progreso = PROGRESO_EJEMPLO;
+const paradas = construirSendero(c, progreso);
 const actual = paradas.find((p) => p.estado === "actual") ?? paradas[paradas.length - 1];
+const inicio = c.dias[0].data.fecha;
+const hoy = diaDelPlan(new Date(), inicio);
+
+// El próximo jefe sin vencer, en el orden del camino.
+const proximo = paradas
+  .flatMap((p) => p.jefes.map((j) => ({ ...j, zona: p.nivel.data.orden })))
+  .find((j) => !j.vencido);
+
+const cifras = {
+  logros: progreso.obtenidos.size,
+  logrosTotal: c.logros.length,
+  jefes: progreso.jefesVencidos.size,
+  jefesTotal: c.jefes.length,
+};
 ---
 
-<Base titulo="Mapa" descripcion="Las nueve zonas del camino, de la Pradera del Silencio a la Cumbre de Paganini, con sus jefes.">
-  <Aviso class="mb-6">El progreso es de ejemplo hasta que exista el inicio de sesión.</Aviso>
-  <ResumenZona parada={actual} />
+<Base
+  titulo="Mapa"
+  descripcion="El mapa del camino: nueve zonas, de la Pradera del Silencio a la Cumbre de Paganini, con un jefe en cada puerta."
+  ancho="completo"
+>
+  <HudMapa actual={actual} ultimaZona={paradas[paradas.length - 1].nivel.data.orden} proximo={proximo} hoy={hoy} cifras={cifras} deEjemplo />
 
-  <h2 class="mt-14 mb-6 text-3xl font-semibold">El camino</h2>
-  <Sendero paradas={paradas} />
+  <section class="overflow-x-clip py-16 sm:py-24" aria-labelledby="titulo-camino">
+    <div class="contenedor">
+      <div class="mx-auto max-w-2xl text-center" data-revelar="hijos">
+        <p class="eyebrow">El camino</p>
+        <h2 id="titulo-camino" class="mt-3 text-5xl sm:text-6xl">Sube hasta la cumbre</h2>
+        <p class="mt-4 text-tenue">
+          Empiezas abajo. Cada zona pide sus misiones; cada puerta, un jefe que se vence tocando y grabando.
+          Lo lejano sigue en la niebla hasta que te acercas.
+        </p>
+      </div>
+      <div class="mt-14">
+        <MundoMapa paradas={paradas} hoy={hoy} inicio={inicio} />
+      </div>
+    </div>
+  </section>
 </Base>

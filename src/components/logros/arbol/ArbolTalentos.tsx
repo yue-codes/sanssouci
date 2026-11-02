@@ -1,9 +1,10 @@
 import { useComputed, useSignal } from "@preact/signals";
 import { useEffect } from "preact/hooks";
-import type { NodoTalento } from "@/lib/arbol";
+import { ancestrosDe, rangoTalentos, type NodoTalento } from "@/lib/arbol";
 import type { CategoriaLogro } from "@/lib/contenido";
 import { estadoLogro, type EstadoLogro } from "@/lib/progreso";
 import { ESTILO_ESTADO, ICONO_ESTADO } from "./estilos";
+import AvisoDesbloqueo, { type Celebracion } from "./AvisoDesbloqueo";
 import DetalleTalento from "./DetalleTalento";
 import LienzoArbol from "./LienzoArbol";
 import ListaRama from "./ListaRama";
@@ -24,14 +25,14 @@ interface Props {
  * `requiere` es una línea entre dos nodos.
  *
  * Tiene dos vistas del mismo estado:
- *  - Escritorio (`lg` en adelante): lienzo con todas las ramas + panel lateral.
- *  - Celular: pestañas por rama + lista vertical con el talento desplegado.
+ *  - Escritorio (`lg` en adelante): el árbol entero (se encoge para caber) + ficha lateral.
+ *  - Celular y tableta vertical: pestañas por rama + lista vertical con el talento desplegado.
  * Se muestra una u otra con CSS (`hidden lg:grid`); la oculta queda fuera del
  * árbol de accesibilidad, así que no hay botones duplicados para lectores de pantalla.
  *
- * Es el único componente con estado; las piezas hijas solo reciben datos y
- * avisan con callbacks (`onElegir`, `onAlternar`). Por ahora se puede marcar
- * logros (demo); en la fase 4, `obtenidos` vendrá de Supabase.
+ * Arriba, el marcador del jugador (rango, talentos, disponibles). Al conseguir un
+ * talento hay celebración: estallido en el nodo, marca «nuevo» en lo que se abre
+ * y un aviso. Por ahora se puede marcar (demo); en la fase 4, `obtenidos` vendrá de Supabase.
  */
 export default function ArbolTalentos({ nodos, ramas, obtenidos: iniciales }: Props) {
   const porId = new Map(nodos.map((n) => [n.id, n]));
@@ -45,6 +46,9 @@ export default function ArbolTalentos({ nodos, ramas, obtenidos: iniciales }: Pr
   const inicial = disponibles.value[0] ?? nodos[0];
   const seleccion = useSignal(inicial.id);
   const ramaActiva = useSignal<CategoriaLogro>(inicial.categoria);
+  const ruta = useComputed(() => ancestrosDe(seleccion.value, porId));
+  const celebracion = useSignal<Celebracion | undefined>(undefined);
+  const recienAbiertos = useSignal<ReadonlySet<string>>(new Set());
 
   /** Selecciona un talento y muestra su rama (en el celular). */
   function elegir(id: string) {
@@ -58,10 +62,22 @@ export default function ArbolTalentos({ nodos, ramas, obtenidos: iniciales }: Pr
     elegir((deRama.find((n) => estados.value.get(n.id) === "disponible") ?? deRama[0]).id);
   }
 
+  /** Consigue o quita un talento (demo). Al conseguirlo, celebra y marca lo que se abre. */
   function alternar(id: string) {
+    const antes = estados.value;
     const s = new Set(obtenidos.value);
-    s.has(id) ? s.delete(id) : s.add(id);
+    const conseguir = !s.has(id);
+    conseguir ? s.add(id) : s.delete(id);
     obtenidos.value = s; // un Set nuevo es lo que avisa a los signals del cambio
+
+    if (!conseguir) {
+      celebracion.value = undefined;
+      recienAbiertos.value = new Set();
+      return;
+    }
+    const abiertos = nodos.filter((n) => antes.get(n.id) === "bloqueado" && estados.value.get(n.id) === "disponible");
+    recienAbiertos.value = new Set(abiertos.map((n) => n.id));
+    celebracion.value = { id, nombre: porId.get(id)!.nombre, abre: abiertos.map((n) => n.nombre), clave: Date.now() };
   }
 
   const nodosDeRama = (rama: CategoriaLogro) => nodos.filter((n) => n.categoria === rama).sort((a, b) => a.fila - b.fila);
@@ -70,7 +86,7 @@ export default function ArbolTalentos({ nodos, ramas, obtenidos: iniciales }: Pr
     return `${deRama.filter((n) => obtenidos.value.has(n.id)).length}/${deRama.length}`;
   };
 
-  // Permite enlazar a un talento con /arbol#logro-id (lo usan los chips del mapa).
+  // Permite enlazar a un talento con /arbol#logro-id (lo usan las misiones del mapa).
   useEffect(() => {
     const id = decodeURIComponent(location.hash.slice(1));
     if (porId.has(id)) elegir(id);
@@ -80,20 +96,37 @@ export default function ArbolTalentos({ nodos, ramas, obtenidos: iniciales }: Pr
   const detalle = (compacto: boolean) => (
     <DetalleTalento nodo={elegido} estados={estados.value} porId={porId} onElegir={elegir} onAlternar={alternar} compacto={compacto} />
   );
+  const total = obtenidos.value.size;
+  const rango = rangoTalentos(total, nodos.length);
+  const celebrado = celebracion.value && { id: celebracion.value.id, clave: celebracion.value.clave };
 
   return (
-    <div class="grid gap-6">
-      {/* Resumen y leyenda (comunes a las dos vistas) */}
-      <div class="tarjeta flex flex-wrap items-center gap-x-6 gap-y-2 px-5 py-3 text-sm">
-        <p>
-          <span class="font-pixel text-2xl text-acento">{obtenidos.value.size}</span>
-          <span class="text-tenue"> / {nodos.length} talentos</span>
-        </p>
-        <p>
-          <span class="font-pixel text-2xl text-resalte">{disponibles.value.length}</span>
-          <span class="text-tenue"> disponibles ahora</span>
-        </p>
-        <ul class="flex gap-4 text-xs text-tenue sm:ml-auto">
+    // `minmax(0,1fr)`: sin él, la columna de la cuadrícula crece con su contenido más
+    // ancho (las pestañas con scroll) y la página se desborda a lo ancho en el celular.
+    <div class="grid grid-cols-[minmax(0,1fr)] gap-6">
+      {/* Marcador del jugador */}
+      <div class="flex flex-wrap items-stretch gap-px overflow-hidden rounded-md border border-borde bg-borde">
+        <div class="flex-1 basis-40 bg-fondo/90 px-5 py-3">
+          <p class="font-mono text-[0.625rem] tracking-[0.08em] text-tenue uppercase">Rango</p>
+          <p class="font-pixel text-2xl text-acento-claro">{rango.nombre}</p>
+          {rango.siguiente && (
+            <p class="text-xs text-tenue">
+              {rango.faltan} talento{rango.faltan === 1 ? "" : "s"} para {rango.siguiente}
+            </p>
+          )}
+        </div>
+        <div class="flex-1 basis-32 bg-fondo/90 px-5 py-3">
+          <p class="font-mono text-[0.625rem] tracking-[0.08em] text-tenue uppercase">Talentos</p>
+          <p class="font-pixel text-2xl">
+            <span class="text-exito">{total}</span>
+            <span class="text-base text-tenue"> / {nodos.length}</span>
+          </p>
+        </div>
+        <div class="flex-1 basis-32 bg-fondo/90 px-5 py-3">
+          <p class="font-mono text-[0.625rem] tracking-[0.08em] text-tenue uppercase">Disponibles ya</p>
+          <p class="font-pixel text-2xl text-resalte">{disponibles.value.length}</p>
+        </div>
+        <ul class="flex flex-1 basis-64 flex-wrap items-center gap-x-4 gap-y-1 bg-fondo/90 px-5 py-3 text-xs text-tenue">
           {(Object.keys(ESTILO_ESTADO) as EstadoLogro[]).map((e) => {
             const Icono = ICONO_ESTADO[e];
             return (
@@ -103,15 +136,28 @@ export default function ArbolTalentos({ nodos, ramas, obtenidos: iniciales }: Pr
               </li>
             );
           })}
+          <li class="flex items-center gap-1.5">
+            <span class="h-0.5 w-4 rounded-full bg-acento-claro" aria-hidden="true" />
+            Ruta del elegido
+          </li>
         </ul>
       </div>
 
       {/* Escritorio */}
-      <div class="hidden gap-6 lg:grid lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-start">
-        <div class="tarjeta overflow-hidden">
-          <LienzoArbol nodos={nodos} ramas={ramas} estados={estados.value} seleccion={seleccion.value} onElegir={elegir} />
+      <div class="hidden gap-6 lg:grid lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-start xl:grid-cols-[minmax(0,1fr)_21rem]">
+        <div class="overflow-hidden rounded-md border border-borde bg-fondo/60 py-2">
+          <LienzoArbol
+            nodos={nodos}
+            ramas={ramas}
+            estados={estados.value}
+            seleccion={seleccion.value}
+            ruta={ruta.value}
+            recienAbiertos={recienAbiertos.value}
+            celebrado={celebrado}
+            onElegir={elegir}
+          />
         </div>
-        <aside class="tarjeta sticky top-20 p-5" aria-live="polite">
+        <aside class="sticky top-20 rounded-md border border-borde bg-superficie p-5" aria-live="polite">
           {detalle(false)}
         </aside>
       </div>
@@ -123,10 +169,14 @@ export default function ArbolTalentos({ nodos, ramas, obtenidos: iniciales }: Pr
           nodos={nodosDeRama(ramaActiva.value)}
           estados={estados.value}
           seleccion={seleccion.value}
+          recienAbiertos={recienAbiertos.value}
+          celebrado={celebrado}
           onElegir={elegir}
           detalle={detalle(true)}
         />
       </div>
+
+      <AvisoDesbloqueo celebracion={celebracion.value} onCerrar={() => (celebracion.value = undefined)} />
     </div>
   );
 }

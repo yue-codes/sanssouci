@@ -2,7 +2,7 @@
 > Estado de cada fase: ver la sección «Estado» de CLAUDE.md.
 > Las cifras del análisis inicial (181 videos, unas 125 obras) son las de ese momento. La arquitectura del código tal como está hoy se describe en `docs/arquitectura.md`; donde este documento y aquel difieran, manda `docs/arquitectura.md`.
 
-# Diseño: Camino del Flautista (contenido + datos + web)
+# Diseño: Sanssouci (contenido + datos + web)
 
 ## Contexto
 

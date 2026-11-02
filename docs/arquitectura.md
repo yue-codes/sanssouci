@@ -34,7 +34,7 @@ src/
 │   ├── layout/        Cabecera, PiePagina, Logo
 │   ├── ui/            genéricos, sin conocer el juego: AnilloProgreso, Aviso, MigasDePan,
 │   │                  EncabezadoSeccion, NavegacionVecinos, ReproductorYoutube
-│   ├── mapa/          Sendero → TramoSendero + ParadaZona + PuertaJefe; ResumenZona; TarjetaZona; EstasAqui;
+│   ├── mapa/          HudMapa (marcador); MundoMapa → FilaCamino + RegionZona + PuertaJefe; TarjetaZona; EstasAqui;
 │   │                  SenderoPortada (el sendero en horizontal, con imágenes)
 │   ├── niveles/       TemarioZona
 │   ├── jefes/         TarjetaJefe, CondicionesVictoria, AnuncioJefe (el próximo jefe como puerta)
@@ -44,7 +44,7 @@ src/
 │   │   └── catalogo/    isla CatalogoCanciones → PanelFiltros
 │   ├── logros/        TarjetaLogro, ChipLogro, AvanceCategorias, categorias.ts
 │   │   └── arbol/       isla ArbolTalentos y sus piezas (LienzoArbol, ListaRama,
-│   │                    PestanasRamas, DetalleTalento, Hexagono, estilos.ts)
+│   │                    PestanasRamas, DetalleTalento, Hexagono, Estallido, AvisoDesbloqueo, estilos.ts)
 │   ├── calendario/    SemanaCalendario → CeldaDia; LineaNoventaDias; isla PartituraNoventaDias; hitos.ts
 │   └── sesion/        isla SesionDelDia; ResumenSesion; bloques.ts
 ├── layouts/         Esqueletos de página (Base.astro)
@@ -97,6 +97,10 @@ Una isla se ejecuta **también en el navegador**, así que todo lo que importe (
 ## Colores, tipografía y tema
 
 **Dirección visual «Nocturno», paleta «Cian»** (2 nov 2026): la web es la hora de practicar, de 8 a 10 de la noche. Los colores salen de la imagen principal (`anime-cian.webp`): noche azul índigo, texto rosa pálido, el cian como luz principal, lavanda, cielo y el rosa fuerte de sus cintas. Imágenes grandes y grano de película. Los 90 días se leen como una partitura; el lenguaje de juego (sendero, puertas, niebla) vive en el mapa y el árbol.
+
+**El mapa del mundo (`/mapa`):** se sube de abajo (inicio) arriba (cumbre). En el HTML va en el orden del viaje y `flex-col-reverse` le da la vuelta solo a la vista, para que el lector de pantalla lo lea en orden. Cada fila (`FilaCamino`) tiene dos mitades de camino: andado (luz cian que fluye), pendiente (discontinuo) o en niebla (punteado). Los jefes son puertas con tres estados: cerrada (faltan llaves = logros que pide), abierta (late) y derrotado. La niebla (`.niebla`) espesa con la distancia y se sale por los lados, por eso su sección lleva `overflow-x-clip`. El anillo de cada zona se dibuja al entrar en pantalla (`data-trazar`).
+
+**El árbol de talentos (`/arbol`):** un mapa de estrellas con los mismos colores que el mapa (menta conseguido, lavanda disponible). Cada rama lleva su avance en segmentos; el jugador tiene un rango decorativo (`rangoTalentos`). Al elegir un talento se resalta en cian su ruta de requisitos (`ancestrosDe`) y en lavanda lo que abre; lo conseguido lleva una luz que corre por la línea (`animate-trazo`). Al conseguir uno (demo hasta la fase 4) hay celebración: `Estallido` (chispas con `motion`, nada si se pide menos movimiento), marca «nuevo» en lo que se abre y `AvisoDesbloqueo` (región `aria-live`). El árbol se ve entero desde `lg`: el lienzo se encoge (`transform: scale`, medido con `ResizeObserver`) hasta caber; en pantallas más chicas, pestañas y lista.
 
 - **Solo tema oscuro**, a propósito: no hay `light-dark()`, ni selector de tema, ni `data-theme`.
 - **Dos capas** en `src/styles/tokens.css`:
@@ -214,8 +218,8 @@ Reglas que cumple cada página. **`pnpm auditar`** comprueba sobre el HTML gener
 | Ruta | Archivo | Datos |
 |---|---|---|
 | `/` | `pages/index.astro` | `sesionDeReferencia`, `diasParaPartitura` → isla `PartituraNoventaDias`, `construirSendero`, `diaDelJefe`, rutas con `getImage` → isla `IndiceRutas` |
-| `/mapa` | `pages/mapa.astro` | `construirSendero` |
-| `/arbol` | `pages/arbol.astro` | `construirNodosArbol` → isla `ArbolTalentos` |
+| `/mapa` | `pages/mapa.astro` | `construirSendero` (zonas, jefes con llaves, `abierto` y `dia`) → `HudMapa` + `MundoMapa` |
+| `/arbol` | `pages/arbol.astro` | `construirNodosArbol` → isla `ArbolTalentos` (usa `ancestrosDe` y `rangoTalentos`) |
 | `/niveles/[id]` | `pages/niveles/[id].astro` | `construirSendero` (su zona), `logrosConEstado` |
 | `/jefes/[id]` | `pages/jefes/[id].astro` | `jefesEnOrden`, `diaDelJefe`, `logrosConEstado` |
 | `/calendario` | `pages/calendario.astro` | `semanasDelPlan`, `hitosDelDia` |

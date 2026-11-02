@@ -51,7 +51,7 @@ export default function PestanasRamas({ ramas, activa, onCambiar, progreso }: Pr
             aria-controls={ID_PANEL_RAMA}
             tabIndex={sel ? 0 : -1}
             onClick={() => onCambiar(r)}
-            class="flex shrink-0 items-center gap-2 rounded-xl border border-borde bg-superficie px-3 py-2 text-sm text-tenue transition aria-selected:border-acento aria-selected:bg-acento-suave aria-selected:text-texto"
+            class="flex shrink-0 items-center gap-2 rounded-[3px] border border-borde bg-superficie px-3 py-2 text-sm text-tenue transition aria-selected:border-acento aria-selected:bg-acento-suave aria-selected:text-texto"
           >
             <Icono size={15} aria-hidden="true" />
             <span class="font-pixel uppercase tracking-wider">{NOMBRE_CATEGORIA[r]}</span>

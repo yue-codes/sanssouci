@@ -7,7 +7,7 @@
 
 /** Nombre y descripción por defecto (para `<title>` y `<meta name="description">`). */
 export const SITIO = {
-  nombre: "Camino del Flautista",
+  nombre: "Sanssouci",
   descripcion: "Plan de práctica de flauta traversa con niveles, jefes y logros.",
   idioma: "es",
   /**

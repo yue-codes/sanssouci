@@ -20,7 +20,8 @@ interface Props {
  * Nodo visual del árbol: hexágono con borde, relleno e icono de su categoría.
  * Es solo decoración (`aria-hidden`): el texto accesible lo pone quien lo usa.
  * El borde se logra con dos hexágonos superpuestos, porque `clip-path` recorta
- * también los bordes de CSS.
+ * también los bordes de CSS. Lo conseguido brilla (`drop-shadow`, que sí sigue la
+ * forma recortada, a diferencia de `box-shadow`).
  */
 export default function Hexagono({ categoria, estado, tamano = 52, elegido = false }: Props) {
   const e = ESTILO_ESTADO[estado];
@@ -28,7 +29,11 @@ export default function Hexagono({ categoria, estado, tamano = 52, elegido = fal
   const forma = { clipPath: HEXAGONO };
 
   return (
-    <span class="relative grid shrink-0 place-items-center" style={{ width: `${tamano}px`, height: `${tamano}px` }} aria-hidden="true">
+    <span
+      class={`relative grid shrink-0 place-items-center ${estado === "conseguido" ? "drop-shadow-[0_0_7px_var(--exito)]" : ""}`}
+      style={{ width: `${tamano}px`, height: `${tamano}px` }}
+      aria-hidden="true"
+    >
       {estado === "disponible" && <span class={`absolute inset-0 animate-latido ${e.borde}`} style={forma} />}
       <span class={`absolute inset-0 ${elegido ? "bg-texto" : e.borde}`} style={forma} />
       <span class={`absolute inset-[3px] ${e.relleno}`} style={forma} />

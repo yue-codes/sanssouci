@@ -1,0 +1,108 @@
+---
+/**
+ * @component HudMapa
+ * Cabecera del mapa como el marcador de un juego: tu zona a sangre, sus misiones
+ * en una barra por segmentos (una por misión) y, al lado, tus cifras: zona,
+ * jefes vencidos, logros, el próximo jefe y la siguiente misión.
+ */
+import { Picture } from "astro:assets";
+import ChipLogro from "@/components/logros/ChipLogro.astro";
+import { siguientePaso, type JefeZona, type ParadaSendero } from "@/lib/mapa";
+import { IMAGEN_ZONA, IMAGENES } from "@/config/imagenes";
+
+interface Props {
+  /** La zona en la que estás. */
+  actual: ParadaSendero;
+  /** Orden de la última zona (para «zona 0 de 8»). */
+  ultimaZona: number;
+  /** El próximo jefe sin vencer, con el orden de su zona. */
+  proximo?: JefeZona & { zona: number };
+  /** Número de día de hoy (para la cuenta atrás del jefe). */
+  hoy: number;
+  /** Cifras del jugador. */
+  cifras: { logros: number; logrosTotal: number; jefes: number; jefesTotal: number };
+  /** El progreso es de ejemplo (portada pública) y no del usuario. */
+  deEjemplo?: boolean;
+}
+const { actual, ultimaZona, proximo, hoy, cifras, deEjemplo = false } = Astro.props;
+const n = actual.nivel.data;
+const imagen = IMAGEN_ZONA[actual.nivel.id] ?? IMAGENES.animeCian;
+const paso = siguientePaso(actual);
+const faltan = proximo?.dia !== undefined && hoy <= proximo.dia ? proximo.dia - Math.max(hoy, 0) : undefined;
+
+const SEGMENTO = { conseguido: "bg-exito", disponible: "bg-resalte/70 animate-pulse", bloqueado: "bg-borde" };
+---
+
+<section class="relative isolate overflow-hidden border-b border-borde" aria-labelledby="titulo-mapa">
+  <div class="absolute inset-0 -z-10 animate-acercar">
+    <Picture src={imagen.src} alt="" widths={[960, 1440, 2000]} sizes="100vw" formats={["avif"]} fallbackFormat="webp" loading="eager"
+      class="size-full object-cover" style={{ objectPosition: imagen.enfoque }} />
+  </div>
+  <span class="velo -z-10 opacity-60" aria-hidden="true"></span>
+  <span class="absolute inset-0 -z-10 bg-linear-to-r from-fondo via-fondo/85 to-fondo/30" aria-hidden="true"></span>
+  <span class="absolute inset-0 -z-10 bg-linear-to-t from-fondo to-transparent to-40%" aria-hidden="true"></span>
+
+  <div class="contenedor grid gap-10 py-14 sm:py-20 lg:grid-cols-[1.25fr_1fr] lg:items-end lg:gap-16">
+    <div data-revelar="hijos">
+      <p class="eyebrow">Mapa del mundo · Estás aquí</p>
+      <h1 id="titulo-mapa" class="mt-4 text-6xl leading-[0.92] sm:text-8xl">{n.nombre}</h1>
+      <p class="mt-4 max-w-[48ch] text-lg text-tenue">
+        <span class="text-texto">Zona {n.orden} · {n.zona}.</span> {n.resumen}
+      </p>
+
+      {actual.requisitos.length > 0 && (
+        <div class="mt-8 max-w-lg">
+          <div class="flex items-baseline justify-between font-mono text-[0.625rem] tracking-[0.06em] text-tenue uppercase">
+            <span>Misiones de la zona</span>
+            <span class="tabular-nums">{actual.hechos} / {actual.requisitos.length}</span>
+          </div>
+          <div class="mt-2 flex h-2 gap-1" data-crecer aria-hidden="true">
+            {actual.requisitos.map((r) => <span class:list={["flex-1 rounded-[1px]", SEGMENTO[r.estado]]} />)}
+          </div>
+        </div>
+      )}
+
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href="#tu-posicion" class="boton">Ir a tu posición <span aria-hidden="true">↓</span></a>
+        <a href={`/niveles/${actual.nivel.id}`} class="boton-borde">Temario de la zona</a>
+      </div>
+      {deEjemplo && (
+        <p class="mt-6 font-mono text-[0.625rem] text-tenue uppercase">
+          Progreso de ejemplo · <a href="/entrar" class="text-acento underline-offset-4 hover:underline">entra</a> para llevar el tuyo
+        </p>
+      )}
+    </div>
+
+    <!-- El marcador: cifras del jugador -->
+    <dl class="grid grid-cols-3 gap-px overflow-hidden rounded-md border border-borde bg-borde" data-revelar>
+      <div class="flex flex-col-reverse bg-fondo/80 p-4 backdrop-blur-md">
+        <dt class="mt-1 font-mono text-[0.625rem] text-tenue uppercase">Zona</dt>
+        <dd class="font-display text-4xl leading-none tabular-nums">{n.orden}<span class="text-xl text-tenue">/{ultimaZona}</span></dd>
+      </div>
+      <div class="flex flex-col-reverse bg-fondo/80 p-4 backdrop-blur-md">
+        <dt class="mt-1 font-mono text-[0.625rem] text-tenue uppercase">Jefes vencidos</dt>
+        <dd class="font-display text-4xl leading-none tabular-nums">{cifras.jefes}<span class="text-xl text-tenue">/{cifras.jefesTotal}</span></dd>
+      </div>
+      <div class="flex flex-col-reverse bg-fondo/80 p-4 backdrop-blur-md">
+        <dt class="mt-1 font-mono text-[0.625rem] text-tenue uppercase">Logros</dt>
+        <dd class="font-display text-4xl leading-none tabular-nums">{cifras.logros}<span class="text-xl text-tenue">/{cifras.logrosTotal}</span></dd>
+      </div>
+      {proximo && (
+        <div class="col-span-3 flex flex-col-reverse bg-fondo/80 p-4 backdrop-blur-md">
+          <dt class="mt-1 font-mono text-[0.625rem] text-tenue uppercase">
+            Próximo jefe{proximo.dia !== undefined && ` · día ${proximo.dia}`}{faltan !== undefined && ` · faltan ${faltan} días`}
+          </dt>
+          <dd class="font-display text-2xl leading-tight">
+            <a href={`/jefes/${proximo.jefe.id}`} class="text-peligro hover:underline">{proximo.jefe.data.nombre}</a>
+          </dd>
+        </div>
+      )}
+      {paso && (
+        <div class="col-span-3 flex flex-col-reverse gap-2 bg-fondo/80 p-4 backdrop-blur-md">
+          <dt class="font-mono text-[0.625rem] text-tenue uppercase">Siguiente misión</dt>
+          <dd><ChipLogro logro={paso.logro} estado={paso.estado} /></dd>
+        </div>
+      )}
+    </dl>
+  </div>
+</section>

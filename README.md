@@ -1,4 +1,4 @@
-# Camino del Flautista
+# Sanssouci
 
 Plan de práctica de flauta traversa convertido en juego: zonas con requisitos, jefes con condiciones de victoria (que incluyen grabar el video), logros organizados como árbol de habilidades y un plan de 90 días, del 2 de noviembre de 2026 al 30 de enero de 2027. Debajo del juego hay un temario serio: lectura, teoría, respiración, sonido, escalas, estudios y repertorio.
 

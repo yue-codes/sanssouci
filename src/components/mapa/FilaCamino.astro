@@ -1,0 +1,68 @@
+---
+/**
+ * @component FilaCamino
+ * Una fila del mapa del mundo: el trozo de camino, un marcador sobre él y una
+ * tarjeta a un lado. La usan las zonas, las puertas de los jefes y los extremos
+ * (inicio y cumbre), así el camino se dibuja igual en todos.
+ *
+ * El camino de cada fila tiene dos mitades (bajo y sobre el marcador), porque el
+ * mapa se sube de abajo arriba: en la zona actual has llegado (mitad de abajo,
+ * andada) pero aún no has salido (mitad de arriba, pendiente).
+ *
+ * Disposición: en el celular, camino a la izquierda y tarjeta a la derecha; desde
+ * `md`, camino en el centro y tarjetas alternando lados.
+ *
+ * Slots:
+ *  - `marcador`: lo que va sobre el camino (medallón de zona, puerta de jefe…).
+ *  - por defecto: la tarjeta.
+ */
+
+/** Cómo se dibuja cada mitad del camino. */
+export type TipoTramo = "andado" | "pendiente" | "niebla" | "ninguno";
+
+interface Props {
+  /** Mitad bajo el marcador (de dónde vienes). */
+  abajo: TipoTramo;
+  /** Mitad sobre el marcador (hacia dónde vas). */
+  arriba: TipoTramo;
+  /** Lado de la tarjeta desde `md`. */
+  lado: "izquierda" | "derecha";
+  /** Si se indica, la fila queda bajo niebla con esa densidad (0 a 1). */
+  niebla?: number;
+  /** Id de la fila (para enlazar a ella, p. ej. «tu posición»). */
+  id?: string;
+}
+const { abajo, arriba, lado, niebla, id } = Astro.props;
+
+/** Estilo de cada tipo de tramo. El andado lleva una luz que fluye hacia arriba. */
+const TRAMO: Record<TipoTramo, string> = {
+  andado: "w-1 rounded-full bg-linear-to-t from-acento via-acento-claro to-acento bg-[length:100%_200%] animate-flujo shadow-[0_0_14px_var(--acento)]",
+  pendiente: "border-l-2 border-dashed border-borde-fuerte",
+  niebla: "border-l-2 border-dotted border-borde/70",
+  ninguno: "hidden",
+};
+const POSICION = "absolute left-8 -translate-x-1/2 md:left-1/2";
+---
+
+<li
+  id={id}
+  class="relative grid scroll-mt-32 grid-cols-[4rem_1fr] items-center gap-x-4 py-7 md:grid-cols-[1fr_8rem_1fr] md:gap-x-0 md:py-10"
+>
+  <span aria-hidden="true" class:list={[POSICION, "top-1/2 bottom-0", TRAMO[abajo]]}></span>
+  <span aria-hidden="true" class:list={[POSICION, "top-0 bottom-1/2", TRAMO[arriba]]}></span>
+
+  {niebla !== undefined && <span class="niebla" style={`--densidad:${niebla}`} aria-hidden="true"></span>}
+
+  <div class="relative z-10 col-start-1 row-start-1 grid place-items-center md:col-start-2">
+    <slot name="marcador" />
+  </div>
+
+  <div
+    class:list={[
+      "relative row-start-1 min-w-0 w-full max-w-xl",
+      lado === "izquierda" ? "col-start-2 md:col-start-1 md:justify-self-end md:pr-2" : "col-start-2 md:col-start-3 md:pl-2",
+    ]}
+  >
+    <slot />
+  </div>
+</li>

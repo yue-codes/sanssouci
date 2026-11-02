@@ -1,6 +1,6 @@
 <!-- Archivo generado por scripts/generar-docs.mjs. No lo edites a mano: cambia src/data y ejecuta `pnpm generar-docs`. -->
 
-# Mapa del Camino del Flautista
+# Mapa de Sanssouci
 
 Rutas (ramas que se cruzan): **Ruta Clásica** · **Ruta Ghibli** · **Ruta Videojuegos** · **Ruta Anime · Vocaloid · J-pop** · **Ruta Folk y Mundo**.
 

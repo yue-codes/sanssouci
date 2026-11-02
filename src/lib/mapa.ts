@@ -8,12 +8,19 @@
 import type { Cancion, Contenido, Jefe, Nivel } from "@/lib/contenido";
 import { logrosConEstado, type LogroConEstado } from "@/lib/logros";
 import { estadoZona, ordenZonaActual, type EstadoZona, type Progreso } from "@/lib/progreso";
+import { diaDelJefe } from "@/lib/jefes";
 
-/** Un jefe de la zona, con su canción y si ya se venció. */
+/** Un jefe de la zona, con su canción, sus «llaves» y si ya se venció. */
 export interface JefeZona {
   jefe: Jefe;
   cancion: Cancion;
   vencido: boolean;
+  /** Logros que pide el jefe (`requiere`), con su estado: son las llaves de su puerta. */
+  llaves: LogroConEstado[];
+  /** La puerta está abierta: ya tienes todas sus llaves (o ya lo venciste). */
+  abierto: boolean;
+  /** Día del plan en que toca enfrentarlo, si cae dentro de los 90 días. */
+  dia?: number;
 }
 
 /** Una parada del sendero: una zona y todo lo que se muestra de ella. */
@@ -51,11 +58,18 @@ export function construirSendero(c: Contenido, progreso: Progreso): ParadaSender
       lejana: nivel.data.orden > actual + 1,
       requisitos,
       hechos: requisitos.filter((r) => r.estado === "conseguido").length,
-      jefes: jefesDe(nivel.id).map((jefe) => ({
-        jefe,
-        cancion: c.cancionPorId.get(jefe.data.cancion.id)!,
-        vencido: progreso.jefesVencidos.has(jefe.id),
-      })),
+      jefes: jefesDe(nivel.id).map((jefe) => {
+        const llaves = logrosConEstado(c, jefe.data.requiere.map((r) => r.id), progreso.obtenidos);
+        const vencido = progreso.jefesVencidos.has(jefe.id);
+        return {
+          jefe,
+          cancion: c.cancionPorId.get(jefe.data.cancion.id)!,
+          vencido,
+          llaves,
+          abierto: vencido || llaves.every((l) => l.estado === "conseguido"),
+          dia: diaDelJefe(c, jefe.id)?.data.numero,
+        };
+      }),
     };
   });
 }

@@ -86,3 +86,54 @@ export function construirNodosArbol(c: Contenido, ramas: readonly CategoriaLogro
   }));
   return posicionarArbol(planos, ramas);
 }
+
+/**
+ * Todos los talentos que hay que tener antes de uno: sus requisitos, los
+ * requisitos de estos, y así hasta la raíz. Es «la ruta hasta aquí» que el
+ * árbol resalta al elegir un talento.
+ *
+ * @param id Id del talento.
+ * @param porId Nodos por id (cualquier objeto con `requiere`).
+ * @returns Ids de los antecesores (sin incluir `id`).
+ * @example ancestrosDe("c", new Map([["a", {requiere: []}], ["b", {requiere: ["a"]}], ["c", {requiere: ["b"]}]])) // → Set {"b", "a"}
+ */
+export function ancestrosDe(id: string, porId: ReadonlyMap<string, { requiere: readonly string[] }>): Set<string> {
+  const vistos = new Set<string>();
+  const pendientes = [...(porId.get(id)?.requiere ?? [])];
+  while (pendientes.length) {
+    const actual = pendientes.pop()!;
+    if (vistos.has(actual)) continue;
+    vistos.add(actual);
+    pendientes.push(...(porId.get(actual)?.requiere ?? []));
+  }
+  return vistos;
+}
+
+/** Los rangos del jugador según la parte del árbol que lleva. Decorativo: no mide nada más. */
+const RANGOS = [
+  { desde: 0, nombre: "Novicio" },
+  { desde: 0.1, nombre: "Aprendiz" },
+  { desde: 0.3, nombre: "Intérprete" },
+  { desde: 0.55, nombre: "Virtuoso" },
+  { desde: 0.85, nombre: "Maestro" },
+] as const;
+
+/**
+ * Rango del jugador (como en un RPG) según la fracción de talentos conseguidos,
+ * y cuántos le faltan para el siguiente.
+ *
+ * @param conseguidos Talentos conseguidos.
+ * @param total Talentos del árbol.
+ * @returns El nombre del rango y los talentos que faltan para el siguiente (`undefined` en el último).
+ * @example rangoTalentos(8, 61) // → { nombre: "Aprendiz", siguiente: "Intérprete", faltan: 11 }
+ */
+export function rangoTalentos(conseguidos: number, total: number) {
+  const fraccion = total ? conseguidos / total : 0;
+  const i = RANGOS.findLastIndex((r) => fraccion >= r.desde);
+  const sig = RANGOS[i + 1];
+  return {
+    nombre: RANGOS[i].nombre,
+    siguiente: sig?.nombre,
+    faltan: sig ? Math.ceil(sig.desde * total) - conseguidos : undefined,
+  };
+}

@@ -33,7 +33,7 @@ const escribir = (nombre, contenido) => {
 // --- mapa.md ------------------------------------------------------------------
 {
   const ordenados = [...niveles].sort((a, b) => a.orden - b.orden);
-  let md = `# Mapa del Camino del Flautista\n\n`;
+  let md = `# Mapa de Sanssouci\n\n`;
   md += `Rutas (ramas que se cruzan): ${rutas.map((r) => `**${r.nombre}**`).join(" · ")}.\n\n`;
   md += `> Del día 91 en adelante, las estimaciones de tiempo son **orientativas**. Se pasa de zona al cumplir los criterios, no por fecha. Lo que diga tu maestro manda.\n\n`;
   md += tabla(["#", "Zona", "Jefe", "Estimación"], ordenados.map((n) => {

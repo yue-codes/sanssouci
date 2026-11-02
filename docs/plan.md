@@ -1,4 +1,4 @@
-# Camino del Flautista: plan principal
+# Sanssouci: plan principal
 
 Este es el documento de entrada. Lo que cambia con frecuencia está en `src/data/` y se convierte en documentos legibles con `pnpm generar-docs`:
 

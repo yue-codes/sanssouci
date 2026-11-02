@@ -7,6 +7,8 @@
  * - `data-revelar`         → el elemento aparece (sube y se aclara) al entrar en pantalla.
  * - `data-revelar="hijos"` → igual, pero con cada hijo uno detrás de otro.
  * - `data-crecer`          → los hijos crecen de izquierda a derecha (barras).
+ * - `data-trazar`          → un trazo SVG con `pathLength="100"` se dibuja hasta su
+ *                            `stroke-dashoffset` (anillos de progreso).
  * - `data-paralaje`        → la imagen se desplaza un poco más lento que la página, mientras
  *                            su marco (el antepasado con `data-marco`) cruza la pantalla.
  * - `data-cabecera`        → recibe `data-desplazado` cuando la página ya no está arriba del todo.
@@ -34,6 +36,12 @@ function revelar() {
       },
       { margin: "0px 0px -12% 0px" },
     );
+  }
+  for (const el of document.querySelectorAll<SVGElement>("[data-trazar]")) {
+    const fin = Number(el.getAttribute("stroke-dashoffset") ?? 0);
+    inView(el, () => {
+      animate(el, { strokeDashoffset: [100, fin] }, { duration: 1.4, delay: 0.2, ease: CURVA });
+    });
   }
   for (const el of document.querySelectorAll<HTMLElement>("[data-crecer]")) {
     inView(el, () => {
