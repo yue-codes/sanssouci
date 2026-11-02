@@ -1,0 +1,25 @@
+---
+/**
+ * Página /mapa: el camino completo como sendero, con la zona actual arriba.
+ * Datos: `construirSendero` (src/lib/mapa.ts). Progreso: de ejemplo hasta la fase 4.
+ */
+import Base from "@/layouts/Base.astro";
+import Aviso from "@/components/ui/Aviso.astro";
+import ResumenZona from "@/components/mapa/ResumenZona.astro";
+import Sendero from "@/components/mapa/Sendero.astro";
+import { cargarContenido } from "@/lib/contenido";
+import { construirSendero } from "@/lib/mapa";
+import { PROGRESO_EJEMPLO } from "@/lib/ejemplo";
+
+const c = await cargarContenido();
+const paradas = construirSendero(c, PROGRESO_EJEMPLO);
+const actual = paradas.find((p) => p.estado === "actual") ?? paradas[paradas.length - 1];
+---
+
+<Base titulo="Mapa" descripcion="Las nueve zonas del camino, de la Pradera del Silencio a la Cumbre de Paganini, con sus jefes.">
+  <Aviso class="mb-6">El progreso es de ejemplo hasta que exista el inicio de sesión.</Aviso>
+  <ResumenZona parada={actual} />
+
+  <h2 class="mt-14 mb-6 text-3xl font-semibold">El camino</h2>
+  <Sendero paradas={paradas} />
+</Base>

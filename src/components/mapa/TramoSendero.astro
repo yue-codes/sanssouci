@@ -1,0 +1,53 @@
+---
+/**
+ * @component TramoSendero
+ * Una fila del sendero: el trozo de camino, un marcador sobre él y una tarjeta
+ * a un lado. Lo usan las zonas y los jefes, así el camino se dibuja igual en ambos.
+ *
+ * Disposición: en el celular, camino a la izquierda y tarjeta a la derecha; desde
+ * `md`, camino en el centro y tarjetas alternando lados (zigzag).
+ *
+ * Slots:
+ *  - `marcador`: lo que va sobre el camino (círculo de zona, rombo de jefe…).
+ *  - por defecto: la tarjeta.
+ */
+
+/** Cómo se dibuja el trozo de camino. */
+export type TipoCamino = "andado" | "llegando" | "pendiente";
+
+interface Props {
+  /** `andado`: línea sólida; `llegando`: se desvanece hacia lo pendiente; `pendiente`: punteada. */
+  camino: TipoCamino;
+  /** Lado de la tarjeta desde `md`. */
+  lado: "izquierda" | "derecha";
+  /** Atenúa la fila: zonas lejanas «en niebla». */
+  niebla?: boolean;
+  /** Espacio bajo la fila. Los jefes llevan más, porque cierran un tramo. */
+  separacion?: "normal" | "amplia";
+}
+const { camino, lado, niebla = false, separacion = "normal" } = Astro.props;
+
+const LINEA: Record<TipoCamino, string> = {
+  andado: "w-1 rounded bg-acento",
+  llegando: "w-1 rounded bg-gradient-to-b from-acento to-borde",
+  pendiente: "border-l-2 border-dashed border-borde",
+};
+---
+
+<li
+  class:list={[
+    "relative grid grid-cols-[3rem_1fr] gap-x-4 md:grid-cols-[1fr_5rem_1fr]",
+    separacion === "amplia" ? "pb-10" : "pb-6",
+    { "opacity-55 saturate-50": niebla },
+  ]}
+>
+  <span aria-hidden="true" class:list={["absolute top-0 bottom-0 left-6 -translate-x-1/2 md:left-1/2", LINEA[camino]]}></span>
+
+  <span class="relative z-10 row-start-1 grid justify-items-center md:col-start-2">
+    <slot name="marcador" />
+  </span>
+
+  <div class:list={["row-start-1 min-w-0", lado === "izquierda" ? "md:col-start-1 md:text-right" : "md:col-start-3"]}>
+    <slot />
+  </div>
+</li>

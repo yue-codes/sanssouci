@@ -7,9 +7,7 @@
  */
 import { Check, Lock, Footprints } from "lucide-preact";
 import type { Nivel } from "@/lib/contenido";
-
-/** Estado de una zona para el jugador. */
-export type EstadoZona = "superada" | "actual" | "bloqueada";
+import type { EstadoZona } from "@/lib/progreso";
 
 interface Props {
   /** Nivel (zona) a mostrar. */

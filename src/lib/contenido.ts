@@ -14,6 +14,8 @@ export type Jefe = CollectionEntry<"jefes">;
 export type Logro = CollectionEntry<"logros">;
 export type Dia = CollectionEntry<"dias">;
 export type Ruta = CollectionEntry<"rutas">;
+/** Categoría de un logro (cada una es una rama del árbol de habilidades). */
+export type CategoriaLogro = Logro["data"]["categoria"];
 
 /**
  * Carga todas las colecciones a la vez y devuelve, además de los arreglos,
@@ -44,6 +46,9 @@ export async function cargarContenido() {
     cancionPorId: indice(canciones),
   };
 }
+
+/** Todo el contenido cargado, tal como lo devuelve `cargarContenido()`. */
+export type Contenido = Awaited<ReturnType<typeof cargarContenido>>;
 
 /**
  * Una obra es «reto de oído» si ninguna versión tiene partitura y alguna es de oído.

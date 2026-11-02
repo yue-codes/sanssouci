@@ -12,19 +12,21 @@ src/
 ├── lib/             Lógica en TypeScript, sin interfaz:
 │   ├── contenido.ts   acceso a las colecciones (solo servidor)
 │   ├── fechas.ts      utilidades de fechas (puras)
-│   ├── progreso.ts    reglas del progreso: estaDesbloqueado, estadoLogro (puras)
-│   ├── arbol.ts       disposición del árbol de habilidades (pura)
-│   └── ejemplo.ts     progreso inventado para las muestras (temporal, hasta la fase 4)
+│   ├── progreso.ts    reglas del progreso: Progreso, estadoLogro, ordenZonaActual… (puras)
+│   ├── mapa.ts        datos del sendero: construirSendero, siguientePaso
+│   ├── arbol.ts       nodos y disposición del árbol: construirNodosArbol, posicionarArbol
+│   └── ejemplo.ts     PROGRESO_EJEMPLO, inventado (temporal, hasta la fase 4)
 ├── components/      Componentes agrupados por DOMINIO (de qué tratan):
 │   ├── layout/        Cabecera, PiePagina
-│   ├── ui/            genéricos, sin conocer el juego (AnilloProgreso)
-│   ├── mapa/          zonas y sendero
+│   ├── ui/            genéricos, sin conocer el juego (AnilloProgreso, Aviso)
+│   ├── mapa/          Sendero → TramoSendero + ParadaZona + PuertaJefe; ResumenZona; TarjetaZona
 │   ├── jefes/
 │   ├── canciones/     TarjetaCancion, ChipRuta, Dificultad
-│   ├── logros/        InsigniaLogro, ChipLogro, ArbolTalentos, categorias.ts
+│   ├── logros/        InsigniaLogro, ChipLogro, categorias.ts
+│   │   └── arbol/       isla ArbolTalentos y sus piezas (LienzoArbol, ListaRama,
+│   │                    PestanasRamas, DetalleTalento, Hexagono, estilos.ts)
 │   ├── sesion/        SesionDeHoy
-│   ├── tema/          SelectorTema
-│   └── muestra/       solo para las páginas de muestra (temporal)
+│   └── tema/          SelectorTema
 ├── layouts/         Esqueletos de página (Base.astro)
 ├── pages/           Rutas: cada archivo es una URL
 └── styles/
@@ -92,3 +94,9 @@ src/
 - A una isla se le pasan **datos planos** (solo lo que necesita), porque todo lo que recibe se escribe en el HTML.
 - Estado: `useSignal` / `useComputed` dentro de componentes (no `signal` / `computed`, que crearían uno nuevo en cada render).
 - Para reutilizar trozos de JSX dentro de un componente, usa **funciones auxiliares** llamadas como función (`{lista(...)}`), no componentes definidos dentro de otro componente: Preact los volvería a montar en cada render.
+
+**Una isla grande, en piezas:** cuando una isla crece (como el árbol), solo el componente raíz guarda estado (signals); las piezas hijas reciben datos y avisan con callbacks (`onElegir`, `onAlternar`). Así cada pieza se entiende sola y el estado vive en un único sitio.
+
+## Separar datos y presentación
+
+Una página no calcula: pide los datos ya preparados a `src/lib/` y se los pasa a los componentes. Por ejemplo, `/mapa` llama a `construirSendero(contenido, progreso)` y solo pinta el resultado. Ventajas: la lógica se puede probar sin interfaz, y en la fase 4 solo cambia de dónde sale `progreso`, no las páginas ni los componentes.

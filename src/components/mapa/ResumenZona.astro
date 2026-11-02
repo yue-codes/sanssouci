@@ -1,0 +1,57 @@
+---
+/**
+ * @component ResumenZona
+ * Cabecera del mapa: en qué zona estás, cuánto te falta para su jefe y cuál es
+ * el siguiente paso (el primer requisito que ya puedes conseguir).
+ */
+import { ArrowRight } from "lucide-preact";
+import { siguientePaso, type ParadaSendero } from "@/lib/mapa";
+
+interface Props {
+  /** La zona actual. */
+  parada: ParadaSendero;
+}
+const { parada } = Astro.props;
+const n = parada.nivel.data;
+const total = parada.requisitos.length;
+const paso = siguientePaso(parada);
+---
+
+<section class="tarjeta relative overflow-hidden p-6 sm:p-8" aria-labelledby="zona-actual">
+  <p class="eyebrow">Estás aquí · Zona {n.orden}</p>
+  <h1 id="zona-actual" class="mt-3 text-4xl font-semibold leading-tight sm:text-6xl">{n.nombre}</h1>
+  <p class="mt-2 text-lg text-tenue">{n.zona}</p>
+
+  <div class="mt-6 grid gap-4 md:grid-cols-[1fr_auto] md:items-end">
+    {total > 0 && (
+      <div>
+        <div class="flex items-baseline justify-between text-sm">
+          <span class="font-medium">Para llegar al jefe</span>
+          <span class="text-tenue">{parada.hechos} de {total} requisitos</span>
+        </div>
+        <div
+          class="mt-2 h-2.5 overflow-hidden rounded-full bg-borde"
+          role="progressbar"
+          aria-label="Requisitos de la zona"
+          aria-valuemin={0}
+          aria-valuemax={total}
+          aria-valuenow={parada.hechos}
+        >
+          <div class="h-full rounded-full bg-gradient-to-r from-acento to-acento/70" style={`width:${(parada.hechos / total) * 100}%`}></div>
+        </div>
+      </div>
+    )}
+    {paso && (
+      <a
+        href={`/arbol#${paso.logro.id}`}
+        class="group flex items-center gap-3 rounded-xl border border-resalte/50 bg-resalte/10 px-4 py-3 text-sm transition hover:bg-resalte/20"
+      >
+        <span>
+          <span class="block text-xs text-tenue">Siguiente paso</span>
+          <span class="font-semibold">{paso.logro.data.nombre}</span>
+        </span>
+        <ArrowRight size={18} class="text-resalte transition group-hover:translate-x-1" aria-hidden="true" />
+      </a>
+    )}
+  </div>
+</section>

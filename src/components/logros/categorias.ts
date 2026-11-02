@@ -5,9 +5,9 @@
  * TypeScript avisa.
  */
 import { BookOpen, Brain, Wind, Waves, Hand, Music, Ear, Flame, Video, Library } from "lucide-preact";
-import type { Logro } from "@/lib/contenido";
+import type { CategoriaLogro } from "@/lib/contenido";
 
-export type CategoriaLogro = Logro["data"]["categoria"];
+export type { CategoriaLogro };
 
 export const ICONO_CATEGORIA: Record<CategoriaLogro, typeof Wind> = {
   lectura: BookOpen, teoria: Brain, respiracion: Wind, sonido: Waves, tecnica: Hand,

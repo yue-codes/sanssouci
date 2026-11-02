@@ -5,7 +5,7 @@
  * es de EJEMPLO hasta que exista el login (fase 4).
  */
 import Base from "@/layouts/Base.astro";
-import PestanasMuestra from "@/components/muestra/PestanasMuestra.astro";
+import Aviso from "@/components/ui/Aviso.astro";
 import SesionDeHoy from "@/components/sesion/SesionDeHoy";
 import TarjetaZona from "@/components/mapa/TarjetaZona.astro";
 import TarjetaJefe from "@/components/jefes/TarjetaJefe.astro";
@@ -41,7 +41,7 @@ const paleta = ["fondo", "superficie", "superficie-2", "borde", "tenue", "texto"
 ---
 
 <Base titulo="Muestra de diseño">
-  <PestanasMuestra />
+  <Aviso class="mb-8">Página de muestra de la dirección visual. Las páginas reales: <a href="/mapa" class="font-semibold text-acento hover:underline">/mapa</a> y <a href="/arbol" class="font-semibold text-acento hover:underline">/arbol</a>.</Aviso>
 
   <!-- ============ HERO ============ -->
   <section class="relative">
