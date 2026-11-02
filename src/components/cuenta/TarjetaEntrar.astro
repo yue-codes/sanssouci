@@ -1,0 +1,99 @@
+---
+/**
+ * @component TarjetaEntrar
+ * La tarjeta de /entrar, como la pantalla de «continuar partida» de un juego.
+ * Tiene tres caras: el formulario del correo, «revisa tu correo» (enlace
+ * enviado) y «ya estás dentro» (hay sesión). Solo pinta: qué cara toca lo decide
+ * la página, que es la que habla con Supabase.
+ *
+ * El formulario es HTML normal (`method="post"`), sin JavaScript: funciona
+ * aunque falle una isla.
+ */
+import { Mail, MailCheck, Play, TriangleAlert } from "lucide-preact";
+import type { EstadoEntrar } from "./estado-entrar";
+
+interface Props {
+  /** Qué pasó con el formulario en esta visita. */
+  estado: EstadoEntrar;
+  /** La sesión, si ya hay una (muestra «ya estás dentro»). Basta con su correo. */
+  sesion?: { email?: string | null };
+  /** A dónde volver tras entrar (ruta interna ya validada). */
+  siguiente: string;
+}
+const { estado, sesion, siguiente } = Astro.props;
+const ETIQUETA = "font-mono text-[0.625rem] tracking-[0.08em] text-tenue uppercase";
+---
+
+<div class="relative overflow-hidden rounded-md border border-borde-fuerte bg-fondo/85 p-6 shadow-2xl shadow-black/40 backdrop-blur-md sm:p-8">
+  <!-- Línea de luz arriba, como el borde de una ventana de juego -->
+  <span class="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-acento to-transparent" aria-hidden="true"></span>
+
+  {sesion ? (
+    <div class="text-center">
+      <span class="mx-auto grid size-14 place-items-center rounded-full border-2 border-exito text-exito" aria-hidden="true"><Play size={22} /></span>
+      <p class:list={[ETIQUETA, "mt-5"]}>Partida en curso</p>
+      <h2 class="mt-1 text-4xl">Ya estás dentro</h2>
+      {sesion.email && <p class="mt-2 text-sm text-tenue">Has entrado como <strong class="font-medium text-texto">{sesion.email}</strong>.</p>}
+      <div class="mt-7 grid gap-3">
+        <a href={siguiente} class="boton justify-center">Continuar <span aria-hidden="true">→</span></a>
+        <form method="post" action="/auth/salir">
+          <button type="submit" class="boton-borde w-full justify-center">Cerrar sesión</button>
+        </form>
+      </div>
+    </div>
+  ) : estado.tipo === "enviado" ? (
+    <div class="text-center" role="status">
+      <span class="mx-auto grid size-14 place-items-center rounded-full border-2 border-exito text-exito" aria-hidden="true"><MailCheck size={22} /></span>
+      <p class:list={[ETIQUETA, "mt-5"]}>Enlace enviado</p>
+      <h2 class="mt-1 text-4xl">Revisa tu correo</h2>
+      <p class="mt-3 text-sm leading-relaxed text-tenue">
+        Mandamos un enlace a <strong class="font-medium text-texto">{estado.email}</strong>. Ábrelo{" "}
+        <strong class="font-medium text-texto">en este mismo navegador</strong> para entrar.
+      </p>
+      <p class="mt-4 text-xs text-tenue">¿No llega? Mira en spam o promociones; puede tardar un minuto.</p>
+      <a href={`/entrar?siguiente=${encodeURIComponent(siguiente)}`} class="enlace-flecha mt-6">Usar otro correo</a>
+    </div>
+  ) : (
+    <form method="post" class="grid gap-6">
+      <div>
+        <p class={ETIQUETA}>Tu cuenta</p>
+        <h2 class="mt-1 text-4xl">Continúa tu partida</h2>
+        <p class="mt-2 text-sm leading-relaxed text-tenue">
+          Sin contraseña: te mandamos un enlace al correo. Si es tu primera vez, empieza una partida nueva.
+        </p>
+      </div>
+
+      {estado.error && (
+        <p id="error-entrar" role="alert" class="flex items-start gap-2.5 rounded-[3px] border border-peligro/40 bg-peligro/10 px-4 py-3 text-sm">
+          <TriangleAlert size={16} class="mt-0.5 shrink-0 text-peligro" aria-hidden="true" />
+          <span>{estado.error}</span>
+        </p>
+      )}
+
+      <div>
+        <label for="email" class:list={[ETIQUETA, "mb-2 block"]}>Correo</label>
+        <div class="relative">
+          <Mail size={16} class="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-tenue" aria-hidden="true" />
+          <input
+            id="email"
+            name="email"
+            type="email"
+            required
+            autocomplete="email"
+            inputmode="email"
+            maxlength={254}
+            value={estado.email}
+            placeholder="nombre@ejemplo.com"
+            aria-invalid={estado.error ? "true" : undefined}
+            aria-describedby={estado.error ? "error-entrar" : undefined}
+            class="w-full rounded-[3px] border border-borde-fuerte bg-superficie py-3 pr-3 pl-9 text-sm transition-colors focus:border-acento aria-invalid:border-peligro/60"
+          />
+        </div>
+      </div>
+
+      <button type="submit" class="boton justify-center">
+        <Mail size={16} aria-hidden="true" /> Enviarme el enlace
+      </button>
+    </form>
+  )}
+</div>

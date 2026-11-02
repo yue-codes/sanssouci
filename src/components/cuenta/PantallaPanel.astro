@@ -1,0 +1,213 @@
+---
+/**
+ * @component PantallaPanel
+ * El panel como la pantalla de tu personaje: saludo, el día del plan, tu rango,
+ * el minimapa con tu posición, la sesión de hoy y un marcador (racha, sesiones,
+ * tiempo, logros, jefes). Debajo, tu partitura de 90 días, las misiones de tu
+ * zona y tu próximo jefe.
+ *
+ * Solo pinta: recibe el progreso ya cargado. La página `/panel` lo saca de
+ * Supabase; así este componente se puede probar con progreso de ejemplo y no
+ * sabe nada de la base de datos (datos separados de la presentación).
+ */
+import { BookCheck, Clock, Crown, Flame, LogOut, Sparkles, Swords, Trophy } from "lucide-preact";
+import { Picture } from "astro:assets";
+import EncabezadoSeccion from "@/components/ui/EncabezadoSeccion.astro";
+import ResumenSesion from "@/components/sesion/ResumenSesion.astro";
+import PartituraNoventaDias from "@/components/calendario/PartituraNoventaDias";
+import MiniMapa from "@/components/mapa/MiniMapa.astro";
+import BarraMisiones from "@/components/logros/BarraMisiones.astro";
+import ListaMisiones from "@/components/logros/ListaMisiones.astro";
+import AnuncioJefe from "@/components/jefes/AnuncioJefe.astro";
+import type { Contenido } from "@/lib/contenido";
+import type { Progreso } from "@/lib/progreso";
+import type { DiaCompletado } from "@/lib/progreso-usuario";
+import { racha } from "@/lib/progreso";
+import { diasParaPartitura, minutosDelDia, sesionDeReferencia, titularDelDia } from "@/lib/calendario";
+import { fechaLarga } from "@/lib/fechas";
+import { construirSendero, siguientePaso } from "@/lib/mapa";
+import { diaDelJefe } from "@/lib/jefes";
+import { rangoTalentos } from "@/lib/arbol";
+import { IMAGENES } from "@/config/imagenes";
+
+interface Props {
+  /** Contenido cargado con `cargarContenido()`. */
+  c: Contenido;
+  /** Logros conseguidos y jefes vencidos. */
+  progreso: Progreso;
+  /** Días completados, por id (solo se usan los minutos anotados). */
+  diasCompletados: ReadonlyMap<string, Pick<DiaCompletado, "minutos">>;
+  /** Número del día de hoy en TU plan (puede ser < 1 o > 90). */
+  hoy: number;
+  /** Fecha de hoy (ISO, `AAAA-MM-DD`). */
+  fechaHoy: string;
+  /** Cómo saludar. */
+  nombre: string;
+  /** Correo de la sesión (para el pie «sesión iniciada como…»). */
+  email?: string;
+}
+const { c, progreso, diasCompletados, hoy, fechaHoy, nombre, email } = Astro.props;
+const imagen = IMAGENES.siluetaVentana;
+
+// ---- El día de hoy -----------------------------------------------------------
+const titular = titularDelDia(hoy);
+const { dia: sesion, motivo } = sesionDeReferencia(c.dias, hoy);
+
+// ---- Cifras ------------------------------------------------------------------
+const practica = c.dias.filter((d) => d.data.tipo !== "descanso");
+const hechos = c.dias.filter((d) => diasCompletados.has(d.id));
+const numerosHechos = new Set(hechos.map((d) => d.data.numero));
+// Minutos: los que anotaste; si no anotaste, los que tenía previstos la sesión.
+const minutos = hechos.reduce((s, d) => s + (diasCompletados.get(d.id)?.minutos ?? minutosDelDia(d)), 0);
+const rachaActual = racha(practica.map((d) => d.data.numero), numerosHechos, hoy);
+const rango = rangoTalentos(progreso.obtenidos.size, c.logros.length);
+
+const cifras = [
+  { Icono: BookCheck, valor: `${hechos.length}/${practica.length}`, texto: "sesiones hechas" },
+  { Icono: Clock, valor: minutos >= 120 ? `${Math.floor(minutos / 60)} h` : minutos, texto: minutos >= 120 ? "de práctica" : "minutos de práctica" },
+  { Icono: Trophy, valor: `${progreso.obtenidos.size}/${c.logros.length}`, texto: "logros", href: "/logros" },
+  { Icono: Swords, valor: `${progreso.jefesVencidos.size}/${c.jefes.length}`, texto: "jefes vencidos", href: "/mapa" },
+];
+
+// ---- Mapa y jefes --------------------------------------------------------------
+const paradas = construirSendero(c, progreso);
+const actual = paradas.find((p) => p.estado === "actual") ?? paradas[paradas.length - 1];
+const paso = siguientePaso(actual);
+const proximoJefe = paradas.flatMap((p) => p.jefes.map((j) => ({ ...j, zona: p.nivel.data.orden }))).find((j) => !j.vencido);
+const diaJefe = proximoJefe && diaDelJefe(c, proximoJefe.jefe.id)?.data.numero;
+---
+
+<!-- ============ PORTADA: tu personaje ============ -->
+<section class="relative isolate overflow-hidden border-b border-borde" aria-labelledby="titulo-panel">
+  <div class="absolute inset-0 -z-10 animate-acercar">
+    <Picture src={imagen.src} alt="" widths={[960, 1440, 2000]} sizes="100vw" formats={["avif"]} fallbackFormat="webp" loading="eager"
+      class="size-full object-cover" style={{ objectPosition: imagen.enfoque }} />
+  </div>
+  <span class="velo -z-10 opacity-60" aria-hidden="true"></span>
+  <span class="absolute inset-0 -z-10 bg-linear-to-r from-fondo via-fondo/85 to-fondo/40" aria-hidden="true"></span>
+  <span class="absolute inset-0 -z-10 bg-linear-to-t from-fondo to-transparent to-50%" aria-hidden="true"></span>
+
+  <div class="contenedor grid gap-10 py-12 sm:py-16 lg:grid-cols-[1fr_1.05fr] lg:items-start lg:gap-14">
+    <div data-revelar="hijos">
+      <p class="eyebrow">Hola, {nombre} · {fechaLarga(fechaHoy)}</p>
+      <h1 id="titulo-panel" class="mt-4 text-6xl leading-[0.92] sm:text-8xl">
+        {titular.antes} <em class="text-acento">{titular.enfasis}</em>{titular.despues}
+      </h1>
+
+      <!-- Racha: lo primero que mira un jugador -->
+      <div class="mt-8 flex flex-wrap items-center gap-x-8 gap-y-5">
+        <div class:list={["flex items-center gap-3", rachaActual === 0 && "opacity-70"]}>
+          <span class:list={[
+            "grid size-14 shrink-0 place-items-center rounded-full border-2",
+            rachaActual > 0 ? "border-acento bg-acento-suave/60 text-acento-claro shadow-[0_0_28px_-8px_var(--acento)]" : "border-borde-fuerte text-tenue",
+          ]} aria-hidden="true">
+            <Flame size={24} class={rachaActual > 0 ? "animate-flotar" : ""} />
+          </span>
+          <p>
+            <span class="block font-display text-4xl leading-none tabular-nums">{rachaActual}</span>
+            <span class="font-mono text-[0.625rem] tracking-[0.06em] text-tenue uppercase">
+              {rachaActual === 1 ? "sesión seguida" : "sesiones seguidas"}
+            </span>
+          </p>
+        </div>
+        <a href="/arbol" class="group flex items-center gap-3">
+          <span class="grid size-14 shrink-0 place-items-center rounded-full border-2 border-resalte/60 text-resalte" aria-hidden="true">
+            <Crown size={22} />
+          </span>
+          <p>
+            <span class="block font-display text-4xl leading-none group-hover:text-acento-claro">{rango.nombre}</span>
+            <span class="font-mono text-[0.625rem] tracking-[0.06em] text-tenue uppercase">
+              {rango.siguiente ? `${rango.faltan} logros para ${rango.siguiente}` : "rango máximo"}
+            </span>
+          </p>
+        </a>
+      </div>
+      {hechos.length === 0 && (
+        <p class="mt-4 max-w-md text-sm text-tenue">Al completar una sesión, márcala en la página del día: aquí crecerá tu racha.</p>
+      )}
+
+      <div class="mt-10 max-w-xl">
+        <!-- mb-9: deja sitio a la marca «TÚ», que flota por encima del minimapa -->
+        <p class="mb-9 font-mono text-[0.625rem] tracking-[0.08em] text-tenue uppercase">
+          Estás en la zona {actual.nivel.data.orden} · <a href={`/niveles/${actual.nivel.id}`} class="text-texto underline-offset-2 hover:text-acento hover:underline">{actual.nivel.data.nombre}</a>
+        </p>
+        <MiniMapa paradas={paradas} vista={actual.nivel.id} />
+      </div>
+    </div>
+
+    <div data-revelar>
+      <ResumenSesion
+        dia={sesion}
+        hecha={diasCompletados.has(sesion.id)}
+        class="bg-fondo/85 backdrop-blur-md"
+        etiqueta={{ hoy: "Hoy toca", proxima: hoy < 1 ? "Tu primera sesión" : "Hoy descansas · próxima sesión", terminado: "Última sesión del plan" }[motivo]}
+      />
+    </div>
+  </div>
+
+  <!-- Marcador -->
+  <div class="contenedor pb-12 sm:pb-16">
+    <ul class="grid grid-cols-2 gap-px overflow-hidden rounded-md border border-borde bg-borde lg:grid-cols-4" aria-label="Tu progreso en cifras">
+      {cifras.map(({ Icono, valor, texto, href }) => {
+        const Etiqueta = href ? "a" : "div";
+        return (
+          <li>
+            <Etiqueta href={href} class:list={["flex h-full items-center gap-4 bg-fondo/85 p-4 backdrop-blur-md", href && "transition-colors hover:bg-superficie"]}>
+              <Icono size={18} class="shrink-0 text-acento" aria-hidden="true" />
+              <span>
+                <span class="block font-display text-3xl leading-none tabular-nums">{valor}</span>
+                <span class="font-mono text-[0.625rem] tracking-[0.06em] text-tenue uppercase">{texto}</span>
+              </span>
+            </Etiqueta>
+          </li>
+        );
+      })}
+    </ul>
+  </div>
+</section>
+
+<div class="contenedor py-14 sm:py-20">
+  <!-- ============ 90 DÍAS ============ -->
+  <section aria-labelledby="titulo-partitura">
+    <EncabezadoSeccion id="titulo-partitura" eyebrow="Tus 90 días" titulo="Tu partitura" descripcion="Cada nota llena es una sesión hecha." enlace={{ href: "/calendario", texto: "Calendario completo" }} />
+    <PartituraNoventaDias client:load dias={diasParaPartitura(c)} hoy={hoy} hechos={[...numerosHechos]} />
+  </section>
+
+  <!-- ============ MISIONES + PRÓXIMO JEFE ============ -->
+  <div class="mt-20 grid gap-12 lg:grid-cols-[1fr_1.25fr] lg:items-start">
+    <section aria-labelledby="titulo-misiones">
+      <EncabezadoSeccion id="titulo-misiones" eyebrow={`Zona ${actual.nivel.data.orden}`} titulo="Tus misiones" enlace={{ href: "/arbol", texto: "Ver el árbol" }} />
+      <div class="rounded-md border border-borde bg-superficie p-4">
+        {actual.requisitos.length > 0 && <BarraMisiones misiones={actual.requisitos} etiqueta="Para pasar de zona" class="mb-3 px-2" />}
+        <ListaMisiones misiones={actual.requisitos} />
+      </div>
+      {paso && (
+        <p class="mt-4 flex items-center gap-2 text-sm text-tenue">
+          <Sparkles size={14} class="shrink-0 text-resalte" aria-hidden="true" />
+          Siguiente paso: <a href={`/arbol#${paso.logro.id}`} class="text-resalte underline-offset-2 hover:underline">{paso.logro.data.nombre}</a>
+        </p>
+      )}
+    </section>
+
+    {proximoJefe && (
+      <section aria-labelledby="titulo-jefe">
+        <EncabezadoSeccion id="titulo-jefe" eyebrow="Lo que viene" titulo="Tu próximo jefe" />
+        <AnuncioJefe
+          jefe={proximoJefe.jefe}
+          cancion={proximoJefe.cancion}
+          zona={proximoJefe.zona}
+          diaDelPlan={diaJefe}
+          diasRestantes={diaJefe !== undefined && hoy <= diaJefe ? diaJefe - Math.max(hoy, 0) : undefined}
+        />
+      </section>
+    )}
+  </div>
+
+  <!-- ============ CUENTA ============ -->
+  <form method="post" action="/auth/salir" class="mt-20 flex flex-wrap items-center justify-end gap-3 border-t border-borde pt-6 text-sm text-tenue">
+    <span>Sesión iniciada como <strong class="font-medium text-texto">{email}</strong></span>
+    <button type="submit" class="boton-borde px-3 py-1.5">
+      <LogOut size={14} aria-hidden="true" /> Cerrar sesión
+    </button>
+  </form>
+</div>

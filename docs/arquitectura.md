@@ -34,7 +34,7 @@ src/
 │   ├── layout/        Cabecera, PiePagina, Logo
 │   ├── ui/            genéricos, sin conocer el juego: AnilloProgreso, Aviso, MigasDePan,
 │   │                  EncabezadoSeccion, NavegacionVecinos, ReproductorYoutube, isla Estallido
-│   ├── mapa/          HudMapa (marcador); MundoMapa → FilaCamino + RegionZona + PuertaJefe; MiniMapa; EstasAqui;
+│   ├── mapa/          HudMapa (marcador); MundoMapa → FilaCamino + RegionZona + PuertaJefe; MiniMapa;
 │   │                  SenderoPortada (el sendero en horizontal, con imágenes)
 │   ├── niveles/       TemarioZona
 │   ├── jefes/         CabeceraJefe; islas VidaJefe y CombateJefe (comparten estado en combate.ts);
@@ -47,6 +47,7 @@ src/
 │   │   └── arbol/       isla ArbolTalentos y sus piezas (LienzoArbol, ListaRama,
 │   │                    PestanasRamas, DetalleTalento, Hexagono, AvisoDesbloqueo, estilos.ts)
 │   ├── calendario/    SemanaCalendario → CeldaDia; RecorridoPlan; isla PartituraNoventaDias; hitos.ts
+│   ├── cuenta/        lo que se ve en /panel y /entrar: PantallaPanel; TarjetaEntrar + estado-entrar.ts
 │   └── sesion/        isla MisionDelDia (cronómetro); ResumenSesion; bloques.ts
 ├── layouts/         Esqueletos de página (Base.astro)
 ├── middleware.ts    Sesión de cada petición de servidor y protección de RUTAS_PRIVADAS
@@ -115,6 +116,8 @@ Una isla se ejecuta **también en el navegador**, así que todo lo que importe (
 
 **Las canciones (`/canciones`, `/canciones/[id]`):** el repertorio como un mazo de cartas. La rareza sale de la dificultad (`rarezaDe` en `components/canciones/rareza.ts`: común 1–3, rara 4–6, épica 7–8, legendaria 9–10) y colorea el borde de la carta y las barras de `Dificultad`. `resumirCancion(c, s, obtenidos)` añade `faltan` (requisitos que no tienes; la carta sale bloqueada si es > 0) y `jefe`. El catálogo filtra «¿Qué puedo tocar ya?» (`soloListas`, `?listas=1`). La ficha usa `ListaMisiones` para «Para desbloquearla» y «Lo que entrena», y `AnuncioJefe` si es canción de jefe.
 
+**El panel (`/panel`) y la entrada (`/entrar`):** las dos son páginas de servidor, así que **la página solo carga los datos y un componente de `components/cuenta/` pinta** (`PantallaPanel`, `TarjetaEntrar`). Así se pueden probar con datos de ejemplo sin iniciar sesión: una página temporal (no se sube) que les pase `PROGRESO_EJEMPLO`, compilar y mirar. El panel es la pantalla del personaje: día del plan, racha, rango, `MiniMapa` con tu posición, la sesión de hoy, un marcador (sesiones, tiempo, logros, jefes) y debajo la partitura, tus misiones y el próximo jefe. `/entrar` es «Continúa tu partida»: imagen a sangre y la tarjeta con sus tres caras.
+
 - **Solo tema oscuro**, a propósito: no hay `light-dark()`, ni selector de tema, ni `data-theme`.
 - **Dos capas** en `src/styles/tokens.css`:
   1. **Paleta** con nombre propio (`--noche-*`, `--perla-*`, `--bruma-*`, `--cian-*`, `--lavanda-*`, `--cielo-*`, `--menta-*`, `--rosa-*`, `--cobalto-*`). No se usan en componentes.
@@ -145,7 +148,7 @@ Una isla se ejecuta **también en el navegador**, así que todo lo que importe (
 - **Catálogo único:** `src/config/imagenes.ts` las importa, les da su `alt` y su punto de enfoque, y dice qué imagen va con cada zona (`IMAGEN_ZONA`), jefe (`imagenDeJefe`) y ruta (`IMAGEN_RUTA`). Los componentes las piden ahí; no importan imágenes sueltas.
 - En componentes `.astro`: `<Picture src={img.src} widths={[…]} sizes="…" formats={["avif"]} fallbackFormat="webp" />`. El respaldo en WebP es a propósito: con una fuente WebP, Astro usaría PNG como respaldo, de varios MB.
 - **En una isla** no se puede usar `<Picture>`: la página llama a `getImage()` y le pasa la URL ya optimizada (ver `IndiceRutas`).
-- En las páginas de servidor (`/panel`) las imágenes se sirven sin transformar (el worker no tiene `sharp`): úsalas con moderación ahí.
+- En las páginas de servidor (`/panel`, `/entrar`) las imágenes se sirven sin transformar (el worker no tiene `sharp`): úsalas con moderación ahí. Por eso sus portadas usan las dos más ligeras: `silueta-ventana.jpg` (34 KB) y `anime-nubes.jpg` (135 KB).
 - Casi todas son imágenes ajenas: sirven mientras la web es personal; antes de compartirla, hay que cambiarlas.
 
 ## Movimiento
@@ -241,4 +244,7 @@ Reglas que cumple cada página. **`pnpm auditar`** comprueba sobre el HTML gener
 | `/canciones/[id]` | `pages/canciones/[id].astro` | `logrosConEstado` → `ListaMisiones`, `rarezaDe`, `diaDelJefe` → `AnuncioJefe`; vecinos dentro de la misma ruta, por dificultad |
 | `/logros` | `pages/logros.astro` | `logrosConEstado`, `usosDeLogros`, `avancePorCategoria`, `rangoTalentos`; vitrinas por `nivelSugerido`, filtro con `:has()` |
 
-Pendientes: `/entrar`, `/panel` y `/perfil` (fase 4).
+| `/panel` | `pages/panel.astro` (servidor) | `cargarProgresoUsuario` (Supabase) → `PantallaPanel` (`racha`, `rangoTalentos`, `construirSendero` → `MiniMapa` + `ListaMisiones`, `sesionDeReferencia` → `ResumenSesion`, isla `PartituraNoventaDias`, `AnuncioJefe`) |
+| `/entrar` | `pages/entrar.astro` (servidor) | `signInWithOtp` (enlace mágico) → `TarjetaEntrar` (formulario, «revisa tu correo» o «ya estás dentro») |
+
+Pendiente: `/perfil` (fase 4).
