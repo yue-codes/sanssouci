@@ -14,8 +14,8 @@ src/
 │   ├── youtube.ts     URLs de YouTube: urlYoutube, urlEmbedYoutube, miniaturaYoutube (puras)
 │   ├── canciones.ts   resumirCancion → CancionResumen (datos planos para las islas)
 │   ├── catalogo.ts    filtros del catálogo: filtrarCanciones, filtrosDesdeURL… (puras, van al navegador)
-│   ├── fechas.ts      utilidades de fechas: diaDelPlan, fechaLarga, fechaCorta… (puras)
-│   ├── progreso.ts    reglas del progreso: Progreso, estadoLogro, ordenZonaActual… (puras)
+│   ├── fechas.ts      utilidades de fechas: diaDelPlan, hoyIso (hoy en una zona horaria), fechaLarga… (puras)
+│   ├── progreso.ts    reglas del progreso: Progreso, estadoLogro, ordenZonaActual, racha… (puras)
 │   ├── mapa.ts        datos del sendero: construirSendero, siguientePaso
 │   ├── logros.ts      logrosConEstado, usosDeLogros (qué abre cada logro), avancePorCategoria
 │   ├── jefes.ts       jefesEnOrden, diaDelJefe
@@ -25,12 +25,13 @@ src/
 │   ├── arbol.ts       nodos y disposición del árbol: construirNodosArbol, posicionarArbol
 │   ├── ejemplo.ts     PROGRESO_EJEMPLO, inventado (temporal, hasta la fase 4)
 │   ├── supabase.ts    crearClienteServidor, usuarioActual, rutaInterna (solo servidor)
+│   ├── progreso-usuario.ts  cargarProgresoUsuario: Progreso real desde Supabase (solo servidor)
 │   └── tipos-supabase.ts  tipos de las tablas (GENERADO desde la base de datos)
 ├── components/      Componentes agrupados por DOMINIO (de qué tratan):
 │   ├── layout/        Cabecera, PiePagina
 │   ├── ui/            genéricos, sin conocer el juego: AnilloProgreso, Aviso, MigasDePan,
 │   │                  EncabezadoSeccion, NavegacionVecinos, ReproductorYoutube
-│   ├── mapa/          Sendero → TramoSendero + ParadaZona + PuertaJefe; ResumenZona; TarjetaZona
+│   ├── mapa/          Sendero → TramoSendero + ParadaZona + PuertaJefe; ResumenZona; TarjetaZona; EstasAqui
 │   ├── niveles/       TemarioZona
 │   ├── jefes/         TarjetaJefe, CondicionesVictoria
 │   ├── canciones/     TarjetaCancion, ChipRuta, Dificultad (.tsx: sirven en páginas e islas),
@@ -84,6 +85,8 @@ Una isla se ejecuta **también en el navegador**, así que todo lo que importe (
 - **Cabeceras anti-caché:** cuando Supabase escribe cookies de sesión, el middleware añade `Cache-Control: private, no-store…` para que ningún CDN sirva la sesión de alguien a otra persona.
 - **Redirecciones tras entrar:** siempre pasan por `rutaInterna()`, que solo acepta rutas del propio sitio (evita la «redirección abierta»).
 - **Formularios:** HTML normal con `method="post"`, sin JavaScript. Astro rechaza los POST que vienen de otro dominio (`security.checkOrigin`, activo por defecto), lo que protege contra CSRF. Cerrar sesión es un POST, nunca un enlace.
+- **«Hoy» en el servidor:** Cloudflare funciona en UTC. Usa siempre `hoyIso(SITIO.zonaHoraria)`, nunca `new Date()` a secas, y el día del plan sale de `perfil.fecha_inicio`.
+- **Progreso real:** `cargarProgresoUsuario(Astro.locals.supabase)` devuelve el mismo `Progreso` que `PROGRESO_EJEMPLO`, así que las funciones de `src/lib/` sirven igual. No filtres por `user_id`: lo hace RLS.
 - **Variables de entorno:** se declaran y validan en `env.schema` (`astro.config.mjs`) y se importan de `astro:env/client`. Si falta una, el build falla.
 
 ## Colores y tema

@@ -1,0 +1,46 @@
+---
+/**
+ * @component EstasAqui
+ * Dónde estás en el mapa: zona actual con su barra de requisitos y, debajo,
+ * el siguiente logro que conviene buscar. La usan la portada y el panel.
+ *
+ * @example
+ * <EstasAqui parada={actual} class="mt-8" />
+ */
+import { Sparkles } from "lucide-preact";
+import ChipLogro from "@/components/logros/ChipLogro.astro";
+import { siguientePaso, type ParadaSendero } from "@/lib/mapa";
+
+interface Props {
+  /** La parada del sendero en la que estás (la de estado «actual»). */
+  parada: ParadaSendero;
+  /** Clases extra (por ejemplo, márgenes). */
+  class?: string;
+}
+const { parada, class: clase = "" } = Astro.props;
+const { nivel, hechos, requisitos } = parada;
+const paso = siguientePaso(parada);
+---
+
+<div class={clase}>
+  <a href={`/niveles/${nivel.id}`} class="tarjeta group block p-5 transition hover:border-acento/60">
+    <span class="flex items-center justify-between gap-3">
+      <span>
+        <span class="block text-xs font-semibold tracking-wider text-acento uppercase">Estás aquí · Zona {nivel.data.orden}</span>
+        <span class="mt-1 block font-display text-2xl font-semibold group-hover:underline">{nivel.data.nombre}</span>
+      </span>
+      <span class="text-right text-sm text-tenue tabular-nums">
+        {hechos} / {requisitos.length}<span class="block text-xs">requisitos</span>
+      </span>
+    </span>
+    <span class="mt-3 block h-1.5 overflow-hidden rounded-full bg-superficie-2" aria-hidden="true">
+      <span class="block h-full rounded-full bg-acento" style={{ width: `${requisitos.length ? (hechos / requisitos.length) * 100 : 0}%` }} />
+    </span>
+  </a>
+  {paso && (
+    <p class="mt-3 flex flex-wrap items-center gap-2 text-sm text-tenue">
+      <Sparkles size={14} class="text-resalte" aria-hidden="true" /> Siguiente paso:
+      <ChipLogro logro={paso.logro} estado={paso.estado} />
+    </p>
+  )}
+</div>

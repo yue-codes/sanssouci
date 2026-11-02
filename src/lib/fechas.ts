@@ -64,3 +64,18 @@ export function fechaCorta(iso: string): string {
 export function indiceDiaSemana(iso: string): number {
   return (parsearFecha(iso).getDay() + 6) % 7;
 }
+
+/**
+ * Fecha de hoy («AAAA-MM-DD») en una zona horaria, sea cual sea la del servidor.
+ *
+ * Cloudflare Workers funciona en UTC; `new Date()` a secas daría el día equivocado
+ * por la noche en México (justo a la hora de practicar).
+ *
+ * @param zona Zona horaria IANA, p. ej. "America/Mexico_City".
+ * @param ahora Instante de referencia (por defecto, ahora mismo; útil para pruebas).
+ * @example hoyIso("America/Mexico_City", new Date("2026-11-03T02:00:00Z")) // → "2026-11-02" (8 pm en México)
+ */
+export function hoyIso(zona: string, ahora: Date = new Date()): string {
+  // El formato de Canadá en inglés («en-CA») es justo AAAA-MM-DD.
+  return new Intl.DateTimeFormat("en-CA", { timeZone: zona, year: "numeric", month: "2-digit", day: "2-digit" }).format(ahora);
+}

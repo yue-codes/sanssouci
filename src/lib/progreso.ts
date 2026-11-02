@@ -73,3 +73,29 @@ export function estadoZona(orden: number, ordenActual: number): EstadoZona {
   if (orden < ordenActual) return "superada";
   return orden === ordenActual ? "actual" : "bloqueada";
 }
+
+/**
+ * Racha: sesiones de práctica seguidas completadas, contando hacia atrás desde hoy.
+ *
+ * Los días de descanso no cuentan ni rompen la racha (no están en `diasPractica`).
+ * Si hoy toca práctica y aún no la has hecho, la racha no se rompe todavía:
+ * se cuenta desde la sesión anterior (tienes hasta medianoche).
+ *
+ * @param diasPractica Números de los días de práctica del plan (en cualquier orden).
+ * @param completados  Números de los días completados.
+ * @param hoy          Número de día de hoy (ver `diaDelPlan`).
+ * @returns Cuántas sesiones seguidas llevas.
+ * @example
+ * // Días de práctica 1, 2, 3, 5; completados 2 y 3; hoy es 5 y aún no practicas:
+ * racha([1, 2, 3, 5], new Set([2, 3]), 5) // → 2
+ */
+export function racha(diasPractica: readonly number[], completados: ReadonlySet<number>, hoy: number): number {
+  const hastaHoy = diasPractica.filter((n) => n <= hoy).sort((a, b) => b - a);
+  if (hastaHoy[0] === hoy && !completados.has(hoy)) hastaHoy.shift();
+  let cuenta = 0;
+  for (const n of hastaHoy) {
+    if (!completados.has(n)) break;
+    cuenta++;
+  }
+  return cuenta;
+}

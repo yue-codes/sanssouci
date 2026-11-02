@@ -4,7 +4,7 @@
  * Una sesión en pequeño: título, objetivo, sus bloques con los minutos y un
  * botón a la página del día (donde está el cronómetro de la sesión).
  */
-import { ArrowRight, Clock } from "lucide-preact";
+import { ArrowRight, CircleCheck, Clock } from "lucide-preact";
 import { TIPO_BLOQUE } from "./bloques";
 import type { Dia } from "@/lib/contenido";
 import { minutosDelDia } from "@/lib/calendario";
@@ -15,13 +15,22 @@ interface Props {
   dia: Dia;
   /** Antetítulo, p. ej. «Hoy toca» o «Próxima sesión». */
   etiqueta: string;
+  /** Si ya está completada (solo con progreso real). Muestra una marca junto al título. */
+  hecha?: boolean;
 }
-const { dia, etiqueta } = Astro.props;
+const { dia, etiqueta, hecha = false } = Astro.props;
 const d = dia.data;
 ---
 
 <article class="tarjeta flex flex-col p-6 sm:p-7">
-  <p class="eyebrow">{etiqueta} · {fechaLarga(d.fecha)}</p>
+  <div class="flex flex-wrap items-center justify-between gap-2">
+    <p class="eyebrow">{etiqueta} · {fechaLarga(d.fecha)}</p>
+    {hecha && (
+      <span class="inline-flex items-center gap-1 rounded-full bg-exito/15 px-2.5 py-0.5 text-xs font-semibold text-exito">
+        <CircleCheck size={13} aria-hidden="true" /> Hecha
+      </span>
+    )}
+  </div>
   <h2 class="mt-2 text-2xl leading-snug font-semibold sm:text-3xl">{d.titulo}</h2>
   <p class="mt-2 text-sm leading-relaxed text-tenue">{d.objetivo}</p>
 

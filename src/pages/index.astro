@@ -5,7 +5,7 @@
  * Progreso: de ejemplo hasta la fase 4. Como la página es estática, «hoy» es la
  * fecha del build (en la fase 4 se calculará en cada visita).
  */
-import { ArrowRight, Library, Map as IconoMapa, Sparkles, Swords, Trophy } from "lucide-preact";
+import { ArrowRight, Library, Map as IconoMapa, Swords, Trophy } from "lucide-preact";
 import Base from "@/layouts/Base.astro";
 import Aviso from "@/components/ui/Aviso.astro";
 import EncabezadoSeccion from "@/components/ui/EncabezadoSeccion.astro";
@@ -13,11 +13,11 @@ import ResumenSesion from "@/components/sesion/ResumenSesion.astro";
 import LineaNoventaDias from "@/components/calendario/LineaNoventaDias.astro";
 import TarjetaZona from "@/components/mapa/TarjetaZona.astro";
 import TarjetaJefe from "@/components/jefes/TarjetaJefe.astro";
-import ChipLogro from "@/components/logros/ChipLogro.astro";
+import EstasAqui from "@/components/mapa/EstasAqui.astro";
 import { cargarContenido, nombreCortoRuta } from "@/lib/contenido";
-import { sesionDeReferencia } from "@/lib/calendario";
+import { sesionDeReferencia, titularDelDia } from "@/lib/calendario";
 import { diaDelPlan } from "@/lib/fechas";
-import { construirSendero, siguientePaso } from "@/lib/mapa";
+import { construirSendero } from "@/lib/mapa";
 import { diaDelJefe } from "@/lib/jefes";
 import { PROGRESO_EJEMPLO } from "@/lib/ejemplo";
 
@@ -28,17 +28,12 @@ const { dia: sesion, motivo } = sesionDeReferencia(c.dias, hoy);
 
 const paradas = construirSendero(c, PROGRESO_EJEMPLO);
 const actual = paradas.find((p) => p.estado === "actual") ?? paradas[paradas.length - 1];
-const paso = siguientePaso(actual);
 const proximoJefe = paradas.flatMap((p) => p.jefes).find((j) => !j.vencido);
 const diaJefe = proximoJefe && diaDelJefe(c, proximoJefe.jefe.id)?.data.numero;
 
 const rutas = c.rutas.map((r) => ({ ruta: r, obras: c.canciones.filter((s) => s.data.ruta.id === r.id).length }));
 
-// Lo que dice el título grande según el momento del plan.
-const titular =
-  hoy < 1 ? { antes: "Empiezas", enfasis: hoy === 0 ? "mañana" : `en ${1 - hoy} días`, despues: "." }
-  : hoy > 90 ? { antes: "Los 90 días", enfasis: "terminaron", despues: "; el camino sigue." }
-  : { antes: "Día", enfasis: String(hoy), despues: " de 90." };
+const titular = titularDelDia(hoy);
 
 const cifras = [
   { Icono: IconoMapa, valor: c.niveles.length, texto: "zonas", href: "/mapa" },
@@ -65,27 +60,7 @@ const cifras = [
         flauta traversa, organizado como un juego de zonas, jefes y logros.
       </p>
 
-      <!-- Dónde estás en el mapa y tu siguiente paso -->
-      <a href={`/niveles/${actual.nivel.id}`} class="tarjeta group mt-8 block p-5 transition hover:border-acento/60">
-        <span class="flex items-center justify-between gap-3">
-          <span>
-            <span class="block text-xs font-semibold tracking-wider text-acento uppercase">Estás aquí · Zona {actual.nivel.data.orden}</span>
-            <span class="mt-1 block font-display text-2xl font-semibold group-hover:underline">{actual.nivel.data.nombre}</span>
-          </span>
-          <span class="text-right text-sm text-tenue tabular-nums">
-            {actual.hechos} / {actual.requisitos.length}<span class="block text-xs">requisitos</span>
-          </span>
-        </span>
-        <span class="mt-3 block h-1.5 overflow-hidden rounded-full bg-superficie-2" aria-hidden="true">
-          <span class="block h-full rounded-full bg-acento" style={{ width: `${actual.requisitos.length ? (actual.hechos / actual.requisitos.length) * 100 : 0}%` }} />
-        </span>
-      </a>
-      {paso && (
-        <p class="mt-3 flex flex-wrap items-center gap-2 text-sm text-tenue">
-          <Sparkles size={14} class="text-resalte" aria-hidden="true" /> Siguiente paso:
-          <ChipLogro logro={paso.logro} estado={paso.estado} />
-        </p>
-      )}
+      <EstasAqui parada={actual} class="mt-8" />
 
       <ul class="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4" aria-label="El camino en cifras">
         {cifras.map(({ Icono, valor, texto, href }) => (

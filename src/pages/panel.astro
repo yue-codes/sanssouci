@@ -1,0 +1,117 @@
+---
+/**
+ * Página /panel: tu día con progreso REAL (Supabase). Es privada: el middleware
+ * manda a /entrar a quien llegue sin sesión.
+ *
+ * Es de servidor (`prerender = false`): «hoy» se calcula en cada visita, en la zona
+ * horaria del plan, y el día del plan sale de TU `fecha_inicio` (perfil), no del build.
+ */
+import { BookCheck, Clock, Flame, LogOut, Trophy } from "lucide-preact";
+import Base from "@/layouts/Base.astro";
+import EncabezadoSeccion from "@/components/ui/EncabezadoSeccion.astro";
+import ResumenSesion from "@/components/sesion/ResumenSesion.astro";
+import LineaNoventaDias from "@/components/calendario/LineaNoventaDias.astro";
+import EstasAqui from "@/components/mapa/EstasAqui.astro";
+import TarjetaJefe from "@/components/jefes/TarjetaJefe.astro";
+import { SITIO } from "@/config/sitio";
+import { cargarContenido } from "@/lib/contenido";
+import { cargarProgresoUsuario } from "@/lib/progreso-usuario";
+import { racha } from "@/lib/progreso";
+import { minutosDelDia, sesionDeReferencia, titularDelDia } from "@/lib/calendario";
+import { diaDelPlan, fechaLarga, hoyIso, parsearFecha } from "@/lib/fechas";
+import { construirSendero } from "@/lib/mapa";
+import { diaDelJefe } from "@/lib/jefes";
+
+export const prerender = false;
+
+const { supabase, usuario } = Astro.locals;
+const c = await cargarContenido();
+const { perfil, progreso, diasCompletados } = await cargarProgresoUsuario(supabase);
+
+// ---- El día de hoy -----------------------------------------------------------
+const fechaHoy = hoyIso(SITIO.zonaHoraria);
+const hoy = diaDelPlan(parsearFecha(fechaHoy), perfil.fecha_inicio);
+const titular = titularDelDia(hoy);
+const { dia: sesion, motivo } = sesionDeReferencia(c.dias, hoy);
+
+// ---- Cifras ------------------------------------------------------------------
+const practica = c.dias.filter((d) => d.data.tipo !== "descanso");
+const hechos = c.dias.filter((d) => diasCompletados.has(d.id));
+const numerosHechos = new Set(hechos.map((d) => d.data.numero));
+// Minutos: los que anotaste; si no anotaste, los que tenía previstos la sesión.
+const minutos = hechos.reduce((s, d) => s + (diasCompletados.get(d.id)?.minutos ?? minutosDelDia(d)), 0);
+const rachaActual = racha(practica.map((d) => d.data.numero), numerosHechos, hoy);
+
+const cifras = [
+  { Icono: Flame, valor: rachaActual, texto: rachaActual === 1 ? "sesión seguida" : "sesiones seguidas", destacada: rachaActual > 0 },
+  { Icono: BookCheck, valor: `${hechos.length}/${practica.length}`, texto: "sesiones hechas" },
+  { Icono: Clock, valor: minutos >= 120 ? `${Math.floor(minutos / 60)} h` : minutos, texto: minutos >= 120 ? "de práctica" : "minutos de práctica" },
+  { Icono: Trophy, valor: `${progreso.obtenidos.size}/${c.logros.length}`, texto: "logros" },
+];
+
+// ---- Mapa y jefes --------------------------------------------------------------
+const paradas = construirSendero(c, progreso);
+const actual = paradas.find((p) => p.estado === "actual") ?? paradas[paradas.length - 1];
+const proximoJefe = paradas.flatMap((p) => p.jefes).find((j) => !j.vencido);
+const diaJefe = proximoJefe && diaDelJefe(c, proximoJefe.jefe.id)?.data.numero;
+
+const nombre = perfil.nombre ?? usuario?.email?.split("@")[0] ?? "flautista";
+---
+
+<Base titulo="Panel" descripcion="Tu sesión de hoy, tu racha y dónde vas en el camino.">
+  <!-- ============ HERO: hoy ============ -->
+  <section class="grid gap-8 lg:grid-cols-[1.15fr_1fr] lg:items-start">
+    <div>
+      <p class="eyebrow">Hola, {nombre} · {fechaLarga(fechaHoy)}</p>
+      <h1 class="mt-3 text-5xl leading-[1.05] font-semibold tracking-tight sm:text-7xl">
+        {titular.antes} <em class="font-normal text-acento">{titular.enfasis}</em>{titular.despues}
+      </h1>
+
+      <ul class="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4" aria-label="Tu progreso en cifras">
+        {cifras.map(({ Icono, valor, texto, destacada }) => (
+          <li class:list={["tarjeta flex h-full flex-col gap-1 p-4", destacada && "border-resalte/50"]}>
+            <Icono size={18} class={destacada ? "text-resalte" : "text-acento"} aria-hidden="true" />
+            <span class="mt-1 font-display text-3xl leading-none font-semibold tabular-nums">{valor}</span>
+            <span class="text-xs text-tenue">{texto}</span>
+          </li>
+        ))}
+      </ul>
+      {hechos.length === 0 && (
+        <p class="mt-3 text-sm text-tenue">Al completar una sesión, márcala en la página del día: aquí crecerá tu racha.</p>
+      )}
+
+      <EstasAqui parada={actual} class="mt-8" />
+    </div>
+
+    <ResumenSesion
+      dia={sesion}
+      hecha={diasCompletados.has(sesion.id)}
+      etiqueta={{ hoy: "Hoy toca", proxima: hoy < 1 ? "Tu primera sesión" : "Hoy descansas · próxima sesión", terminado: "Última sesión del plan" }[motivo]}
+    />
+  </section>
+
+  <!-- ============ 90 DÍAS ============ -->
+  <section class="mt-10" aria-label="Calendario">
+    <LineaNoventaDias dias={c.dias} hoy={hoy} completados={numerosHechos} />
+  </section>
+
+  <!-- ============ PRÓXIMO JEFE ============ -->
+  {proximoJefe && (
+    <section class="mt-16" aria-labelledby="proximo-jefe">
+      <EncabezadoSeccion id="proximo-jefe" eyebrow="Lo que viene" titulo="Tu próximo jefe" enlace={{ href: `/jefes/${proximoJefe.jefe.id}`, texto: "Ver condiciones" }} />
+      <TarjetaJefe
+        jefe={proximoJefe.jefe}
+        cancion={proximoJefe.cancion}
+        diasRestantes={diaJefe !== undefined && hoy <= diaJefe ? diaJefe - Math.max(hoy, 0) : undefined}
+      />
+    </section>
+  )}
+
+  <!-- ============ CUENTA ============ -->
+  <form method="post" action="/auth/salir" class="mt-16 flex flex-wrap items-center justify-end gap-3 border-t border-borde pt-6 text-sm text-tenue">
+    <span>Sesión iniciada como <strong class="text-texto">{usuario?.email}</strong></span>
+    <button type="submit" class="inline-flex items-center gap-1.5 rounded-xl border border-borde bg-superficie px-3 py-1.5 font-semibold text-texto transition hover:border-acento/60">
+      <LogOut size={14} aria-hidden="true" /> Cerrar sesión
+    </button>
+  </form>
+</Base>

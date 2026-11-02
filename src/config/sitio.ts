@@ -10,6 +10,11 @@ export const SITIO = {
   nombre: "Camino del Flautista",
   descripcion: "Plan de práctica de flauta traversa con niveles, jefes y logros.",
   idioma: "es",
+  /**
+   * Zona horaria del plan. El servidor (Cloudflare) funciona en UTC: sin esto,
+   * a las 8 pm de México ya sería «mañana» y el panel enseñaría otra sesión.
+   */
+  zonaHoraria: "America/Mexico_City",
 } as const;
 
 /** Un enlace de la navegación principal. */

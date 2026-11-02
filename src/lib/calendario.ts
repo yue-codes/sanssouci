@@ -100,3 +100,23 @@ export function sesionDeReferencia(dias: readonly Dia[], hoy: number): SesionDeR
   if (!siguiente) return { dia: practica[practica.length - 1], motivo: "terminado" };
   return { dia: siguiente, motivo: siguiente.data.numero === hoy ? "hoy" : "proxima" };
 }
+
+/** Título grande según el momento del plan, en tres trozos (el del medio va resaltado). */
+export interface TitularDelDia {
+  antes: string;
+  enfasis: string;
+  despues: string;
+}
+
+/**
+ * Qué dice el título grande de la portada y del panel según el día del plan.
+ *
+ * @param hoy Número de día de hoy (ver `diaDelPlan`); puede ser ≤ 0 o > 90.
+ * @example titularDelDia(5)  // → { antes: "Día", enfasis: "5", despues: " de 90." }
+ * @example titularDelDia(0)  // → { antes: "Empiezas", enfasis: "mañana", despues: "." }
+ */
+export function titularDelDia(hoy: number): TitularDelDia {
+  if (hoy < 1) return { antes: "Empiezas", enfasis: hoy === 0 ? "mañana" : `en ${1 - hoy} días`, despues: "." };
+  if (hoy > 90) return { antes: "Los 90 días", enfasis: "terminaron", despues: "; el camino sigue." };
+  return { antes: "Día", enfasis: String(hoy), despues: " de 90." };
+}

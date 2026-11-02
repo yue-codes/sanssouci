@@ -5,7 +5,7 @@
  * descansos, jefes (rombos) y el día de hoy con un anillo. Es un resumen visual;
  * el detalle está en /calendario. Cada celda lleva su texto `sr-only`.
  */
-import { ArrowRight } from "lucide-preact";
+import { ArrowRight, Check } from "lucide-preact";
 import type { Dia } from "@/lib/contenido";
 import { fechaCorta } from "@/lib/fechas";
 
@@ -14,8 +14,10 @@ interface Props {
   dias: Dia[];
   /** Número de día de hoy (ver `diaDelPlan`); fuera de 1–90 no se marca ninguno. */
   hoy: number;
+  /** Números de los días completados (solo con progreso real). Se pintan en verde y se añade a la leyenda. */
+  completados?: ReadonlySet<number>;
 }
-const { dias, hoy } = Astro.props;
+const { dias, hoy, completados } = Astro.props;
 const ordenados = [...dias].sort((a, b) => a.data.numero - b.data.numero);
 const primero = ordenados[0].data.fecha;
 const ultimo = ordenados[ordenados.length - 1].data.fecha;
@@ -25,6 +27,7 @@ const LEYENDA = [
   { clase: "rounded-[3px] bg-secundario/50", texto: "Con flauta" },
   { clase: "rounded-[3px] bg-borde/50", texto: "Descanso" },
   { clase: "size-2.5! rotate-45 rounded-[2px] bg-acento", texto: "Jefe" },
+  ...(completados ? [{ clase: "rounded-[3px] bg-exito", texto: "Hecho", marca: true }] : []),
 ];
 ---
 
@@ -38,9 +41,12 @@ const LEYENDA = [
   <ol class="mt-4 grid grid-cols-[repeat(15,minmax(0,1fr))] gap-1 sm:grid-cols-[repeat(30,minmax(0,1fr))]" aria-label="Los 90 días del plan">
     {ordenados.map((d) => {
       const t = d.data;
+      const hecho = completados?.has(t.numero) ?? false;
       const clase = t.jefe
-        ? "rotate-45 scale-75 rounded-[3px] bg-acento"
-        : t.tipo === "descanso"
+        ? `rotate-45 scale-75 rounded-[3px] ${hecho ? "bg-exito" : "bg-acento"}`
+        : hecho
+          ? "rounded-[4px] bg-exito"
+          : t.tipo === "descanso"
           ? "rounded-[4px] bg-borde/50"
           : t.fase === "sin-flauta" ? "rounded-[4px] bg-resalte/45" : "rounded-[4px] bg-secundario/50";
       const esHoy = t.numero === hoy;
@@ -48,14 +54,20 @@ const LEYENDA = [
         <li
           title={`Día ${t.numero} · ${t.titulo}`}
           aria-current={esHoy ? "date" : undefined}
-          class:list={["aspect-square", clase, esHoy && "ring-2 ring-texto ring-offset-2 ring-offset-superficie"]}
+          class:list={["grid aspect-square place-items-center", clase, esHoy && "ring-2 ring-texto ring-offset-2 ring-offset-superficie"]}
         >
-          <span class="sr-only">Día {t.numero}{esHoy && " (hoy)"}: {t.titulo}</span>
+          {/* La ✓ distingue «hecho» sin depender del color (el verde de éxito se parece al de los jefes). */}
+          {hecho && <Check size={12} strokeWidth={3} class:list={["text-fondo", t.jefe && "-rotate-45"]} aria-hidden="true" />}
+          <span class="sr-only">Día {t.numero}{esHoy && " (hoy)"}{hecho && " (hecho)"}: {t.titulo}</span>
         </li>
       );
     })}
   </ol>
   <ul class="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-xs text-tenue" aria-hidden="true">
-    {LEYENDA.map((l) => <li class="flex items-center gap-2"><span class:list={["size-3", l.clase]} />{l.texto}</li>)}
+    {LEYENDA.map((l) => (
+      <li class="flex items-center gap-2">
+        <span class:list={["grid size-3 place-items-center", l.clase]}>{"marca" in l && <Check size={9} strokeWidth={3.5} class="text-fondo" />}</span>{l.texto}
+      </li>
+    ))}
   </ul>
 </div>
