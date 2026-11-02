@@ -1,0 +1,4466 @@
+[
+  {
+    "id": "cyrus",
+    "titulo": "Cyrus' Theme",
+    "obra": "Octopath Traveler",
+    "categoria": "videojuegos",
+    "ruta": "videojuegos",
+    "dificultad": 5,
+    "nivel": "nivel-5",
+    "tecnicas": [
+      "logro-tercera-octava-sol",
+      "logro-dinamicas"
+    ],
+    "requiere": [
+      "logro-tercera-octava-sol",
+      "logro-escala-cromatica",
+      "logro-sincopa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "gmW_1terTsA",
+        "tituloVideo": "Octopath Traveler - Cyrus (Piano & Flute Cover)",
+        "canal": "VGMusic Explorers",
+        "duracionSeg": 153,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y piano"
+      }
+    ],
+    "compositor": "Yasunori Nishiki"
+  },
+  {
+    "id": "primrose",
+    "titulo": "Tema de Primrose (la bailarina)",
+    "obra": "Octopath Traveler",
+    "categoria": "videojuegos",
+    "ruta": "videojuegos",
+    "dificultad": 5,
+    "nivel": "nivel-5",
+    "tecnicas": [
+      "logro-tercera-octava-sol",
+      "logro-dinamicas"
+    ],
+    "requiere": [
+      "logro-tercera-octava-sol",
+      "logro-escala-cromatica",
+      "logro-sincopa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "C0w4GrydICI",
+        "tituloVideo": "【オクトパストラベラー】踊り子プリムロゼのテーマ【京バンド】",
+        "canal": "京バンドはんなりチャンネル",
+        "duracionSeg": 140,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "banda: flauta, guitarra, cajón y tuba"
+      }
+    ],
+    "compositor": "Yasunori Nishiki"
+  },
+  {
+    "id": "el-que-quiera-entender",
+    "titulo": "El que quiera entender que entienda (intro)",
+    "obra": "Mägo de Oz",
+    "categoria": "folk",
+    "ruta": "folk-mundo",
+    "dificultad": 4,
+    "nivel": "nivel-4",
+    "tecnicas": [
+      "logro-staccato",
+      "logro-sincopa"
+    ],
+    "requiere": [
+      "logro-dos-octavas",
+      "logro-escalas-3-alteraciones"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "sJRohMcgN5I",
+        "tituloVideo": "El que quiera entender que entienda - Mago de oz (Introducción)",
+        "canal": "Estefanía Tobón Villegas",
+        "duracionSeg": 44,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta sola"
+      }
+    ],
+    "compositor": "Mägo de Oz"
+  },
+  {
+    "id": "bella-ciao",
+    "titulo": "Bella Ciao",
+    "obra": "Canción popular italiana",
+    "categoria": "folk",
+    "ruta": "folk-mundo",
+    "dificultad": 2,
+    "nivel": "nivel-2",
+    "tecnicas": [
+      "logro-legato",
+      "logro-picado-simple"
+    ],
+    "requiere": [
+      "logro-registro-grave"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "AGE-Seobelg",
+        "tituloVideo": "Bella Ciao cover (flute and piano)",
+        "canal": "Ariana Flute",
+        "duracionSeg": 27,
+        "usos": [
+          "referencia",
+          "clip"
+        ],
+        "instrumentacion": "flauta y piano"
+      },
+      {
+        "youtubeId": "ptDT2xffBEo",
+        "tituloVideo": "Bella Ciao #bellaciao #flute",
+        "canal": "宗方律",
+        "duracionSeg": 24,
+        "usos": [
+          "clip"
+        ],
+        "instrumentacion": "flauta sola"
+      },
+      {
+        "youtubeId": "Xp0asNKO0IE",
+        "tituloVideo": "Bella Ciao",
+        "canal": "Robert Shroder",
+        "duracionSeg": 136,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista"
+      }
+    ]
+  },
+  {
+    "id": "batsubyou",
+    "titulo": "Batsubyou (Weigh Anchor / 抜錨)",
+    "obra": "Nanahoshi Kangengakudan (Vocaloid)",
+    "categoria": "vocaloid",
+    "ruta": "anime",
+    "dificultad": 6,
+    "nivel": "nivel-6",
+    "tecnicas": [
+      "logro-vibrato",
+      "logro-tercera-octava-si"
+    ],
+    "requiere": [
+      "logro-tercera-octava-si",
+      "logro-vibrato"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "euRr9OFOXZc",
+        "tituloVideo": "抜錨(Weigh Anchor) - ナナホシ管弦楽団【VOCALOID】| Flute cover",
+        "canal": "Karasu Flute",
+        "duracionSeg": 202,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista"
+      },
+      {
+        "youtubeId": "c5RO4D6OY_E",
+        "tituloVideo": "【フルート】抜錨 Batsubyou /ナナホシ管弦楽団 VOCALOID フルートで吹いてみた",
+        "canal": "flutenote ",
+        "duracionSeg": 203,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista"
+      },
+      {
+        "youtubeId": "QJCDacYLVDc",
+        "tituloVideo": "【楽譜あり】抜錨 / ナナホシ管弦楽団【フルートで演奏してみた】",
+        "canal": "要田詩織&柴音フルート",
+        "duracionSeg": 205,
+        "usos": [
+          "partitura",
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista",
+        "nota": "Partitura en Piascore (en Do)."
+      }
+    ],
+    "compositor": "ナナホシ管弦楽団"
+  },
+  {
+    "id": "guren-no-yumiya",
+    "titulo": "Guren no Yumiya",
+    "obra": "Attack on Titan (OP 1)",
+    "categoria": "anime",
+    "ruta": "anime",
+    "dificultad": 6,
+    "nivel": "nivel-6",
+    "tecnicas": [
+      "logro-vibrato",
+      "logro-tercera-octava-si"
+    ],
+    "requiere": [
+      "logro-tercera-octava-si",
+      "logro-vibrato"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "lJVg5_3hb-Q",
+        "tituloVideo": "紅蓮の弓矢 (Linked Horizon)をフルートで吹いた場合 | Flute cover",
+        "canal": "Karasu Flute",
+        "duracionSeg": 314,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista"
+      }
+    ],
+    "compositor": "Linked Horizon"
+  },
+  {
+    "id": "iris-out",
+    "titulo": "IRIS OUT",
+    "obra": "Chainsaw Man – Reze Arc",
+    "categoria": "anime",
+    "ruta": "anime",
+    "dificultad": 6,
+    "nivel": "nivel-6",
+    "tecnicas": [
+      "logro-vibrato",
+      "logro-tercera-octava-si"
+    ],
+    "requiere": [
+      "logro-tercera-octava-si",
+      "logro-vibrato"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "xOmU0JwC6VA",
+        "tituloVideo": "IRIS OUT(米津玄師)を今度こそフルートで吹いた場合 | Flute cover",
+        "canal": "Karasu Flute",
+        "duracionSeg": 154,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista"
+      },
+      {
+        "youtubeId": "-8EyhBWjoI8",
+        "tituloVideo": "【IRIS OUT 米津玄師】フルートとヴァイオリンでコスプレして弾いてみた【劇場版チェンソーマン レゼ篇 主題歌】Chainsaw Man Reze ArcOP Flute&Violin cover",
+        "canal": "Tiffany【Violin,Cosplay】",
+        "duracionSeg": 153,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y violín"
+      }
+    ],
+    "compositor": "Kenshi Yonezu"
+  },
+  {
+    "id": "kimi-no-shiranai-monogatari",
+    "titulo": "Kimi no Shiranai Monogatari",
+    "obra": "Bakemonogatari (ED)",
+    "categoria": "anime",
+    "ruta": "anime",
+    "dificultad": 5,
+    "nivel": "nivel-5",
+    "tecnicas": [
+      "logro-tercera-octava-sol",
+      "logro-dinamicas"
+    ],
+    "requiere": [
+      "logro-tercera-octava-sol",
+      "logro-escala-cromatica",
+      "logro-sincopa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "e8fDr1RULnM",
+        "tituloVideo": "君の知らない物語(supercell)をフルートで吹いた場合 | Flute cover",
+        "canal": "Karasu Flute",
+        "duracionSeg": 344,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista"
+      }
+    ],
+    "compositor": "supercell"
+  },
+  {
+    "id": "tetoris",
+    "titulo": "Tetoris (テトリス)",
+    "obra": "Kasane Teto",
+    "categoria": "vocaloid",
+    "ruta": "anime",
+    "dificultad": 6,
+    "nivel": "nivel-6",
+    "tecnicas": [
+      "logro-vibrato",
+      "logro-tercera-octava-si"
+    ],
+    "requiere": [
+      "logro-tercera-octava-si",
+      "logro-vibrato"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "QGfeMZY0kAc",
+        "tituloVideo": "テトリスをフルートで吹いた場合 | Flute cover",
+        "canal": "Karasu Flute",
+        "duracionSeg": 151,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista"
+      },
+      {
+        "youtubeId": "cwNT9BowhlM",
+        "tituloVideo": "☆楽譜付き【#フルート】テトリス/柊マグネタイト【演奏してみた】#flute",
+        "canal": "要田詩織&柴音フルート",
+        "duracionSeg": 149,
+        "usos": [
+          "partitura",
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista",
+        "nota": "Partitura en Piascore."
+      },
+      {
+        "youtubeId": "k-2SSayDkFs",
+        "tituloVideo": "フルートで『テトリス / 重音テトSV』演奏してみた / 柊マグネタイト",
+        "canal": "mayuflu",
+        "duracionSeg": 161,
+        "usos": [
+          "partitura",
+          "referencia"
+        ],
+        "instrumentacion": "piccolo, flautas, flauta alto y bajo (multipista)",
+        "nota": "Muestra la partitura de cada voz."
+      }
+    ],
+    "compositor": "Hiiragi Magnetite",
+    "notas": "No confundir con el tema clásico de Tetris; el estribillo cita Korobeiniki."
+  },
+  {
+    "id": "valse-di-fantastica",
+    "titulo": "Valse di Fantastica",
+    "obra": "Final Fantasy XV",
+    "categoria": "videojuegos",
+    "ruta": "videojuegos",
+    "dificultad": 4,
+    "nivel": "nivel-4",
+    "tecnicas": [
+      "logro-staccato",
+      "logro-sincopa"
+    ],
+    "requiere": [
+      "logro-dos-octavas",
+      "logro-escalas-3-alteraciones"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "ocTtwGXQul8",
+        "tituloVideo": "Final Fantasy XV: Valse Di Fantastica Flute Cover | With Sheet Music!",
+        "canal": "Gina Luciani",
+        "duracionSeg": 130,
+        "usos": [
+          "partitura",
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista",
+        "nota": "Partitura en Musicnotes (solo y ensamble)."
+      },
+      {
+        "youtubeId": "xcDq3L6tnzc",
+        "tituloVideo": "Final Fantasy XV - Valse Di Fantastica (Piano/flute arrangement by N&T music)",
+        "canal": "N&T music | Flute, Saxo, Piano",
+        "duracionSeg": 84,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y piano"
+      }
+    ],
+    "compositor": "Yoko Shimomura"
+  },
+  {
+    "id": "cantina-band",
+    "titulo": "Cantina Band",
+    "obra": "Star Wars",
+    "categoria": "cine-tv",
+    "ruta": "folk-mundo",
+    "dificultad": 5,
+    "nivel": "nivel-5",
+    "tecnicas": [
+      "logro-tercera-octava-sol",
+      "logro-dinamicas",
+      "logro-sincopa"
+    ],
+    "requiere": [
+      "logro-tercera-octava-sol",
+      "logro-escala-cromatica",
+      "logro-sincopa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "qzxCAkkNIb0",
+        "tituloVideo": "Star Wars Cantina Band Flute Cover | With Sheet Music!",
+        "canal": "Gina Luciani",
+        "duracionSeg": 112,
+        "usos": [
+          "partitura",
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista",
+        "nota": "Partitura en Musicnotes."
+      }
+    ],
+    "compositor": "John Williams"
+  },
+  {
+    "id": "to-loves-end",
+    "titulo": "To Love's End / Jidai wo Koeru Omoi",
+    "obra": "Inuyasha",
+    "categoria": "anime",
+    "ruta": "anime",
+    "dificultad": 4,
+    "nivel": "nivel-4",
+    "tecnicas": [
+      "logro-staccato",
+      "logro-sincopa"
+    ],
+    "requiere": [
+      "logro-dos-octavas",
+      "logro-escalas-3-alteraciones"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "6cuaFgWQsfM",
+        "tituloVideo": "「時代を越える想い」犬夜叉 フルートで演奏してみた",
+        "canal": "Katroll Flute Channel",
+        "duracionSeg": 147,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista"
+      },
+      {
+        "youtubeId": "a47yO1bzgLg",
+        "tituloVideo": "To Love's End (Futari No Kimochi) | Inuyasha (犬夜叉) OST - Flute Cover (w. Sheet Music)",
+        "canal": "Revolare Music",
+        "duracionSeg": 159,
+        "usos": [
+          "partitura",
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista"
+      }
+    ],
+    "compositor": "Kaoru Wada",
+    "notas": "La misma melodía aparece en varias pistas de Inuyasha."
+  },
+  {
+    "id": "senbonzakura",
+    "titulo": "Senbonzakura",
+    "obra": "Kurousa-P (Hatsune Miku)",
+    "categoria": "vocaloid",
+    "ruta": "anime",
+    "dificultad": 6,
+    "nivel": "nivel-6",
+    "tecnicas": [
+      "logro-vibrato",
+      "logro-tercera-octava-si"
+    ],
+    "requiere": [
+      "logro-tercera-octava-si",
+      "logro-vibrato"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "BxHRMqKPWKY",
+        "tituloVideo": "【フルート】千本桜/黒うさP　Senbonzakura【演奏してみた】FLUTE",
+        "canal": "要田詩織&柴音フルート",
+        "duracionSeg": 246,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista"
+      },
+      {
+        "youtubeId": "GGP2bBUSVew",
+        "tituloVideo": "【フルート】千本桜 / 黒うさP",
+        "canal": "Sora Suzuki",
+        "duracionSeg": 240,
+        "usos": [
+          "partitura",
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista",
+        "nota": "Partitura en Piascore."
+      },
+      {
+        "youtubeId": "mU6ZZyMI0J0",
+        "tituloVideo": "Flute Sheet Music: How to play Senbonzakura by Hatsune Miku",
+        "canal": "EasyMusicLesson",
+        "duracionSeg": 749,
+        "usos": [
+          "partitura",
+          "tutorial"
+        ],
+        "instrumentacion": "flauta y pista",
+        "nota": "Tutorial con partitura en pantalla."
+      }
+    ],
+    "compositor": "黒うさP"
+  },
+  {
+    "id": "kick-back",
+    "titulo": "KICK BACK",
+    "obra": "Chainsaw Man (OP)",
+    "categoria": "anime",
+    "ruta": "anime",
+    "dificultad": 7,
+    "nivel": "nivel-7",
+    "tecnicas": [
+      "logro-doble-picado",
+      "logro-tercera-octava-completa",
+      "logro-sincopa"
+    ],
+    "requiere": [
+      "logro-doble-picado",
+      "logro-tercera-octava-completa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "1SCPDTFZTvE",
+        "tituloVideo": "⭐︎楽譜【フルート】KICK BACK/米津玄師 チェーンソーマンOP【演奏してみた】FLUTE",
+        "canal": "要田詩織&柴音フルート",
+        "duracionSeg": 198,
+        "usos": [
+          "partitura",
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista",
+        "nota": "Partitura en Piascore."
+      }
+    ],
+    "compositor": "Kenshi Yonezu"
+  },
+  {
+    "id": "anytime-anywhere",
+    "titulo": "Anytime Anywhere",
+    "obra": "Frieren (ED)",
+    "categoria": "anime",
+    "ruta": "anime",
+    "dificultad": 4,
+    "nivel": "nivel-4",
+    "tecnicas": [
+      "logro-staccato",
+      "logro-sincopa"
+    ],
+    "requiere": [
+      "logro-dos-octavas",
+      "logro-escalas-3-alteraciones"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "ze5_74fLEhI",
+        "tituloVideo": "【#フルート】Anytime Anywhere/milet アニメ『葬送のフリーレン』エンディングテーマ【演奏してみた】#flute",
+        "canal": "要田詩織&柴音フルート",
+        "duracionSeg": 242,
+        "usos": [
+          "partitura",
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista",
+        "nota": "Partitura en Piascore."
+      }
+    ],
+    "compositor": "milet"
+  },
+  {
+    "id": "kawaikute-gomen",
+    "titulo": "Kawaikute Gomen",
+    "obra": "HoneyWorks",
+    "categoria": "jpop",
+    "ruta": "anime",
+    "dificultad": 5,
+    "nivel": "nivel-5",
+    "tecnicas": [
+      "logro-tercera-octava-sol",
+      "logro-dinamicas"
+    ],
+    "requiere": [
+      "logro-tercera-octava-sol",
+      "logro-escala-cromatica",
+      "logro-sincopa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "Tk5z09Dkd4I",
+        "tituloVideo": "☆楽譜【フルート】可愛くてごめん/HoneyWorks【演奏してみた】FLUTE",
+        "canal": "要田詩織&柴音フルート",
+        "duracionSeg": 218,
+        "usos": [
+          "partitura",
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista",
+        "nota": "Partitura en Piascore."
+      }
+    ],
+    "compositor": "HoneyWorks"
+  },
+  {
+    "id": "brothers",
+    "titulo": "Brothers (Bratja)",
+    "obra": "Fullmetal Alchemist (2003)",
+    "categoria": "anime",
+    "ruta": "anime",
+    "dificultad": 4,
+    "nivel": "nivel-4",
+    "tecnicas": [
+      "logro-staccato",
+      "logro-sincopa"
+    ],
+    "requiere": [
+      "logro-dos-octavas",
+      "logro-escalas-3-alteraciones"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "IBKgL7ZD-xU",
+        "tituloVideo": "Brothers - Fullmetal Alchemist - Flute & Guitar Cover",
+        "canal": "Yael Ben Dor",
+        "duracionSeg": 262,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y guitarra",
+        "nota": "¡Inspiración para tocar flauta con tu guitarra!"
+      },
+      {
+        "youtubeId": "gCp9Bk0X-Kw",
+        "tituloVideo": "\"Brothers / Bracha / Bratja / Братья\" - Fullmetal Alchemist OST (Violin Sheet Music)",
+        "canal": "Chooey Music",
+        "duracionSeg": 252,
+        "usos": [
+          "partitura"
+        ],
+        "instrumentacion": "violín",
+        "nota": "Partitura de violín: sirve, pero revisa si baja de Do4 (la flauta no llega)."
+      },
+      {
+        "youtubeId": "PQY3F8WprqI",
+        "tituloVideo": "Fullmetal Alchemist - Bratja (Brothers) - Manna Wanders Flute Cover",
+        "canal": "Manna's Wandering Flute",
+        "duracionSeg": 187,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista"
+      }
+    ],
+    "compositor": "Michiru Oshima"
+  },
+  {
+    "id": "tsubasa",
+    "titulo": "Tsubasa",
+    "obra": "Undergraph",
+    "categoria": "jpop",
+    "ruta": "anime",
+    "dificultad": 4,
+    "nivel": "nivel-4",
+    "tecnicas": [
+      "logro-staccato",
+      "logro-sincopa"
+    ],
+    "requiere": [
+      "logro-dos-octavas",
+      "logro-escalas-3-alteraciones"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "u6THMP-zEPA",
+        "tituloVideo": "ツバサ/アンダーグラフ【フルート】《演奏してみた♪》",
+        "canal": "mkharu2",
+        "duracionSeg": 266,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista",
+        "nota": "La intérprete la sacó de oído; no trae partitura."
+      }
+    ],
+    "compositor": "アンダーグラフ"
+  },
+  {
+    "id": "czardas",
+    "titulo": "Czardas",
+    "obra": "Vittorio Monti",
+    "categoria": "clasica",
+    "ruta": "clasica",
+    "dificultad": 9,
+    "nivel": "nivel-7",
+    "tecnicas": [
+      "logro-doble-picado",
+      "logro-tercera-octava-completa",
+      "logro-trinos",
+      "logro-armonicos",
+      "logro-doble-picado-rapido"
+    ],
+    "requiere": [
+      "logro-doble-picado",
+      "logro-tercera-octava-completa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "yNGpzUtgtsE",
+        "tituloVideo": "Jupiter JFL 700E -  윤승호 Czardas",
+        "canal": "코스모스악기 COSMOSMUSIC",
+        "duracionSeg": 301,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y piano",
+        "nota": "Demo de la Jupiter JFL 700E (una de las flautas que consideraste)."
+      },
+      {
+        "youtubeId": "4g773B2vXPw",
+        "tituloVideo": "Czardas Partitura de Flauta, Oboe, Violín e instrumentos afinados en Do",
+        "canal": "tocapartituras.com",
+        "duracionSeg": 327,
+        "usos": [
+          "partitura"
+        ],
+        "instrumentacion": "partitura en pantalla",
+        "nota": "PDF y MIDI en tocapartituras."
+      }
+    ],
+    "compositor": "Vittorio Monti",
+    "notas": "Jefe del nivel 7."
+  },
+  {
+    "id": "cogwork-dancers",
+    "titulo": "Cogwork Dancers",
+    "obra": "Hollow Knight: Silksong",
+    "categoria": "videojuegos",
+    "ruta": "videojuegos",
+    "dificultad": 7,
+    "nivel": "nivel-7",
+    "tecnicas": [
+      "logro-doble-picado",
+      "logro-tercera-octava-completa"
+    ],
+    "requiere": [
+      "logro-doble-picado",
+      "logro-tercera-octava-completa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "R1ZiGXuM548",
+        "tituloVideo": "フルート6本で \"Cogwork Dancers\"（カラクリの舞踏者）Hollow Knight Silksong",
+        "canal": "mayuflu",
+        "duracionSeg": 191,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "ensamble de flautas (multipista)",
+        "nota": "6 flautas; una imita el mecanismo con las llaves."
+      }
+    ],
+    "compositor": "Christopher Larkin",
+    "notas": "Se acelera cada vez más."
+  },
+  {
+    "id": "tentou-mushi-no-samba",
+    "titulo": "Tentou Mushi no Samba",
+    "obra": "Cherish",
+    "categoria": "jpop",
+    "ruta": "anime",
+    "dificultad": 3,
+    "nivel": "nivel-3",
+    "tecnicas": [
+      "logro-dos-octavas",
+      "logro-legato"
+    ],
+    "requiere": [
+      "logro-segunda-octava",
+      "logro-escala-sol-mayor",
+      "logro-ritmo-puntillo"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "CCWXaEZnb90",
+        "tituloVideo": "チェリッシュ「てんとう虫のサンバ」をフルートで演奏 楽譜 コード 付き演奏動画",
+        "canal": "サックス&フルート楽譜専門チャンネル",
+        "duracionSeg": 151,
+        "usos": [
+          "partitura",
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista",
+        "nota": "Partitura en Piascore (en Do), con acordes."
+      }
+    ],
+    "compositor": "チェリッシュ"
+  },
+  {
+    "id": "six-trillion-years",
+    "titulo": "Six Trillion Years and Overnight Story",
+    "obra": "IA (Vocaloid)",
+    "categoria": "vocaloid",
+    "ruta": "anime",
+    "dificultad": 7,
+    "nivel": "nivel-7",
+    "tecnicas": [
+      "logro-doble-picado",
+      "logro-tercera-octava-completa"
+    ],
+    "requiere": [
+      "logro-doble-picado",
+      "logro-tercera-octava-completa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "RwcBCXUWok0",
+        "tituloVideo": "Six Trillion Years and Overnight Story | Flute Cover | IA [10th Anniversary] VOCALOID",
+        "canal": "Latteらて Ch.",
+        "duracionSeg": 223,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista"
+      }
+    ],
+    "compositor": "kemu",
+    "notas": "BPM 186. Versión normal del cover."
+  },
+  {
+    "id": "six-trillion-years-transcendental",
+    "titulo": "Six Trillion Years (arreglo transcendental)",
+    "obra": "IA (Vocaloid)",
+    "categoria": "vocaloid",
+    "ruta": "anime",
+    "dificultad": 10,
+    "nivel": "nivel-8",
+    "tecnicas": [
+      "logro-doble-picado-rapido",
+      "logro-triple-picado"
+    ],
+    "requiere": [
+      "logro-doble-picado-rapido",
+      "logro-triple-picado"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "yYJD-CBQLG8",
+        "tituloVideo": "【鬼超絶技巧】フルートで六兆年と一夜物語を超絶技巧アレンジで吹いてみた(flute transcendental arrangement )",
+        "canal": "Katroll Flute Channel",
+        "duracionSeg": 223,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista",
+        "dificultadArreglo": 10,
+        "nota": "Arreglo para violín adaptado por la intérprete."
+      }
+    ],
+    "compositor": "kemu (arr. Will)",
+    "notas": "Arreglo de virtuosismo extremo sobre una canción ya muy rápida."
+  },
+  {
+    "id": "wellerman",
+    "titulo": "Wellerman",
+    "obra": "Canción marinera (sea shanty)",
+    "categoria": "folk",
+    "ruta": "folk-mundo",
+    "dificultad": 2,
+    "nivel": "nivel-1",
+    "tecnicas": [
+      "logro-registro-grave"
+    ],
+    "requiere": [
+      "logro-primer-sonido"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "QeNkU6-LwMo",
+        "tituloVideo": "How did this Wellerman song get so famous",
+        "canal": "Zainab plays the flute",
+        "duracionSeg": 23,
+        "usos": [
+          "clip"
+        ],
+        "instrumentacion": "flauta sola",
+        "nota": "Clip corto; la intérprete lo recomienda para practicar el registro grave."
+      },
+      {
+        "youtubeId": "A0uLw142DQY",
+        "tituloVideo": "Sea Shanty (Nathan Evans) Flute Cover #shorts #seashanty #seashantyflute #flute #wellerman",
+        "canal": "Katerina Bachevska",
+        "duracionSeg": 43,
+        "usos": [
+          "clip"
+        ],
+        "instrumentacion": "flauta sola"
+      },
+      {
+        "youtubeId": "OUHCCm9A3nA",
+        "tituloVideo": "Wellerman✨️ #shorts",
+        "canal": "Adaline Safi",
+        "duracionSeg": 17,
+        "usos": [
+          "clip"
+        ],
+        "instrumentacion": "flauta y piano"
+      }
+    ],
+    "compositor": "Tradicional (pop. Nathan Evans)",
+    "notas": "Jefe del nivel 1. Ideal para el registro grave."
+  },
+  {
+    "id": "vampire",
+    "titulo": "Vampire",
+    "obra": "DECO*27 (Hatsune Miku)",
+    "categoria": "vocaloid",
+    "ruta": "anime",
+    "dificultad": 6,
+    "nivel": "nivel-6",
+    "tecnicas": [
+      "logro-vibrato",
+      "logro-tercera-octava-si"
+    ],
+    "requiere": [
+      "logro-tercera-octava-si",
+      "logro-vibrato"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "Thp5kXQgSkw",
+        "tituloVideo": "【フルート】 ヴァンパイア/DECO*27 フルートで吹いてみた VOCALOID",
+        "canal": "flutenote ",
+        "duracionSeg": 179,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista"
+      }
+    ],
+    "compositor": "DECO*27"
+  },
+  {
+    "id": "tico-tico",
+    "titulo": "Tico-Tico no Fubá",
+    "obra": "Choro brasileño",
+    "categoria": "latino",
+    "ruta": "folk-mundo",
+    "dificultad": 8,
+    "nivel": "nivel-7",
+    "tecnicas": [
+      "logro-doble-picado",
+      "logro-tercera-octava-completa"
+    ],
+    "requiere": [
+      "logro-doble-picado",
+      "logro-tercera-octava-completa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "vvXqZG-fmgE",
+        "tituloVideo": "Tico Tico 🇧🇷Croatia to the US🇭🇷🇺🇸#flute #ticotico #musician #duet #brazil",
+        "canal": "tyreewilsonflute",
+        "duracionSeg": 35,
+        "usos": [
+          "clip"
+        ],
+        "instrumentacion": "dúo de flautas"
+      }
+    ],
+    "compositor": "Zequinha de Abreu"
+  },
+  {
+    "id": "gira-gira",
+    "titulo": "Gira Gira",
+    "obra": "Ado",
+    "categoria": "jpop",
+    "ruta": "anime",
+    "dificultad": 5,
+    "nivel": "nivel-5",
+    "tecnicas": [
+      "logro-tercera-octava-sol",
+      "logro-dinamicas"
+    ],
+    "requiere": [
+      "logro-tercera-octava-sol",
+      "logro-escala-cromatica",
+      "logro-sincopa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "gSXbA0U1ya0",
+        "tituloVideo": "Flute Sheet Music: How to play Gira Gira by Ado",
+        "canal": "EasyMusicLesson",
+        "duracionSeg": 840,
+        "usos": [
+          "partitura",
+          "tutorial"
+        ],
+        "instrumentacion": "flauta y pista",
+        "nota": "Tutorial largo con partitura en pantalla."
+      }
+    ],
+    "compositor": "Ado"
+  },
+  {
+    "id": "game-of-thrones",
+    "titulo": "Main Title",
+    "obra": "Game of Thrones",
+    "categoria": "cine-tv",
+    "ruta": "folk-mundo",
+    "dificultad": 3,
+    "nivel": "nivel-3",
+    "tecnicas": [
+      "logro-dos-octavas",
+      "logro-legato"
+    ],
+    "requiere": [
+      "logro-segunda-octava",
+      "logro-escala-sol-mayor",
+      "logro-ritmo-puntillo"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "xsg48QPwSA8",
+        "tituloVideo": "Game of Thrones - Flute Cover",
+        "canal": "Astya Soarine ",
+        "duracionSeg": 128,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista"
+      }
+    ],
+    "compositor": "Ramin Djawadi"
+  },
+  {
+    "id": "zoltraak",
+    "titulo": "Zoltraak",
+    "obra": "Frieren",
+    "categoria": "anime",
+    "ruta": "anime",
+    "dificultad": 5,
+    "nivel": "nivel-5",
+    "tecnicas": [
+      "logro-tercera-octava-sol",
+      "logro-dinamicas"
+    ],
+    "requiere": [
+      "logro-tercera-octava-sol",
+      "logro-escala-cromatica",
+      "logro-sincopa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "sMJs9NxjokQ",
+        "tituloVideo": "Zoltraak ゾルトラーク || 葬送のフリーレン (Frieren: Beyond Journey's End) || flute cover by ear",
+        "canal": "Karne Flute Covers",
+        "duracionSeg": 142,
+        "usos": [
+          "de-oido"
+        ],
+        "instrumentacion": "flauta y pista"
+      },
+      {
+        "youtubeId": "8sgFRH1R4oo",
+        "tituloVideo": "〈楽譜〉アニメ葬送のフリーレン・ゾルトラーク 三重奏 [zoltraak] -Evan Call",
+        "canal": "小高高666",
+        "duracionSeg": 144,
+        "usos": [
+          "partitura"
+        ],
+        "instrumentacion": "trío (arreglo para violín)",
+        "nota": "Partitura en MuseScore; sirve como guía para comprobar tu transcripción."
+      }
+    ],
+    "compositor": "Evan Call"
+  },
+  {
+    "id": "misato",
+    "titulo": "Misato",
+    "obra": "Neon Genesis Evangelion",
+    "categoria": "anime",
+    "ruta": "anime",
+    "dificultad": 5,
+    "nivel": "nivel-5",
+    "tecnicas": [
+      "logro-tercera-octava-sol",
+      "logro-dinamicas"
+    ],
+    "requiere": [
+      "logro-tercera-octava-sol",
+      "logro-escala-cromatica",
+      "logro-sincopa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "Itg2VnMQ7jE",
+        "tituloVideo": "ミサトのテーマ (MISATO) || 新世紀エヴァンゲリオン (Neon Genesis Evangelion) || flute cover by ear",
+        "canal": "Karne Flute Covers",
+        "duracionSeg": 93,
+        "usos": [
+          "de-oido"
+        ],
+        "instrumentacion": "flauta y pista"
+      }
+    ],
+    "compositor": "Shiro Sagisu"
+  },
+  {
+    "id": "sokyu-no-fanfare",
+    "titulo": "Sokyu no Fanfare",
+    "obra": "Sword Art Online",
+    "categoria": "anime",
+    "ruta": "anime",
+    "dificultad": 6,
+    "nivel": "nivel-6",
+    "tecnicas": [
+      "logro-vibrato",
+      "logro-tercera-octava-si"
+    ],
+    "requiere": [
+      "logro-tercera-octava-si",
+      "logro-vibrato"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "0qLK85OUoKE",
+        "tituloVideo": "蒼穹のファンファーレ (Sokyu no Fanfare) || ソードアート・オンライン (Sword Art Online) || flute cover by ear",
+        "canal": "Karne Flute Covers",
+        "duracionSeg": 315,
+        "usos": [
+          "de-oido"
+        ],
+        "instrumentacion": "flauta y pista"
+      }
+    ],
+    "compositor": "Yuki Kajiura"
+  },
+  {
+    "id": "decisive-battle",
+    "titulo": "Decisive Battle",
+    "obra": "Neon Genesis Evangelion",
+    "categoria": "anime",
+    "ruta": "anime",
+    "dificultad": 6,
+    "nivel": "nivel-6",
+    "tecnicas": [
+      "logro-vibrato",
+      "logro-tercera-octava-si"
+    ],
+    "requiere": [
+      "logro-tercera-octava-si",
+      "logro-vibrato"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "Ba-KzdxREiY",
+        "tituloVideo": "DECISIVE BATTLE || 新世紀エヴァンゲリオン (Neon Genesis Evangelion) || flute cover by ear",
+        "canal": "Karne Flute Covers",
+        "duracionSeg": 143,
+        "usos": [
+          "de-oido"
+        ],
+        "instrumentacion": "flauta y pista"
+      }
+    ],
+    "compositor": "Shiro Sagisu"
+  },
+  {
+    "id": "alicia",
+    "titulo": "Alicia",
+    "obra": "Clair Obscur: Expedition 33",
+    "categoria": "videojuegos",
+    "ruta": "videojuegos",
+    "dificultad": 4,
+    "nivel": "nivel-4",
+    "tecnicas": [
+      "logro-staccato",
+      "logro-sincopa"
+    ],
+    "requiere": [
+      "logro-dos-octavas",
+      "logro-escalas-3-alteraciones"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "cF4JdoVs8RM",
+        "tituloVideo": "Alicia || Clair Obscur: Expedition 33 || flute cover by ear",
+        "canal": "Karne Flute Covers",
+        "duracionSeg": 163,
+        "usos": [
+          "de-oido"
+        ],
+        "instrumentacion": "flauta y pista"
+      },
+      {
+        "youtubeId": "qN-JRRdhwFA",
+        "tituloVideo": "Clair Obscur: Expedition 33 - Alicia's Theme (flute cover) + sheet music",
+        "canal": "Maxim Goryachev",
+        "duracionSeg": 68,
+        "usos": [
+          "partitura",
+          "clip"
+        ],
+        "instrumentacion": "flauta y pista",
+        "nota": "Clip con partitura en pantalla."
+      }
+    ],
+    "compositor": "Lorien Testard"
+  },
+  {
+    "id": "enter-hallownest",
+    "titulo": "Enter Hallownest",
+    "obra": "Hollow Knight",
+    "categoria": "videojuegos",
+    "ruta": "videojuegos",
+    "dificultad": 3,
+    "nivel": "nivel-3",
+    "tecnicas": [
+      "logro-dos-octavas",
+      "logro-legato"
+    ],
+    "requiere": [
+      "logro-segunda-octava",
+      "logro-escala-sol-mayor",
+      "logro-ritmo-puntillo"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "BtmlvVDTIN0",
+        "tituloVideo": "Enter Hallownest || Hollow Knight || flute cover by ear",
+        "canal": "Karne Flute Covers",
+        "duracionSeg": 90,
+        "usos": [
+          "de-oido"
+        ],
+        "instrumentacion": "flauta y pista"
+      }
+    ],
+    "compositor": "Christopher Larkin",
+    "notas": "Jefe de oído del nivel 0 (en guitarra). En flauta corresponde al nivel 3."
+  },
+  {
+    "id": "weight-of-the-world",
+    "titulo": "Weight of the World",
+    "obra": "NieR:Automata",
+    "categoria": "videojuegos",
+    "ruta": "videojuegos",
+    "dificultad": 5,
+    "nivel": "nivel-5",
+    "tecnicas": [
+      "logro-tercera-octava-sol",
+      "logro-dinamicas"
+    ],
+    "requiere": [
+      "logro-tercera-octava-sol",
+      "logro-escala-cromatica",
+      "logro-sincopa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "ifX61cX_6ko",
+        "tituloVideo": "壊レタ世界ノ歌 (Weight of the World) || NieR:Automata || flute cover by ear",
+        "canal": "Karne Flute Covers",
+        "duracionSeg": 342,
+        "usos": [
+          "de-oido"
+        ],
+        "instrumentacion": "flauta y pista"
+      }
+    ],
+    "compositor": "Keiichi Okabe"
+  },
+  {
+    "id": "continued-story",
+    "titulo": "Continued Story",
+    "obra": "Code Geass",
+    "categoria": "anime",
+    "ruta": "anime",
+    "dificultad": 5,
+    "nivel": "nivel-5",
+    "tecnicas": [
+      "logro-tercera-octava-sol",
+      "logro-dinamicas"
+    ],
+    "requiere": [
+      "logro-tercera-octava-sol",
+      "logro-escala-cromatica",
+      "logro-sincopa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "usqYLeTWv5g",
+        "tituloVideo": "Continued Story || コードギアス (Code Geass) || flute cover by ear",
+        "canal": "Karne Flute Covers",
+        "duracionSeg": 309,
+        "usos": [
+          "de-oido"
+        ],
+        "instrumentacion": "flauta y pista"
+      }
+    ],
+    "compositor": "hitomi"
+  },
+  {
+    "id": "isabellas-lullaby",
+    "titulo": "Isabella's Lullaby",
+    "obra": "The Promised Neverland",
+    "categoria": "anime",
+    "ruta": "anime",
+    "dificultad": 3,
+    "nivel": "nivel-3",
+    "tecnicas": [
+      "logro-dos-octavas",
+      "logro-legato"
+    ],
+    "requiere": [
+      "logro-segunda-octava",
+      "logro-escala-sol-mayor",
+      "logro-ritmo-puntillo"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "BA3ZYwSruYo",
+        "tituloVideo": "イザベラの唄 (Isabella's Lullaby) || 約束のネバーランド (The Promised Neverland) || flute cover by ear",
+        "canal": "Karne Flute Covers",
+        "duracionSeg": 141,
+        "usos": [
+          "de-oido"
+        ],
+        "instrumentacion": "flauta y pista"
+      }
+    ],
+    "compositor": "Takahiro Obata",
+    "notas": "Corta y lenta: perfecta como primera transcripción."
+  },
+  {
+    "id": "love-you-like-a-love-song",
+    "titulo": "Love You Like a Love Song",
+    "obra": "Selena Gomez",
+    "categoria": "pop",
+    "ruta": "folk-mundo",
+    "dificultad": 4,
+    "nivel": "nivel-4",
+    "tecnicas": [
+      "logro-staccato",
+      "logro-sincopa"
+    ],
+    "requiere": [
+      "logro-dos-octavas",
+      "logro-escalas-3-alteraciones"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "9ZsVk9u0Fv0",
+        "tituloVideo": "Love you like a love song flute cover - Selena Gomez",
+        "canal": "Melissa.Flutes",
+        "duracionSeg": 185,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista",
+        "nota": "La intérprete vende las notas en su web."
+      }
+    ],
+    "compositor": "Selena Gomez & The Scene"
+  },
+  {
+    "id": "vivaldi-verano",
+    "titulo": "El Verano (Presto)",
+    "obra": "Las cuatro estaciones",
+    "categoria": "clasica",
+    "ruta": "clasica",
+    "dificultad": 9,
+    "nivel": "nivel-7",
+    "tecnicas": [
+      "logro-doble-picado",
+      "logro-tercera-octava-completa",
+      "logro-doble-picado-rapido"
+    ],
+    "requiere": [
+      "logro-doble-picado",
+      "logro-tercera-octava-completa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "QFJ2z7tfcDc",
+        "tituloVideo": "Vivaldi Summer - Fastest double tongue!? #flute #vivaldi #doubletongue #fourseasons #viral #fyp",
+        "canal": "Daniel Damaskinos",
+        "duracionSeg": 57,
+        "usos": [
+          "clip"
+        ],
+        "instrumentacion": "flauta sola",
+        "nota": "Clip de doble picado muy rápido."
+      }
+    ],
+    "compositor": "Antonio Vivaldi"
+  },
+  {
+    "id": "badinerie",
+    "titulo": "Badinerie",
+    "obra": "Suite orquestal nº 2, BWV 1067",
+    "categoria": "clasica",
+    "ruta": "clasica",
+    "dificultad": 8,
+    "nivel": "nivel-6",
+    "tecnicas": [
+      "logro-vibrato",
+      "logro-tercera-octava-si",
+      "logro-doble-picado"
+    ],
+    "requiere": [
+      "logro-tercera-octava-si",
+      "logro-vibrato"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "xsF55QE0FLo",
+        "tituloVideo": "Badinerie Flute Solo #flute#bach#sheetmusic#flutist#band#classicalmusic",
+        "canal": "Anastasia Goldin",
+        "duracionSeg": 17,
+        "usos": [
+          "partitura",
+          "clip"
+        ],
+        "instrumentacion": "flauta sola",
+        "nota": "Clip con partitura."
+      },
+      {
+        "youtubeId": "5ZIERcooDOA",
+        "tituloVideo": "One of the Most Recognizable Flute Pieces in History 🎶 #bach #badinerie #flute",
+        "canal": "Ella Voslinsky",
+        "duracionSeg": 16,
+        "usos": [
+          "clip"
+        ],
+        "instrumentacion": "flauta y piano"
+      }
+    ],
+    "compositor": "J. S. Bach",
+    "notas": "Jefe del nivel 6."
+  },
+  {
+    "id": "la-campanella",
+    "titulo": "La Campanella",
+    "obra": "Paganini / Liszt",
+    "categoria": "clasica",
+    "ruta": "clasica",
+    "dificultad": 10,
+    "nivel": "nivel-8",
+    "tecnicas": [
+      "logro-doble-picado-rapido",
+      "logro-triple-picado",
+      "logro-tercera-octava-completa"
+    ],
+    "requiere": [
+      "logro-doble-picado-rapido",
+      "logro-triple-picado"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "keazZMovk1g",
+        "tituloVideo": "Campanella Flute Cover",
+        "canal": "Anastasia Goldin",
+        "duracionSeg": 14,
+        "usos": [
+          "clip"
+        ],
+        "instrumentacion": "flauta sola"
+      },
+      {
+        "youtubeId": "1wrDL4tU22o",
+        "tituloVideo": "[Daegu Flute Music Fair] F. Liszt / La Campanella / Flute : Denis Bouriakov",
+        "canal": "Flute n Park 박재환",
+        "duracionSeg": 397,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y piano",
+        "nota": "Denis Bouriakov en vivo."
+      },
+      {
+        "youtubeId": "Kimy-h2Z6Xw",
+        "tituloVideo": "Paganini - La Campanella (arr. for flute and piano)",
+        "canal": "matveydemin",
+        "duracionSeg": 381,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y piano",
+        "nota": "Arreglo de Bouriakov."
+      },
+      {
+        "youtubeId": "LLXOgPz9RGE",
+        "tituloVideo": "Blackpink in ur areaaaaa. Jk it’s La Campanella",
+        "canal": "Monica Park",
+        "duracionSeg": 14,
+        "usos": [
+          "clip"
+        ],
+        "instrumentacion": "flauta sola",
+        "nota": "Clip de broma (el título engaña)."
+      },
+      {
+        "youtubeId": "jkvVdZoPrJY",
+        "tituloVideo": "Paganini, La Campanella (Flute and Piano)",
+        "canal": "Dr. Sarah Dunbar",
+        "duracionSeg": 509,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y piano"
+      }
+    ],
+    "compositor": "Niccolò Paganini (arr. D. Bouriakov)",
+    "notas": "Jefe final."
+  },
+  {
+    "id": "capricho-24",
+    "titulo": "Capricho nº 24",
+    "obra": "24 Caprichos",
+    "categoria": "clasica",
+    "ruta": "clasica",
+    "dificultad": 10,
+    "nivel": "nivel-8",
+    "tecnicas": [
+      "logro-doble-picado-rapido",
+      "logro-triple-picado",
+      "logro-respiracion-circular"
+    ],
+    "requiere": [
+      "logro-doble-picado-rapido",
+      "logro-triple-picado"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "SpuDxwg9SpQ",
+        "tituloVideo": "Paganini Caprice No. 24 on the Flute -Daniel Damaskinos #paganini #flute #shorts #fyp #viral #music",
+        "canal": "Daniel Damaskinos",
+        "duracionSeg": 55,
+        "usos": [
+          "clip"
+        ],
+        "instrumentacion": "flauta sola"
+      },
+      {
+        "youtubeId": "kafePIAD--k",
+        "tituloVideo": "Paganini: Caprice No. 24 - Jasmine Choi 최나경",
+        "canal": "Jasmine Choi",
+        "duracionSeg": 318,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta sola",
+        "nota": "Jasmine Choi; partitura disponible según la descripción."
+      }
+    ],
+    "compositor": "Niccolò Paganini",
+    "notas": "Jefe final."
+  },
+  {
+    "id": "here-we-go",
+    "titulo": "Here We Go! (Sakusen Kaishi)",
+    "obra": "Witch Hat Atelier",
+    "categoria": "anime",
+    "ruta": "anime",
+    "dificultad": 5,
+    "nivel": "nivel-5",
+    "tecnicas": [
+      "logro-tercera-octava-sol",
+      "logro-dinamicas"
+    ],
+    "requiere": [
+      "logro-tercera-octava-sol",
+      "logro-escala-cromatica",
+      "logro-sincopa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "7YGl6vkCXwo",
+        "tituloVideo": "作戦開始! (Here We Go!) || とんがり帽子のアトリエ (Witch Hat Atelier OST) || flute cover by ear",
+        "canal": "Karne Flute Covers",
+        "duracionSeg": 168,
+        "usos": [
+          "de-oido"
+        ],
+        "instrumentacion": "flauta y pista"
+      }
+    ],
+    "compositor": "Yuka Kitamura"
+  },
+  {
+    "id": "time-flows-ever-onward",
+    "titulo": "Time Flows Ever Onward",
+    "obra": "Frieren",
+    "categoria": "anime",
+    "ruta": "anime",
+    "dificultad": 3,
+    "nivel": "nivel-3",
+    "tecnicas": [
+      "logro-dos-octavas",
+      "logro-legato"
+    ],
+    "requiere": [
+      "logro-segunda-octava",
+      "logro-escala-sol-mayor",
+      "logro-ritmo-puntillo"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "obbMOVySMSA",
+        "tituloVideo": "Frieren - Time Flows Ever Onward | Flute Animated Sheet Music & Backing Track | Easy",
+        "canal": "Alex Flute",
+        "duracionSeg": 275,
+        "usos": [
+          "partitura",
+          "acompanamiento"
+        ],
+        "instrumentacion": "flauta y pista",
+        "dificultadArreglo": 3,
+        "nota": "Partitura animada y pista (arreglo fácil)."
+      },
+      {
+        "youtubeId": "kOwrw7ZK8Ec",
+        "tituloVideo": "Time Flows Ever Onward | Frieren | Flute Cover (葬送のフリーレン) ⏳",
+        "canal": "Caara Yeung",
+        "duracionSeg": 130,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista"
+      }
+    ],
+    "compositor": "Evan Call",
+    "notas": "Arreglo 'Easy' con pista."
+  },
+  {
+    "id": "oogway-ascends",
+    "titulo": "Oogway Ascends",
+    "obra": "Kung Fu Panda",
+    "categoria": "cine-tv",
+    "ruta": "folk-mundo",
+    "dificultad": 3,
+    "nivel": "nivel-3",
+    "tecnicas": [
+      "logro-dos-octavas",
+      "logro-legato"
+    ],
+    "requiere": [
+      "logro-segunda-octava",
+      "logro-escala-sol-mayor",
+      "logro-ritmo-puntillo"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "sZEdYjmnkv4",
+        "tituloVideo": "Kung Fu Panda - Oogway Ascends | Flute Animated Sheet Music & Backing Track | Easy",
+        "canal": "Alex Flute",
+        "duracionSeg": 236,
+        "usos": [
+          "partitura",
+          "acompanamiento"
+        ],
+        "instrumentacion": "flauta y pista",
+        "dificultadArreglo": 3,
+        "nota": "Partitura animada y pista (arreglo fácil)."
+      }
+    ],
+    "compositor": "Hans Zimmer & John Powell"
+  },
+  {
+    "id": "naruto-despair",
+    "titulo": "Despair",
+    "obra": "Naruto Shippuden",
+    "categoria": "anime",
+    "ruta": "anime",
+    "dificultad": 3,
+    "nivel": "nivel-3",
+    "tecnicas": [
+      "logro-dos-octavas",
+      "logro-legato"
+    ],
+    "requiere": [
+      "logro-segunda-octava",
+      "logro-escala-sol-mayor",
+      "logro-ritmo-puntillo"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "GcNYsebo9uo",
+        "tituloVideo": "Naruto - Despair | Flute Animated Sheet Music & Backing Track | Easy",
+        "canal": "Alex Flute",
+        "duracionSeg": 171,
+        "usos": [
+          "partitura",
+          "acompanamiento"
+        ],
+        "instrumentacion": "flauta y pista",
+        "dificultadArreglo": 3,
+        "nota": "Partitura animada y pista (arreglo fácil)."
+      }
+    ],
+    "compositor": "Yasuharu Takanashi"
+  },
+  {
+    "id": "kamado-nezuko-no-uta",
+    "titulo": "Kamado Nezuko no Uta",
+    "obra": "Demon Slayer (T3)",
+    "categoria": "anime",
+    "ruta": "anime",
+    "dificultad": 3,
+    "nivel": "nivel-3",
+    "tecnicas": [
+      "logro-dos-octavas",
+      "logro-legato"
+    ],
+    "requiere": [
+      "logro-segunda-octava",
+      "logro-escala-sol-mayor",
+      "logro-ritmo-puntillo"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "tlbFrYGR-fs",
+        "tituloVideo": "Kamado Nezuko no Uta - Demon Slayer | Flute Cover [SHEET MUSIC]",
+        "canal": "shvaboshka",
+        "duracionSeg": 131,
+        "usos": [
+          "partitura"
+        ],
+        "instrumentacion": "flauta y pista"
+      }
+    ],
+    "compositor": "Go Shiina"
+  },
+  {
+    "id": "be-a-flower",
+    "titulo": "Be a Flower (Hana ni Natte)",
+    "obra": "The Apothecary Diaries (OP)",
+    "categoria": "anime",
+    "ruta": "anime",
+    "dificultad": 5,
+    "nivel": "nivel-5",
+    "tecnicas": [
+      "logro-tercera-octava-sol",
+      "logro-dinamicas"
+    ],
+    "requiere": [
+      "logro-tercera-octava-sol",
+      "logro-escala-cromatica",
+      "logro-sincopa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "8tGSaDMMqdc",
+        "tituloVideo": "The Apothecary Diaries OP - Be a Flower | Flute Cover [SHEET MUSIC]",
+        "canal": "shvaboshka",
+        "duracionSeg": 89,
+        "usos": [
+          "partitura"
+        ],
+        "instrumentacion": "flauta y pista"
+      }
+    ],
+    "compositor": "Ryokuoushoku Shakai"
+  },
+  {
+    "id": "town-with-ocean-view",
+    "titulo": "A Town with an Ocean View",
+    "obra": "Kiki's Delivery Service",
+    "categoria": "ghibli",
+    "ruta": "ghibli",
+    "dificultad": 5,
+    "nivel": "nivel-5",
+    "tecnicas": [
+      "logro-tercera-octava-sol",
+      "logro-dinamicas"
+    ],
+    "requiere": [
+      "logro-tercera-octava-sol",
+      "logro-escala-cromatica",
+      "logro-sincopa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "_LY9qkTZq-Y",
+        "tituloVideo": "Kiki's delivery service - A town with an ocean view | Flute Cover [SHEET MUSIC] 魔女の宅急便",
+        "canal": "shvaboshka",
+        "duracionSeg": 147,
+        "usos": [
+          "partitura"
+        ],
+        "instrumentacion": "flauta y pista",
+        "nota": "Partitura con articulaciones."
+      },
+      {
+        "youtubeId": "xStrQLBeyZI",
+        "tituloVideo": "A Town with an Ocean View from \"Kiki's Delivery Service\" for flute and piano",
+        "canal": "Fuesou",
+        "duracionSeg": 176,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y piano"
+      }
+    ],
+    "compositor": "Joe Hisaishi"
+  },
+  {
+    "id": "merry-go-round-of-life",
+    "titulo": "Merry-Go-Round of Life",
+    "obra": "Howl's Moving Castle",
+    "categoria": "ghibli",
+    "ruta": "ghibli",
+    "dificultad": 4,
+    "nivel": "nivel-3",
+    "tecnicas": [
+      "logro-dos-octavas",
+      "logro-legato"
+    ],
+    "requiere": [
+      "logro-segunda-octava",
+      "logro-escala-sol-mayor",
+      "logro-ritmo-puntillo"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "PnYftv8ZguU",
+        "tituloVideo": "Howl's Moving Castle - Merry Go Round of Life - Flute Cover 人生のメリーゴーランド　+ on-screen sheet music",
+        "canal": "Yayoi FLUTE",
+        "duracionSeg": 138,
+        "usos": [
+          "partitura",
+          "acompanamiento"
+        ],
+        "instrumentacion": "flauta y pista",
+        "nota": "Partitura en pantalla; acompañamiento en video aparte."
+      },
+      {
+        "youtubeId": "zP4WRU3K9jU",
+        "tituloVideo": "人生のメリーゴーランド Merry-Go-Round of Life - Howl's Moving Castle (For Flute and Piano Sheet Music)",
+        "canal": "ariaaaa",
+        "duracionSeg": 157,
+        "usos": [
+          "partitura"
+        ],
+        "instrumentacion": "flauta y piano",
+        "nota": "Partitura en MuseScore."
+      }
+    ],
+    "compositor": "Joe Hisaishi",
+    "notas": "Jefe del nivel 3."
+  },
+  {
+    "id": "beastars-another-side",
+    "titulo": "Another Side",
+    "obra": "Beastars",
+    "categoria": "anime",
+    "ruta": "anime",
+    "dificultad": 4,
+    "nivel": "nivel-4",
+    "tecnicas": [
+      "logro-staccato",
+      "logro-sincopa"
+    ],
+    "requiere": [
+      "logro-dos-octavas",
+      "logro-escalas-3-alteraciones"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "yS8v-FXVNS4",
+        "tituloVideo": "BEASTARS - Another Side - Flute cover with sheet music",
+        "canal": "Flute Jules",
+        "duracionSeg": 96,
+        "usos": [
+          "partitura"
+        ],
+        "instrumentacion": "flauta y pista"
+      }
+    ],
+    "compositor": "Satoru Kousaki"
+  },
+  {
+    "id": "hes-a-pirate",
+    "titulo": "He's a Pirate",
+    "obra": "Pirates of the Caribbean",
+    "categoria": "cine-tv",
+    "ruta": "folk-mundo",
+    "dificultad": 4,
+    "nivel": "nivel-4",
+    "tecnicas": [
+      "logro-staccato",
+      "logro-sincopa"
+    ],
+    "requiere": [
+      "logro-dos-octavas",
+      "logro-escalas-3-alteraciones"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "bRdn6cSdn5c",
+        "tituloVideo": "Pirates of the Caribbean #flute #tutorial #piratesofthecaribbean  #jacksparrow #trending #shorts",
+        "canal": "THE MILDEST",
+        "duracionSeg": 30,
+        "usos": [
+          "tutorial",
+          "clip"
+        ],
+        "instrumentacion": "flauta sola"
+      },
+      {
+        "youtubeId": "tmqnDgQ0etk",
+        "tituloVideo": "【フルート】彼こそは海賊(He's Pirates)「パイレーツ・オブ・カリビアン」 より/Flute × Piano【情熱のメロディー】",
+        "canal": "フルート もりたあいか",
+        "duracionSeg": 155,
+        "usos": [
+          "partitura",
+          "referencia"
+        ],
+        "instrumentacion": "flauta y piano",
+        "nota": "Del libro de Zen-On 'Melodías apasionadas para flauta'."
+      },
+      {
+        "youtubeId": "-zf2L93oICU",
+        "tituloVideo": "【フルート・楽譜】パイレーツオブカリビアン | Pirates of the Caribbean | 彼こそが海賊 | He's a Pirate | Flute Cover",
+        "canal": "そのちゃんフルート",
+        "duracionSeg": 150,
+        "usos": [
+          "partitura",
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista"
+      },
+      {
+        "youtubeId": "0PlK4iZx5yY",
+        "tituloVideo": "Argh",
+        "canal": "Monica Park",
+        "duracionSeg": 55,
+        "usos": [
+          "clip"
+        ],
+        "instrumentacion": "flauta",
+        "nota": "Clip corto del tema principal."
+      }
+    ],
+    "compositor": "Klaus Badelt / Hans Zimmer",
+    "notas": "Jefe del nivel 4."
+  },
+  {
+    "id": "always-with-me",
+    "titulo": "Always With Me (Itsumo Nando Demo)",
+    "obra": "Spirited Away",
+    "categoria": "ghibli",
+    "ruta": "ghibli",
+    "dificultad": 2,
+    "nivel": "nivel-2",
+    "tecnicas": [
+      "logro-legato",
+      "logro-picado-simple",
+      "logro-segunda-octava"
+    ],
+    "requiere": [
+      "logro-registro-grave"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "37o_w10YsYg",
+        "tituloVideo": "Flute Cover : Spirited Away - Always With Me  + on-screen sheet music",
+        "canal": "Yayoi FLUTE",
+        "duracionSeg": 405,
+        "usos": [
+          "partitura",
+          "acompanamiento"
+        ],
+        "instrumentacion": "flauta y pista",
+        "nota": "Partitura en pantalla y karaoke desde el minuto 3:15."
+      },
+      {
+        "youtubeId": "BUoJ7Dh5nvI",
+        "tituloVideo": "Spirited Away - Always With Me - Fife Sheet music by Yayoi FLUTE",
+        "canal": "Yayoi FLUTE",
+        "duracionSeg": 282,
+        "usos": [
+          "partitura",
+          "acompanamiento"
+        ],
+        "instrumentacion": "pífano (multipista)",
+        "nota": "Pífano, no flauta traversa de concierto; pista a partir del minuto 2:08."
+      },
+      {
+        "youtubeId": "4lS92Awu6uU",
+        "tituloVideo": "【フルート・楽譜】いつも何度でも-Always with Me | 千と千尋の神隠し-Spirited Away | 木村弓 | Flute Cover | Ghibili | 吹きやすい🔰",
+        "canal": "そのちゃんフルート",
+        "duracionSeg": 115,
+        "usos": [
+          "partitura",
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista",
+        "dificultadArreglo": 2,
+        "nota": "Marcada como fácil para principiantes 🔰."
+      },
+      {
+        "youtubeId": "ClHUv0lIIp8",
+        "tituloVideo": "フルートで「いつも何度でも」を演奏したらいつもの気持ちになれた / 千と千尋の神隠し / Always With Me",
+        "canal": "群馬フルート研究所【まさとぅ】",
+        "duracionSeg": 103,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta sola",
+        "nota": "Referencia de sonido de un flautista profesional."
+      }
+    ],
+    "compositor": "Youmi Kimura",
+    "notas": "Jefe del día 90."
+  },
+  {
+    "id": "promise-of-the-world",
+    "titulo": "Promise of the World (Sekai no Yakusoku)",
+    "obra": "Howl's Moving Castle",
+    "categoria": "ghibli",
+    "ruta": "ghibli",
+    "dificultad": 2,
+    "nivel": "nivel-2",
+    "tecnicas": [
+      "logro-legato",
+      "logro-picado-simple"
+    ],
+    "requiere": [
+      "logro-registro-grave"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "sqIdnoqrEgs",
+        "tituloVideo": "Howl's Moving Castle - Promise of the World | Flute Tutorial with Do-Re-Mi & Fingering  Karaoke",
+        "canal": "Yayoi FLUTE",
+        "duracionSeg": 403,
+        "usos": [
+          "partitura",
+          "tutorial"
+        ],
+        "instrumentacion": "flauta y pista",
+        "dificultadArreglo": 2,
+        "nota": "Tutorial con nombres de notas y digitación."
+      },
+      {
+        "youtubeId": "tE_EoOmcEFo",
+        "tituloVideo": "【フルート・楽譜】初心者🔰オススメ　世界の約束（ハウルの動く城より）倍賞千恵子/【 The Promise of the World 】",
+        "canal": "さとみん フルート / Satomin Flute Channel　楽譜配信",
+        "duracionSeg": 262,
+        "usos": [
+          "partitura"
+        ],
+        "instrumentacion": "flauta y pista",
+        "dificultadArreglo": 2,
+        "nota": "Partitura en Piascore, marcada para principiantes."
+      }
+    ],
+    "compositor": "Joe Hisaishi",
+    "notas": "Recomendada para principiantes."
+  },
+  {
+    "id": "canon-in-d",
+    "titulo": "Canon en Re",
+    "obra": "Canon y giga",
+    "categoria": "clasica",
+    "ruta": "clasica",
+    "dificultad": 3,
+    "nivel": "nivel-3",
+    "tecnicas": [
+      "logro-dos-octavas",
+      "logro-legato"
+    ],
+    "requiere": [
+      "logro-segunda-octava",
+      "logro-escala-sol-mayor",
+      "logro-ritmo-puntillo"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "hckKPnKEHQI",
+        "tituloVideo": "Flute | Canon in D - Pachelbel + sheet music",
+        "canal": "Yayoi FLUTE",
+        "duracionSeg": 429,
+        "usos": [
+          "partitura"
+        ],
+        "instrumentacion": "flauta y pista"
+      }
+    ],
+    "compositor": "Johann Pachelbel",
+    "notas": "La dificultad depende de las variaciones que toques."
+  },
+  {
+    "id": "katyusha",
+    "titulo": "Katyusha",
+    "obra": "Canción popular rusa",
+    "categoria": "folk",
+    "ruta": "folk-mundo",
+    "dificultad": 2,
+    "nivel": "nivel-2",
+    "tecnicas": [
+      "logro-legato",
+      "logro-picado-simple"
+    ],
+    "requiere": [
+      "logro-registro-grave"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "Znak_UcpWQg",
+        "tituloVideo": "Katyusha - Flauta Transversal - Com partitura",
+        "canal": "Flute-Gamer Souza Lima",
+        "duracionSeg": 90,
+        "usos": [
+          "partitura"
+        ],
+        "instrumentacion": "flauta y pista"
+      },
+      {
+        "youtubeId": "UXjC4fV2jYM",
+        "tituloVideo": "【フルート】【flute】カチューシャ/Катюша/ロシア歌曲#吹いてみた",
+        "canal": "ASAMI flute",
+        "duracionSeg": 70,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista"
+      }
+    ],
+    "compositor": "Matvey Blanter"
+  },
+  {
+    "id": "romberg-op17",
+    "titulo": "Concierto para flauta op. 17 – Allegro maestoso",
+    "obra": "Bernhard Romberg",
+    "categoria": "clasica",
+    "ruta": "clasica",
+    "dificultad": 8,
+    "nivel": "nivel-7",
+    "tecnicas": [
+      "logro-doble-picado",
+      "logro-tercera-octava-completa"
+    ],
+    "requiere": [
+      "logro-doble-picado",
+      "logro-tercera-octava-completa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "C5JkfG8cq7A",
+        "tituloVideo": "Bernhard Romberg - Concerto para Flauta op. 17 - Allegro Maestoso",
+        "canal": "Flute-Gamer Souza Lima",
+        "duracionSeg": 790,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista"
+      }
+    ],
+    "compositor": "Bernhard Romberg"
+  },
+  {
+    "id": "rokudenashi-medley",
+    "titulo": "Medley de Rokudenashi",
+    "obra": "Rokudenashi (Tada Koe Hitotsu, Ai ga Tomoru)",
+    "categoria": "jpop",
+    "ruta": "anime",
+    "dificultad": 4,
+    "nivel": "nivel-4",
+    "tecnicas": [
+      "logro-staccato",
+      "logro-sincopa"
+    ],
+    "requiere": [
+      "logro-dos-octavas",
+      "logro-escalas-3-alteraciones"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "cgup9p9FhwA",
+        "tituloVideo": "マジ泣けるロクデナシメドレー　#shorts #ただ声一つ #ロクデナシ #泣ける曲",
+        "canal": "つむつむの里チャンネル",
+        "duracionSeg": 60,
+        "usos": [
+          "clip"
+        ],
+        "instrumentacion": "flauta y pista"
+      }
+    ],
+    "compositor": "ロクデナシ"
+  },
+  {
+    "id": "aika-inuyasha",
+    "titulo": "Aika (哀歌)",
+    "obra": "Inuyasha",
+    "categoria": "anime",
+    "ruta": "anime",
+    "dificultad": 4,
+    "nivel": "nivel-4",
+    "tecnicas": [
+      "logro-staccato",
+      "logro-sincopa"
+    ],
+    "requiere": [
+      "logro-dos-octavas",
+      "logro-escalas-3-alteraciones"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "kUeygkIBNwI",
+        "tituloVideo": "Inuyasha OST | Aika 哀歌 by areeya flute",
+        "canal": "areeya flute",
+        "duracionSeg": 145,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista"
+      }
+    ],
+    "compositor": "Kaoru Wada",
+    "notas": "Original para shinobue (flauta japonesa): buena para practicar ornamentos."
+  },
+  {
+    "id": "wanted-dead-or-alive",
+    "titulo": "Wanted Dead or Alive",
+    "obra": "One Piece (Netflix)",
+    "categoria": "cine-tv",
+    "ruta": "folk-mundo",
+    "dificultad": 5,
+    "nivel": "nivel-5",
+    "tecnicas": [
+      "logro-tercera-octava-sol",
+      "logro-dinamicas"
+    ],
+    "requiere": [
+      "logro-tercera-octava-sol",
+      "logro-escala-cromatica",
+      "logro-sincopa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "5fqUuU2tBZA",
+        "tituloVideo": "One Piece Soundtrack | Wanted Dead Or Alive | Netflix | flute cover 🏴‍☠️",
+        "canal": "areeya flute",
+        "duracionSeg": 79,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y piccolo"
+      },
+      {
+        "youtubeId": "Jm4eDEhQwcg",
+        "tituloVideo": "One Piece Soundtrack | Wanted Dead Or Alive | flute cover #onepiece #onepiececover #onepiecesong",
+        "canal": "areeya flute",
+        "duracionSeg": 45,
+        "usos": [
+          "clip"
+        ],
+        "instrumentacion": "flauta y pista"
+      }
+    ],
+    "compositor": "Sonya Belousova & Giona Ostinelli"
+  },
+  {
+    "id": "kaine",
+    "titulo": "Kainé",
+    "obra": "NieR",
+    "categoria": "videojuegos",
+    "ruta": "videojuegos",
+    "dificultad": 5,
+    "nivel": "nivel-5",
+    "tecnicas": [
+      "logro-tercera-octava-sol",
+      "logro-dinamicas"
+    ],
+    "requiere": [
+      "logro-tercera-octava-sol",
+      "logro-escala-cromatica",
+      "logro-sincopa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "jYlaUJo9n6k",
+        "tituloVideo": "Kainé (NieR Automata OST) Instrumental - Flute Cover",
+        "canal": "areeya flute",
+        "duracionSeg": 216,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista"
+      }
+    ],
+    "compositor": "Keiichi Okabe"
+  },
+  {
+    "id": "addams-family",
+    "titulo": "The Addams Family",
+    "obra": "Los locos Addams",
+    "categoria": "cine-tv",
+    "ruta": "folk-mundo",
+    "dificultad": 2,
+    "nivel": "nivel-2",
+    "tecnicas": [
+      "logro-legato",
+      "logro-picado-simple"
+    ],
+    "requiere": [
+      "logro-registro-grave"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "f7celjVaLbE",
+        "tituloVideo": "A Família Addams - Música na Flauta Transversal - Halloween #Shorts",
+        "canal": "Flute-Gamer Souza Lima",
+        "duracionSeg": 32,
+        "usos": [
+          "partitura",
+          "clip"
+        ],
+        "instrumentacion": "flauta sola",
+        "nota": "Partitura en el enlace de la descripción."
+      }
+    ],
+    "compositor": "Vic Mizzy"
+  },
+  {
+    "id": "suki-sugite-metsu",
+    "titulo": "Suki Sugite Metsu!",
+    "obra": "M!LK",
+    "categoria": "jpop",
+    "ruta": "anime",
+    "dificultad": 5,
+    "nivel": "nivel-5",
+    "tecnicas": [
+      "logro-tercera-octava-sol",
+      "logro-dinamicas"
+    ],
+    "requiere": [
+      "logro-tercera-octava-sol",
+      "logro-escala-cromatica",
+      "logro-sincopa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "MIGBLMUMvj8",
+        "tituloVideo": "【フルートで演奏】好きすぎて滅！ / M!LK｜Flute Cover｜演奏してみた #フルート #flute",
+        "canal": "要田詩織&柴音フルート",
+        "duracionSeg": 212,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista"
+      }
+    ],
+    "compositor": "M!LK"
+  },
+  {
+    "id": "cry-baby",
+    "titulo": "Cry Baby",
+    "obra": "Tokyo Revengers (OP)",
+    "categoria": "anime",
+    "ruta": "anime",
+    "dificultad": 7,
+    "nivel": "nivel-7",
+    "tecnicas": [
+      "logro-doble-picado",
+      "logro-tercera-octava-completa",
+      "logro-sincopa"
+    ],
+    "requiere": [
+      "logro-doble-picado",
+      "logro-tercera-octava-completa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "eoIrpuP0bGA",
+        "tituloVideo": "Flute Sheet Music: How to play Cry Baby by Official Hige Dandism",
+        "canal": "EasyMusicLesson",
+        "duracionSeg": 737,
+        "usos": [
+          "partitura",
+          "tutorial"
+        ],
+        "instrumentacion": "flauta y pista",
+        "nota": "Tutorial con partitura."
+      },
+      {
+        "youtubeId": "_UwanIHVVjQ",
+        "tituloVideo": "【フルート楽譜付】Cry Baby / Official髭男dism【東京リベンジャーズOP】Flute Acoustic cover",
+        "canal": "フルート もりたあいか",
+        "duracionSeg": 240,
+        "usos": [
+          "partitura",
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista",
+        "nota": "Partitura a la venta."
+      }
+    ],
+    "compositor": "Official Hige Dandism",
+    "notas": "Muchas modulaciones."
+  },
+  {
+    "id": "decretum",
+    "titulo": "Decretum (tema de Sayaka)",
+    "obra": "Madoka Magica",
+    "categoria": "anime",
+    "ruta": "anime",
+    "dificultad": 4,
+    "nivel": "nivel-4",
+    "tecnicas": [
+      "logro-staccato",
+      "logro-sincopa"
+    ],
+    "requiere": [
+      "logro-dos-octavas",
+      "logro-escalas-3-alteraciones"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "_3MA0c3lQB0",
+        "tituloVideo": "Madoka Magica OST - Decretum [Flute - Piano - Guitar]",
+        "canal": "GeorgeM7",
+        "duracionSeg": 110,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta, piano y guitarra",
+        "nota": "Partitura y pista en un video enlazado en la descripción."
+      },
+      {
+        "youtubeId": "YqsVMr9mN8k",
+        "tituloVideo": "Sayaka's Theme - Mahou Shoujo Madoka Magica [Cover]",
+        "canal": "stahrmie",
+        "duracionSeg": 92,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "sintetizador",
+        "nota": "No es flauta: versión de teclado/VST."
+      }
+    ],
+    "compositor": "Yuki Kajiura"
+  },
+  {
+    "id": "wasureji-no-kotonoha",
+    "titulo": "Wasureji no Kotonoha",
+    "obra": "Grimms Notes",
+    "categoria": "videojuegos",
+    "ruta": "videojuegos",
+    "dificultad": 5,
+    "nivel": "nivel-5",
+    "tecnicas": [
+      "logro-tercera-octava-sol",
+      "logro-dinamicas"
+    ],
+    "requiere": [
+      "logro-tercera-octava-sol",
+      "logro-escala-cromatica",
+      "logro-sincopa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "CWVJoCOKdo4",
+        "tituloVideo": "【フルート】忘れじの言の葉【楽譜】グリムノーツ主題歌（wasureji no kotonoha/Flute cover）",
+        "canal": "フルート もりたあいか",
+        "duracionSeg": 256,
+        "usos": [
+          "partitura",
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista",
+        "nota": "Partitura en kokomu."
+      }
+    ],
+    "compositor": "por confirmar"
+  },
+  {
+    "id": "suzume",
+    "titulo": "Suzume",
+    "obra": "Suzume (película)",
+    "categoria": "anime",
+    "ruta": "anime",
+    "dificultad": 4,
+    "nivel": "nivel-4",
+    "tecnicas": [
+      "logro-staccato",
+      "logro-sincopa"
+    ],
+    "requiere": [
+      "logro-dos-octavas",
+      "logro-escalas-3-alteraciones"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "mRG_-L8of8Q",
+        "tituloVideo": "【フルート】Suzume/すずめ feat.十明　RADWIMPS【楽譜】映画『すずめの戸締り』主題歌",
+        "canal": "フルート もりたあいか",
+        "duracionSeg": 255,
+        "usos": [
+          "partitura",
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista",
+        "nota": "Partitura en kokomu."
+      }
+    ],
+    "compositor": "RADWIMPS feat. Toaka"
+  },
+  {
+    "id": "one-summers-day",
+    "titulo": "One Summer's Day (Ano Natsu e)",
+    "obra": "Spirited Away",
+    "categoria": "ghibli",
+    "ruta": "ghibli",
+    "dificultad": 3,
+    "nivel": "nivel-3",
+    "tecnicas": [
+      "logro-dos-octavas",
+      "logro-legato"
+    ],
+    "requiere": [
+      "logro-segunda-octava",
+      "logro-escala-sol-mayor",
+      "logro-ritmo-puntillo"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "bUJ87IahnM8",
+        "tituloVideo": "【フルート】あの夏へ/久石譲【楽譜】One Summe r’s Day - From Spirited Away(Flute×Piano)",
+        "canal": "フルート もりたあいか",
+        "duracionSeg": 226,
+        "usos": [
+          "partitura",
+          "referencia"
+        ],
+        "instrumentacion": "flauta y piano",
+        "nota": "Partitura en kokomu."
+      },
+      {
+        "youtubeId": "OT4P9LwyCg0",
+        "tituloVideo": "Flute music | Spirited Away : One Summer's Day | sheet music + piano accompaniment",
+        "canal": "Yayoi FLUTE",
+        "duracionSeg": 257,
+        "usos": [
+          "partitura",
+          "acompanamiento"
+        ],
+        "instrumentacion": "flauta y pista",
+        "nota": "Partitura y acompañamiento de piano (karaoke desde el minuto 2:07)."
+      }
+    ],
+    "compositor": "Joe Hisaishi"
+  },
+  {
+    "id": "akuma-no-ko",
+    "titulo": "Akuma no Ko",
+    "obra": "Attack on Titan (Final Season ED)",
+    "categoria": "anime",
+    "ruta": "anime",
+    "dificultad": 4,
+    "nivel": "nivel-4",
+    "tecnicas": [
+      "logro-staccato",
+      "logro-sincopa"
+    ],
+    "requiere": [
+      "logro-dos-octavas",
+      "logro-escalas-3-alteraciones"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "4TIJmDh1rnw",
+        "tituloVideo": "【フルート】悪魔の子/ヒグチアイ「進撃の巨人」Final Season part.2 ED【楽譜/多重録音】AKUMANOKO-Attack on Titan(Flute cover)",
+        "canal": "フルート もりたあいか",
+        "duracionSeg": 242,
+        "usos": [
+          "partitura",
+          "referencia"
+        ],
+        "instrumentacion": "flautas (multipista)",
+        "nota": "Partitura en kokomu."
+      },
+      {
+        "youtubeId": "SgT4biOSTcg",
+        "tituloVideo": "フルートcover「悪魔の子 / ヒグチアイ」進撃の巨人／深澤美香／flute",
+        "canal": "Fukazawa Mika【フルートのどうが】",
+        "duracionSeg": 105,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista"
+      }
+    ],
+    "compositor": "Ai Higuchi"
+  },
+  {
+    "id": "binks-brew",
+    "titulo": "Binks' Brew (Binks no Sake)",
+    "obra": "One Piece",
+    "categoria": "anime",
+    "ruta": "anime",
+    "dificultad": 3,
+    "nivel": "nivel-3",
+    "tecnicas": [
+      "logro-dos-octavas",
+      "logro-legato"
+    ],
+    "requiere": [
+      "logro-segunda-octava",
+      "logro-escala-sol-mayor",
+      "logro-ritmo-puntillo"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "fhDWH7QEjxk",
+        "tituloVideo": "One Piece - Bink's Brew (Flute)",
+        "canal": "Christofu Music Zone",
+        "duracionSeg": 211,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista",
+        "nota": "Partitura en MuseScore (crédito en la descripción)."
+      }
+    ],
+    "compositor": "Kohei Tanaka"
+  },
+  {
+    "id": "usseewa",
+    "titulo": "Usseewa",
+    "obra": "Ado",
+    "categoria": "jpop",
+    "ruta": "anime",
+    "dificultad": 7,
+    "nivel": "nivel-7",
+    "tecnicas": [
+      "logro-doble-picado",
+      "logro-tercera-octava-completa",
+      "logro-sincopa"
+    ],
+    "requiere": [
+      "logro-doble-picado",
+      "logro-tercera-octava-completa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "jyQF1kO5djI",
+        "tituloVideo": "【楽譜】うっせぇわ / Ado【フルート】",
+        "canal": "ふえちゃん",
+        "duracionSeg": 212,
+        "usos": [
+          "partitura",
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista",
+        "nota": "Con marcas de tiempo por sección."
+      },
+      {
+        "youtubeId": "m0O9ESusokA",
+        "tituloVideo": "Ado [ Usseewa / うっせぇわ ] Super Difficult Flute Cover",
+        "canal": "Latteらて Ch.",
+        "duracionSeg": 212,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista",
+        "nota": "La intérprete la califica de 'super difícil'."
+      }
+    ],
+    "compositor": "syudou"
+  },
+  {
+    "id": "mixed-nuts",
+    "titulo": "Mixed Nuts",
+    "obra": "SPY×FAMILY (OP)",
+    "categoria": "anime",
+    "ruta": "anime",
+    "dificultad": 7,
+    "nivel": "nivel-7",
+    "tecnicas": [
+      "logro-doble-picado",
+      "logro-tercera-octava-completa",
+      "logro-sincopa"
+    ],
+    "requiere": [
+      "logro-doble-picado",
+      "logro-tercera-octava-completa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "3vmXSsgaEkI",
+        "tituloVideo": "SPY×FAMILY OP「ミックスナッツ」Official髭男dism [フルート] Mixed Nuts",
+        "canal": "Latteらて Ch.",
+        "duracionSeg": 219,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista"
+      }
+    ],
+    "compositor": "Official Hige Dandism"
+  },
+  {
+    "id": "blue-bird",
+    "titulo": "Blue Bird",
+    "obra": "Naruto Shippuden (OP)",
+    "categoria": "anime",
+    "ruta": "anime",
+    "dificultad": 5,
+    "nivel": "nivel-5",
+    "tecnicas": [
+      "logro-tercera-octava-sol",
+      "logro-dinamicas"
+    ],
+    "requiere": [
+      "logro-tercera-octava-sol",
+      "logro-escala-cromatica",
+      "logro-sincopa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "xs-lGnqqYck",
+        "tituloVideo": "ブルーバード (いきものがかり) をフルートで吹いた場合 | Flute cover",
+        "canal": "Karasu Flute",
+        "duracionSeg": 215,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista"
+      }
+    ],
+    "compositor": "Ikimonogakari"
+  },
+  {
+    "id": "pavane-faure",
+    "titulo": "Pavane, op. 50",
+    "obra": "Gabriel Fauré",
+    "categoria": "clasica",
+    "ruta": "clasica",
+    "dificultad": 5,
+    "nivel": "nivel-5",
+    "tecnicas": [
+      "logro-tercera-octava-sol",
+      "logro-dinamicas",
+      "logro-notas-largas",
+      "logro-vibrato"
+    ],
+    "requiere": [
+      "logro-tercera-octava-sol",
+      "logro-escala-cromatica",
+      "logro-sincopa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "mpgyTl8yqbw",
+        "tituloVideo": "Gabriel FAURE': Pavane, Op. 50 - Paintings By \"CLAUDE MONET\"",
+        "canal": "andrewgrummanJC",
+        "duracionSeg": 424,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "orquesta",
+        "nota": "Grabación orquestal con pinturas de Monet."
+      },
+      {
+        "youtubeId": "wQDoN40-_C4",
+        "tituloVideo": "Gabriel Fauré – Pavane, Op. 50 conducted & arranged by Tomasz Chmiel, The Young Cracow Philharmonic",
+        "canal": "Akademia Filmu i Telewizji",
+        "duracionSeg": 486,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "orquesta juvenil"
+      }
+    ],
+    "compositor": "Gabriel Fauré",
+    "notas": "En la orquesta, la flauta lleva la melodía principal. No hay versión de flauta sola en tu lista."
+  },
+  {
+    "id": "propose",
+    "titulo": "Propose (プロポーズ)",
+    "obra": "Naisho no Pierced feat. Kafu",
+    "categoria": "vocaloid",
+    "ruta": "anime",
+    "dificultad": 5,
+    "nivel": "nivel-5",
+    "tecnicas": [
+      "logro-tercera-octava-sol",
+      "logro-dinamicas"
+    ],
+    "requiere": [
+      "logro-tercera-octava-sol",
+      "logro-escala-cromatica",
+      "logro-sincopa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "mQHIzXwvvnE",
+        "tituloVideo": "プロポーズ(内緒のピアス)をフルートで吹いた場合 | Flute cover",
+        "canal": "Karasu Flute",
+        "duracionSeg": 240,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista"
+      }
+    ],
+    "compositor": "内緒のピアス"
+  },
+  {
+    "id": "this-is-halloween",
+    "titulo": "This Is Halloween",
+    "obra": "The Nightmare Before Christmas",
+    "categoria": "cine-tv",
+    "ruta": "folk-mundo",
+    "dificultad": 2,
+    "nivel": "nivel-2",
+    "tecnicas": [
+      "logro-legato",
+      "logro-picado-simple"
+    ],
+    "requiere": [
+      "logro-registro-grave"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "Ti-1lFGDcOg",
+        "tituloVideo": "How to play This Is Halloween on Flute | Flutorials",
+        "canal": "Flutorials",
+        "duracionSeg": 135,
+        "usos": [
+          "partitura",
+          "tutorial",
+          "acompanamiento"
+        ],
+        "instrumentacion": "flauta y pista",
+        "dificultadArreglo": 2,
+        "nota": "Tutorial fácil con partitura, digitaciones y pista."
+      }
+    ],
+    "compositor": "Danny Elfman"
+  },
+  {
+    "id": "chopin-vals-op69-2",
+    "titulo": "Vals op. 69 nº 2",
+    "obra": "Frédéric Chopin",
+    "categoria": "clasica",
+    "ruta": "clasica",
+    "dificultad": 7,
+    "nivel": "nivel-6",
+    "tecnicas": [
+      "logro-vibrato",
+      "logro-tercera-octava-si"
+    ],
+    "requiere": [
+      "logro-tercera-octava-si",
+      "logro-vibrato"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "cVtFWM_J06s",
+        "tituloVideo": "Valse - Chopin. Op 69, no2.   Performed by Katy Strudwick (flute & piano)",
+        "canal": "Katy Strudwick",
+        "duracionSeg": 199,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y piano"
+      },
+      {
+        "youtubeId": "Ko40vDEHhL4",
+        "tituloVideo": "Chopin’s Waltz in B minor for solo piano on flute and piano",
+        "canal": "Flute Club",
+        "duracionSeg": 41,
+        "usos": [
+          "clip"
+        ],
+        "instrumentacion": "flauta y piano"
+      }
+    ],
+    "compositor": "Frédéric Chopin",
+    "notas": "Está en el programa de flauta ABRSM Grado 8."
+  },
+  {
+    "id": "corpse-bride",
+    "titulo": "Corpse Bride (tema principal)",
+    "obra": "Corpse Bride",
+    "categoria": "cine-tv",
+    "ruta": "folk-mundo",
+    "dificultad": 4,
+    "nivel": "nivel-4",
+    "tecnicas": [
+      "logro-staccato",
+      "logro-sincopa"
+    ],
+    "requiere": [
+      "logro-dos-octavas",
+      "logro-escalas-3-alteraciones"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "avz03AQug8Q",
+        "tituloVideo": "Corpse Bride by Danny Elfman Performed on Flute by: Noelle Presby",
+        "canal": "Noelle Presby AriadnesMusic",
+        "duracionSeg": 129,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista"
+      }
+    ],
+    "compositor": "Danny Elfman"
+  },
+  {
+    "id": "victors-piano-solo",
+    "titulo": "Victor's Piano Solo",
+    "obra": "Corpse Bride",
+    "categoria": "cine-tv",
+    "ruta": "folk-mundo",
+    "dificultad": 5,
+    "nivel": "nivel-5",
+    "tecnicas": [
+      "logro-tercera-octava-sol",
+      "logro-dinamicas"
+    ],
+    "requiere": [
+      "logro-tercera-octava-sol",
+      "logro-escala-cromatica",
+      "logro-sincopa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "vlPBu639hJU",
+        "tituloVideo": "Victor's Piano Solo [Flute Duet] (Sheet Music)",
+        "canal": "Marja",
+        "duracionSeg": 221,
+        "usos": [
+          "partitura"
+        ],
+        "instrumentacion": "dúo de flautas"
+      }
+    ],
+    "compositor": "Danny Elfman"
+  },
+  {
+    "id": "unjust-life",
+    "titulo": "Unjust Life",
+    "obra": "Angel Beats!",
+    "categoria": "anime",
+    "ruta": "anime",
+    "dificultad": 4,
+    "nivel": "nivel-4",
+    "tecnicas": [
+      "logro-staccato",
+      "logro-sincopa"
+    ],
+    "requiere": [
+      "logro-dos-octavas",
+      "logro-escalas-3-alteraciones"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "_CJN1EGMLEE",
+        "tituloVideo": "Unjust Life - Angel Beats! (piano and flute cover)",
+        "canal": "Sofia Taro",
+        "duracionSeg": 170,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y piano"
+      }
+    ],
+    "compositor": "Jun Maeda / Anant-Garde Eyes"
+  },
+  {
+    "id": "swan-lake",
+    "titulo": "El lago de los cisnes (tema)",
+    "obra": "El lago de los cisnes",
+    "categoria": "clasica",
+    "ruta": "clasica",
+    "dificultad": 4,
+    "nivel": "nivel-4",
+    "tecnicas": [
+      "logro-staccato",
+      "logro-sincopa"
+    ],
+    "requiere": [
+      "logro-dos-octavas",
+      "logro-escalas-3-alteraciones"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "Yhvx1U8aA-s",
+        "tituloVideo": "Swan Lake Tchaikovsky",
+        "canal": "The Flute Channel",
+        "duracionSeg": 151,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista"
+      }
+    ],
+    "compositor": "P. I. Chaikovski"
+  },
+  {
+    "id": "believe-me",
+    "titulo": "Believe Me",
+    "obra": "Steins;Gate",
+    "categoria": "anime",
+    "ruta": "anime",
+    "dificultad": 3,
+    "nivel": "nivel-3",
+    "tecnicas": [
+      "logro-dos-octavas",
+      "logro-legato"
+    ],
+    "requiere": [
+      "logro-segunda-octava",
+      "logro-escala-sol-mayor",
+      "logro-ritmo-puntillo"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "MiQxkFGD-YA",
+        "tituloVideo": "Steins;Gate OST - Believe Me (Flute)",
+        "canal": "Christofu Music Zone",
+        "duracionSeg": 127,
+        "usos": [
+          "partitura",
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista",
+        "nota": "Partitura en MuseScore."
+      }
+    ],
+    "compositor": "Takeshi Abo"
+  },
+  {
+    "id": "gate-of-steiner",
+    "titulo": "Gate of Steiner",
+    "obra": "Steins;Gate",
+    "categoria": "anime",
+    "ruta": "anime",
+    "dificultad": 4,
+    "nivel": "nivel-4",
+    "tecnicas": [
+      "logro-staccato",
+      "logro-sincopa"
+    ],
+    "requiere": [
+      "logro-dos-octavas",
+      "logro-escalas-3-alteraciones"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "h4vQ78TtBEw",
+        "tituloVideo": "Steins;Gate OST - Gate of Steiner",
+        "canal": "Christofu Music Zone",
+        "duracionSeg": 258,
+        "usos": [
+          "partitura",
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista",
+        "nota": "Partitura en MuseScore."
+      },
+      {
+        "youtubeId": "ApLeQycuMSA",
+        "tituloVideo": "GATE OF STEINER -Main theme- 【Flute】Steins;Gate シュタインズゲート",
+        "canal": "Natsumi Miyaji 宮地夏海",
+        "duracionSeg": 246,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y piano"
+      }
+    ],
+    "compositor": "Takeshi Abo"
+  },
+  {
+    "id": "steins-gate-0-ed1",
+    "titulo": "Steins;Gate 0 – Ending 1",
+    "obra": "Steins;Gate 0",
+    "categoria": "anime",
+    "ruta": "anime",
+    "dificultad": 4,
+    "nivel": "nivel-4",
+    "tecnicas": [
+      "logro-staccato",
+      "logro-sincopa"
+    ],
+    "requiere": [
+      "logro-dos-octavas",
+      "logro-escalas-3-alteraciones"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "vjKweYl31Ps",
+        "tituloVideo": "Steins;Gate 0 Ending 1 (Flute)",
+        "canal": "Christofu Music Zone",
+        "duracionSeg": 98,
+        "usos": [
+          "partitura",
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista",
+        "nota": "Partitura en MuseScore."
+      }
+    ],
+    "compositor": "por confirmar",
+    "notas": "Título exacto por confirmar."
+  },
+  {
+    "id": "shadowlord",
+    "titulo": "Shadowlord (Maou)",
+    "obra": "NieR Replicant",
+    "categoria": "videojuegos",
+    "ruta": "videojuegos",
+    "dificultad": 6,
+    "nivel": "nivel-6",
+    "tecnicas": [
+      "logro-vibrato",
+      "logro-tercera-octava-si"
+    ],
+    "requiere": [
+      "logro-tercera-octava-si",
+      "logro-vibrato"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "f6xNDNDBXYU",
+        "tituloVideo": "フルート多重録音【NieR Replicant 魔王 Shadowlord】ゲーム音楽演奏してみた ♪Flute ensemble arrange♪",
+        "canal": "GAMERE  FLUTIST",
+        "duracionSeg": 297,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "ensamble de flautas (multipista)"
+      }
+    ],
+    "compositor": "Keiichi Okabe",
+    "notas": "Empieza lenta y luego se acelera."
+  },
+  {
+    "id": "emil-sacrifice",
+    "titulo": "Emil's Sacrifice",
+    "obra": "NieR Replicant",
+    "categoria": "videojuegos",
+    "ruta": "videojuegos",
+    "dificultad": 5,
+    "nivel": "nivel-5",
+    "tecnicas": [
+      "logro-tercera-octava-sol",
+      "logro-dinamicas"
+    ],
+    "requiere": [
+      "logro-tercera-octava-sol",
+      "logro-escala-cromatica",
+      "logro-sincopa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "3Kjgvhj5e_Y",
+        "tituloVideo": "Emil Sacrifice from NieR Replicant Flute Ensemble",
+        "canal": "Katie Shesko",
+        "duracionSeg": 270,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "ensamble de flautas (multipista)"
+      }
+    ],
+    "compositor": "Keiichi Okabe"
+  },
+  {
+    "id": "song-of-the-ancients",
+    "titulo": "Song of the Ancients",
+    "obra": "NieR Replicant",
+    "categoria": "videojuegos",
+    "ruta": "videojuegos",
+    "dificultad": 5,
+    "nivel": "nivel-5",
+    "tecnicas": [
+      "logro-tercera-octava-sol",
+      "logro-dinamicas"
+    ],
+    "requiere": [
+      "logro-tercera-octava-sol",
+      "logro-escala-cromatica",
+      "logro-sincopa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "s5GYVstkvvE",
+        "tituloVideo": "NieR Replicant - Song of the Ancients | Flute & Piano Cover |",
+        "canal": "EnkeEnyo Music",
+        "duracionSeg": 130,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y piano"
+      }
+    ],
+    "compositor": "Keiichi Okabe"
+  },
+  {
+    "id": "ichiban-no-takaramono",
+    "titulo": "Ichiban no Takaramono",
+    "obra": "Angel Beats!",
+    "categoria": "anime",
+    "ruta": "anime",
+    "dificultad": 4,
+    "nivel": "nivel-4",
+    "tecnicas": [
+      "logro-staccato",
+      "logro-sincopa"
+    ],
+    "requiere": [
+      "logro-dos-octavas",
+      "logro-escalas-3-alteraciones"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "jabFcJbcPjY",
+        "tituloVideo": "【コスフルート】Angel Beats!  一番の宝物  コスプレして演奏してみた  (Ichibannno Takaramono flute cover)",
+        "canal": "Katroll Flute Channel",
+        "duracionSeg": 291,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista"
+      }
+    ],
+    "compositor": "Jun Maeda"
+  },
+  {
+    "id": "koitte-modakashii",
+    "titulo": "Koitte Modakashii (Lost in Love)",
+    "obra": "Zero no Tsukaima",
+    "categoria": "anime",
+    "ruta": "anime",
+    "dificultad": 4,
+    "nivel": "nivel-4",
+    "tecnicas": [
+      "logro-staccato",
+      "logro-sincopa"
+    ],
+    "requiere": [
+      "logro-dos-octavas",
+      "logro-escalas-3-alteraciones"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "_3vlj9Uj0gk",
+        "tituloVideo": "Koitte Modakashii (Lost in Love) - Zero No Tsukaima [Piano and Flute Cover]",
+        "canal": "Andantino",
+        "duracionSeg": 118,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y piano"
+      }
+    ],
+    "compositor": "Shinkichi Mitsumune"
+  },
+  {
+    "id": "kamado-tanjiro-no-uta",
+    "titulo": "Kamado Tanjiro no Uta",
+    "obra": "Demon Slayer",
+    "categoria": "anime",
+    "ruta": "anime",
+    "dificultad": 3,
+    "nivel": "nivel-3",
+    "tecnicas": [
+      "logro-dos-octavas",
+      "logro-legato"
+    ],
+    "requiere": [
+      "logro-segunda-octava",
+      "logro-escala-sol-mayor",
+      "logro-ritmo-puntillo"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "56W-AD_vkJc",
+        "tituloVideo": "Kamado Tanjiro no Uta (Demon Slayer) - Flute Cover with sheet music",
+        "canal": "MusicNostalgiaZ",
+        "duracionSeg": 171,
+        "usos": [
+          "partitura"
+        ],
+        "instrumentacion": "flauta y pista",
+        "nota": "Partitura en MuseScore."
+      }
+    ],
+    "compositor": "Go Shiina"
+  },
+  {
+    "id": "once-upon-a-december",
+    "titulo": "Once Upon a December",
+    "obra": "Anastasia",
+    "categoria": "cine-tv",
+    "ruta": "folk-mundo",
+    "dificultad": 3,
+    "nivel": "nivel-3",
+    "tecnicas": [
+      "logro-dos-octavas",
+      "logro-legato"
+    ],
+    "requiere": [
+      "logro-segunda-octava",
+      "logro-escala-sol-mayor",
+      "logro-ritmo-puntillo"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "-FfwBBq0g6I",
+        "tituloVideo": "Once Upon A December (Anastasia ) - Flute cover with sheet music",
+        "canal": "MusicNostalgiaZ",
+        "duracionSeg": 166,
+        "usos": [
+          "partitura"
+        ],
+        "instrumentacion": "flauta y piano"
+      }
+    ],
+    "compositor": "Stephen Flaherty"
+  },
+  {
+    "id": "i-see-the-light",
+    "titulo": "I See the Light",
+    "obra": "Tangled (Enredados)",
+    "categoria": "cine-tv",
+    "ruta": "folk-mundo",
+    "dificultad": 3,
+    "nivel": "nivel-3",
+    "tecnicas": [
+      "logro-dos-octavas",
+      "logro-legato"
+    ],
+    "requiere": [
+      "logro-segunda-octava",
+      "logro-escala-sol-mayor",
+      "logro-ritmo-puntillo"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "XOh_nblBXEI",
+        "tituloVideo": "I See The Light (Tangled) Flute cover with sheet music",
+        "canal": "MusicNostalgiaZ",
+        "duracionSeg": 217,
+        "usos": [
+          "partitura"
+        ],
+        "instrumentacion": "flauta y pista",
+        "nota": "Partitura de piano tocada una octava más arriba."
+      }
+    ],
+    "compositor": "Alan Menken"
+  },
+  {
+    "id": "lumiere",
+    "titulo": "Lumière",
+    "obra": "Clair Obscur: Expedition 33",
+    "categoria": "videojuegos",
+    "ruta": "videojuegos",
+    "dificultad": 5,
+    "nivel": "nivel-5",
+    "tecnicas": [
+      "logro-tercera-octava-sol",
+      "logro-dinamicas"
+    ],
+    "requiere": [
+      "logro-tercera-octava-sol",
+      "logro-escala-cromatica",
+      "logro-sincopa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "f1p4n5qGBk4",
+        "tituloVideo": "Clair Obscur: Expedition 33 - Lumière (flute cover) + sheet music",
+        "canal": "Maxim Goryachev",
+        "duracionSeg": 58,
+        "usos": [
+          "partitura",
+          "clip"
+        ],
+        "instrumentacion": "flauta y pista",
+        "nota": "Clip con partitura."
+      },
+      {
+        "youtubeId": "6o_81X9HSd0",
+        "tituloVideo": "Clair Obscur: Expedition 33 - Lumière (Flute Cover)",
+        "canal": "Sheira Scarlet",
+        "duracionSeg": 281,
+        "usos": [
+          "partitura",
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista",
+        "nota": "Partitura (solo flauta y completa) en Ko-fi."
+      }
+    ],
+    "compositor": "Lorien Testard"
+  },
+  {
+    "id": "shikiori-no-hane",
+    "titulo": "Shikiori no Hane",
+    "obra": "Kagamine Rin & Len (Vocaloid)",
+    "categoria": "vocaloid",
+    "ruta": "anime",
+    "dificultad": 5,
+    "nivel": "nivel-5",
+    "tecnicas": [
+      "logro-tercera-octava-sol",
+      "logro-dinamicas"
+    ],
+    "requiere": [
+      "logro-tercera-octava-sol",
+      "logro-escala-cromatica",
+      "logro-sincopa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "re51S866KVc",
+        "tituloVideo": "VOCALOID Kagamine Rin & Len - 四季折の羽 (Shikiori no Hane) | Flute and Piano Cover",
+        "canal": "Sheira Scarlet",
+        "duracionSeg": 287,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y piano"
+      },
+      {
+        "youtubeId": "66kkeahCJ94",
+        "tituloVideo": "四季折の羽 sheet music",
+        "canal": "LaiDaS",
+        "duracionSeg": 288,
+        "usos": [
+          "partitura"
+        ],
+        "instrumentacion": "ensamble chino (pipa, dizi, erhu…)",
+        "nota": "No es flauta traversa occidental (el dizi es una flauta china), pero la partitura sirve de referencia."
+      }
+    ],
+    "compositor": "Hitoshizuku-P × Yama△"
+  },
+  {
+    "id": "raising-fighting-spirit",
+    "titulo": "Raising Fighting Spirit",
+    "obra": "Naruto",
+    "categoria": "anime",
+    "ruta": "anime",
+    "dificultad": 6,
+    "nivel": "nivel-6",
+    "tecnicas": [
+      "logro-vibrato",
+      "logro-tercera-octava-si"
+    ],
+    "requiere": [
+      "logro-tercera-octava-si",
+      "logro-vibrato"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "Qk6dXUAfJxo",
+        "tituloVideo": "NARUTO -  RAISING THE FIGHTING SPIRIT [Flutecookies cover]",
+        "canal": "Flutecookies",
+        "duracionSeg": 97,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista"
+      }
+    ],
+    "compositor": "Toshio Masuda",
+    "notas": "La intérprete dice que es algo difícil."
+  },
+  {
+    "id": "wind-akeboshi",
+    "titulo": "Wind",
+    "obra": "Naruto (ED)",
+    "categoria": "anime",
+    "ruta": "anime",
+    "dificultad": 3,
+    "nivel": "nivel-3",
+    "tecnicas": [
+      "logro-dos-octavas",
+      "logro-legato"
+    ],
+    "requiere": [
+      "logro-segunda-octava",
+      "logro-escala-sol-mayor",
+      "logro-ritmo-puntillo"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "p8CBDLR60nI",
+        "tituloVideo": "Naruto - Wind Akeboshi [Flutecookies cover]",
+        "canal": "Flutecookies",
+        "duracionSeg": 207,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista"
+      }
+    ],
+    "compositor": "Akeboshi"
+  },
+  {
+    "id": "nezuko-theme",
+    "titulo": "Tema de Nezuko",
+    "obra": "Demon Slayer (T1)",
+    "categoria": "anime",
+    "ruta": "anime",
+    "dificultad": 4,
+    "nivel": "nivel-4",
+    "tecnicas": [
+      "logro-staccato",
+      "logro-sincopa"
+    ],
+    "requiere": [
+      "logro-dos-octavas",
+      "logro-escalas-3-alteraciones"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "5_VQ-hU8HQY",
+        "tituloVideo": "Demon Slayer (鬼滅の刃) - Nezuko's Theme [Flutecookies cover]",
+        "canal": "Flutecookies",
+        "duracionSeg": 285,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista"
+      }
+    ],
+    "compositor": "Go Shiina",
+    "notas": "Distinta de 'Kamado Nezuko no Uta'."
+  },
+  {
+    "id": "renai-circulation",
+    "titulo": "Renai Circulation",
+    "obra": "Bakemonogatari",
+    "categoria": "anime",
+    "ruta": "anime",
+    "dificultad": 5,
+    "nivel": "nivel-5",
+    "tecnicas": [
+      "logro-tercera-octava-sol",
+      "logro-dinamicas"
+    ],
+    "requiere": [
+      "logro-tercera-octava-sol",
+      "logro-escala-cromatica",
+      "logro-sincopa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "d-4IKZU4xsE",
+        "tituloVideo": "Renai Circulation (戀愛サ-キュレ-ション) - Bakemonogatari [Flutecookies cover]",
+        "canal": "Flutecookies",
+        "duracionSeg": 96,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista"
+      }
+    ],
+    "compositor": "Kana Hanazawa (voz)",
+    "notas": "La intérprete deja la parte rapeada sin tocar."
+  },
+  {
+    "id": "lemon",
+    "titulo": "Lemon",
+    "obra": "Unnatural (drama)",
+    "categoria": "jpop",
+    "ruta": "anime",
+    "dificultad": 4,
+    "nivel": "nivel-4",
+    "tecnicas": [
+      "logro-staccato",
+      "logro-sincopa"
+    ],
+    "requiere": [
+      "logro-dos-octavas",
+      "logro-escalas-3-alteraciones"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "ozvVPmj-7IA",
+        "tituloVideo": "【フルート・楽譜】Lemon / 米津玄師｜ドラマ「アンナチュラル」主題歌 - Flute Cover with Sheet Music",
+        "canal": "そのちゃんフルート",
+        "duracionSeg": 257,
+        "usos": [
+          "partitura",
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista"
+      },
+      {
+        "youtubeId": "IdlJWOXihuQ",
+        "tituloVideo": "米津玄師 [Kenshi Yonezu] - LEMON (Flutecookies cover)",
+        "canal": "Flutecookies",
+        "duracionSeg": 259,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista"
+      },
+      {
+        "youtubeId": "y0b5vUwe8eI",
+        "tituloVideo": "【フルート】Lemon / 米津玄師【歌詞･楽譜】",
+        "canal": "ふえちゃん",
+        "duracionSeg": 255,
+        "usos": [
+          "partitura",
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista",
+        "nota": "Con letra y partitura en pantalla."
+      }
+    ],
+    "compositor": "Kenshi Yonezu"
+  },
+  {
+    "id": "yoru-ni-kakeru",
+    "titulo": "Yoru ni Kakeru (Into the Night)",
+    "obra": "YOASOBI",
+    "categoria": "jpop",
+    "ruta": "anime",
+    "dificultad": 7,
+    "nivel": "nivel-7",
+    "tecnicas": [
+      "logro-doble-picado",
+      "logro-tercera-octava-completa",
+      "logro-sincopa"
+    ],
+    "requiere": [
+      "logro-doble-picado",
+      "logro-tercera-octava-completa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "X5M2Le-vbos",
+        "tituloVideo": "【フルート】夜に駆ける / YOASOBI【楽譜】Into The Night / YOASOBI",
+        "canal": "ふえちゃん",
+        "duracionSeg": 269,
+        "usos": [
+          "partitura",
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista",
+        "nota": "Sacada de oído por la intérprete; partitura en pantalla."
+      }
+    ],
+    "compositor": "Ayase"
+  },
+  {
+    "id": "odo",
+    "titulo": "Odo (踊)",
+    "obra": "Ado",
+    "categoria": "jpop",
+    "ruta": "anime",
+    "dificultad": 7,
+    "nivel": "nivel-7",
+    "tecnicas": [
+      "logro-doble-picado",
+      "logro-tercera-octava-completa",
+      "logro-sincopa"
+    ],
+    "requiere": [
+      "logro-doble-picado",
+      "logro-tercera-octava-completa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "2R8BytDY43U",
+        "tituloVideo": "【楽譜】踊 / Ado【フルート】",
+        "canal": "ふえちゃん",
+        "duracionSeg": 217,
+        "usos": [
+          "partitura",
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista"
+      }
+    ],
+    "compositor": "TeddyLoid / Giga"
+  },
+  {
+    "id": "king-kanaria",
+    "titulo": "KING",
+    "obra": "Kanaria (GUMI)",
+    "categoria": "vocaloid",
+    "ruta": "anime",
+    "dificultad": 6,
+    "nivel": "nivel-6",
+    "tecnicas": [
+      "logro-vibrato",
+      "logro-tercera-octava-si"
+    ],
+    "requiere": [
+      "logro-tercera-octava-si",
+      "logro-vibrato"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "-i6lcfnQW7I",
+        "tituloVideo": "【楽譜】KING / Kanaria【フルート】",
+        "canal": "ふえちゃん",
+        "duracionSeg": 135,
+        "usos": [
+          "partitura",
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista"
+      }
+    ],
+    "compositor": "Kanaria"
+  },
+  {
+    "id": "por-una-cabeza",
+    "titulo": "Por una Cabeza",
+    "obra": "Tango",
+    "categoria": "latino",
+    "ruta": "folk-mundo",
+    "dificultad": 6,
+    "nivel": "nivel-5",
+    "tecnicas": [
+      "logro-tercera-octava-sol",
+      "logro-dinamicas",
+      "logro-vibrato"
+    ],
+    "requiere": [
+      "logro-tercera-octava-sol",
+      "logro-escala-cromatica",
+      "logro-sincopa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "PVW9jSifSwA",
+        "tituloVideo": "Carlos Gardel - Por Una Cabeza - flute",
+        "canal": "Stanislav Zubytskyi",
+        "duracionSeg": 158,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y orquesta"
+      },
+      {
+        "youtubeId": "_dKe0_bOXxE",
+        "tituloVideo": "Por una Cabeza - Carlos Gardel | From Scent of a Woman Soundtrack | Flute Cover | Aytaç Ütebay",
+        "canal": "Aytaç Ütebay",
+        "duracionSeg": 139,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista"
+      }
+    ],
+    "compositor": "Carlos Gardel",
+    "notas": "Jefe del nivel 5."
+  },
+  {
+    "id": "passacaglia",
+    "titulo": "Passacaglia (Händel/Halvorsen)",
+    "obra": "Händel / Halvorsen",
+    "categoria": "clasica",
+    "ruta": "clasica",
+    "dificultad": 7,
+    "nivel": "nivel-7",
+    "tecnicas": [
+      "logro-doble-picado",
+      "logro-tercera-octava-completa"
+    ],
+    "requiere": [
+      "logro-doble-picado",
+      "logro-tercera-octava-completa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "KFEqAk482UA",
+        "tituloVideo": "Passacaglia by Handel/Halvorsen - FLUTE SHEET MUSIC",
+        "canal": "Tutti Notes",
+        "duracionSeg": 154,
+        "usos": [
+          "partitura"
+        ],
+        "instrumentacion": "partitura en pantalla",
+        "nota": "Partitura en Sheet Music Direct."
+      }
+    ],
+    "compositor": "G. F. Händel / J. Halvorsen"
+  },
+  {
+    "id": "la-llorona",
+    "titulo": "La Llorona",
+    "obra": "Canción popular mexicana",
+    "categoria": "folk",
+    "ruta": "folk-mundo",
+    "dificultad": 2,
+    "nivel": "nivel-2",
+    "tecnicas": [
+      "logro-legato",
+      "logro-picado-simple"
+    ],
+    "requiere": [
+      "logro-registro-grave"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "9LjQOeiLNHU",
+        "tituloVideo": "La Llorona - Flute Solo",
+        "canal": "Flute Files Music",
+        "duracionSeg": 116,
+        "usos": [
+          "partitura"
+        ],
+        "instrumentacion": "flauta sola",
+        "dificultadArreglo": 2,
+        "nota": "Partitura en Musicnotes."
+      }
+    ],
+    "compositor": "Tradicional (arr. L. Auberjeunois)",
+    "notas": "Arreglo de nivel principiante avanzado. ¡Una de casa!"
+  },
+  {
+    "id": "shouri-zen-no-theme",
+    "titulo": "Shouri Zen no Theme",
+    "obra": "Digimon Adventure",
+    "categoria": "anime",
+    "ruta": "anime",
+    "dificultad": 4,
+    "nivel": "nivel-4",
+    "tecnicas": [
+      "logro-staccato",
+      "logro-sincopa"
+    ],
+    "requiere": [
+      "logro-dos-octavas",
+      "logro-escalas-3-alteraciones"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "77yqix82Ibc",
+        "tituloVideo": "shouri zen no theme from Digimon adventure: Flute solo",
+        "canal": "Flute solo by Nattawut Wongsrijan",
+        "duracionSeg": 105,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta sola"
+      },
+      {
+        "youtubeId": "2wNRLOL-mgs",
+        "tituloVideo": "Zen no theme . Flute version",
+        "canal": "Ensamble Anime Ryujin",
+        "duracionSeg": 86,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "ensamble en vivo"
+      }
+    ],
+    "compositor": "Takanori Arisawa",
+    "notas": "Que los dos videos sean la misma pieza está por confirmar."
+  },
+  {
+    "id": "fairy-tail-main-theme",
+    "titulo": "Main Theme (Dragon Force)",
+    "obra": "Fairy Tail",
+    "categoria": "anime",
+    "ruta": "anime",
+    "dificultad": 5,
+    "nivel": "nivel-5",
+    "tecnicas": [
+      "logro-tercera-octava-sol",
+      "logro-dinamicas"
+    ],
+    "requiere": [
+      "logro-tercera-octava-sol",
+      "logro-escala-cromatica",
+      "logro-sincopa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "OguPEPSc3N8",
+        "tituloVideo": "Fairy Tail - Main Theme / Dragon Force (Flute cover by Vincent Gatdula)",
+        "canal": "Vincent Gatdula - Fitness Channel",
+        "duracionSeg": 124,
+        "usos": [
+          "partitura",
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista",
+        "nota": "Partitura en PDF."
+      }
+    ],
+    "compositor": "Yasuharu Takanashi"
+  },
+  {
+    "id": "sadness-and-sorrow",
+    "titulo": "Sadness and Sorrow",
+    "obra": "Naruto",
+    "categoria": "anime",
+    "ruta": "anime",
+    "dificultad": 2,
+    "nivel": "nivel-2",
+    "tecnicas": [
+      "logro-legato",
+      "logro-picado-simple"
+    ],
+    "requiere": [
+      "logro-registro-grave"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "0pHk6bm1jCQ",
+        "tituloVideo": "Naruto - Sadness and Sorrow (Flute Cover)",
+        "canal": "Vincent Gatdula - Fitness Channel",
+        "duracionSeg": 178,
+        "usos": [
+          "partitura",
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista",
+        "nota": "Partitura en MuseScore."
+      }
+    ],
+    "compositor": "Toshio Masuda",
+    "notas": "Lenta y cantable."
+  },
+  {
+    "id": "tetris",
+    "titulo": "Tetris (Korobeiniki)",
+    "obra": "Tetris / canción popular rusa",
+    "categoria": "videojuegos",
+    "ruta": "videojuegos",
+    "dificultad": 3,
+    "nivel": "nivel-3",
+    "tecnicas": [
+      "logro-dos-octavas",
+      "logro-legato"
+    ],
+    "requiere": [
+      "logro-segunda-octava",
+      "logro-escala-sol-mayor",
+      "logro-ritmo-puntillo"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "_X4j4Yl9UPQ",
+        "tituloVideo": "Tetris Theme - Flute Cover",
+        "canal": "Vincent Gatdula - Fitness Channel",
+        "duracionSeg": 87,
+        "usos": [
+          "partitura",
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista",
+        "nota": "Partitura en MuseScore. Tocada con una flauta económica Mendini."
+      }
+    ],
+    "compositor": "Tradicional"
+  },
+  {
+    "id": "crossing-field",
+    "titulo": "Crossing Field",
+    "obra": "Sword Art Online (OP)",
+    "categoria": "anime",
+    "ruta": "anime",
+    "dificultad": 6,
+    "nivel": "nivel-6",
+    "tecnicas": [
+      "logro-vibrato",
+      "logro-tercera-octava-si"
+    ],
+    "requiere": [
+      "logro-tercera-octava-si",
+      "logro-vibrato"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "PbDZiBHHuHA",
+        "tituloVideo": "Sword Art Online - Crossing Field (Flute Cover)",
+        "canal": "Vincent Gatdula - Fitness Channel",
+        "duracionSeg": 99,
+        "usos": [
+          "partitura",
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista",
+        "nota": "Partitura en MuseScore."
+      }
+    ],
+    "compositor": "LiSA"
+  },
+  {
+    "id": "lightning-flame-dragon",
+    "titulo": "Lightning Flame Dragon Roaring",
+    "obra": "Fairy Tail",
+    "categoria": "anime",
+    "ruta": "anime",
+    "dificultad": 6,
+    "nivel": "nivel-6",
+    "tecnicas": [
+      "logro-vibrato",
+      "logro-tercera-octava-si"
+    ],
+    "requiere": [
+      "logro-tercera-octava-si",
+      "logro-vibrato"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "xcqKiy0hdDE",
+        "tituloVideo": "Fairy Tail - Lightning Flame Dragon Roaring (Flute Cover to OST)",
+        "canal": "Vincent Gatdula - Fitness Channel",
+        "duracionSeg": 121,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista"
+      },
+      {
+        "youtubeId": "XDn3PUCRD34",
+        "tituloVideo": "Fairy Tail - Lightning Flame Dragon Roaring (Flute Cover to MIDI Track)",
+        "canal": "Vincent Gatdula - Fitness Channel",
+        "duracionSeg": 121,
+        "usos": [
+          "partitura",
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista",
+        "nota": "Partitura en la descripción."
+      }
+    ],
+    "compositor": "Yasuharu Takanashi"
+  },
+  {
+    "id": "natsu-theme",
+    "titulo": "Tema de Natsu",
+    "obra": "Fairy Tail",
+    "categoria": "anime",
+    "ruta": "anime",
+    "dificultad": 5,
+    "nivel": "nivel-5",
+    "tecnicas": [
+      "logro-tercera-octava-sol",
+      "logro-dinamicas"
+    ],
+    "requiere": [
+      "logro-tercera-octava-sol",
+      "logro-escala-cromatica",
+      "logro-sincopa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "eNUne59ByBQ",
+        "tituloVideo": "Fairy Tail - Natsu's Theme (Flute Cover by Vincent Gatdula)",
+        "canal": "Vincent Gatdula - Fitness Channel",
+        "duracionSeg": 113,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista"
+      }
+    ],
+    "compositor": "Yasuharu Takanashi"
+  },
+  {
+    "id": "gin-no-ryuu",
+    "titulo": "Gin no Ryuu no Se ni Notte",
+    "obra": "Miyuki Nakajima",
+    "categoria": "jpop",
+    "ruta": "anime",
+    "dificultad": 5,
+    "nivel": "nivel-5",
+    "tecnicas": [
+      "logro-tercera-octava-sol",
+      "logro-dinamicas"
+    ],
+    "requiere": [
+      "logro-tercera-octava-sol",
+      "logro-escala-cromatica",
+      "logro-sincopa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "gzEOBiuZIAo",
+        "tituloVideo": "【フルート】銀の龍の背に乗って【演奏してみた】FLUTE",
+        "canal": "要田詩織&柴音フルート",
+        "duracionSeg": 235,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista"
+      }
+    ],
+    "compositor": "中島みゆき"
+  },
+  {
+    "id": "danse-macabre",
+    "titulo": "Danse Macabre",
+    "obra": "Camille Saint-Saëns",
+    "categoria": "clasica",
+    "ruta": "clasica",
+    "dificultad": 8,
+    "nivel": "nivel-7",
+    "tecnicas": [
+      "logro-doble-picado",
+      "logro-tercera-octava-completa"
+    ],
+    "requiere": [
+      "logro-doble-picado",
+      "logro-tercera-octava-completa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "ExsPf3L06tc",
+        "tituloVideo": "Danse Macabre Flute by Camille Saint Saens",
+        "canal": "The Great Stave",
+        "duracionSeg": 426,
+        "usos": [
+          "partitura"
+        ],
+        "instrumentacion": "flauta y piano",
+        "nota": "Partitura en MuseScore."
+      },
+      {
+        "youtubeId": "GlzBXH_TA3I",
+        "tituloVideo": "【フルート】死の舞踏/サン=サーンス【FLUTE on ICE】Danse macabre(Flute & Piano)",
+        "canal": "フルート もりたあいか",
+        "duracionSeg": 426,
+        "usos": [
+          "partitura",
+          "referencia"
+        ],
+        "instrumentacion": "flauta y piano",
+        "nota": "Del libro 'FLUTE on ICE'."
+      }
+    ],
+    "compositor": "Camille Saint-Saëns"
+  },
+  {
+    "id": "servant-of-evil",
+    "titulo": "Servant of Evil",
+    "obra": "Kagamine Len (Vocaloid)",
+    "categoria": "vocaloid",
+    "ruta": "anime",
+    "dificultad": 5,
+    "nivel": "nivel-5",
+    "tecnicas": [
+      "logro-tercera-octava-sol",
+      "logro-dinamicas"
+    ],
+    "requiere": [
+      "logro-tercera-octava-sol",
+      "logro-escala-cromatica",
+      "logro-sincopa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "aMPEIK2mZVU",
+        "tituloVideo": "Len-Servant of Evil on Flute",
+        "canal": "StrawberryPockyYum",
+        "duracionSeg": 341,
+        "usos": [
+          "partitura",
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista",
+        "nota": "Partitura en ichigos.com."
+      }
+    ],
+    "compositor": "mothy"
+  },
+  {
+    "id": "final-phase",
+    "titulo": "final phase",
+    "obra": "A Certain Scientific Railgun T",
+    "categoria": "anime",
+    "ruta": "anime",
+    "dificultad": 7,
+    "nivel": "nivel-7",
+    "tecnicas": [
+      "logro-doble-picado",
+      "logro-tercera-octava-completa"
+    ],
+    "requiere": [
+      "logro-doble-picado",
+      "logro-tercera-octava-completa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "S31rKqB6zYQ",
+        "tituloVideo": "【Flute Cover】final phase  / fripSide - とある科学の超電磁砲T 主題歌 - | TTM Winds",
+        "canal": "TheTwistmenWinds",
+        "duracionSeg": 98,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista"
+      }
+    ],
+    "compositor": "fripSide"
+  },
+  {
+    "id": "dream-solister",
+    "titulo": "DREAM SOLISTER",
+    "obra": "Hibike! Euphonium (OP)",
+    "categoria": "anime",
+    "ruta": "anime",
+    "dificultad": 6,
+    "nivel": "nivel-6",
+    "tecnicas": [
+      "logro-vibrato",
+      "logro-tercera-octava-si"
+    ],
+    "requiere": [
+      "logro-tercera-octava-si",
+      "logro-vibrato"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "iy31ocA35k8",
+        "tituloVideo": "Hibike! Euphonium Opening - DREAM SOLISTER (Flute)",
+        "canal": "Jad’s Anime Music Vault",
+        "duracionSeg": 92,
+        "usos": [
+          "partitura"
+        ],
+        "instrumentacion": "partitura en pantalla"
+      }
+    ],
+    "compositor": "TRUE"
+  },
+  {
+    "id": "intro-rondo-capriccioso",
+    "titulo": "Introducción y Rondó Caprichoso",
+    "obra": "Camille Saint-Saëns",
+    "categoria": "clasica",
+    "ruta": "clasica",
+    "dificultad": 9,
+    "nivel": "nivel-7",
+    "tecnicas": [
+      "logro-doble-picado",
+      "logro-tercera-octava-completa",
+      "logro-doble-picado-rapido"
+    ],
+    "requiere": [
+      "logro-doble-picado",
+      "logro-tercera-octava-completa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "o6pwH1ycOpA",
+        "tituloVideo": "C. Saint-Saëns: Introduction and Rondo Capriccioso",
+        "canal": "Denis Bouriakov",
+        "duracionSeg": 573,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y orquesta de cámara",
+        "nota": "Arreglo e interpretación de Denis Bouriakov."
+      }
+    ],
+    "compositor": "C. Saint-Saëns (arr. D. Bouriakov)",
+    "notas": "Original para violín."
+  },
+  {
+    "id": "liebesleid",
+    "titulo": "Liebesleid",
+    "obra": "Fritz Kreisler",
+    "categoria": "clasica",
+    "ruta": "clasica",
+    "dificultad": 6,
+    "nivel": "nivel-6",
+    "tecnicas": [
+      "logro-vibrato",
+      "logro-tercera-octava-si"
+    ],
+    "requiere": [
+      "logro-tercera-octava-si",
+      "logro-vibrato"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "aZDZZDVvBRU",
+        "tituloVideo": "Liebesleid (Kreisler)",
+        "canal": "Maxence Larrieu - Topic",
+        "duracionSeg": 227,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y piano",
+        "nota": "Maxence Larrieu (grabación de estudio)."
+      },
+      {
+        "youtubeId": "PJC-bYXvH1I",
+        "tituloVideo": "F. Kreisler, Leibesleid, Love's Sorrow, for flute & Piano, accompaniment",
+        "canal": "Flute Graffiti",
+        "duracionSeg": 410,
+        "usos": [
+          "acompanamiento"
+        ],
+        "instrumentacion": "acompañamiento de piano",
+        "nota": "Acompañamiento solo desde el minuto 3:22; la partitura está en otro video."
+      }
+    ],
+    "compositor": "Fritz Kreisler"
+  },
+  {
+    "id": "chopin-etude-op25-2",
+    "titulo": "Estudio op. 25 nº 2",
+    "obra": "Frédéric Chopin",
+    "categoria": "clasica",
+    "ruta": "clasica",
+    "dificultad": 10,
+    "nivel": "nivel-8",
+    "tecnicas": [
+      "logro-doble-picado-rapido",
+      "logro-triple-picado",
+      "logro-respiracion-circular"
+    ],
+    "requiere": [
+      "logro-doble-picado-rapido",
+      "logro-triple-picado"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "DCTqGzHsZ5A",
+        "tituloVideo": "F. Chopin - Etude op. 25 no 2",
+        "canal": "Natalia Jarząbek",
+        "duracionSeg": 108,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y piano"
+      }
+    ],
+    "compositor": "Frédéric Chopin",
+    "notas": "Transcripción para flauta con respiración circular."
+  },
+  {
+    "id": "tchaikovsky-junio",
+    "titulo": "Junio (Barcarola)",
+    "obra": "Las estaciones, op. 37a",
+    "categoria": "clasica",
+    "ruta": "clasica",
+    "dificultad": 5,
+    "nivel": "nivel-5",
+    "tecnicas": [
+      "logro-tercera-octava-sol",
+      "logro-dinamicas",
+      "logro-vibrato"
+    ],
+    "requiere": [
+      "logro-tercera-octava-sol",
+      "logro-escala-cromatica",
+      "logro-sincopa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "iH7w6omwPHk",
+        "tituloVideo": "Tchaikovsky_The Seasons_June(뱃노래)_Flute & Piano",
+        "canal": "Flute Graffiti",
+        "duracionSeg": 592,
+        "usos": [
+          "partitura",
+          "acompanamiento"
+        ],
+        "instrumentacion": "flauta y piano",
+        "nota": "Acompañamiento desde el minuto 4:53; partitura en el enlace de la descripción."
+      }
+    ],
+    "compositor": "P. I. Chaikovski"
+  },
+  {
+    "id": "a-thousand-years",
+    "titulo": "A Thousand Years",
+    "obra": "Twilight",
+    "categoria": "pop",
+    "ruta": "folk-mundo",
+    "dificultad": 4,
+    "nivel": "nivel-4",
+    "tecnicas": [
+      "logro-staccato",
+      "logro-sincopa"
+    ],
+    "requiere": [
+      "logro-dos-octavas",
+      "logro-escalas-3-alteraciones"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "x3RKH6AMU5E",
+        "tituloVideo": "【フルート・楽譜】映画「トワイライト」 A Thousand Years - Christina Perri | Flute Cover with Sheet Music | 癒しのフルートカバー",
+        "canal": "そのちゃんフルート",
+        "duracionSeg": 288,
+        "usos": [
+          "partitura",
+          "referencia"
+        ],
+        "instrumentacion": "flauta y pista"
+      }
+    ],
+    "compositor": "Christina Perri"
+  },
+  {
+    "id": "der-holle-rache",
+    "titulo": "Der Hölle Rache kocht in meinem Herzen",
+    "obra": "Die Zauberflöte (La flauta mágica) – aria de la Reina de la Noche",
+    "categoria": "clasica",
+    "ruta": "clasica",
+    "dificultad": 7,
+    "nivel": "nivel-7",
+    "tecnicas": [
+      "logro-doble-picado",
+      "logro-staccato",
+      "logro-tercera-octava-completa"
+    ],
+    "requiere": [
+      "logro-doble-picado",
+      "logro-tercera-octava-completa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "Q1lv20hNPBw",
+        "tituloVideo": "And she slayed 😌👏",
+        "canal": "Monica Park",
+        "duracionSeg": 126,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta",
+        "nota": "Aria de soprano de coloratura: staccatos rápidos hasta Fa6."
+      }
+    ],
+    "compositor": "W. A. Mozart",
+    "notas": "En la voz original es famosa por sus agudos; en la flauta, la dificultad está en el staccato rápido y en la precisión de la tercera octava."
+  }
+]

@@ -1,0 +1,2513 @@
+[
+  {
+    "id": "dia-01",
+    "numero": 1,
+    "fecha": "2026-11-02",
+    "diaSemana": "lunes",
+    "semana": 1,
+    "fase": "sin-flauta",
+    "tipo": "practica",
+    "sesion": 1,
+    "titulo": "Test inicial y pentagrama",
+    "objetivo": "Medir de dónde partes y conocer el pentagrama.",
+    "bloques": [
+      {
+        "tipo": "respiracion",
+        "minutos": 8,
+        "actividad": "Respiración diafragmática acostado: un libro sobre el abdomen; inhala 4 tiempos y exhala 6, sin subir los hombros."
+      },
+      {
+        "tipo": "lectura",
+        "minutos": 15,
+        "actividad": "TEST INICIAL: identifica notas en clave de sol de Do4 a Do7 (incluye líneas adicionales) durante 2 min. Anota aciertos, errores y en qué zona fallas.",
+        "recurso": "musictheory.net (Exercises → Note Identification)"
+      },
+      {
+        "tipo": "teoria",
+        "minutos": 12,
+        "actividad": "Pentagrama, clave de sol, líneas (Mi-Sol-Si-Re-Fa) y espacios (Fa-La-Do-Mi)."
+      },
+      {
+        "tipo": "escucha",
+        "minutos": 10,
+        "actividad": "Escucha una grabación de James Galway y anota 3 cosas de su sonido."
+      }
+    ],
+    "logrosPosibles": [
+      "logro-test-lectura"
+    ],
+    "notas": "Día de Muertos: sesión ligera de 45 min. Empieza tu cuaderno de práctica hoy (fecha, minutos y qué hiciste)."
+  },
+  {
+    "id": "dia-02",
+    "numero": 2,
+    "fecha": "2026-11-03",
+    "diaSemana": "martes",
+    "semana": 1,
+    "fase": "sin-flauta",
+    "tipo": "practica",
+    "sesion": 2,
+    "titulo": "Figuras y pulso",
+    "objetivo": "Primeras figuras rítmicas con metrónomo.",
+    "bloques": [
+      {
+        "tipo": "respiracion",
+        "minutos": 8,
+        "actividad": "Soplido 'sss' sostenido y parejo: mide cuántos segundos aguantas (línea base)."
+      },
+      {
+        "tipo": "ritmo",
+        "minutos": 15,
+        "actividad": "Redonda, blanca, negra y sus silencios. Palmea líneas de 4 compases con metrónomo a 60."
+      },
+      {
+        "tipo": "lectura",
+        "minutos": 12,
+        "actividad": "Notas en las líneas del pentagrama: 5 rondas de 1 min.",
+        "recurso": "musictheory.net (Exercises → Note Identification)"
+      },
+      {
+        "tipo": "guitarra",
+        "minutos": 15,
+        "actividad": "Encuentra Do-Re-Mi-Fa-Sol en las cuerdas 2 y 1 y di el nombre de cada nota al tocarla."
+      }
+    ],
+    "logrosPosibles": [
+      "logro-cuaderno"
+    ]
+  },
+  {
+    "id": "dia-03",
+    "numero": 3,
+    "fecha": "2026-11-04",
+    "diaSemana": "miércoles",
+    "semana": 1,
+    "fase": "sin-flauta",
+    "tipo": "practica",
+    "sesion": 3,
+    "titulo": "Corcheas y compases",
+    "objetivo": "Corcheas y compases de 2, 3 y 4 tiempos.",
+    "bloques": [
+      {
+        "tipo": "respiracion",
+        "minutos": 8,
+        "actividad": "Respiración diafragmática sentado + soplido 'sss'."
+      },
+      {
+        "tipo": "ritmo",
+        "minutos": 12,
+        "actividad": "Corcheas; compases de 4/4 y 3/4. Palmea contando en voz alta a 60."
+      },
+      {
+        "tipo": "lectura",
+        "minutos": 12,
+        "actividad": "Notas en los espacios y luego todo el pentagrama mezclado.",
+        "recurso": "musictheory.net (Exercises → Note Identification)"
+      },
+      {
+        "tipo": "teoria",
+        "minutos": 8,
+        "actividad": "Tonos y semitonos en el mástil de la guitarra (1 traste = 1 semitono)."
+      },
+      {
+        "tipo": "oido",
+        "minutos": 10,
+        "actividad": "Saca de oído en la guitarra las primeras notas de Bella Ciao."
+      }
+    ],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-04",
+    "numero": 4,
+    "fecha": "2026-11-05",
+    "diaSemana": "jueves",
+    "semana": 1,
+    "fase": "sin-flauta",
+    "tipo": "descanso",
+    "titulo": "Descanso",
+    "objetivo": "Descansar también es entrenar: los labios y la memoria se consolidan.",
+    "bloques": [],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-05",
+    "numero": 5,
+    "fecha": "2026-11-06",
+    "diaSemana": "viernes",
+    "semana": 1,
+    "fase": "sin-flauta",
+    "tipo": "practica",
+    "sesion": 4,
+    "titulo": "La escala mayor",
+    "objetivo": "Entender cómo se construye una escala mayor.",
+    "bloques": [
+      {
+        "tipo": "respiracion",
+        "minutos": 8,
+        "actividad": "Inhala 4 tiempos, sopla 'sss' 8 tiempos. Repite 6 veces."
+      },
+      {
+        "tipo": "teoria",
+        "minutos": 15,
+        "actividad": "Fórmula T-T-S-T-T-T-S. Construye la escala de Do mayor y tócala en la guitarra.",
+        "recurso": "teoria.com (ejercicios en español)"
+      },
+      {
+        "tipo": "lectura",
+        "minutos": 12,
+        "actividad": "Do4–Sol5: meta de menos de 3 s por nota.",
+        "recurso": "musictheory.net (Exercises → Note Identification)"
+      },
+      {
+        "tipo": "escucha",
+        "minutos": 10,
+        "actividad": "Jean-Pierre Rampal: escucha y compara su sonido con el de Galway."
+      }
+    ],
+    "logrosPosibles": [
+      "logro-escalas-mayores-teoria"
+    ]
+  },
+  {
+    "id": "dia-06",
+    "numero": 6,
+    "fecha": "2026-11-07",
+    "diaSemana": "sábado",
+    "semana": 1,
+    "fase": "sin-flauta",
+    "tipo": "practica",
+    "sesion": 5,
+    "titulo": "Repaso de la semana",
+    "objetivo": "Cerrar la semana y medir tu avance.",
+    "bloques": [
+      {
+        "tipo": "repaso",
+        "minutos": 10,
+        "actividad": "Mini-test de lectura (2 min) y compáralo con el día 1.",
+        "recurso": "musictheory.net (Exercises → Note Identification)"
+      },
+      {
+        "tipo": "ritmo",
+        "minutos": 12,
+        "actividad": "Lectura rítmica de 8 compases (negras, corcheas y silencios) a 60."
+      },
+      {
+        "tipo": "guitarra",
+        "minutos": 18,
+        "actividad": "Bella Ciao completa de oído en la guitarra."
+      },
+      {
+        "tipo": "escucha",
+        "minutos": 8,
+        "actividad": "Emmanuel Pahud: anota 3 observaciones."
+      }
+    ],
+    "logrosPosibles": [
+      "logro-primera-semana"
+    ]
+  },
+  {
+    "id": "dia-07",
+    "numero": 7,
+    "fecha": "2026-11-08",
+    "diaSemana": "domingo",
+    "semana": 1,
+    "fase": "sin-flauta",
+    "tipo": "descanso",
+    "titulo": "Descanso",
+    "objetivo": "Descansar también es entrenar: los labios y la memoria se consolidan.",
+    "bloques": [],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-08",
+    "numero": 8,
+    "fecha": "2026-11-09",
+    "diaSemana": "lunes",
+    "semana": 2,
+    "fase": "sin-flauta",
+    "tipo": "practica",
+    "sesion": 6,
+    "titulo": "Las primeras agudas",
+    "objetivo": "Leer por encima del pentagrama.",
+    "bloques": [
+      {
+        "tipo": "respiracion",
+        "minutos": 8,
+        "actividad": "Soplido 'sss': intenta 15 s parejos."
+      },
+      {
+        "tipo": "lectura",
+        "minutos": 15,
+        "actividad": "Líneas adicionales arriba: La5, Si5 y Do6. Drill de 5 rondas.",
+        "recurso": "musictheory.net (Exercises → Note Identification)"
+      },
+      {
+        "tipo": "ritmo",
+        "minutos": 12,
+        "actividad": "Puntillo: blanca con puntillo y negra con puntillo, a 60."
+      },
+      {
+        "tipo": "teoria",
+        "minutos": 12,
+        "actividad": "Escala de Sol mayor (Fa#). Escríbela y tócala en guitarra."
+      }
+    ],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-09",
+    "numero": 9,
+    "fecha": "2026-11-10",
+    "diaSemana": "martes",
+    "semana": 2,
+    "fase": "sin-flauta",
+    "tipo": "practica",
+    "sesion": 7,
+    "titulo": "Más arriba",
+    "objetivo": "Seguir subiendo en la lectura.",
+    "bloques": [
+      {
+        "tipo": "respiracion",
+        "minutos": 8,
+        "actividad": "Respiración diafragmática de pie, con buena postura."
+      },
+      {
+        "tipo": "lectura",
+        "minutos": 15,
+        "actividad": "Re6 a Sol6. Ve más despacio y sin errores.",
+        "recurso": "musictheory.net (Exercises → Note Identification)"
+      },
+      {
+        "tipo": "ritmo",
+        "minutos": 10,
+        "actividad": "Ligaduras de prolongación."
+      },
+      {
+        "tipo": "oido",
+        "minutos": 10,
+        "actividad": "Intervalos de 2ª y 3ª al oído.",
+        "recurso": "teoria.com (ejercicios en español)"
+      },
+      {
+        "tipo": "guitarra",
+        "minutos": 7,
+        "actividad": "Escala de Sol mayor en la guitarra, nombrando las notas."
+      }
+    ],
+    "logrosPosibles": [
+      "logro-ritmo-basico"
+    ]
+  },
+  {
+    "id": "dia-10",
+    "numero": 10,
+    "fecha": "2026-11-11",
+    "diaSemana": "miércoles",
+    "semana": 2,
+    "fase": "sin-flauta",
+    "tipo": "practica",
+    "sesion": 8,
+    "titulo": "Semicorcheas",
+    "objetivo": "Subdividir el pulso.",
+    "bloques": [
+      {
+        "tipo": "respiracion",
+        "minutos": 8,
+        "actividad": "Soplido 'sss' de 15–20 s."
+      },
+      {
+        "tipo": "teoria",
+        "minutos": 10,
+        "actividad": "Escalas de Re mayor y Fa mayor (Si bemol)."
+      },
+      {
+        "tipo": "ritmo",
+        "minutos": 12,
+        "actividad": "Semicorcheas (4 por pulso) a 60, contando 1-y-2-y…"
+      },
+      {
+        "tipo": "lectura",
+        "minutos": 10,
+        "actividad": "Mezcla de Do4 a Sol6.",
+        "recurso": "musictheory.net (Exercises → Note Identification)"
+      },
+      {
+        "tipo": "oido",
+        "minutos": 12,
+        "actividad": "La Llorona: saca de oído en la guitarra la primera frase."
+      }
+    ],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-11",
+    "numero": 11,
+    "fecha": "2026-11-12",
+    "diaSemana": "jueves",
+    "semana": 2,
+    "fase": "sin-flauta",
+    "tipo": "descanso",
+    "titulo": "Descanso",
+    "objetivo": "Descansar también es entrenar: los labios y la memoria se consolidan.",
+    "bloques": [],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-12",
+    "numero": 12,
+    "fecha": "2026-11-13",
+    "diaSemana": "viernes",
+    "semana": 2,
+    "fase": "sin-flauta",
+    "tipo": "practica",
+    "sesion": 9,
+    "titulo": "Mapa de dedos",
+    "objetivo": "Aprender las digitaciones sin flauta.",
+    "bloques": [
+      {
+        "tipo": "respiracion",
+        "minutos": 8,
+        "actividad": "Soplido 'sss': objetivo 20 s."
+      },
+      {
+        "tipo": "tecnica",
+        "minutos": 15,
+        "actividad": "Postura de la flauta (con un tubo o palo como sustituto) y tabla de digitaciones de Si, La, Sol, Do y Re graves 'al aire'."
+      },
+      {
+        "tipo": "lectura",
+        "minutos": 12,
+        "actividad": "Primera vista: canta una melodía nueva de 4 compases con el nombre de las notas."
+      },
+      {
+        "tipo": "escucha",
+        "minutos": 10,
+        "actividad": "Busca a 3 flautistas en una misma obra (por ejemplo, Syrinx de Debussy) y compáralos."
+      }
+    ],
+    "logrosPosibles": [
+      "logro-soplido-20s"
+    ]
+  },
+  {
+    "id": "dia-13",
+    "numero": 13,
+    "fecha": "2026-11-14",
+    "diaSemana": "sábado",
+    "semana": 2,
+    "fase": "sin-flauta",
+    "tipo": "practica",
+    "sesion": 10,
+    "titulo": "Repaso de la semana",
+    "objetivo": "Test de agudas y La Llorona.",
+    "bloques": [
+      {
+        "tipo": "repaso",
+        "minutos": 10,
+        "actividad": "Test de Do4 a Do7: meta de 20 notas en menos de 60 s.",
+        "recurso": "musictheory.net (Exercises → Note Identification)"
+      },
+      {
+        "tipo": "ritmo",
+        "minutos": 10,
+        "actividad": "8 compases con puntillos y semicorcheas a 60."
+      },
+      {
+        "tipo": "guitarra",
+        "minutos": 20,
+        "actividad": "La Llorona completa de oído."
+      },
+      {
+        "tipo": "teoria",
+        "minutos": 8,
+        "actividad": "Repaso: escalas de Do, Sol, Re y Fa."
+      }
+    ],
+    "logrosPosibles": [
+      "logro-clave-sol",
+      "logro-ritmo-puntillo",
+      "logro-respiracion-diafragmatica"
+    ]
+  },
+  {
+    "id": "dia-14",
+    "numero": 14,
+    "fecha": "2026-11-15",
+    "diaSemana": "domingo",
+    "semana": 2,
+    "fase": "sin-flauta",
+    "tipo": "descanso",
+    "titulo": "Descanso",
+    "objetivo": "Descansar también es entrenar: los labios y la memoria se consolidan.",
+    "bloques": [],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-15",
+    "numero": 15,
+    "fecha": "2026-11-16",
+    "diaSemana": "lunes",
+    "semana": 3,
+    "fase": "sin-flauta",
+    "tipo": "practica",
+    "sesion": 11,
+    "titulo": "Círculo de quintas (sostenidos)",
+    "objetivo": "Entender las armaduras con sostenidos.",
+    "bloques": [
+      {
+        "tipo": "respiracion",
+        "minutos": 8,
+        "actividad": "Soplido 'sss' de 20 s, tres repeticiones."
+      },
+      {
+        "tipo": "teoria",
+        "minutos": 15,
+        "actividad": "Círculo de quintas: armaduras de 1 a 3 sostenidos (Sol, Re, La).",
+        "recurso": "teoria.com (ejercicios en español)"
+      },
+      {
+        "tipo": "lectura",
+        "minutos": 10,
+        "actividad": "Agudas hasta Do7.",
+        "recurso": "musictheory.net (Exercises → Note Identification)"
+      },
+      {
+        "tipo": "tecnica",
+        "minutos": 7,
+        "actividad": "Digitación al aire de Re4 a Re5."
+      },
+      {
+        "tipo": "oido",
+        "minutos": 10,
+        "actividad": "Intervalos de 4ª y 5ª.",
+        "recurso": "teoria.com (ejercicios en español)"
+      }
+    ],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-16",
+    "numero": 16,
+    "fecha": "2026-11-17",
+    "diaSemana": "martes",
+    "semana": 3,
+    "fase": "sin-flauta",
+    "tipo": "practica",
+    "sesion": 12,
+    "titulo": "Bemoles y primera transcripción",
+    "objetivo": "Armaduras con bemoles y empezar a transcribir.",
+    "bloques": [
+      {
+        "tipo": "respiracion",
+        "minutos": 8,
+        "actividad": "Respiración diafragmática + soplido."
+      },
+      {
+        "tipo": "teoria",
+        "minutos": 12,
+        "actividad": "Armaduras de 1 a 3 bemoles (Fa, Sib, Mib)."
+      },
+      {
+        "tipo": "ritmo",
+        "minutos": 8,
+        "actividad": "Introducción a la síncopa: palmea 4 compases."
+      },
+      {
+        "tipo": "oido",
+        "minutos": 22,
+        "actividad": "TRANSCRIPCIÓN: Isabella's Lullaby, frase 1. Escúchala en bucle, cántala y encuéntrala en la guitarra.",
+        "recurso": "Karne Flute Covers – Isabella's Lullaby"
+      }
+    ],
+    "logrosPosibles": [
+      "logro-armaduras"
+    ]
+  },
+  {
+    "id": "dia-17",
+    "numero": 17,
+    "fecha": "2026-11-18",
+    "diaSemana": "miércoles",
+    "semana": 3,
+    "fase": "sin-flauta",
+    "tipo": "practica",
+    "sesion": 13,
+    "titulo": "Intervalos en el papel",
+    "objetivo": "Medir intervalos y digitar la segunda octava.",
+    "bloques": [
+      {
+        "tipo": "respiracion",
+        "minutos": 8,
+        "actividad": "Soplido 'sss' de 20–25 s."
+      },
+      {
+        "tipo": "teoria",
+        "minutos": 12,
+        "actividad": "Intervalos en el papel: cuenta semitonos (2ª, 3ª, 4ª, 5ª, 8ª)."
+      },
+      {
+        "tipo": "tecnica",
+        "minutos": 10,
+        "actividad": "Digitación al aire de la segunda octava (Re5 a Re6)."
+      },
+      {
+        "tipo": "oido",
+        "minutos": 20,
+        "actividad": "Isabella's Lullaby, frase 2. Escribe en pentagrama lo transcrito (papel o MuseScore)."
+      }
+    ],
+    "logrosPosibles": [
+      "logro-intervalos",
+      "logro-digitaciones-al-aire"
+    ]
+  },
+  {
+    "id": "dia-18",
+    "numero": 18,
+    "fecha": "2026-11-19",
+    "diaSemana": "jueves",
+    "semana": 3,
+    "fase": "sin-flauta",
+    "tipo": "descanso",
+    "titulo": "Descanso",
+    "objetivo": "Descansar también es entrenar: los labios y la memoria se consolidan.",
+    "bloques": [],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-19",
+    "numero": 19,
+    "fecha": "2026-11-20",
+    "diaSemana": "viernes",
+    "semana": 3,
+    "fase": "sin-flauta",
+    "tipo": "practica",
+    "sesion": 14,
+    "titulo": "Preparar la primera clase",
+    "objetivo": "Llegar a la clase con preguntas y una muestra de tu nivel.",
+    "bloques": [
+      {
+        "tipo": "respiracion",
+        "minutos": 8,
+        "actividad": "Rutina de respiración completa."
+      },
+      {
+        "tipo": "repaso",
+        "minutos": 15,
+        "actividad": "Prepara la lista de preguntas para el maestro (está en docs/plan.md, sección Guía de la flauta)."
+      },
+      {
+        "tipo": "lectura",
+        "minutos": 12,
+        "actividad": "Test de lectura: lleva el resultado a la clase.",
+        "recurso": "musictheory.net (Exercises → Note Identification)"
+      },
+      {
+        "tipo": "oido",
+        "minutos": 15,
+        "actividad": "Termina Isabella's Lullaby."
+      }
+    ],
+    "logrosPosibles": [
+      "logro-primera-transcripcion"
+    ],
+    "notas": "Mañana se abre la ventana para la primera clase (días 20 a 25)."
+  },
+  {
+    "id": "dia-20",
+    "numero": 20,
+    "fecha": "2026-11-21",
+    "diaSemana": "sábado",
+    "semana": 3,
+    "fase": "sin-flauta",
+    "tipo": "practica",
+    "sesion": 15,
+    "titulo": "Ventana de la primera clase",
+    "objetivo": "Primera clase con maestro, o repaso si aún no hay clase.",
+    "bloques": [
+      {
+        "tipo": "clase",
+        "minutos": 50,
+        "actividad": "Si hoy tienes clase, esa es la sesión: toma notas de todo lo que te corrija. Si no hay clase: repaso de la semana (armaduras, intervalos e Isabella completa en guitarra)."
+      }
+    ],
+    "logrosPosibles": [
+      "logro-primera-clase"
+    ],
+    "notas": "Si el maestro te da otras indicaciones, lo que él diga manda sobre el plan."
+  },
+  {
+    "id": "dia-21",
+    "numero": 21,
+    "fecha": "2026-11-22",
+    "diaSemana": "domingo",
+    "semana": 3,
+    "fase": "sin-flauta",
+    "tipo": "descanso",
+    "titulo": "Descanso",
+    "objetivo": "Descansar también es entrenar: los labios y la memoria se consolidan.",
+    "bloques": [],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-22",
+    "numero": 22,
+    "fecha": "2026-11-23",
+    "diaSemana": "lunes",
+    "semana": 4,
+    "fase": "sin-flauta",
+    "tipo": "practica",
+    "sesion": 16,
+    "titulo": "Escuchar Hallownest",
+    "objetivo": "Empezar a preparar el jefe 0.",
+    "bloques": [
+      {
+        "tipo": "respiracion",
+        "minutos": 8,
+        "actividad": "Rutina de respiración."
+      },
+      {
+        "tipo": "teoria",
+        "minutos": 10,
+        "actividad": "Escalas menores relativas (introducción): La menor y Mi menor."
+      },
+      {
+        "tipo": "oido",
+        "minutos": 25,
+        "actividad": "JEFE 0: escucha Enter Hallownest 3 veces, canta la melodía y busca en la guitarra la tonalidad y la primera nota.",
+        "recurso": "Karne Flute Covers – Enter Hallownest"
+      },
+      {
+        "tipo": "lectura",
+        "minutos": 7,
+        "actividad": "Drill de notas.",
+        "recurso": "musictheory.net (Exercises → Note Identification)"
+      }
+    ],
+    "logrosPosibles": [
+      "logro-oido-intervalos"
+    ],
+    "notas": "Posible día de clase: si la tuviste, aplica hoy lo que te dijo el maestro."
+  },
+  {
+    "id": "dia-23",
+    "numero": 23,
+    "fecha": "2026-11-24",
+    "diaSemana": "martes",
+    "semana": 4,
+    "fase": "sin-flauta",
+    "tipo": "practica",
+    "sesion": 17,
+    "titulo": "Hallownest, sección A",
+    "objetivo": "Transcribir la primera sección.",
+    "bloques": [
+      {
+        "tipo": "respiracion",
+        "minutos": 8,
+        "actividad": "Soplido 'sss' de 25 s."
+      },
+      {
+        "tipo": "oido",
+        "minutos": 30,
+        "actividad": "Transcribe la sección A de Enter Hallownest en la guitarra."
+      },
+      {
+        "tipo": "lectura",
+        "minutos": 12,
+        "actividad": "Primera vista: 8 compases nuevos cantados a 60."
+      }
+    ],
+    "logrosPosibles": [
+      "logro-primera-vista"
+    ]
+  },
+  {
+    "id": "dia-24",
+    "numero": 24,
+    "fecha": "2026-11-25",
+    "diaSemana": "miércoles",
+    "semana": 4,
+    "fase": "sin-flauta",
+    "tipo": "practica",
+    "sesion": 18,
+    "titulo": "Hallownest, sección B",
+    "objetivo": "Terminar la transcripción y escribirla.",
+    "bloques": [
+      {
+        "tipo": "respiracion",
+        "minutos": 8,
+        "actividad": "Rutina de respiración."
+      },
+      {
+        "tipo": "oido",
+        "minutos": 25,
+        "actividad": "Sección B; escribe todo en pentagrama."
+      },
+      {
+        "tipo": "tecnica",
+        "minutos": 15,
+        "actividad": "Always With Me: solfea la partitura y digítala al aire.",
+        "recurso": "Yayoi FLUTE / そのちゃんフルート"
+      }
+    ],
+    "logrosPosibles": [
+      "logro-lectura-agudas"
+    ]
+  },
+  {
+    "id": "dia-25",
+    "numero": 25,
+    "fecha": "2026-11-26",
+    "diaSemana": "jueves",
+    "semana": 4,
+    "fase": "sin-flauta",
+    "tipo": "descanso",
+    "titulo": "Descanso",
+    "objetivo": "Descansar también es entrenar: los labios y la memoria se consolidan.",
+    "bloques": [],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-26",
+    "numero": 26,
+    "fecha": "2026-11-27",
+    "diaSemana": "viernes",
+    "semana": 4,
+    "fase": "sin-flauta",
+    "tipo": "practica",
+    "sesion": 19,
+    "titulo": "Ensayo del jefe 0",
+    "objetivo": "Tocar la transcripción con metrónomo y probar la grabación.",
+    "bloques": [
+      {
+        "tipo": "respiracion",
+        "minutos": 8,
+        "actividad": "Rutina de respiración."
+      },
+      {
+        "tipo": "guitarra",
+        "minutos": 25,
+        "actividad": "Enter Hallownest en guitarra con metrónomo: 50 → 55 → 60."
+      },
+      {
+        "tipo": "grabacion",
+        "minutos": 12,
+        "actividad": "Prueba de grabación con la Canon R50: encuadre, luz y audio (ver docs/plan.md)."
+      },
+      {
+        "tipo": "repaso",
+        "minutos": 5,
+        "actividad": "Lee la lista de revisión de la flauta (llega pronto)."
+      }
+    ],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-27",
+    "numero": 27,
+    "fecha": "2026-11-28",
+    "diaSemana": "sábado",
+    "semana": 4,
+    "fase": "sin-flauta",
+    "tipo": "practica",
+    "sesion": 20,
+    "titulo": "JEFE 0: El Eco de Hallownest",
+    "objetivo": "Vencer al primer jefe y cerrar la fase sin flauta.",
+    "bloques": [
+      {
+        "tipo": "respiracion",
+        "minutos": 5,
+        "actividad": "Rutina corta para calmar los nervios."
+      },
+      {
+        "tipo": "guitarra",
+        "minutos": 10,
+        "actividad": "Calienta tocando la transcripción a 50."
+      },
+      {
+        "tipo": "grabacion",
+        "minutos": 25,
+        "actividad": "Graba Enter Hallownest completa a 60 con metrónomo. Necesitas 2 tomas seguidas sin pararte."
+      },
+      {
+        "tipo": "repaso",
+        "minutos": 10,
+        "actividad": "Repite el test inicial de lectura del día 1 y compara los resultados."
+      }
+    ],
+    "logrosPosibles": [
+      "logro-primer-video",
+      "logro-racha-4-semanas"
+    ],
+    "jefe": "jefe-0",
+    "notas": "Fin de la fase sin flauta. ¡Celébralo!"
+  },
+  {
+    "id": "dia-28",
+    "numero": 28,
+    "fecha": "2026-11-29",
+    "diaSemana": "domingo",
+    "semana": 4,
+    "fase": "sin-flauta",
+    "tipo": "descanso",
+    "titulo": "Descanso",
+    "objetivo": "Descansar también es entrenar: los labios y la memoria se consolidan.",
+    "bloques": [],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-29",
+    "numero": 29,
+    "fecha": "2026-11-30",
+    "diaSemana": "lunes",
+    "semana": 5,
+    "fase": "con-flauta",
+    "tipo": "practica",
+    "sesion": 21,
+    "titulo": "Llega la flauta",
+    "objetivo": "Revisarla, armarla y sacar el primer sonido.",
+    "bloques": [
+      {
+        "tipo": "revision",
+        "minutos": 20,
+        "actividad": "Revisión al recibirla (lista en docs/plan.md): estado, zapatillas, mecanismo y papeles de la garantía. Graba un video de unboxing como evidencia."
+      },
+      {
+        "tipo": "sonido",
+        "minutos": 15,
+        "actividad": "Cabeza sola: primer sonido, tapando el extremo y con el extremo abierto. 5 bloques de 2 min con descanso."
+      },
+      {
+        "tipo": "lectura",
+        "minutos": 10,
+        "actividad": "Solfea Always With Me."
+      }
+    ],
+    "logrosPosibles": [
+      "logro-primer-sonido"
+    ],
+    "notas": "Fecha estimada. Si la flauta no ha llegado, repite una sesión de lectura y oído, y empieza esta el día que llegue. Sopla en bloques de 3 a 5 min con descansos. Si te mareas, para y respira normal; si te duelen los labios, termina la parte de soplar."
+  },
+  {
+    "id": "dia-30",
+    "numero": 30,
+    "fecha": "2026-12-01",
+    "diaSemana": "martes",
+    "semana": 5,
+    "fase": "con-flauta",
+    "tipo": "practica",
+    "sesion": 22,
+    "titulo": "Embocadura frente al espejo",
+    "objetivo": "Un sonido estable con la cabeza sola.",
+    "bloques": [
+      {
+        "tipo": "sonido",
+        "minutos": 15,
+        "actividad": "Cabeza sola frente al espejo: labios relajados y apertura pequeña. Busca un sonido de 4 s."
+      },
+      {
+        "tipo": "tecnica",
+        "minutos": 15,
+        "actividad": "Armado completo y postura: posición de manos y apoyo de la flauta."
+      },
+      {
+        "tipo": "sonido",
+        "minutos": 10,
+        "actividad": "Si sale: Si4 con la flauta completa."
+      },
+      {
+        "tipo": "lectura",
+        "minutos": 10,
+        "actividad": "Drill de notas.",
+        "recurso": "musictheory.net (Exercises → Note Identification)"
+      }
+    ],
+    "logrosPosibles": [],
+    "notas": "Sopla en bloques de 3 a 5 min con descansos. Si te mareas, para y respira normal; si te duelen los labios, termina la parte de soplar."
+  },
+  {
+    "id": "dia-31",
+    "numero": 31,
+    "fecha": "2026-12-02",
+    "diaSemana": "miércoles",
+    "semana": 5,
+    "fase": "con-flauta",
+    "tipo": "practica",
+    "sesion": 23,
+    "titulo": "Si · La · Sol",
+    "objetivo": "Las tres primeras notas.",
+    "bloques": [
+      {
+        "tipo": "calentamiento",
+        "minutos": 8,
+        "actividad": "Cabeza sola: 3 sonidos de 4 s."
+      },
+      {
+        "tipo": "sonido",
+        "minutos": 15,
+        "actividad": "Notas largas en Si4, La4 y Sol4 (Trevor Wye, Practice Book vol. 1: Tono, primeras páginas)."
+      },
+      {
+        "tipo": "estudios",
+        "minutos": 12,
+        "actividad": "Combina Si-La-Sol en ritmos de negras a 60."
+      },
+      {
+        "tipo": "lectura",
+        "minutos": 10,
+        "actividad": "Lee melodías sencillas con Si, La y Sol."
+      }
+    ],
+    "logrosPosibles": [],
+    "notas": "Sopla en bloques de 3 a 5 min con descansos. Si te mareas, para y respira normal; si te duelen los labios, termina la parte de soplar."
+  },
+  {
+    "id": "dia-32",
+    "numero": 32,
+    "fecha": "2026-12-03",
+    "diaSemana": "jueves",
+    "semana": 5,
+    "fase": "con-flauta",
+    "tipo": "descanso",
+    "titulo": "Descanso",
+    "objetivo": "Descansar también es entrenar: los labios y la memoria se consolidan.",
+    "bloques": [],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-33",
+    "numero": 33,
+    "fecha": "2026-12-04",
+    "diaSemana": "viernes",
+    "semana": 5,
+    "fase": "con-flauta",
+    "tipo": "practica",
+    "sesion": 24,
+    "titulo": "Melodías de 3 notas",
+    "objetivo": "Tocar con pulso.",
+    "bloques": [
+      {
+        "tipo": "calentamiento",
+        "minutos": 8,
+        "actividad": "Notas largas Si-La-Sol."
+      },
+      {
+        "tipo": "estudios",
+        "minutos": 15,
+        "actividad": "Inventa y lee melodías con Si-La-Sol con metrónomo a 60."
+      },
+      {
+        "tipo": "tecnica",
+        "minutos": 10,
+        "actividad": "Respiraciones: inhala en los silencios, nunca a mitad de la nota."
+      },
+      {
+        "tipo": "oido",
+        "minutos": 12,
+        "actividad": "Toca de oído en la flauta frases simples con esas 3 notas."
+      }
+    ],
+    "logrosPosibles": [],
+    "notas": "Sopla en bloques de 3 a 5 min con descansos. Si te mareas, para y respira normal; si te duelen los labios, termina la parte de soplar."
+  },
+  {
+    "id": "dia-34",
+    "numero": 34,
+    "fecha": "2026-12-05",
+    "diaSemana": "sábado",
+    "semana": 5,
+    "fase": "con-flauta",
+    "tipo": "practica",
+    "sesion": 25,
+    "titulo": "Repaso de la semana",
+    "objetivo": "Grabar tu punto de partida.",
+    "bloques": [
+      {
+        "tipo": "calentamiento",
+        "minutos": 8,
+        "actividad": "Cabeza sola + Si-La-Sol."
+      },
+      {
+        "tipo": "grabacion",
+        "minutos": 10,
+        "actividad": "Graba en audio Si-La-Sol en notas largas, para compararlo dentro de un mes."
+      },
+      {
+        "tipo": "estudios",
+        "minutos": 15,
+        "actividad": "Melodías de 3 notas."
+      },
+      {
+        "tipo": "lectura",
+        "minutos": 12,
+        "actividad": "Wellerman: lee la partitura y nombra las notas."
+      }
+    ],
+    "logrosPosibles": [
+      "logro-primeras-notas"
+    ],
+    "notas": "Sopla en bloques de 3 a 5 min con descansos. Si te mareas, para y respira normal; si te duelen los labios, termina la parte de soplar."
+  },
+  {
+    "id": "dia-35",
+    "numero": 35,
+    "fecha": "2026-12-06",
+    "diaSemana": "domingo",
+    "semana": 5,
+    "fase": "con-flauta",
+    "tipo": "descanso",
+    "titulo": "Descanso",
+    "objetivo": "Descansar también es entrenar: los labios y la memoria se consolidan.",
+    "bloques": [],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-36",
+    "numero": 36,
+    "fecha": "2026-12-07",
+    "diaSemana": "lunes",
+    "semana": 6,
+    "fase": "con-flauta",
+    "tipo": "practica",
+    "sesion": 26,
+    "titulo": "Do, Fa y Mi",
+    "objetivo": "Ampliar las notas.",
+    "bloques": [
+      {
+        "tipo": "calentamiento",
+        "minutos": 10,
+        "actividad": "Notas largas Si-La-Sol."
+      },
+      {
+        "tipo": "sonido",
+        "minutos": 15,
+        "actividad": "Notas nuevas: Do5, Fa4 y Mi4. 4 s cada una."
+      },
+      {
+        "tipo": "estudios",
+        "minutos": 12,
+        "actividad": "Escalitas Sol-Fa-Mi y Do-Si-La-Sol."
+      },
+      {
+        "tipo": "repertorio",
+        "minutos": 8,
+        "actividad": "Wellerman: digita la frase 1 al aire y luego tócala despacio."
+      }
+    ],
+    "logrosPosibles": [],
+    "notas": "Sopla en bloques de 3 a 5 min con descansos. Si te mareas, para y respira normal; si te duelen los labios, termina la parte de soplar."
+  },
+  {
+    "id": "dia-37",
+    "numero": 37,
+    "fecha": "2026-12-08",
+    "diaSemana": "martes",
+    "semana": 6,
+    "fase": "con-flauta",
+    "tipo": "practica",
+    "sesion": 27,
+    "titulo": "Re grave",
+    "objetivo": "Bajar hasta Re4 sin forzar.",
+    "bloques": [
+      {
+        "tipo": "calentamiento",
+        "minutos": 10,
+        "actividad": "Notas largas descendiendo de Si4 a Mi4."
+      },
+      {
+        "tipo": "sonido",
+        "minutos": 15,
+        "actividad": "Re4: labios relajados, aire más lento y dirigido un poco más abajo."
+      },
+      {
+        "tipo": "repertorio",
+        "minutos": 15,
+        "actividad": "Wellerman, frase 1 a ♩ = 50."
+      },
+      {
+        "tipo": "lectura",
+        "minutos": 5,
+        "actividad": "Lectura de la frase 2."
+      }
+    ],
+    "logrosPosibles": [],
+    "notas": "Sopla en bloques de 3 a 5 min con descansos. Si te mareas, para y respira normal; si te duelen los labios, termina la parte de soplar."
+  },
+  {
+    "id": "dia-38",
+    "numero": 38,
+    "fecha": "2026-12-09",
+    "diaSemana": "miércoles",
+    "semana": 6,
+    "fase": "con-flauta",
+    "tipo": "practica",
+    "sesion": 28,
+    "titulo": "Fa sostenido",
+    "objetivo": "Completar el registro grave útil.",
+    "bloques": [
+      {
+        "tipo": "calentamiento",
+        "minutos": 10,
+        "actividad": "Notas largas de Re4 a Si4."
+      },
+      {
+        "tipo": "sonido",
+        "minutos": 10,
+        "actividad": "Fa#4 y escala de Sol mayor grave (Sol4–Do5) lenta."
+      },
+      {
+        "tipo": "repertorio",
+        "minutos": 20,
+        "actividad": "Wellerman, frases 1 y 2 a 50."
+      },
+      {
+        "tipo": "repaso",
+        "minutos": 5,
+        "actividad": "Cuaderno (sin soplar): anota los minutos, qué salió bien y qué repetir mañana."
+      }
+    ],
+    "logrosPosibles": [],
+    "notas": "Sopla en bloques de 3 a 5 min con descansos. Si te mareas, para y respira normal; si te duelen los labios, termina la parte de soplar."
+  },
+  {
+    "id": "dia-39",
+    "numero": 39,
+    "fecha": "2026-12-10",
+    "diaSemana": "jueves",
+    "semana": 6,
+    "fase": "con-flauta",
+    "tipo": "descanso",
+    "titulo": "Descanso",
+    "objetivo": "Descansar también es entrenar: los labios y la memoria se consolidan.",
+    "bloques": [],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-40",
+    "numero": 40,
+    "fecha": "2026-12-11",
+    "diaSemana": "viernes",
+    "semana": 6,
+    "fase": "con-flauta",
+    "tipo": "practica",
+    "sesion": 29,
+    "titulo": "Trevor Wye descendente",
+    "objetivo": "Calidad de sonido en el grave.",
+    "bloques": [
+      {
+        "tipo": "calentamiento",
+        "minutos": 15,
+        "actividad": "Trevor Wye (Tono): notas largas descendiendo por semitonos desde Si4 hasta Re4."
+      },
+      {
+        "tipo": "repertorio",
+        "minutos": 20,
+        "actividad": "Wellerman, frase 2 y unir con la 1."
+      },
+      {
+        "tipo": "lectura",
+        "minutos": 10,
+        "actividad": "Lee el estribillo de Wellerman."
+      }
+    ],
+    "logrosPosibles": [],
+    "notas": "Sopla en bloques de 3 a 5 min con descansos. Si te mareas, para y respira normal; si te duelen los labios, termina la parte de soplar."
+  },
+  {
+    "id": "dia-41",
+    "numero": 41,
+    "fecha": "2026-12-12",
+    "diaSemana": "sábado",
+    "semana": 6,
+    "fase": "con-flauta",
+    "tipo": "practica",
+    "sesion": 30,
+    "titulo": "Repaso: registro grave",
+    "objetivo": "Re4 a Do5 limpio.",
+    "bloques": [
+      {
+        "tipo": "calentamiento",
+        "minutos": 10,
+        "actividad": "Notas largas."
+      },
+      {
+        "tipo": "sonido",
+        "minutos": 10,
+        "actividad": "Prueba del logro: notas largas de 6 s de Re4 a Do5."
+      },
+      {
+        "tipo": "repertorio",
+        "minutos": 25,
+        "actividad": "Wellerman, estrofa completa a 60."
+      }
+    ],
+    "logrosPosibles": [
+      "logro-registro-grave"
+    ],
+    "notas": "Sopla en bloques de 3 a 5 min con descansos. Si te mareas, para y respira normal; si te duelen los labios, termina la parte de soplar."
+  },
+  {
+    "id": "dia-42",
+    "numero": 42,
+    "fecha": "2026-12-13",
+    "diaSemana": "domingo",
+    "semana": 6,
+    "fase": "con-flauta",
+    "tipo": "descanso",
+    "titulo": "Descanso",
+    "objetivo": "Descansar también es entrenar: los labios y la memoria se consolidan.",
+    "bloques": [],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-43",
+    "numero": 43,
+    "fecha": "2026-12-14",
+    "diaSemana": "lunes",
+    "semana": 7,
+    "fase": "con-flauta",
+    "tipo": "practica",
+    "sesion": 31,
+    "titulo": "Re medio y Re mayor",
+    "objetivo": "Re5 y la escala de Re mayor grave.",
+    "bloques": [
+      {
+        "tipo": "calentamiento",
+        "minutos": 10,
+        "actividad": "Notas largas de Re4 a Do5."
+      },
+      {
+        "tipo": "escalas",
+        "minutos": 12,
+        "actividad": "Do#5 y Re5; escala de Re mayor (Re4–Re5) muy lenta."
+      },
+      {
+        "tipo": "repertorio",
+        "minutos": 20,
+        "actividad": "Wellerman: estribillo."
+      },
+      {
+        "tipo": "repaso",
+        "minutos": 3,
+        "actividad": "Cuaderno (sin soplar): anota los minutos, qué salió bien y qué repetir mañana."
+      }
+    ],
+    "logrosPosibles": [],
+    "notas": "Ya puedes alargar la parte de soplar a 30–35 min si no te cansas."
+  },
+  {
+    "id": "dia-44",
+    "numero": 44,
+    "fecha": "2026-12-15",
+    "diaSemana": "martes",
+    "semana": 7,
+    "fase": "con-flauta",
+    "tipo": "practica",
+    "sesion": 32,
+    "titulo": "Wellerman completa",
+    "objetivo": "Tocarla entera, despacio.",
+    "bloques": [
+      {
+        "tipo": "calentamiento",
+        "minutos": 10,
+        "actividad": "Notas largas."
+      },
+      {
+        "tipo": "repertorio",
+        "minutos": 25,
+        "actividad": "Wellerman completa a 60."
+      },
+      {
+        "tipo": "lectura",
+        "minutos": 10,
+        "actividad": "Sadness and Sorrow: lee la partitura."
+      }
+    ],
+    "logrosPosibles": [
+      "logro-primera-pieza"
+    ]
+  },
+  {
+    "id": "dia-45",
+    "numero": 45,
+    "fecha": "2026-12-16",
+    "diaSemana": "miércoles",
+    "semana": 7,
+    "fase": "con-flauta",
+    "tipo": "practica",
+    "sesion": 33,
+    "titulo": "La lengua: 'tu'",
+    "objetivo": "Picado simple.",
+    "bloques": [
+      {
+        "tipo": "calentamiento",
+        "minutos": 10,
+        "actividad": "Notas largas."
+      },
+      {
+        "tipo": "tecnica",
+        "minutos": 15,
+        "actividad": "Picado simple 'tu' en notas largas y negras a 60."
+      },
+      {
+        "tipo": "repertorio",
+        "minutos": 20,
+        "actividad": "Wellerman con picado limpio."
+      }
+    ],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-46",
+    "numero": 46,
+    "fecha": "2026-12-17",
+    "diaSemana": "jueves",
+    "semana": 7,
+    "fase": "con-flauta",
+    "tipo": "descanso",
+    "titulo": "Descanso",
+    "objetivo": "Descansar también es entrenar: los labios y la memoria se consolidan.",
+    "bloques": [],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-47",
+    "numero": 47,
+    "fecha": "2026-12-18",
+    "diaSemana": "viernes",
+    "semana": 7,
+    "fase": "con-flauta",
+    "tipo": "practica",
+    "sesion": 34,
+    "titulo": "Subir el tempo",
+    "objetivo": "Wellerman a 66.",
+    "bloques": [
+      {
+        "tipo": "calentamiento",
+        "minutos": 10,
+        "actividad": "Notas largas + picado."
+      },
+      {
+        "tipo": "repertorio",
+        "minutos": 20,
+        "actividad": "Wellerman a 66."
+      },
+      {
+        "tipo": "repertorio",
+        "minutos": 15,
+        "actividad": "Sadness and Sorrow, frase 1."
+      }
+    ],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-48",
+    "numero": 48,
+    "fecha": "2026-12-19",
+    "diaSemana": "sábado",
+    "semana": 7,
+    "fase": "con-flauta",
+    "tipo": "practica",
+    "sesion": 35,
+    "titulo": "Escucharte",
+    "objetivo": "Grabar y escuchar con oído crítico.",
+    "bloques": [
+      {
+        "tipo": "calentamiento",
+        "minutos": 10,
+        "actividad": "Notas largas."
+      },
+      {
+        "tipo": "grabacion",
+        "minutos": 15,
+        "actividad": "Graba Wellerman en audio y escúchala: anota 3 cosas a mejorar."
+      },
+      {
+        "tipo": "repertorio",
+        "minutos": 20,
+        "actividad": "Trabaja esas 3 cosas."
+      }
+    ],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-49",
+    "numero": 49,
+    "fecha": "2026-12-20",
+    "diaSemana": "domingo",
+    "semana": 7,
+    "fase": "con-flauta",
+    "tipo": "descanso",
+    "titulo": "Descanso",
+    "objetivo": "Descansar también es entrenar: los labios y la memoria se consolidan.",
+    "bloques": [],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-50",
+    "numero": 50,
+    "fecha": "2026-12-21",
+    "diaSemana": "lunes",
+    "semana": 8,
+    "fase": "con-flauta",
+    "tipo": "practica",
+    "sesion": 36,
+    "titulo": "Saltos de octava",
+    "objetivo": "Pasar al registro medio.",
+    "bloques": [
+      {
+        "tipo": "calentamiento",
+        "minutos": 10,
+        "actividad": "Notas largas."
+      },
+      {
+        "tipo": "sonido",
+        "minutos": 15,
+        "actividad": "Saltos de octava: Re4→Re5 y Mi4→Mi5 con la misma digitación; más velocidad de aire, no más fuerza."
+      },
+      {
+        "tipo": "repertorio",
+        "minutos": 20,
+        "actividad": "Wellerman a 66."
+      }
+    ],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-51",
+    "numero": 51,
+    "fecha": "2026-12-22",
+    "diaSemana": "martes",
+    "semana": 8,
+    "fase": "con-flauta",
+    "tipo": "practica",
+    "sesion": 37,
+    "titulo": "Mi, Fa# y Sol medios",
+    "objetivo": "Notas de la segunda octava.",
+    "bloques": [
+      {
+        "tipo": "calentamiento",
+        "minutos": 10,
+        "actividad": "Saltos de octava."
+      },
+      {
+        "tipo": "sonido",
+        "minutos": 12,
+        "actividad": "Mi5, Fa#5 y Sol5 en notas largas."
+      },
+      {
+        "tipo": "repertorio",
+        "minutos": 20,
+        "actividad": "Wellerman: meta ♩ = 72."
+      },
+      {
+        "tipo": "repaso",
+        "minutos": 3,
+        "actividad": "Cuaderno (sin soplar): anota los minutos, qué salió bien y qué repetir mañana."
+      }
+    ],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-52",
+    "numero": 52,
+    "fecha": "2026-12-23",
+    "diaSemana": "miércoles",
+    "semana": 8,
+    "fase": "con-flauta",
+    "tipo": "practica",
+    "sesion": 38,
+    "titulo": "Escala de Sol mayor",
+    "objetivo": "La primera escala completa.",
+    "bloques": [
+      {
+        "tipo": "calentamiento",
+        "minutos": 10,
+        "actividad": "Notas largas y saltos de octava."
+      },
+      {
+        "tipo": "escalas",
+        "minutos": 15,
+        "actividad": "Sol mayor, Sol4–Sol5, en negras a 50."
+      },
+      {
+        "tipo": "repertorio",
+        "minutos": 20,
+        "actividad": "Wellerman."
+      }
+    ],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-53",
+    "numero": 53,
+    "fecha": "2026-12-24",
+    "diaSemana": "jueves",
+    "semana": 8,
+    "fase": "con-flauta",
+    "tipo": "descanso",
+    "titulo": "Descanso",
+    "objetivo": "Descansar también es entrenar: los labios y la memoria se consolidan.",
+    "bloques": [],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-54",
+    "numero": 54,
+    "fecha": "2026-12-25",
+    "diaSemana": "viernes",
+    "semana": 8,
+    "fase": "con-flauta",
+    "tipo": "festivo-opcional",
+    "sesion": 39,
+    "titulo": "Navidad (opcional)",
+    "objetivo": "Sesión corta y sin presión.",
+    "bloques": [
+      {
+        "tipo": "calentamiento",
+        "minutos": 10,
+        "actividad": "Notas largas suaves."
+      },
+      {
+        "tipo": "repertorio",
+        "minutos": 15,
+        "actividad": "Toca lo que te apetezca: Wellerman o un villancico de oído."
+      }
+    ],
+    "logrosPosibles": [],
+    "notas": "Festivo: sesión opcional de 20–30 min."
+  },
+  {
+    "id": "dia-55",
+    "numero": 55,
+    "fecha": "2026-12-26",
+    "diaSemana": "sábado",
+    "semana": 8,
+    "fase": "con-flauta",
+    "tipo": "practica",
+    "sesion": 40,
+    "titulo": "Ensayo general de Wellerman",
+    "objetivo": "Prepararte para el jefe 1.",
+    "bloques": [
+      {
+        "tipo": "calentamiento",
+        "minutos": 10,
+        "actividad": "Notas largas."
+      },
+      {
+        "tipo": "repertorio",
+        "minutos": 25,
+        "actividad": "Wellerman a 72: 2 tomas seguidas."
+      },
+      {
+        "tipo": "escalas",
+        "minutos": 10,
+        "actividad": "Sol mayor a 55."
+      }
+    ],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-56",
+    "numero": 56,
+    "fecha": "2026-12-27",
+    "diaSemana": "domingo",
+    "semana": 8,
+    "fase": "con-flauta",
+    "tipo": "descanso",
+    "titulo": "Descanso",
+    "objetivo": "Descansar también es entrenar: los labios y la memoria se consolidan.",
+    "bloques": [],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-57",
+    "numero": 57,
+    "fecha": "2026-12-28",
+    "diaSemana": "lunes",
+    "semana": 9,
+    "fase": "con-flauta",
+    "tipo": "practica",
+    "sesion": 41,
+    "titulo": "Pulir respiraciones",
+    "objetivo": "Wellerman sin quedarte sin aire.",
+    "bloques": [
+      {
+        "tipo": "calentamiento",
+        "minutos": 10,
+        "actividad": "Notas largas."
+      },
+      {
+        "tipo": "repertorio",
+        "minutos": 20,
+        "actividad": "Marca las respiraciones en la partitura y respétalas."
+      },
+      {
+        "tipo": "grabacion",
+        "minutos": 15,
+        "actividad": "Prueba de video con la R50."
+      }
+    ],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-58",
+    "numero": 58,
+    "fecha": "2026-12-29",
+    "diaSemana": "martes",
+    "semana": 9,
+    "fase": "con-flauta",
+    "tipo": "practica",
+    "sesion": 42,
+    "titulo": "Tomas de prueba",
+    "objetivo": "Simular el día del jefe.",
+    "bloques": [
+      {
+        "tipo": "calentamiento",
+        "minutos": 10,
+        "actividad": "Notas largas."
+      },
+      {
+        "tipo": "grabacion",
+        "minutos": 25,
+        "actividad": "Graba 3 tomas de Wellerman y elige la mejor."
+      },
+      {
+        "tipo": "lectura",
+        "minutos": 10,
+        "actividad": "La Llorona: lee la partitura."
+      }
+    ],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-59",
+    "numero": 59,
+    "fecha": "2026-12-30",
+    "diaSemana": "miércoles",
+    "semana": 9,
+    "fase": "con-flauta",
+    "tipo": "practica",
+    "sesion": 43,
+    "titulo": "Último ajuste",
+    "objetivo": "Arreglar los puntos débiles.",
+    "bloques": [
+      {
+        "tipo": "calentamiento",
+        "minutos": 10,
+        "actividad": "Notas largas."
+      },
+      {
+        "tipo": "repertorio",
+        "minutos": 25,
+        "actividad": "Trabaja solo los compases que fallan, lento y luego a tempo."
+      },
+      {
+        "tipo": "escalas",
+        "minutos": 10,
+        "actividad": "Sol mayor a 60."
+      }
+    ],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-60",
+    "numero": 60,
+    "fecha": "2026-12-31",
+    "diaSemana": "jueves",
+    "semana": 9,
+    "fase": "con-flauta",
+    "tipo": "descanso",
+    "titulo": "Descanso",
+    "objetivo": "Descansar también es entrenar: los labios y la memoria se consolidan.",
+    "bloques": [],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-61",
+    "numero": 61,
+    "fecha": "2027-01-01",
+    "diaSemana": "viernes",
+    "semana": 9,
+    "fase": "con-flauta",
+    "tipo": "festivo-opcional",
+    "sesion": 44,
+    "titulo": "Año Nuevo (opcional)",
+    "objetivo": "Sesión corta y suave.",
+    "bloques": [
+      {
+        "tipo": "calentamiento",
+        "minutos": 10,
+        "actividad": "Notas largas."
+      },
+      {
+        "tipo": "repertorio",
+        "minutos": 15,
+        "actividad": "Wellerman tranquila, solo para disfrutar."
+      }
+    ],
+    "logrosPosibles": [],
+    "notas": "Festivo: sesión opcional de 20–30 min."
+  },
+  {
+    "id": "dia-62",
+    "numero": 62,
+    "fecha": "2027-01-02",
+    "diaSemana": "sábado",
+    "semana": 9,
+    "fase": "con-flauta",
+    "tipo": "practica",
+    "sesion": 45,
+    "titulo": "JEFE 1: El Ballenero",
+    "objetivo": "Vencer a Wellerman.",
+    "bloques": [
+      {
+        "tipo": "calentamiento",
+        "minutos": 12,
+        "actividad": "Notas largas y picado."
+      },
+      {
+        "tipo": "repertorio",
+        "minutos": 10,
+        "actividad": "Wellerman a 66 como calentamiento."
+      },
+      {
+        "tipo": "grabacion",
+        "minutos": 25,
+        "actividad": "Graba Wellerman completa a ♩ = 72: 2 tomas seguidas sin errores graves."
+      }
+    ],
+    "logrosPosibles": [],
+    "jefe": "jefe-1",
+    "notas": "Si el día no te viene bien, muévelo al lunes; las condiciones de victoria no cambian."
+  },
+  {
+    "id": "dia-63",
+    "numero": 63,
+    "fecha": "2027-01-03",
+    "diaSemana": "domingo",
+    "semana": 9,
+    "fase": "con-flauta",
+    "tipo": "descanso",
+    "titulo": "Descanso",
+    "objetivo": "Descansar también es entrenar: los labios y la memoria se consolidan.",
+    "bloques": [],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-64",
+    "numero": 64,
+    "fecha": "2027-01-04",
+    "diaSemana": "lunes",
+    "semana": 10,
+    "fase": "con-flauta",
+    "tipo": "practica",
+    "sesion": 46,
+    "titulo": "Segunda octava",
+    "objetivo": "Re5 a La5 estables.",
+    "bloques": [
+      {
+        "tipo": "calentamiento",
+        "minutos": 12,
+        "actividad": "Notas largas en dos octavas."
+      },
+      {
+        "tipo": "sonido",
+        "minutos": 10,
+        "actividad": "Re5–La5 en notas largas."
+      },
+      {
+        "tipo": "repertorio",
+        "minutos": 20,
+        "actividad": "Always With Me: lee y digita la frase 1, luego tócala lenta.",
+        "recurso": "Yayoi FLUTE"
+      },
+      {
+        "tipo": "repaso",
+        "minutos": 3,
+        "actividad": "Cuaderno (sin soplar): anota los minutos, qué salió bien y qué repetir mañana."
+      }
+    ],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-65",
+    "numero": 65,
+    "fecha": "2027-01-05",
+    "diaSemana": "martes",
+    "semana": 10,
+    "fase": "con-flauta",
+    "tipo": "practica",
+    "sesion": 47,
+    "titulo": "Re mayor",
+    "objetivo": "Una octava de Re mayor.",
+    "bloques": [
+      {
+        "tipo": "calentamiento",
+        "minutos": 10,
+        "actividad": "Notas largas."
+      },
+      {
+        "tipo": "escalas",
+        "minutos": 15,
+        "actividad": "Re mayor, Re4–Re5, a 50 → 60; ligado."
+      },
+      {
+        "tipo": "repertorio",
+        "minutos": 20,
+        "actividad": "Always With Me, frase 1."
+      }
+    ],
+    "logrosPosibles": [
+      "logro-legato"
+    ]
+  },
+  {
+    "id": "dia-66",
+    "numero": 66,
+    "fecha": "2027-01-06",
+    "diaSemana": "miércoles",
+    "semana": 10,
+    "fase": "con-flauta",
+    "tipo": "practica",
+    "sesion": 48,
+    "titulo": "Always With Me, frase 2",
+    "objetivo": "Avanzar en la pieza del jefe 2.",
+    "bloques": [
+      {
+        "tipo": "calentamiento",
+        "minutos": 10,
+        "actividad": "Notas largas."
+      },
+      {
+        "tipo": "tecnica",
+        "minutos": 10,
+        "actividad": "Picado simple en Sol mayor a 70–80."
+      },
+      {
+        "tipo": "repertorio",
+        "minutos": 25,
+        "actividad": "Always With Me, frase 2."
+      }
+    ],
+    "logrosPosibles": [
+      "logro-picado-simple"
+    ]
+  },
+  {
+    "id": "dia-67",
+    "numero": 67,
+    "fecha": "2027-01-07",
+    "diaSemana": "jueves",
+    "semana": 10,
+    "fase": "con-flauta",
+    "tipo": "descanso",
+    "titulo": "Descanso",
+    "objetivo": "Descansar también es entrenar: los labios y la memoria se consolidan.",
+    "bloques": [],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-68",
+    "numero": 68,
+    "fecha": "2027-01-08",
+    "diaSemana": "viernes",
+    "semana": 10,
+    "fase": "con-flauta",
+    "tipo": "practica",
+    "sesion": 49,
+    "titulo": "Promise of the World",
+    "objetivo": "Una segunda pieza para variar.",
+    "bloques": [
+      {
+        "tipo": "calentamiento",
+        "minutos": 10,
+        "actividad": "Notas largas."
+      },
+      {
+        "tipo": "escalas",
+        "minutos": 10,
+        "actividad": "Sol y Re mayor."
+      },
+      {
+        "tipo": "repertorio",
+        "minutos": 25,
+        "actividad": "Promise of the World, frase 1 (arreglo para principiantes).",
+        "recurso": "Yayoi FLUTE / Satomin"
+      }
+    ],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-69",
+    "numero": 69,
+    "fecha": "2027-01-09",
+    "diaSemana": "sábado",
+    "semana": 10,
+    "fase": "con-flauta",
+    "tipo": "practica",
+    "sesion": 50,
+    "titulo": "Repaso de la semana",
+    "objetivo": "Medir tu avance.",
+    "bloques": [
+      {
+        "tipo": "calentamiento",
+        "minutos": 10,
+        "actividad": "Notas largas."
+      },
+      {
+        "tipo": "escalas",
+        "minutos": 10,
+        "actividad": "Prueba del logro: Sol mayor a 60."
+      },
+      {
+        "tipo": "grabacion",
+        "minutos": 25,
+        "actividad": "Graba en audio Always With Me, frases 1 y 2."
+      }
+    ],
+    "logrosPosibles": [
+      "logro-escala-sol-mayor",
+      "logro-segunda-octava"
+    ]
+  },
+  {
+    "id": "dia-70",
+    "numero": 70,
+    "fecha": "2027-01-10",
+    "diaSemana": "domingo",
+    "semana": 10,
+    "fase": "con-flauta",
+    "tipo": "descanso",
+    "titulo": "Descanso",
+    "objetivo": "Descansar también es entrenar: los labios y la memoria se consolidan.",
+    "bloques": [],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-71",
+    "numero": 71,
+    "fecha": "2027-01-11",
+    "diaSemana": "lunes",
+    "semana": 11,
+    "fase": "con-flauta",
+    "tipo": "practica",
+    "sesion": 51,
+    "titulo": "Frases 3 y 4",
+    "objetivo": "Completar la lectura.",
+    "bloques": [
+      {
+        "tipo": "calentamiento",
+        "minutos": 12,
+        "actividad": "Notas largas (Trevor Wye)."
+      },
+      {
+        "tipo": "repertorio",
+        "minutos": 30,
+        "actividad": "Always With Me, frases 3 y 4. Si aparece una nota nueva, apréndela aparte primero."
+      },
+      {
+        "tipo": "repaso",
+        "minutos": 3,
+        "actividad": "Cuaderno (sin soplar): anota los minutos, qué salió bien y qué repetir mañana."
+      }
+    ],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-72",
+    "numero": 72,
+    "fecha": "2027-01-12",
+    "diaSemana": "martes",
+    "semana": 11,
+    "fase": "con-flauta",
+    "tipo": "practica",
+    "sesion": 52,
+    "titulo": "Always With Me entera",
+    "objetivo": "De principio a fin, lenta.",
+    "bloques": [
+      {
+        "tipo": "calentamiento",
+        "minutos": 10,
+        "actividad": "Notas largas."
+      },
+      {
+        "tipo": "repertorio",
+        "minutos": 30,
+        "actividad": "Always With Me completa a 50."
+      },
+      {
+        "tipo": "escalas",
+        "minutos": 5,
+        "actividad": "Re mayor."
+      }
+    ],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-73",
+    "numero": 73,
+    "fecha": "2027-01-13",
+    "diaSemana": "miércoles",
+    "semana": 11,
+    "fase": "con-flauta",
+    "tipo": "practica",
+    "sesion": 53,
+    "titulo": "Bella Ciao",
+    "objetivo": "Una pieza de folk para descansar la cabeza.",
+    "bloques": [
+      {
+        "tipo": "calentamiento",
+        "minutos": 10,
+        "actividad": "Notas largas."
+      },
+      {
+        "tipo": "repertorio",
+        "minutos": 20,
+        "actividad": "Bella Ciao (si el arreglo tiene Sib, aprende esa nota primero)."
+      },
+      {
+        "tipo": "repertorio",
+        "minutos": 15,
+        "actividad": "Always With Me a 50."
+      }
+    ],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-74",
+    "numero": 74,
+    "fecha": "2027-01-14",
+    "diaSemana": "jueves",
+    "semana": 11,
+    "fase": "con-flauta",
+    "tipo": "descanso",
+    "titulo": "Descanso",
+    "objetivo": "Descansar también es entrenar: los labios y la memoria se consolidan.",
+    "bloques": [],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-75",
+    "numero": 75,
+    "fecha": "2027-01-15",
+    "diaSemana": "viernes",
+    "semana": 11,
+    "fase": "con-flauta",
+    "tipo": "practica",
+    "sesion": 54,
+    "titulo": "Subir el tempo",
+    "objetivo": "Always With Me a 56.",
+    "bloques": [
+      {
+        "tipo": "calentamiento",
+        "minutos": 10,
+        "actividad": "Notas largas."
+      },
+      {
+        "tipo": "repertorio",
+        "minutos": 20,
+        "actividad": "Always With Me a 56."
+      },
+      {
+        "tipo": "repertorio",
+        "minutos": 15,
+        "actividad": "La Llorona, frase 1."
+      }
+    ],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-76",
+    "numero": 76,
+    "fecha": "2027-01-16",
+    "diaSemana": "sábado",
+    "semana": 11,
+    "fase": "con-flauta",
+    "tipo": "practica",
+    "sesion": 55,
+    "titulo": "Repaso de la semana",
+    "objetivo": "Re mayor y grabación.",
+    "bloques": [
+      {
+        "tipo": "calentamiento",
+        "minutos": 10,
+        "actividad": "Notas largas."
+      },
+      {
+        "tipo": "escalas",
+        "minutos": 10,
+        "actividad": "Prueba del logro: Re mayor a 60."
+      },
+      {
+        "tipo": "grabacion",
+        "minutos": 25,
+        "actividad": "Graba Always With Me completa (audio)."
+      }
+    ],
+    "logrosPosibles": [
+      "logro-escala-re-mayor"
+    ]
+  },
+  {
+    "id": "dia-77",
+    "numero": 77,
+    "fecha": "2027-01-17",
+    "diaSemana": "domingo",
+    "semana": 11,
+    "fase": "con-flauta",
+    "tipo": "descanso",
+    "titulo": "Descanso",
+    "objetivo": "Descansar también es entrenar: los labios y la memoria se consolidan.",
+    "bloques": [],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-78",
+    "numero": 78,
+    "fecha": "2027-01-18",
+    "diaSemana": "lunes",
+    "semana": 12,
+    "fase": "con-flauta",
+    "tipo": "practica",
+    "sesion": 56,
+    "titulo": "Dinámicas suaves",
+    "objetivo": "Piano y forte sin desafinar.",
+    "bloques": [
+      {
+        "tipo": "calentamiento",
+        "minutos": 12,
+        "actividad": "Notas largas con crescendo y diminuendo suaves (sin forzar)."
+      },
+      {
+        "tipo": "repertorio",
+        "minutos": 30,
+        "actividad": "Always With Me: marca respiraciones y dinámicas."
+      },
+      {
+        "tipo": "repaso",
+        "minutos": 3,
+        "actividad": "Cuaderno (sin soplar): anota los minutos, qué salió bien y qué repetir mañana."
+      }
+    ],
+    "logrosPosibles": [
+      "logro-notas-largas"
+    ]
+  },
+  {
+    "id": "dia-79",
+    "numero": 79,
+    "fecha": "2027-01-19",
+    "diaSemana": "martes",
+    "semana": 12,
+    "fase": "con-flauta",
+    "tipo": "practica",
+    "sesion": 57,
+    "titulo": "Always With Me a 60",
+    "objetivo": "Subir el tempo.",
+    "bloques": [
+      {
+        "tipo": "calentamiento",
+        "minutos": 10,
+        "actividad": "Notas largas."
+      },
+      {
+        "tipo": "repertorio",
+        "minutos": 20,
+        "actividad": "Always With Me a 60."
+      },
+      {
+        "tipo": "repertorio",
+        "minutos": 15,
+        "actividad": "Promise of the World completa."
+      }
+    ],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-80",
+    "numero": 80,
+    "fecha": "2027-01-20",
+    "diaSemana": "miércoles",
+    "semana": 12,
+    "fase": "con-flauta",
+    "tipo": "practica",
+    "sesion": 58,
+    "titulo": "Con la pista",
+    "objetivo": "Tocar con acompañamiento.",
+    "bloques": [
+      {
+        "tipo": "calentamiento",
+        "minutos": 10,
+        "actividad": "Notas largas."
+      },
+      {
+        "tipo": "repertorio",
+        "minutos": 30,
+        "actividad": "Always With Me con el karaoke de Yayoi (desde el minuto 3:15) si el tempo te lo permite; si no, con metrónomo."
+      },
+      {
+        "tipo": "repaso",
+        "minutos": 5,
+        "actividad": "Cuaderno (sin soplar): anota los minutos, qué salió bien y qué repetir mañana."
+      }
+    ],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-81",
+    "numero": 81,
+    "fecha": "2027-01-21",
+    "diaSemana": "jueves",
+    "semana": 12,
+    "fase": "con-flauta",
+    "tipo": "descanso",
+    "titulo": "Descanso",
+    "objetivo": "Descansar también es entrenar: los labios y la memoria se consolidan.",
+    "bloques": [],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-82",
+    "numero": 82,
+    "fecha": "2027-01-22",
+    "diaSemana": "viernes",
+    "semana": 12,
+    "fase": "con-flauta",
+    "tipo": "practica",
+    "sesion": 59,
+    "titulo": "Video de prueba",
+    "objetivo": "Ensayo de grabación completo.",
+    "bloques": [
+      {
+        "tipo": "calentamiento",
+        "minutos": 10,
+        "actividad": "Notas largas."
+      },
+      {
+        "tipo": "grabacion",
+        "minutos": 30,
+        "actividad": "Video completo de Always With Me: revisa encuadre, luz y audio."
+      },
+      {
+        "tipo": "repaso",
+        "minutos": 5,
+        "actividad": "Cuaderno (sin soplar): anota los minutos, qué salió bien y qué repetir mañana."
+      }
+    ],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-83",
+    "numero": 83,
+    "fecha": "2027-01-23",
+    "diaSemana": "sábado",
+    "semana": 12,
+    "fase": "con-flauta",
+    "tipo": "practica",
+    "sesion": 60,
+    "titulo": "Corregir",
+    "objetivo": "Arreglar lo que viste en el video.",
+    "bloques": [
+      {
+        "tipo": "calentamiento",
+        "minutos": 10,
+        "actividad": "Notas largas."
+      },
+      {
+        "tipo": "repertorio",
+        "minutos": 30,
+        "actividad": "Corrige lo que viste en el video; Always With Me a 63."
+      },
+      {
+        "tipo": "repaso",
+        "minutos": 5,
+        "actividad": "Cuaderno (sin soplar): anota los minutos, qué salió bien y qué repetir mañana."
+      }
+    ],
+    "logrosPosibles": [],
+    "notas": "Si no has publicado ningún video todavía, puedes publicar este como estreno (es opcional)."
+  },
+  {
+    "id": "dia-84",
+    "numero": 84,
+    "fecha": "2027-01-24",
+    "diaSemana": "domingo",
+    "semana": 12,
+    "fase": "con-flauta",
+    "tipo": "descanso",
+    "titulo": "Descanso",
+    "objetivo": "Descansar también es entrenar: los labios y la memoria se consolidan.",
+    "bloques": [],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-85",
+    "numero": 85,
+    "fecha": "2027-01-25",
+    "diaSemana": "lunes",
+    "semana": 13,
+    "fase": "con-flauta",
+    "tipo": "practica",
+    "sesion": 61,
+    "titulo": "Pasajes difíciles",
+    "objetivo": "Always With Me a 66 por fragmentos.",
+    "bloques": [
+      {
+        "tipo": "calentamiento",
+        "minutos": 12,
+        "actividad": "Notas largas."
+      },
+      {
+        "tipo": "repertorio",
+        "minutos": 30,
+        "actividad": "Fragmentos difíciles: lento → 66."
+      },
+      {
+        "tipo": "repaso",
+        "minutos": 3,
+        "actividad": "Cuaderno (sin soplar): anota los minutos, qué salió bien y qué repetir mañana."
+      }
+    ],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-86",
+    "numero": 86,
+    "fecha": "2027-01-26",
+    "diaSemana": "martes",
+    "semana": 13,
+    "fase": "con-flauta",
+    "tipo": "practica",
+    "sesion": 62,
+    "titulo": "Ensayo general",
+    "objetivo": "Dos tomas seguidas.",
+    "bloques": [
+      {
+        "tipo": "calentamiento",
+        "minutos": 10,
+        "actividad": "Notas largas."
+      },
+      {
+        "tipo": "repertorio",
+        "minutos": 30,
+        "actividad": "Always With Me a 66: 2 tomas seguidas."
+      },
+      {
+        "tipo": "repaso",
+        "minutos": 5,
+        "actividad": "Cuaderno (sin soplar): anota los minutos, qué salió bien y qué repetir mañana."
+      }
+    ],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-87",
+    "numero": 87,
+    "fecha": "2027-01-27",
+    "diaSemana": "miércoles",
+    "semana": 13,
+    "fase": "con-flauta",
+    "tipo": "practica",
+    "sesion": 63,
+    "titulo": "Tu repertorio",
+    "objetivo": "Repasar todo lo aprendido.",
+    "bloques": [
+      {
+        "tipo": "calentamiento",
+        "minutos": 10,
+        "actividad": "Notas largas."
+      },
+      {
+        "tipo": "escalas",
+        "minutos": 10,
+        "actividad": "Sol y Re mayor."
+      },
+      {
+        "tipo": "repertorio",
+        "minutos": 25,
+        "actividad": "Wellerman, Bella Ciao, La Llorona y Promise of the World."
+      }
+    ],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-88",
+    "numero": 88,
+    "fecha": "2027-01-28",
+    "diaSemana": "jueves",
+    "semana": 13,
+    "fase": "con-flauta",
+    "tipo": "descanso",
+    "titulo": "Descanso",
+    "objetivo": "Descansar también es entrenar: los labios y la memoria se consolidan.",
+    "bloques": [],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-89",
+    "numero": 89,
+    "fecha": "2027-01-29",
+    "diaSemana": "viernes",
+    "semana": 13,
+    "fase": "con-flauta",
+    "tipo": "practica",
+    "sesion": 64,
+    "titulo": "Ensayo del jefe 2",
+    "objetivo": "Simular el día del jefe.",
+    "bloques": [
+      {
+        "tipo": "calentamiento",
+        "minutos": 10,
+        "actividad": "Notas largas."
+      },
+      {
+        "tipo": "grabacion",
+        "minutos": 30,
+        "actividad": "Graba Always With Me como si fuera el día del jefe."
+      },
+      {
+        "tipo": "repaso",
+        "minutos": 5,
+        "actividad": "Cuaderno (sin soplar): anota los minutos, qué salió bien y qué repetir mañana."
+      }
+    ],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-90",
+    "numero": 90,
+    "fecha": "2027-01-30",
+    "diaSemana": "sábado",
+    "semana": 13,
+    "fase": "con-flauta",
+    "tipo": "practica",
+    "sesion": 65,
+    "titulo": "JEFE 2: Siempre Conmigo",
+    "objetivo": "Vencer al jefe del día 90 y cerrar el plan.",
+    "bloques": [
+      {
+        "tipo": "calentamiento",
+        "minutos": 12,
+        "actividad": "Notas largas y escalas."
+      },
+      {
+        "tipo": "grabacion",
+        "minutos": 25,
+        "actividad": "Graba Always With Me completa a ♩ = 66: 2 tomas seguidas sin errores graves."
+      },
+      {
+        "tipo": "repaso",
+        "minutos": 15,
+        "actividad": "Test de lectura final y retrospectiva de los 90 días: qué funcionó, qué no, y qué sigue (nivel 3) junto con tu maestro."
+      }
+    ],
+    "logrosPosibles": [
+      "logro-noventa-dias"
+    ],
+    "jefe": "jefe-2",
+    "notas": "¡Felicidades! Del día 91 en adelante el camino se mide por criterios de paso, no por fechas."
+  }
+]

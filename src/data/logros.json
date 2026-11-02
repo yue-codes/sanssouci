@@ -1,0 +1,671 @@
+[
+  {
+    "id": "logro-test-lectura",
+    "nombre": "Línea base de lectura",
+    "categoria": "lectura",
+    "nivelSugerido": "nivel-0",
+    "requiere": [],
+    "descripcion": "Hacer el test inicial de lectura de notas en clave de sol (incluidas las agudas) y anotar el resultado.",
+    "criterio": "Test hecho y resultado (aciertos y tiempo) apuntado en tu cuaderno."
+  },
+  {
+    "id": "logro-clave-sol",
+    "nombre": "Clave de sol",
+    "categoria": "lectura",
+    "nivelSugerido": "nivel-0",
+    "requiere": [
+      "logro-test-lectura"
+    ],
+    "descripcion": "Nombrar con soltura las notas del pentagrama y las graves de la flauta (Do4–Sol5).",
+    "criterio": "20 notas al azar en menos de 40 s sin errores."
+  },
+  {
+    "id": "logro-lectura-agudas",
+    "nombre": "Las agudas ya no asustan",
+    "categoria": "lectura",
+    "nivelSugerido": "nivel-0",
+    "requiere": [
+      "logro-clave-sol"
+    ],
+    "descripcion": "Leer las líneas adicionales por encima del pentagrama hasta Do7 (la tercera octava de la flauta).",
+    "criterio": "20 notas al azar entre Do4 y Do7 en menos de 60 s sin errores."
+  },
+  {
+    "id": "logro-primera-vista",
+    "nombre": "Primera vista",
+    "categoria": "lectura",
+    "nivelSugerido": "nivel-0",
+    "requiere": [
+      "logro-clave-sol",
+      "logro-ritmo-basico"
+    ],
+    "descripcion": "Leer una melodía nueva de 8 compases sin detenerte.",
+    "criterio": "Cantarla o tocarla en guitarra a 60 bpm sin pararte, a la primera."
+  },
+  {
+    "id": "logro-ritmo-basico",
+    "nombre": "Pulso firme",
+    "categoria": "teoria",
+    "nivelSugerido": "nivel-0",
+    "requiere": [],
+    "descripcion": "Redonda, blanca, negra, corchea y sus silencios en 2/4, 3/4 y 4/4.",
+    "criterio": "Palmear 8 compases nuevos con metrónomo a 60–80 bpm sin perder el pulso."
+  },
+  {
+    "id": "logro-ritmo-puntillo",
+    "nombre": "Puntillos y ligaduras",
+    "categoria": "teoria",
+    "nivelSugerido": "nivel-0",
+    "requiere": [
+      "logro-ritmo-basico"
+    ],
+    "descripcion": "Figuras con puntillo, ligaduras de prolongación y semicorcheas básicas.",
+    "criterio": "Palmear 8 compases con puntillos y semicorcheas a 60 bpm sin errores."
+  },
+  {
+    "id": "logro-sincopa",
+    "nombre": "Contratiempo",
+    "categoria": "teoria",
+    "nivelSugerido": "nivel-4",
+    "requiere": [
+      "logro-ritmo-puntillo"
+    ],
+    "descripcion": "Síncopas y contratiempos, como los de los openings de anime.",
+    "criterio": "Tocar un pasaje sincopado de 8 compases a 80 bpm, estable."
+  },
+  {
+    "id": "logro-escalas-mayores-teoria",
+    "nombre": "Arquitecto de escalas",
+    "categoria": "teoria",
+    "nivelSugerido": "nivel-0",
+    "requiere": [],
+    "descripcion": "Construir cualquier escala mayor con la fórmula T-T-S-T-T-T-S.",
+    "criterio": "Escribir 5 escalas mayores al azar sin errores."
+  },
+  {
+    "id": "logro-armaduras",
+    "nombre": "Círculo de quintas",
+    "categoria": "teoria",
+    "nivelSugerido": "nivel-0",
+    "requiere": [
+      "logro-escalas-mayores-teoria"
+    ],
+    "descripcion": "Reconocer las armaduras mayores y entender el círculo de quintas.",
+    "criterio": "Identificar 10 armaduras al azar (hasta 4 alteraciones) sin errores."
+  },
+  {
+    "id": "logro-intervalos",
+    "nombre": "Medir distancias",
+    "categoria": "teoria",
+    "nivelSugerido": "nivel-0",
+    "requiere": [
+      "logro-clave-sol"
+    ],
+    "descripcion": "Nombrar intervalos hasta la octava en el papel.",
+    "criterio": "10 intervalos al azar, al menos 9 correctos."
+  },
+  {
+    "id": "logro-escalas-menores-teoria",
+    "nombre": "Lado menor",
+    "categoria": "teoria",
+    "nivelSugerido": "nivel-3",
+    "requiere": [
+      "logro-armaduras"
+    ],
+    "descripcion": "Escalas menores natural, armónica y melódica; relativas mayores y menores.",
+    "criterio": "Escribir la relativa menor y sus 3 formas para 4 tonalidades."
+  },
+  {
+    "id": "logro-respiracion-diafragmatica",
+    "nombre": "Respirar desde abajo",
+    "categoria": "respiracion",
+    "nivelSugerido": "nivel-0",
+    "requiere": [],
+    "descripcion": "Respiración baja (diafragmática) sin subir los hombros.",
+    "criterio": "7 días de práctica con 5 min de ejercicios de respiración cada uno."
+  },
+  {
+    "id": "logro-soplido-20s",
+    "nombre": "Aire largo",
+    "categoria": "respiracion",
+    "nivelSugerido": "nivel-0",
+    "requiere": [
+      "logro-respiracion-diafragmatica"
+    ],
+    "descripcion": "Sostener un soplido 'sss' constante y controlado.",
+    "criterio": "20 s de soplido parejo (sin ahogarte ni marearte)."
+  },
+  {
+    "id": "logro-respiracion-circular",
+    "nombre": "Respiración circular",
+    "categoria": "respiracion",
+    "nivelSugerido": "nivel-8",
+    "requiere": [
+      "logro-tercera-octava-completa"
+    ],
+    "descripcion": "Tocar sin interrumpir el sonido mientras inhalas por la nariz.",
+    "criterio": "30 s de pasaje continuo sin corte audible (validado por tu maestro)."
+  },
+  {
+    "id": "logro-primer-sonido",
+    "nombre": "Primer aliento",
+    "categoria": "sonido",
+    "nivelSugerido": "nivel-1",
+    "requiere": [],
+    "descripcion": "Sacar sonido claro solo con la cabeza de la flauta.",
+    "criterio": "Sonido claro de 4 s, 3 veces seguidas."
+  },
+  {
+    "id": "logro-primeras-notas",
+    "nombre": "Si · La · Sol",
+    "categoria": "sonido",
+    "nivelSugerido": "nivel-1",
+    "requiere": [
+      "logro-primer-sonido"
+    ],
+    "descripcion": "Las tres primeras notas con la flauta completa.",
+    "criterio": "Si4, La4 y Sol4 claras, 4 s cada una."
+  },
+  {
+    "id": "logro-registro-grave",
+    "nombre": "Registro grave",
+    "categoria": "sonido",
+    "nivelSugerido": "nivel-1",
+    "requiere": [
+      "logro-primeras-notas"
+    ],
+    "descripcion": "Todas las notas de Re4 a Do5 con sonido.",
+    "criterio": "Notas largas de 6 s de Re4 a Do5 sin que el sonido se rompa."
+  },
+  {
+    "id": "logro-notas-largas",
+    "nombre": "Notas largas",
+    "categoria": "sonido",
+    "nivelSugerido": "nivel-2",
+    "requiere": [
+      "logro-registro-grave"
+    ],
+    "descripcion": "Sonido estable y centrado en notas largas (Trevor Wye, Tono).",
+    "criterio": "8 s estables por nota en una octava, mf, sin oscilar."
+  },
+  {
+    "id": "logro-segunda-octava",
+    "nombre": "Salto de octava",
+    "categoria": "sonido",
+    "nivelSugerido": "nivel-2",
+    "requiere": [
+      "logro-registro-grave"
+    ],
+    "descripcion": "Pasar del registro grave al medio con la misma digitación.",
+    "criterio": "Saltos de octava limpios de Re4 a La4 y notas Re5–La5 claras."
+  },
+  {
+    "id": "logro-dos-octavas",
+    "nombre": "Dos octavas",
+    "categoria": "sonido",
+    "nivelSugerido": "nivel-3",
+    "requiere": [
+      "logro-segunda-octava",
+      "logro-notas-largas"
+    ],
+    "descripcion": "Todas las notas de Do4 a Do6 con sonido estable.",
+    "criterio": "Escala cromática lenta de Do4 a Do6 con sonido limpio."
+  },
+  {
+    "id": "logro-do-grave",
+    "nombre": "Fondo del pozo",
+    "categoria": "sonido",
+    "nivelSugerido": "nivel-3",
+    "requiere": [
+      "logro-registro-grave"
+    ],
+    "descripcion": "Do4 y Do#4, las notas más graves de tu flauta.",
+    "criterio": "Do4 claro de 4 s, en pp y en mf."
+  },
+  {
+    "id": "logro-armonicos",
+    "nombre": "Armónicos",
+    "categoria": "sonido",
+    "nivelSugerido": "nivel-3",
+    "requiere": [
+      "logro-segunda-octava"
+    ],
+    "descripcion": "Sacar armónicos sobre las digitaciones graves (Trevor Wye).",
+    "criterio": "Armónicos 1 a 4 sobre Do4 y Re4."
+  },
+  {
+    "id": "logro-tercera-octava-sol",
+    "nombre": "Tercera octava (hasta Sol6)",
+    "categoria": "sonido",
+    "nivelSugerido": "nivel-4",
+    "requiere": [
+      "logro-dos-octavas"
+    ],
+    "descripcion": "Las primeras notas de la tercera octava sin chillar.",
+    "criterio": "Escala de Re6 a Sol6 con sonido controlado."
+  },
+  {
+    "id": "logro-tercera-octava-si",
+    "nombre": "Tercera octava (hasta Si6)",
+    "categoria": "sonido",
+    "nivelSugerido": "nivel-5",
+    "requiere": [
+      "logro-tercera-octava-sol"
+    ],
+    "descripcion": "Ampliar la tercera octava.",
+    "criterio": "Notas largas de La6 y Si6 afinadas (±15 cents)."
+  },
+  {
+    "id": "logro-tercera-octava-completa",
+    "nombre": "Techo del mundo",
+    "categoria": "sonido",
+    "nivelSugerido": "nivel-6",
+    "requiere": [
+      "logro-tercera-octava-si"
+    ],
+    "descripcion": "Tercera octava completa hasta Do7.",
+    "criterio": "Escala cromática de Do4 a Do7 a 60 bpm en corcheas."
+  },
+  {
+    "id": "logro-dinamicas",
+    "nombre": "Del susurro al grito",
+    "categoria": "sonido",
+    "nivelSugerido": "nivel-5",
+    "requiere": [
+      "logro-dos-octavas"
+    ],
+    "descripcion": "Dinámicas de pp a ff sin desafinar.",
+    "criterio": "Crescendo y diminuendo en notas largas de 2 octavas, afinación ±10 cents."
+  },
+  {
+    "id": "logro-vibrato",
+    "nombre": "Vibrato",
+    "categoria": "sonido",
+    "nivelSugerido": "nivel-5",
+    "requiere": [
+      "logro-notas-largas",
+      "logro-dinamicas"
+    ],
+    "descripcion": "Vibrato controlado (pulsos de aire).",
+    "criterio": "Pulsos de 4 y 6 por negra a 60 bpm, regulares; el maestro lo aprueba."
+  },
+  {
+    "id": "logro-digitaciones-al-aire",
+    "nombre": "Mapa de dedos",
+    "categoria": "tecnica",
+    "nivelSugerido": "nivel-0",
+    "requiere": [
+      "logro-clave-sol"
+    ],
+    "descripcion": "Conocer la digitación de Re4 a Re6 sin mirar la tabla (sin flauta).",
+    "criterio": "Digitar al aire 15 notas al azar sin consultar."
+  },
+  {
+    "id": "logro-picado-simple",
+    "nombre": "Lengua: 'tu'",
+    "categoria": "tecnica",
+    "nivelSugerido": "nivel-2",
+    "requiere": [
+      "logro-registro-grave"
+    ],
+    "descripcion": "Ataque con la lengua (picado simple).",
+    "criterio": "Corcheas picadas en escala de Sol mayor a 80 bpm, claras."
+  },
+  {
+    "id": "logro-legato",
+    "nombre": "Ligado",
+    "categoria": "tecnica",
+    "nivelSugerido": "nivel-2",
+    "requiere": [
+      "logro-registro-grave"
+    ],
+    "descripcion": "Unir notas sin cortes de aire.",
+    "criterio": "8 notas ligadas por escala sin cortes."
+  },
+  {
+    "id": "logro-staccato",
+    "nombre": "Staccato",
+    "categoria": "tecnica",
+    "nivelSugerido": "nivel-3",
+    "requiere": [
+      "logro-picado-simple"
+    ],
+    "descripcion": "Notas cortas y limpias.",
+    "criterio": "Staccato en semicorcheas a 80 bpm en 2 octavas."
+  },
+  {
+    "id": "logro-escala-cromatica",
+    "nombre": "Cromática",
+    "categoria": "tecnica",
+    "nivelSugerido": "nivel-4",
+    "requiere": [
+      "logro-dos-octavas"
+    ],
+    "descripcion": "Escala cromática de memoria.",
+    "criterio": "2 octavas a 80 bpm en corcheas, de memoria."
+  },
+  {
+    "id": "logro-trinos",
+    "nombre": "Trinos",
+    "categoria": "tecnica",
+    "nivelSugerido": "nivel-5",
+    "requiere": [
+      "logro-escala-cromatica"
+    ],
+    "descripcion": "Trinos regulares con las digitaciones correctas.",
+    "criterio": "Trinos de semitono y tono en la primera y segunda octava, parejos."
+  },
+  {
+    "id": "logro-doble-picado",
+    "nombre": "Doble picado",
+    "categoria": "tecnica",
+    "nivelSugerido": "nivel-6",
+    "requiere": [
+      "logro-staccato"
+    ],
+    "descripcion": "'Tu-ku' para pasajes rápidos.",
+    "criterio": "Semicorcheas en doble picado a 100 bpm en escala."
+  },
+  {
+    "id": "logro-triple-picado",
+    "nombre": "Triple picado",
+    "categoria": "tecnica",
+    "nivelSugerido": "nivel-6",
+    "requiere": [
+      "logro-doble-picado"
+    ],
+    "descripcion": "'Tu-tu-ku' / 'tu-ku-tu'.",
+    "criterio": "Tresillos de semicorchea a 90 bpm, parejos."
+  },
+  {
+    "id": "logro-doble-picado-rapido",
+    "nombre": "Lengua de rayo",
+    "categoria": "tecnica",
+    "nivelSugerido": "nivel-7",
+    "requiere": [
+      "logro-doble-picado"
+    ],
+    "descripcion": "Doble picado a velocidad de repertorio virtuoso.",
+    "criterio": "Semicorcheas en doble picado a 132 bpm o más, limpias."
+  },
+  {
+    "id": "logro-escala-sol-mayor",
+    "nombre": "Sol mayor",
+    "categoria": "escalas",
+    "nivelSugerido": "nivel-2",
+    "requiere": [
+      "logro-segunda-octava"
+    ],
+    "descripcion": "Primera escala completa en la flauta.",
+    "criterio": "Sol4–Sol5 en negras a 60 bpm, subiendo y bajando, sonido limpio."
+  },
+  {
+    "id": "logro-escala-re-mayor",
+    "nombre": "Re mayor",
+    "categoria": "escalas",
+    "nivelSugerido": "nivel-2",
+    "requiere": [
+      "logro-segunda-octava"
+    ],
+    "descripcion": "Escala de Re mayor de una octava.",
+    "criterio": "Re4–Re5 en negras a 60 bpm, subiendo y bajando, sonido limpio."
+  },
+  {
+    "id": "logro-escala-fa-mayor",
+    "nombre": "Fa mayor",
+    "categoria": "escalas",
+    "nivelSugerido": "nivel-3",
+    "requiere": [
+      "logro-escala-sol-mayor"
+    ],
+    "descripcion": "Primera escala con bemol (Si bemol).",
+    "criterio": "Fa4–Fa5 en corcheas a 60 bpm."
+  },
+  {
+    "id": "logro-escalas-3-alteraciones",
+    "nombre": "Siete escalas",
+    "categoria": "escalas",
+    "nivelSugerido": "nivel-3",
+    "requiere": [
+      "logro-escala-fa-mayor",
+      "logro-escala-re-mayor",
+      "logro-dos-octavas"
+    ],
+    "descripcion": "Escalas mayores hasta 3 sostenidos o bemoles, 2 octavas donde se pueda.",
+    "criterio": "Do, Sol, Re, La, Fa, Sib y Mib a 72 bpm en corcheas."
+  },
+  {
+    "id": "logro-todas-escalas-mayores",
+    "nombre": "Las doce mayores",
+    "categoria": "escalas",
+    "nivelSugerido": "nivel-4",
+    "requiere": [
+      "logro-escalas-3-alteraciones",
+      "logro-escala-cromatica"
+    ],
+    "descripcion": "Todas las escalas mayores.",
+    "criterio": "12 escalas mayores, 2 octavas, a 80 bpm en corcheas, de memoria."
+  },
+  {
+    "id": "logro-escalas-menores",
+    "nombre": "Las doce menores",
+    "categoria": "escalas",
+    "nivelSugerido": "nivel-5",
+    "requiere": [
+      "logro-todas-escalas-mayores",
+      "logro-escalas-menores-teoria"
+    ],
+    "descripcion": "Escalas menores armónicas y melódicas.",
+    "criterio": "12 menores armónicas y melódicas, 2 octavas, a 72 bpm."
+  },
+  {
+    "id": "logro-tg-ej1",
+    "nombre": "Taffanel & Gaubert: EJ 1",
+    "categoria": "escalas",
+    "nivelSugerido": "nivel-5",
+    "requiere": [
+      "logro-todas-escalas-mayores"
+    ],
+    "descripcion": "Primer ejercicio diario de Taffanel & Gaubert.",
+    "criterio": "EJ 1 completo a negra = 60, ligado."
+  },
+  {
+    "id": "logro-tg-ej4",
+    "nombre": "Taffanel & Gaubert: EJ 4",
+    "categoria": "escalas",
+    "nivelSugerido": "nivel-5",
+    "requiere": [
+      "logro-tg-ej1"
+    ],
+    "descripcion": "Escalas en todas las tonalidades (T&G EJ 4).",
+    "criterio": "EJ 4 completo a negra = 72."
+  },
+  {
+    "id": "logro-oido-intervalos",
+    "nombre": "Oído afinado",
+    "categoria": "oido",
+    "nivelSugerido": "nivel-0",
+    "requiere": [],
+    "descripcion": "Reconocer intervalos al oído.",
+    "criterio": "2as, 3as, 5as y 8as: 8 de 10 aciertos en un test de oído."
+  },
+  {
+    "id": "logro-primera-transcripcion",
+    "nombre": "Primera transcripción",
+    "categoria": "oido",
+    "nivelSugerido": "nivel-0",
+    "requiere": [
+      "logro-oido-intervalos",
+      "logro-clave-sol"
+    ],
+    "descripcion": "Sacar de oído con la guitarra una frase y escribirla.",
+    "criterio": "4–8 compases transcritos en pentagrama y tocados en guitarra."
+  },
+  {
+    "id": "logro-transcripcion-completa",
+    "nombre": "Transcriptor",
+    "categoria": "oido",
+    "nivelSugerido": "nivel-3",
+    "requiere": [
+      "logro-primera-transcripcion"
+    ],
+    "descripcion": "Transcribir de oído una pieza completa.",
+    "criterio": "Melodía completa escrita (MuseScore o papel) y tocada en guitarra o flauta."
+  },
+  {
+    "id": "logro-transcripcion-flauta",
+    "nombre": "De tu oído a tu flauta",
+    "categoria": "oido",
+    "nivelSugerido": "nivel-3",
+    "requiere": [
+      "logro-transcripcion-completa",
+      "logro-primera-pieza"
+    ],
+    "descripcion": "Tocar en la flauta algo que transcribiste tú.",
+    "criterio": "Pieza transcrita por ti, tocada completa y grabada."
+  },
+  {
+    "id": "logro-escucha-maestros",
+    "nombre": "Oído de flautista",
+    "categoria": "oido",
+    "nivelSugerido": "nivel-0",
+    "requiere": [],
+    "descripcion": "Escuchar con atención a Galway, Pahud y Rampal.",
+    "criterio": "3 grabaciones escuchadas, con 3 observaciones de sonido anotadas por cada una."
+  },
+  {
+    "id": "logro-primera-semana",
+    "nombre": "Primera semana",
+    "categoria": "habito",
+    "nivelSugerido": "nivel-0",
+    "requiere": [],
+    "descripcion": "Completar las 5 sesiones de una semana.",
+    "criterio": "5 de 5 sesiones de una semana."
+  },
+  {
+    "id": "logro-racha-4-semanas",
+    "nombre": "Constancia",
+    "categoria": "habito",
+    "nivelSugerido": "nivel-0",
+    "requiere": [
+      "logro-primera-semana"
+    ],
+    "descripcion": "Cuatro semanas seguidas practicando.",
+    "criterio": "4 semanas seguidas con al menos 4 de 5 sesiones."
+  },
+  {
+    "id": "logro-cuaderno",
+    "nombre": "Bitácora",
+    "categoria": "habito",
+    "nivelSugerido": "nivel-0",
+    "requiere": [],
+    "descripcion": "Llevar registro de la práctica.",
+    "criterio": "20 sesiones registradas con minutos y notas."
+  },
+  {
+    "id": "logro-noventa-dias",
+    "nombre": "Los 90 días",
+    "categoria": "habito",
+    "nivelSugerido": "nivel-2",
+    "requiere": [
+      "logro-racha-4-semanas"
+    ],
+    "descripcion": "Terminar el plan de 90 días.",
+    "criterio": "Al menos 58 de las 65 sesiones del plan completadas (≈ 90 %)."
+  },
+  {
+    "id": "logro-primera-clase",
+    "nombre": "Maestro encontrado",
+    "categoria": "habito",
+    "nivelSugerido": "nivel-0",
+    "requiere": [],
+    "descripcion": "Tener la primera clase con maestro.",
+    "criterio": "Primera clase tomada y apuntes guardados."
+  },
+  {
+    "id": "logro-flauta-revisada",
+    "nombre": "Flauta revisada",
+    "categoria": "habito",
+    "nivelSugerido": "nivel-1",
+    "requiere": [
+      "logro-primera-clase"
+    ],
+    "descripcion": "Que el maestro revise la flauta al recibirla.",
+    "criterio": "Sellado, ajuste y afinación revisados por tu maestro."
+  },
+  {
+    "id": "logro-primer-video",
+    "nombre": "Luces, cámara…",
+    "categoria": "grabacion",
+    "nivelSugerido": "nivel-0",
+    "requiere": [],
+    "descripcion": "Grabar un video completo de ti tocando.",
+    "criterio": "Un video completo grabado (publicarlo es opcional)."
+  },
+  {
+    "id": "logro-primer-video-publicado",
+    "nombre": "Estreno",
+    "categoria": "grabacion",
+    "nivelSugerido": "nivel-2",
+    "requiere": [
+      "logro-primer-video"
+    ],
+    "descripcion": "Publicar tu primer video.",
+    "criterio": "Video publicado en la red que elijas."
+  },
+  {
+    "id": "logro-audio-externo",
+    "nombre": "Buen audio",
+    "categoria": "grabacion",
+    "nivelSugerido": "nivel-4",
+    "requiere": [
+      "logro-primer-video"
+    ],
+    "descripcion": "Grabar con micrófono externo.",
+    "criterio": "Un video con audio de micrófono externo bien nivelado (sin saturar)."
+  },
+  {
+    "id": "logro-primera-pieza",
+    "nombre": "Primera pieza",
+    "categoria": "repertorio",
+    "nivelSugerido": "nivel-1",
+    "requiere": [
+      "logro-registro-grave"
+    ],
+    "descripcion": "Tocar completa tu primera pieza en la flauta.",
+    "criterio": "Pieza completa, de principio a fin, sin pararte."
+  },
+  {
+    "id": "logro-cinco-piezas",
+    "nombre": "Repertorio de cinco",
+    "categoria": "repertorio",
+    "nivelSugerido": "nivel-3",
+    "requiere": [
+      "logro-primera-pieza"
+    ],
+    "descripcion": "Cinco piezas completas en tu repertorio.",
+    "criterio": "5 piezas tocables completas."
+  },
+  {
+    "id": "logro-diez-piezas",
+    "nombre": "Repertorio de diez",
+    "categoria": "repertorio",
+    "nivelSugerido": "nivel-4",
+    "requiere": [
+      "logro-cinco-piezas"
+    ],
+    "descripcion": "Diez piezas completas.",
+    "criterio": "10 piezas tocables completas."
+  },
+  {
+    "id": "logro-de-memoria",
+    "nombre": "De memoria",
+    "categoria": "repertorio",
+    "nivelSugerido": "nivel-3",
+    "requiere": [
+      "logro-primera-pieza"
+    ],
+    "descripcion": "Tocar una pieza sin partitura.",
+    "criterio": "Una pieza completa de memoria."
+  }
+]

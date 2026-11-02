@@ -1,0 +1,32 @@
+[
+  {
+    "id": "clasica",
+    "nombre": "Ruta Clásica",
+    "color": "#b8860b",
+    "descripcion": "Repertorio de concierto: de Pachelbel y Fauré a Bach, Saint-Saëns y Paganini. Es la columna vertebral técnica del camino."
+  },
+  {
+    "id": "ghibli",
+    "nombre": "Ruta Ghibli",
+    "color": "#4f8a5b",
+    "descripcion": "Joe Hisaishi y compañía: melodías cantables, ideales para trabajar sonido, respiración y fraseo."
+  },
+  {
+    "id": "videojuegos",
+    "nombre": "Ruta Videojuegos",
+    "color": "#5b6ee1",
+    "descripcion": "Hollow Knight, NieR, Octopath, Clair Obscur, Final Fantasy, Tetris…"
+  },
+  {
+    "id": "anime",
+    "nombre": "Ruta Anime · Vocaloid · J-pop",
+    "color": "#d6457a",
+    "descripcion": "Openings, endings y OST, Vocaloid, Ado y J-pop. Ritmo, síncopa y velocidad."
+  },
+  {
+    "id": "folk-mundo",
+    "nombre": "Ruta Folk y Mundo",
+    "color": "#c46a2b",
+    "descripcion": "Canciones populares, tango, cine y TV: Wellerman, Bella Ciao, La Llorona, Por una Cabeza…"
+  }
+]

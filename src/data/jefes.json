@@ -1,0 +1,222 @@
+[
+  {
+    "id": "jefe-0",
+    "nombre": "El Eco de Hallownest",
+    "nivel": "nivel-0",
+    "cancion": "enter-hallownest",
+    "version": "BtmlvVDTIN0",
+    "descripcion": "Jefe de oído: aún no hay flauta, así que la batalla es transcribir y tocar en guitarra.",
+    "condicionVictoria": {
+      "tempo": "♩ = 60 con metrónomo",
+      "criterios": [
+        "Transcribir de oído la melodía principal (al menos 16 compases) a partir de la versión de Karne Flute Covers.",
+        "Escribirla en pentagrama (papel o MuseScore).",
+        "Tocarla completa en guitarra con metrónomo, sin pararte, en 2 tomas seguidas."
+      ],
+      "grabacion": true
+    },
+    "requiere": [
+      "logro-primera-transcripcion",
+      "logro-clave-sol"
+    ],
+    "notas": "Si te resulta demasiado difícil, puedes cambiarlo por Isabella's Lullaby, que es más corta y lenta."
+  },
+  {
+    "id": "jefe-1",
+    "nombre": "El Ballenero",
+    "nivel": "nivel-1",
+    "cancion": "wellerman",
+    "version": "A0uLw142DQY",
+    "descripcion": "Tu primera pieza completa en la flauta, en el registro grave.",
+    "condicionVictoria": {
+      "tempo": "♩ = 72 con metrónomo",
+      "criterios": [
+        "Estrofa y estribillo completos.",
+        "Sonido sin cortes y respiraciones en los sitios marcados.",
+        "2 tomas seguidas sin errores graves."
+      ],
+      "grabacion": true
+    },
+    "requiere": [
+      "logro-registro-grave",
+      "logro-primeras-notas"
+    ]
+  },
+  {
+    "id": "jefe-2",
+    "nombre": "Siempre Conmigo",
+    "nivel": "nivel-2",
+    "cancion": "always-with-me",
+    "version": "37o_w10YsYg",
+    "descripcion": "El jefe del día 90. La canción de El viaje de Chihiro, con sonido cantado.",
+    "condicionVictoria": {
+      "tempo": "♩ = 66 con metrónomo (o con la pista, si llegas a su tempo)",
+      "criterios": [
+        "Pieza completa, de principio a fin.",
+        "Sonido limpio en las dos octavas que usa.",
+        "Respiraciones planeadas, sin quedarte sin aire.",
+        "2 tomas seguidas sin errores graves."
+      ],
+      "grabacion": true
+    },
+    "requiere": [
+      "logro-segunda-octava",
+      "logro-escala-sol-mayor",
+      "logro-legato"
+    ]
+  },
+  {
+    "id": "jefe-3",
+    "nombre": "El Castillo Ambulante",
+    "nivel": "nivel-3",
+    "cancion": "merry-go-round-of-life",
+    "version": "PnYftv8ZguU",
+    "descripcion": "Vals de Hisaishi: dos octavas, fraseo y pulso de 3/4.",
+    "condicionVictoria": {
+      "tempo": "♩ = 120 (el tempo exacto lo ajusta tu maestro)",
+      "criterios": [
+        "Pieza completa con acompañamiento.",
+        "Pulso de vals estable.",
+        "Dinámicas básicas (p/f) audibles."
+      ],
+      "grabacion": true
+    },
+    "requiere": [
+      "logro-dos-octavas",
+      "logro-escalas-3-alteraciones"
+    ]
+  },
+  {
+    "id": "jefe-4",
+    "nombre": "El Capitán",
+    "nivel": "nivel-4",
+    "cancion": "hes-a-pirate",
+    "version": "-zf2L93oICU",
+    "descripcion": "Piratas del Caribe: ritmo de 6/8, semicorcheas y energía.",
+    "condicionVictoria": {
+      "tempo": "♩. ≈ 66 (cerca del original)",
+      "criterios": [
+        "Completa con la pista.",
+        "Semicorcheas parejas.",
+        "Acentos y articulación claros."
+      ],
+      "grabacion": true
+    },
+    "requiere": [
+      "logro-tercera-octava-sol",
+      "logro-escala-cromatica",
+      "logro-sincopa"
+    ]
+  },
+  {
+    "id": "jefe-5",
+    "nombre": "El Tango",
+    "nivel": "nivel-5",
+    "cancion": "por-una-cabeza",
+    "version": "_dKe0_bOXxE",
+    "descripcion": "Por una Cabeza: expresión, vibrato y carácter.",
+    "condicionVictoria": {
+      "tempo": "Con la pista o con pianista",
+      "criterios": [
+        "Vibrato controlado en las notas largas.",
+        "Rubato con intención (no por inseguridad).",
+        "Afinación sólida en la tercera octava."
+      ],
+      "grabacion": true
+    },
+    "requiere": [
+      "logro-vibrato",
+      "logro-dinamicas",
+      "logro-tercera-octava-si"
+    ]
+  },
+  {
+    "id": "jefe-6",
+    "nombre": "El Bufón de Bach",
+    "nivel": "nivel-6",
+    "cancion": "badinerie",
+    "version": "5ZIERcooDOA",
+    "descripcion": "Badinerie de la Suite orquestal nº 2: el clásico de la articulación rápida.",
+    "condicionVictoria": {
+      "tempo": "♩ = 100 como victoria; el tempo de concierto (≈ 120+) es el reto extra",
+      "criterios": [
+        "Completa con acompañamiento.",
+        "Articulación limpia (doble picado si hace falta).",
+        "Sin perder el pulso."
+      ],
+      "grabacion": true
+    },
+    "requiere": [
+      "logro-doble-picado",
+      "logro-tercera-octava-completa"
+    ]
+  },
+  {
+    "id": "jefe-7",
+    "nombre": "El Violinista Húngaro",
+    "nivel": "nivel-7",
+    "cancion": "czardas",
+    "version": "yNGpzUtgtsE",
+    "descripcion": "Czardas de Monti: lento, rápido, armónicos y velocidad.",
+    "condicionVictoria": {
+      "tempo": "Tempos contrastantes de la obra, con pianista o pista",
+      "criterios": [
+        "Obra completa.",
+        "Sección rápida limpia.",
+        "Contraste de carácter entre secciones."
+      ],
+      "grabacion": true
+    },
+    "requiere": [
+      "logro-doble-picado-rapido",
+      "logro-trinos"
+    ]
+  },
+  {
+    "id": "jefe-8a",
+    "nombre": "La Campanella",
+    "nivel": "nivel-8",
+    "cancion": "la-campanella",
+    "version": "Kimy-h2Z6Xw",
+    "final": true,
+    "descripcion": "Jefe final. Paganini/Liszt en el arreglo de Denis Bouriakov.",
+    "condicionVictoria": {
+      "tempo": "Tempo de concierto",
+      "criterios": [
+        "Obra completa con piano.",
+        "Saltos y repeticiones limpios.",
+        "Aprobada por tu maestro."
+      ],
+      "grabacion": true
+    },
+    "requiere": [
+      "logro-doble-picado-rapido",
+      "logro-triple-picado",
+      "logro-tercera-octava-completa"
+    ]
+  },
+  {
+    "id": "jefe-8b",
+    "nombre": "Capricho 24",
+    "nivel": "nivel-8",
+    "cancion": "capricho-24",
+    "version": "kafePIAD--k",
+    "final": true,
+    "descripcion": "Jefe final. Tema y variaciones de Paganini, en la versión de Jasmine Choi.",
+    "condicionVictoria": {
+      "tempo": "Tempo de concierto",
+      "criterios": [
+        "Tema y todas las variaciones.",
+        "Cada variación con su técnica clara.",
+        "Aprobado por tu maestro."
+      ],
+      "grabacion": true
+    },
+    "requiere": [
+      "logro-doble-picado-rapido",
+      "logro-triple-picado",
+      "logro-tercera-octava-completa",
+      "logro-respiracion-circular"
+    ]
+  }
+]
