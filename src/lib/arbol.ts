@@ -62,6 +62,10 @@ export interface NodoTalento {
   requiere: string[];
   /** Zona sugerida, ya en texto («Zona 2»). */
   zona: string;
+  /** Orden de la zona sugerida (para filtrar por zona). */
+  ordenZona: number;
+  /** Nombres de los jefes que piden este talento: es una «llave» de su puerta. */
+  llaveDe: string[];
   /** Columna de la cuadrícula (índice de la rama). */
   col: number;
   /** Fila de la cuadrícula (profundidad en el árbol). */
@@ -75,15 +79,20 @@ export interface NodoTalento {
  * @param ramas Categorías en el orden de las columnas.
  */
 export function construirNodosArbol(c: Contenido, ramas: readonly CategoriaLogro[]): NodoTalento[] {
-  const planos = c.logros.map((l) => ({
-    id: l.id,
-    nombre: l.data.nombre,
-    categoria: l.data.categoria,
-    descripcion: l.data.descripcion,
-    criterio: l.data.criterio,
-    requiere: l.data.requiere.map((r) => r.id),
-    zona: `Zona ${c.nivelPorId.get(l.data.nivelSugerido.id)!.data.orden}`,
-  }));
+  const planos = c.logros.map((l) => {
+    const orden = c.nivelPorId.get(l.data.nivelSugerido.id)!.data.orden;
+    return {
+      id: l.id,
+      nombre: l.data.nombre,
+      categoria: l.data.categoria,
+      descripcion: l.data.descripcion,
+      criterio: l.data.criterio,
+      requiere: l.data.requiere.map((r) => r.id),
+      zona: `Zona ${orden}`,
+      ordenZona: orden,
+      llaveDe: c.jefes.filter((j) => j.data.requiere.some((r) => r.id === l.id)).map((j) => j.data.nombre),
+    };
+  });
   return posicionarArbol(planos, ramas);
 }
 

@@ -15,6 +15,8 @@ interface Props {
   estados: ReadonlyMap<string, EstadoLogro>;
   /** Id del nodo seleccionado (se muestra desplegado). */
   seleccion: string;
+  /** Si se indica, los demás talentos se ven atenuados (filtro «¿Qué puedo hacer ya?»). */
+  visibles?: ReadonlySet<string>;
   /** Talentos que se acaban de abrir (llevan la marca «nuevo»). */
   recienAbiertos: ReadonlySet<string>;
   /** Talento recién conseguido, para su estallido. */
@@ -31,7 +33,7 @@ interface Props {
  * una línea, con el seleccionado desplegado (patrón acordeón). También celebra
  * (estallido y marca «nuevo») igual que el lienzo.
  */
-export default function ListaRama({ nodos, estados, seleccion, recienAbiertos, celebrado, onElegir, detalle }: Props) {
+export default function ListaRama({ nodos, estados, seleccion, visibles, recienAbiertos, celebrado, onElegir, detalle }: Props) {
   // Al saltar a un talento (desde un requisito o un enlace #id), lo trae a la vista.
   // No en el primer render: al abrir la página no queremos que salte sola.
   const primerRender = useRef(true);
@@ -53,7 +55,7 @@ export default function ListaRama({ nodos, estados, seleccion, recienAbiertos, c
         const estado = estados.get(n.id)!;
         const abierto = n.id === seleccion;
         return (
-          <li key={n.id} id={`talento-${n.id}`} class={`relative rounded-md border transition ${abierto ? "border-acento/60 bg-superficie" : "border-transparent"}`}>
+          <li key={n.id} id={`talento-${n.id}`} class={`relative rounded-md border transition ${abierto ? "border-acento/60 bg-superficie" : "border-transparent"} ${!visibles || visibles.has(n.id) || abierto ? "" : "opacity-35"}`}>
             <button
               type="button"
               aria-expanded={abierto}
@@ -61,7 +63,7 @@ export default function ListaRama({ nodos, estados, seleccion, recienAbiertos, c
               class="flex w-full items-center gap-3 p-2 text-left"
             >
               <span class="relative">
-                <Hexagono categoria={n.categoria} estado={estado} tamano={44} elegido={abierto} />
+                <Hexagono categoria={n.categoria} estado={estado} tamano={44} elegido={abierto} llave={n.llaveDe.length > 0} />
                 {celebrado?.id === n.id && <Estallido key={celebrado.clave} />}
               </span>
               <span class="min-w-0 flex-1">

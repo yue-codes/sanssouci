@@ -1,5 +1,6 @@
 import { useComputed, useSignal } from "@preact/signals";
 import { useEffect } from "preact/hooks";
+import { KeyRound } from "lucide-preact";
 import { ancestrosDe, rangoTalentos, type NodoTalento } from "@/lib/arbol";
 import type { CategoriaLogro } from "@/lib/contenido";
 import { estadoLogro, type EstadoLogro } from "@/lib/progreso";
@@ -25,12 +26,14 @@ interface Props {
  * `requiere` es una línea entre dos nodos.
  *
  * Tiene dos vistas del mismo estado:
- *  - Escritorio (`lg` en adelante): el árbol entero (se encoge para caber) + ficha lateral.
+ *  - Escritorio (`lg` en adelante): el árbol entero a todo el ancho (se ajusta para caber) y
+ *    la ficha como barra fija abajo, que se puede minimizar.
  *  - Celular y tableta vertical: pestañas por rama + lista vertical con el talento desplegado.
- * Se muestra una u otra con CSS (`hidden lg:grid`); la oculta queda fuera del
+ * Se muestra una u otra con CSS (`hidden lg:block`); la oculta queda fuera del
  * árbol de accesibilidad, así que no hay botones duplicados para lectores de pantalla.
  *
- * Arriba, el marcador del jugador (rango, talentos, disponibles). Al conseguir un
+ * Arriba, el marcador del jugador (rango, talentos, disponibles) y el filtro
+ * «¿Qué puedo hacer ya?». Al pasar el ratón por un talento se ve su ruta. Al conseguir un
  * talento hay celebración: estallido en el nodo, marca «nuevo» en lo que se abre
  * y un aviso. Por ahora se puede marcar (demo); en la fase 4, `obtenidos` vendrá de Supabase.
  */
@@ -46,7 +49,17 @@ export default function ArbolTalentos({ nodos, ramas, obtenidos: iniciales }: Pr
   const inicial = disponibles.value[0] ?? nodos[0];
   const seleccion = useSignal(inicial.id);
   const ramaActiva = useSignal<CategoriaLogro>(inicial.categoria);
-  const ruta = useComputed(() => ancestrosDe(seleccion.value, porId));
+  /** Talento bajo el ratón o el foco del teclado: sus líneas se resaltan sin cambiar la ficha. */
+  const sobre = useSignal<string | undefined>(undefined);
+  const foco = useComputed(() => sobre.value ?? seleccion.value);
+  const ruta = useComputed(() => ancestrosDe(foco.value, porId));
+  /** Filtro «¿Qué puedo hacer ya?»: deja encendido solo lo disponible y lo que lo abrió. */
+  const soloDisponibles = useSignal(false);
+  const visibles = useComputed(() =>
+    soloDisponibles.value ? new Set(disponibles.value.flatMap((n) => [n.id, ...n.requiere])) : undefined,
+  );
+  /** La barra de la ficha (escritorio) desplegada o minimizada. */
+  const fichaAbierta = useSignal(true);
   const celebracion = useSignal<Celebracion | undefined>(undefined);
   const recienAbiertos = useSignal<ReadonlySet<string>>(new Set());
 
@@ -93,8 +106,17 @@ export default function ArbolTalentos({ nodos, ramas, obtenidos: iniciales }: Pr
   }, []);
 
   const elegido = porId.get(seleccion.value)!;
-  const detalle = (compacto: boolean) => (
-    <DetalleTalento nodo={elegido} estados={estados.value} porId={porId} onElegir={elegir} onAlternar={alternar} compacto={compacto} />
+  const detalle = (disposicion: "barra" | "lista") => (
+    <DetalleTalento
+      nodo={elegido}
+      estados={estados.value}
+      porId={porId}
+      onElegir={elegir}
+      onAlternar={alternar}
+      disposicion={disposicion}
+      abierta={fichaAbierta.value}
+      onAbrir={(v) => (fichaAbierta.value = v)}
+    />
   );
   const total = obtenidos.value.size;
   const rango = rangoTalentos(total, nodos.length);
@@ -138,27 +160,62 @@ export default function ArbolTalentos({ nodos, ramas, obtenidos: iniciales }: Pr
           })}
           <li class="flex items-center gap-1.5">
             <span class="h-0.5 w-4 rounded-full bg-acento-claro" aria-hidden="true" />
-            Ruta del elegido
+            Ruta de requisitos
           </li>
         </ul>
       </div>
 
+      {/* Filtro */}
+      <div class="flex flex-wrap items-center gap-3">
+        <div class="inline-flex rounded-[3px] border border-borde p-0.5 text-sm" role="group" aria-label="Qué talentos encender">
+          {[
+            { valor: false, texto: "Todo el árbol" },
+            { valor: true, texto: "¿Qué puedo hacer ya?" },
+          ].map((o) => (
+            <button
+              key={o.texto}
+              type="button"
+              aria-pressed={soloDisponibles.value === o.valor}
+              onClick={() => (soloDisponibles.value = o.valor)}
+              class="rounded-[2px] px-3 py-1.5 text-tenue transition-colors hover:text-texto aria-pressed:bg-acento-suave aria-pressed:text-texto"
+            >
+              {o.texto}
+            </button>
+          ))}
+        </div>
+        <p class="flex items-center gap-1.5 text-xs text-tenue">
+          <span class="grid size-4 place-items-center rounded-full bg-peligro text-fondo" aria-hidden="true">
+            <KeyRound size={9} strokeWidth={2.5} />
+          </span>
+          Llave de un jefe
+        </p>
+      </div>
+
       {/* Escritorio */}
-      <div class="hidden gap-6 lg:grid lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-start xl:grid-cols-[minmax(0,1fr)_21rem]">
+      {/* Escritorio: el árbol a todo el ancho y la ficha como barra fija abajo (`sticky`):
+          se queda pegada al borde inferior mientras recorres el árbol y se detiene al final de él. */}
+      <div class="hidden lg:block">
         <div class="overflow-hidden rounded-md border border-borde bg-fondo/60 py-2">
           <LienzoArbol
             nodos={nodos}
             ramas={ramas}
             estados={estados.value}
             seleccion={seleccion.value}
+            foco={foco.value}
             ruta={ruta.value}
+            visibles={visibles.value}
             recienAbiertos={recienAbiertos.value}
             celebrado={celebrado}
             onElegir={elegir}
+            onFoco={(id) => (sobre.value = id)}
           />
         </div>
-        <aside class="sticky top-20 rounded-md border border-borde bg-superficie p-5" aria-live="polite">
-          {detalle(false)}
+        <aside
+          aria-label="Ficha del talento"
+          aria-live="polite"
+          class="sticky bottom-3 z-30 mt-3 rounded-md border border-borde-fuerte bg-superficie/95 p-4 shadow-[0_-20px_50px_-20px_var(--fondo)] backdrop-blur-md"
+        >
+          {detalle("barra")}
         </aside>
       </div>
 
@@ -169,10 +226,11 @@ export default function ArbolTalentos({ nodos, ramas, obtenidos: iniciales }: Pr
           nodos={nodosDeRama(ramaActiva.value)}
           estados={estados.value}
           seleccion={seleccion.value}
+          visibles={visibles.value}
           recienAbiertos={recienAbiertos.value}
           celebrado={celebrado}
           onElegir={elegir}
-          detalle={detalle(true)}
+          detalle={detalle("lista")}
         />
       </div>
 

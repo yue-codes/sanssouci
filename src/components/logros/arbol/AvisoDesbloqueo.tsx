@@ -26,9 +26,9 @@ const SEGUNDOS = 6;
 /**
  * @component AvisoDesbloqueo
  * Aviso tipo videojuego al conseguir un talento: «+1 talento» y lo que se abre.
- * Aparece abajo, centrado, y se cierra solo. Es una región `aria-live`, así que
- * los lectores de pantalla lo anuncian; por eso el contenedor siempre existe y
- * solo cambia su contenido.
+ * Aparece abajo y centrado (en escritorio, arriba, para no tapar la ficha) y se
+ * cierra solo. Es una región `aria-live`, así que los lectores de pantalla lo
+ * anuncian; por eso el contenedor siempre existe y solo cambia su contenido.
  */
 export default function AvisoDesbloqueo({ celebracion: c, onCerrar }: Props) {
   useEffect(() => {
@@ -38,7 +38,7 @@ export default function AvisoDesbloqueo({ celebracion: c, onCerrar }: Props) {
   }, [c?.clave]);
 
   return (
-    <div role="status" aria-live="polite" class="pointer-events-none fixed inset-x-0 bottom-6 z-50 flex justify-center px-4">
+    <div role="status" aria-live="polite" class="pointer-events-none fixed inset-x-0 bottom-6 z-50 flex justify-center px-4 lg:top-24 lg:bottom-auto">
       {c && (
         <div
           key={c.clave}
