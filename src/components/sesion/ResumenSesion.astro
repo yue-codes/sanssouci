@@ -1,0 +1,49 @@
+---
+/**
+ * @component ResumenSesion
+ * Una sesión en pequeño: título, objetivo, sus bloques con los minutos y un
+ * botón a la página del día (donde está el cronómetro de la sesión).
+ */
+import { ArrowRight, Clock } from "lucide-preact";
+import { TIPO_BLOQUE } from "./bloques";
+import type { Dia } from "@/lib/contenido";
+import { minutosDelDia } from "@/lib/calendario";
+import { fechaLarga } from "@/lib/fechas";
+
+interface Props {
+  /** El día de práctica a resumir. */
+  dia: Dia;
+  /** Antetítulo, p. ej. «Hoy toca» o «Próxima sesión». */
+  etiqueta: string;
+}
+const { dia, etiqueta } = Astro.props;
+const d = dia.data;
+---
+
+<article class="tarjeta flex flex-col p-6 sm:p-7">
+  <p class="eyebrow">{etiqueta} · {fechaLarga(d.fecha)}</p>
+  <h2 class="mt-2 text-2xl leading-snug font-semibold sm:text-3xl">{d.titulo}</h2>
+  <p class="mt-2 text-sm leading-relaxed text-tenue">{d.objetivo}</p>
+
+  <ol class="mt-5 grid gap-2" aria-label="Bloques de la sesión">
+    {d.bloques.map((b) => {
+      const { nombre, Icono } = TIPO_BLOQUE[b.tipo];
+      return (
+        <li class="flex items-center gap-3 text-sm">
+          <span class="grid size-8 shrink-0 place-items-center rounded-lg bg-superficie-2 text-acento"><Icono size={16} aria-hidden="true" /></span>
+          <span class="flex-1 font-medium">{nombre}</span>
+          <span class="text-tenue tabular-nums">{b.minutos} min</span>
+        </li>
+      );
+    })}
+  </ol>
+
+  <div class="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-borde pt-5">
+    <span class="inline-flex items-center gap-1.5 text-sm text-tenue">
+      <Clock size={14} aria-hidden="true" /> {minutosDelDia(dia)} min · Día {d.numero}
+    </span>
+    <a href={`/dias/${d.numero}`} class="inline-flex items-center gap-1.5 rounded-xl bg-acento px-4 py-2 text-sm font-semibold text-fondo transition hover:brightness-110">
+      Abrir la sesión <ArrowRight size={14} aria-hidden="true" />
+    </a>
+  </div>
+</article>

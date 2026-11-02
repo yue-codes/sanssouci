@@ -1,0 +1,61 @@
+---
+/**
+ * @component LineaNoventaDias
+ * Los 90 días del plan en una tira de celdas: fase (sin o con flauta),
+ * descansos, jefes (rombos) y el día de hoy con un anillo. Es un resumen visual;
+ * el detalle está en /calendario. Cada celda lleva su texto `sr-only`.
+ */
+import { ArrowRight } from "lucide-preact";
+import type { Dia } from "@/lib/contenido";
+import { fechaCorta } from "@/lib/fechas";
+
+interface Props {
+  /** Los días del plan (en cualquier orden). */
+  dias: Dia[];
+  /** Número de día de hoy (ver `diaDelPlan`); fuera de 1–90 no se marca ninguno. */
+  hoy: number;
+}
+const { dias, hoy } = Astro.props;
+const ordenados = [...dias].sort((a, b) => a.data.numero - b.data.numero);
+const primero = ordenados[0].data.fecha;
+const ultimo = ordenados[ordenados.length - 1].data.fecha;
+
+const LEYENDA = [
+  { clase: "rounded-[3px] bg-resalte/45", texto: "Sin flauta" },
+  { clase: "rounded-[3px] bg-secundario/50", texto: "Con flauta" },
+  { clase: "rounded-[3px] bg-borde/50", texto: "Descanso" },
+  { clase: "size-2.5! rotate-45 rounded-[2px] bg-acento", texto: "Jefe" },
+];
+---
+
+<div class="tarjeta p-5 sm:p-6">
+  <div class="flex flex-wrap items-baseline justify-between gap-2">
+    <h2 class="text-lg font-semibold">Los 90 días</h2>
+    <a href="/calendario" class="inline-flex items-center gap-1 text-sm font-medium text-acento hover:underline">
+      {fechaCorta(primero)} → {fechaCorta(ultimo)} <ArrowRight size={14} aria-hidden="true" />
+    </a>
+  </div>
+  <ol class="mt-4 grid grid-cols-[repeat(15,minmax(0,1fr))] gap-1 sm:grid-cols-[repeat(30,minmax(0,1fr))]" aria-label="Los 90 días del plan">
+    {ordenados.map((d) => {
+      const t = d.data;
+      const clase = t.jefe
+        ? "rotate-45 scale-75 rounded-[3px] bg-acento"
+        : t.tipo === "descanso"
+          ? "rounded-[4px] bg-borde/50"
+          : t.fase === "sin-flauta" ? "rounded-[4px] bg-resalte/45" : "rounded-[4px] bg-secundario/50";
+      const esHoy = t.numero === hoy;
+      return (
+        <li
+          title={`Día ${t.numero} · ${t.titulo}`}
+          aria-current={esHoy ? "date" : undefined}
+          class:list={["aspect-square", clase, esHoy && "ring-2 ring-texto ring-offset-2 ring-offset-superficie"]}
+        >
+          <span class="sr-only">Día {t.numero}{esHoy && " (hoy)"}: {t.titulo}</span>
+        </li>
+      );
+    })}
+  </ol>
+  <ul class="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-xs text-tenue" aria-hidden="true">
+    {LEYENDA.map((l) => <li class="flex items-center gap-2"><span class:list={["size-3", l.clase]} />{l.texto}</li>)}
+  </ul>
+</div>

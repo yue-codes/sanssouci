@@ -19,7 +19,8 @@ src/
 │   ├── mapa.ts        datos del sendero: construirSendero, siguientePaso
 │   ├── logros.ts      logrosConEstado, usosDeLogros (qué abre cada logro), avancePorCategoria
 │   ├── jefes.ts       jefesEnOrden, diaDelJefe
-│   ├── calendario.ts  semanasDelPlan, minutosDelDia, hitosDelDia, primerDiaConFlauta (puras)
+│   ├── calendario.ts  semanasDelPlan, minutosDelDia, hitosDelDia, primerDiaConFlauta,
+│   │                  sesionDeReferencia (qué sesión enseñar «hoy») (puras)
 │   ├── formato.ts     formato para mostrar: duracion (pura)
 │   ├── arbol.ts       nodos y disposición del árbol: construirNodosArbol, posicionarArbol
 │   └── ejemplo.ts     PROGRESO_EJEMPLO, inventado (temporal, hasta la fase 4)
@@ -36,8 +37,8 @@ src/
 │   ├── logros/        TarjetaLogro, ChipLogro, AvanceCategorias, categorias.ts
 │   │   └── arbol/       isla ArbolTalentos y sus piezas (LienzoArbol, ListaRama,
 │   │                    PestanasRamas, DetalleTalento, Hexagono, estilos.ts)
-│   ├── calendario/    SemanaCalendario → CeldaDia; hitos.ts
-│   ├── sesion/        isla SesionDelDia; bloques.ts
+│   ├── calendario/    SemanaCalendario → CeldaDia; LineaNoventaDias; hitos.ts
+│   ├── sesion/        isla SesionDelDia; ResumenSesion; bloques.ts
 │   └── tema/          SelectorTema
 ├── layouts/         Esqueletos de página (Base.astro)
 ├── pages/           Rutas: cada archivo es una URL (ver «Páginas»)
@@ -143,6 +144,7 @@ Se escriben como `Record<Tipo, …>`, con el tipo sacado del esquema (por ejempl
 
 | Ruta | Archivo | Datos |
 |---|---|---|
+| `/` | `pages/index.astro` | `sesionDeReferencia`, `construirSendero` + `siguientePaso`, `diaDelJefe` |
 | `/mapa` | `pages/mapa.astro` | `construirSendero` |
 | `/arbol` | `pages/arbol.astro` | `construirNodosArbol` → isla `ArbolTalentos` |
 | `/niveles/[id]` | `pages/niveles/[id].astro` | `construirSendero` (su zona), `logrosConEstado` |
@@ -154,4 +156,4 @@ Se escriben como `Record<Tipo, …>`, con el tipo sacado del esquema (por ejempl
 | `/logros` | `pages/logros.astro` | `logrosConEstado`, `usosDeLogros`, `avancePorCategoria`; agrupados por `nivelSugerido` |
 | `/muestra` | `pages/muestra.astro` | Muestra de diseño; **temporal**, se borra al cerrar la fase 3 |
 
-Pendiente: `/` (fase 3); `/entrar`, `/panel` y `/perfil` (fase 4).
+Pendientes: `/entrar`, `/panel` y `/perfil` (fase 4).

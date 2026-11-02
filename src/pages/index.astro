@@ -1,16 +1,164 @@
 ---
+/**
+ * Página / (portada): dónde vas y qué toca hoy. Reúne lo esencial de cada
+ * sección (sesión, 90 días, zona, próximo jefe, rutas) y enlaza a su página.
+ * Progreso: de ejemplo hasta la fase 4. Como la página es estática, «hoy» es la
+ * fecha del build (en la fase 4 se calculará en cada visita).
+ */
+import { ArrowRight, Library, Map as IconoMapa, Sparkles, Swords, Trophy } from "lucide-preact";
+import Base from "@/layouts/Base.astro";
+import Aviso from "@/components/ui/Aviso.astro";
+import EncabezadoSeccion from "@/components/ui/EncabezadoSeccion.astro";
+import ResumenSesion from "@/components/sesion/ResumenSesion.astro";
+import LineaNoventaDias from "@/components/calendario/LineaNoventaDias.astro";
+import TarjetaZona from "@/components/mapa/TarjetaZona.astro";
+import TarjetaJefe from "@/components/jefes/TarjetaJefe.astro";
+import ChipLogro from "@/components/logros/ChipLogro.astro";
+import { cargarContenido, nombreCortoRuta } from "@/lib/contenido";
+import { sesionDeReferencia } from "@/lib/calendario";
+import { diaDelPlan } from "@/lib/fechas";
+import { construirSendero, siguientePaso } from "@/lib/mapa";
+import { diaDelJefe } from "@/lib/jefes";
+import { PROGRESO_EJEMPLO } from "@/lib/ejemplo";
+
+const c = await cargarContenido();
+const inicio = [...c.dias].sort((a, b) => a.data.numero - b.data.numero)[0].data.fecha;
+const hoy = diaDelPlan(new Date(), inicio);
+const { dia: sesion, motivo } = sesionDeReferencia(c.dias, hoy);
+
+const paradas = construirSendero(c, PROGRESO_EJEMPLO);
+const actual = paradas.find((p) => p.estado === "actual") ?? paradas[paradas.length - 1];
+const paso = siguientePaso(actual);
+const proximoJefe = paradas.flatMap((p) => p.jefes).find((j) => !j.vencido);
+const diaJefe = proximoJefe && diaDelJefe(c, proximoJefe.jefe.id)?.data.numero;
+
+const rutas = c.rutas.map((r) => ({ ruta: r, obras: c.canciones.filter((s) => s.data.ruta.id === r.id).length }));
+
+// Lo que dice el título grande según el momento del plan.
+const titular =
+  hoy < 1 ? { antes: "Empiezas", enfasis: hoy === 0 ? "mañana" : `en ${1 - hoy} días`, despues: "." }
+  : hoy > 90 ? { antes: "Los 90 días", enfasis: "terminaron", despues: "; el camino sigue." }
+  : { antes: "Día", enfasis: String(hoy), despues: " de 90." };
+
+const cifras = [
+  { Icono: IconoMapa, valor: c.niveles.length, texto: "zonas", href: "/mapa" },
+  { Icono: Swords, valor: c.jefes.length, texto: "jefes", href: "/mapa" },
+  { Icono: Trophy, valor: c.logros.length, texto: "logros", href: "/logros" },
+  { Icono: Library, valor: c.canciones.length, texto: "obras", href: "/canciones" },
+];
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Base titulo="Inicio">
+  <Aviso class="mb-8">El progreso es de ejemplo hasta que exista el inicio de sesión.</Aviso>
+
+  <!-- ============ HERO: dónde vas + qué toca ============ -->
+  <section class="grid gap-8 lg:grid-cols-[1.15fr_1fr] lg:items-start">
+    <div>
+      <p class="eyebrow">
+        Semana {sesion.data.semana} · {sesion.data.fase === "sin-flauta" ? "sin flauta" : "con flauta"}
+      </p>
+      <h1 class="mt-3 text-5xl leading-[1.05] font-semibold tracking-tight sm:text-7xl">
+        {titular.antes} <em class="font-normal text-acento">{titular.enfasis}</em>{titular.despues}
+      </h1>
+      <p class="mt-5 max-w-xl text-lg leading-relaxed text-tenue">
+        De la {c.niveles[0].data.nombre} a la {c.niveles[c.niveles.length - 1].data.nombre}: un temario serio de
+        flauta traversa, organizado como un juego de zonas, jefes y logros.
+      </p>
+
+      <!-- Dónde estás en el mapa y tu siguiente paso -->
+      <a href={`/niveles/${actual.nivel.id}`} class="tarjeta group mt-8 block p-5 transition hover:border-acento/60">
+        <span class="flex items-center justify-between gap-3">
+          <span>
+            <span class="block text-xs font-semibold tracking-wider text-acento uppercase">Estás aquí · Zona {actual.nivel.data.orden}</span>
+            <span class="mt-1 block font-display text-2xl font-semibold group-hover:underline">{actual.nivel.data.nombre}</span>
+          </span>
+          <span class="text-right text-sm text-tenue tabular-nums">
+            {actual.hechos} / {actual.requisitos.length}<span class="block text-xs">requisitos</span>
+          </span>
+        </span>
+        <span class="mt-3 block h-1.5 overflow-hidden rounded-full bg-superficie-2" aria-hidden="true">
+          <span class="block h-full rounded-full bg-acento" style={{ width: `${actual.requisitos.length ? (actual.hechos / actual.requisitos.length) * 100 : 0}%` }} />
+        </span>
+      </a>
+      {paso && (
+        <p class="mt-3 flex flex-wrap items-center gap-2 text-sm text-tenue">
+          <Sparkles size={14} class="text-resalte" aria-hidden="true" /> Siguiente paso:
+          <ChipLogro logro={paso.logro} estado={paso.estado} />
+        </p>
+      )}
+
+      <ul class="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4" aria-label="El camino en cifras">
+        {cifras.map(({ Icono, valor, texto, href }) => (
+          <li>
+            <a href={href} class="tarjeta flex h-full flex-col gap-1 p-4 transition hover:border-acento/60">
+              <Icono size={18} class="text-acento" aria-hidden="true" />
+              <span class="mt-1 font-display text-3xl leading-none font-semibold">{valor}</span>
+              <span class="text-xs text-tenue">{texto}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <ResumenSesion
+      dia={sesion}
+      etiqueta={{ hoy: "Hoy toca", proxima: hoy < 1 ? "Tu primera sesión" : "Hoy descansas · próxima sesión", terminado: "Última sesión del plan" }[motivo]}
+    />
+  </section>
+
+  <!-- ============ 90 DÍAS ============ -->
+  <section class="mt-10" aria-label="Calendario">
+    <LineaNoventaDias dias={c.dias} hoy={hoy} />
+  </section>
+
+  <!-- ============ PRÓXIMO JEFE ============ -->
+  {proximoJefe && (
+    <section class="mt-16" aria-labelledby="proximo-jefe">
+      <EncabezadoSeccion id="proximo-jefe" eyebrow="Lo que viene" titulo="Tu próximo jefe" enlace={{ href: `/jefes/${proximoJefe.jefe.id}`, texto: "Ver condiciones" }} />
+      <TarjetaJefe
+        jefe={proximoJefe.jefe}
+        cancion={proximoJefe.cancion}
+        diasRestantes={diaJefe !== undefined && hoy <= diaJefe ? diaJefe - Math.max(hoy, 0) : undefined}
+      />
+    </section>
+  )}
+
+  <!-- ============ EL CAMINO ============ -->
+  <section class="mt-16" aria-labelledby="camino">
+    <EncabezadoSeccion id="camino" eyebrow="El mapa" titulo={`${c.niveles.length} zonas hasta la cumbre`} enlace={{ href: "/mapa", texto: "Ver el mapa" }} />
+    <div class="relative">
+      <div class="pointer-events-none absolute top-1/2 right-0 left-0 h-px bg-gradient-to-r from-acento via-borde to-transparent" aria-hidden="true"></div>
+      <div class="relative -mx-4 flex snap-x gap-4 overflow-x-auto px-4 pb-4 [scrollbar-width:thin]" tabindex="0" aria-label="Zonas del camino (desplazable)">
+        {paradas.map((p) => (
+          <TarjetaZona nivel={p.nivel} estado={p.estado} progreso={p.requisitos.length ? p.hechos / p.requisitos.length : 0} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ RUTAS ============ -->
+  <section class="mt-16" aria-labelledby="rutas">
+    <EncabezadoSeccion id="rutas" eyebrow="Repertorio" titulo="Elige por dónde ir" enlace={{ href: "/canciones", texto: "Todo el catálogo" }} />
+    <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {rutas.map(({ ruta, obras }) => (
+        <li>
+          <a
+            href={`/canciones?ruta=${ruta.id}`}
+            class="tarjeta group relative flex h-full flex-col overflow-hidden p-5 transition hover:-translate-y-0.5 motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+            style={{ "--ruta": ruta.data.color }}
+          >
+            <span class="absolute inset-x-0 top-0 h-1 bg-(--ruta)" aria-hidden="true" />
+            <span class="flex items-center justify-between gap-3">
+              <span class="font-display text-xl font-semibold">{nombreCortoRuta(ruta)}</span>
+              <span class="text-sm text-tenue tabular-nums">{obras} obras</span>
+            </span>
+            <span class="mt-2 line-clamp-3 text-sm leading-relaxed text-tenue">{ruta.data.descripcion}</span>
+            <span class="mt-auto inline-flex items-center gap-1 pt-4 text-sm font-medium text-acento">
+              Ver canciones <ArrowRight size={14} class="transition group-hover:translate-x-0.5 motion-reduce:transition-none" aria-hidden="true" />
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+</Base>

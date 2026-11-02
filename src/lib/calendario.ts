@@ -74,3 +74,29 @@ export function hitosDelDia(dia: Dia, primerDiaConFlauta: number): Hito[] {
 export function primerDiaConFlauta(dias: readonly Dia[]): number {
   return Math.min(...dias.filter((d) => d.data.fase === "con-flauta").map((d) => d.data.numero));
 }
+
+/** Qué sesión enseñar como «la de hoy» y por qué. */
+export interface SesionDeReferencia {
+  /** El día de práctica a mostrar. */
+  dia: Dia;
+  /**
+   * - `hoy`: hoy toca esta sesión.
+   * - `proxima`: hoy es descanso (o aún no empieza el plan); es la siguiente.
+   * - `terminado`: ya pasaron los 90 días; es la última.
+   */
+  motivo: "hoy" | "proxima" | "terminado";
+}
+
+/**
+ * Elige la sesión que se enseña en la portada a partir del número de día de hoy.
+ *
+ * @param dias Los días del plan (en cualquier orden).
+ * @param hoy Número de día de hoy (ver `diaDelPlan`); puede ser ≤ 0 o > 90.
+ * @example sesionDeReferencia(dias, 4) // día 4 es jueves (descanso) → { dia: día 5, motivo: "proxima" }
+ */
+export function sesionDeReferencia(dias: readonly Dia[], hoy: number): SesionDeReferencia {
+  const practica = dias.filter((d) => d.data.tipo !== "descanso").sort((a, b) => a.data.numero - b.data.numero);
+  const siguiente = practica.find((d) => d.data.numero >= hoy);
+  if (!siguiente) return { dia: practica[practica.length - 1], motivo: "terminado" };
+  return { dia: siguiente, motivo: siguiente.data.numero === hoy ? "hoy" : "proxima" };
+}
