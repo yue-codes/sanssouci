@@ -20,6 +20,7 @@ Siempre con **pnpm**.
 | `pnpm build` | Compila el sitio en `dist/` (la verificación principal) |
 | `pnpm astro check` | Comprueba tipos y valida los JSON contra sus esquemas |
 | `pnpm verificar` | Reglas entre archivos que los esquemas no ven (videos únicos, 90 días, sesiones…) |
+| `pnpm auditar` | Compila y revisa la accesibilidad del HTML generado (encabezados, alt, etiquetas, aria…) |
 | `pnpm generar-docs` | Regenera `docs/mapa.md`, `docs/catalogo.md` y `docs/plan-90-dias.md` desde los JSON |
 
 ## Documentación

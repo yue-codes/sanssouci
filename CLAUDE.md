@@ -13,17 +13,18 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 |---|---|
 | 1. Datos (`src/data`, esquemas, `pnpm verificar`) | ✅ hecha (commit `a70629b`) |
 | 2. Documentos (`docs/`, `pnpm generar-docs`) | ✅ hecha (commit `5a31193`) |
-| 3. Base de la web (Tailwind, Preact, layout, páginas de contenido) | 🟡 **en curso**. Dirección visual aprobada (A + C, paleta «Bosque»). Hechos: paso 0 (estructura, alias `@/`, tokens, documentación), paso 1 (`/mapa`, `/arbol`), paso 2 (`/niveles/[id]`, `/jefes/[id]`), paso 3 (`/calendario`, `/dias/[n]`), paso 4 (`/canciones` con filtros en la URL, `/canciones/[id]`), paso 5 (`/logros`) y paso 6 (portada `/`). **Siguiente: el cierre** (borrar `/muestra`, revisar accesibilidad). `/panel` es de la fase 4. El adaptador de Cloudflare se instala cuando haga falta el modo servidor. |
-| 4. Login y progreso (Supabase, migraciones, middleware, islas que guardan) | ⏳ pendiente. El usuario crea el proyecto en Supabase; guíale paso a paso. |
+| 3. Base de la web (Tailwind, Preact, layout, páginas de contenido) | ✅ hecha (pasos 0–6 y cierre, commits `ed4e419`…«Fase 3, cierre»). Dirección visual A + C, paleta «Bosque». Todas las páginas de contenido están hechas; `/panel`, `/entrar` y `/perfil` son de la fase 4. El adaptador de Cloudflare se instala cuando haga falta el modo servidor. |
+| 4. Login y progreso (Supabase, migraciones, middleware, islas que guardan) | ⏳ **siguiente**, a la espera del visto bueno. El usuario crea el proyecto en Supabase; guíale paso a paso. |
 | 5. Despliegue en Cloudflare Workers | ⏳ pendiente |
 
 ## 0. Estado técnico del repo y comandos
 
 - **Astro 7** (`astro ^7.4.4`, Node `>=22.23.4`), TypeScript `strict`. **TypeScript 6** a propósito: `astro check` no admite TS 7 todavía.
-- Comandos (no existe linter ni tests):
+- Comandos (no existe linter ni tests unitarios):
   - `pnpm build`: compila; es la verificación principal.
   - `pnpm astro check`: tipos y validación de los esquemas del contenido (incluidas las referencias rotas entre JSON).
   - `pnpm verificar`: reglas entre archivos que Zod no ve (cada video de `canciones.txt` aparece una sola vez, 90 días, 65 sesiones de 45 a 60 min, jueves y domingo de descanso, jefe ↔ nivel).
+  - `pnpm auditar`: compila y revisa la accesibilidad del HTML de `dist/` (`scripts/auditar.mjs`). Pásalo al terminar páginas nuevas. **En la fase 4** (modo servidor) las páginas prerenderizadas salen en `dist/client/`: ajusta la carpeta del script entonces.
   - `pnpm generar-docs`: regenera `docs/mapa.md`, `docs/catalogo.md` y `docs/plan-90-dias.md` desde `src/data`. **Ojo:** el script no se llama `docs` porque `pnpm docs` es un comando propio de pnpm.
 - Para editar `package.json` usa `pnpm pkg set …`, nunca `npm`.
 - **Conflicto con `AGENTS.md`:** ese archivo (generado por Astro) sugiere arrancar `astro dev --background`. **Ignóralo:** nunca arranques el servidor de desarrollo.
@@ -100,7 +101,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Dirección visual aprobada: A + C.** `/mapa` como sendero (zona → jefe como puerta → zona; lo cercano con detalle, lo lejano «en niebla») y `/arbol` como árbol de talentos estilo RPG (ramas = categorías de logro, líneas = `requiere`).
 - **Signals:** dentro de un componente usa `useSignal` y `useComputed`, no `signal` y `computed`.
 - **Detalle temporal:** las páginas son estáticas, así que «hoy» es la fecha del build. Con el modo servidor (fase 4) se calculará en cada visita.
-- **Accesibilidad mínima en cada componente:** foco visible, textos `sr-only` en los gráficos, `aria-*` en los controles y respeto de `prefers-reduced-motion`.
+- **Accesibilidad mínima en cada componente:** foco visible, textos `sr-only` en los gráficos, `aria-*` en los controles y respeto de `prefers-reduced-motion`. Reglas completas en la sección «Accesibilidad» de `docs/arquitectura.md`.
 
 ## 4. Diseño del sistema estilo videojuego
 

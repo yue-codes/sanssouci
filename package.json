@@ -12,7 +12,8 @@
     "astro": "astro",
     "verificar": "node scripts/verificar-datos.mjs",
     "check": "astro check",
-    "generar-docs": "node scripts/generar-docs.mjs"
+    "generar-docs": "node scripts/generar-docs.mjs",
+    "auditar": "astro build && node scripts/auditar.mjs"
   },
   "dependencies": {
     "@astrojs/preact": "^6.1.1",

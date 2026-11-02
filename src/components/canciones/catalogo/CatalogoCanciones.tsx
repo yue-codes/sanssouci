@@ -72,7 +72,8 @@ export default function CatalogoCanciones({ canciones, rutas, zonas }: Props) {
       </aside>
 
       {/* ---------- Resultados ---------- */}
-      <section aria-label="Resultados">
+      <section aria-labelledby="titulo-resultados">
+        <h2 id="titulo-resultados" class="sr-only">Resultados</h2>
         <p class="mb-4 text-sm text-tenue" aria-live="polite">
           {total === canciones.length ? `${total} obras` : `${total} de ${canciones.length} obras`}
         </p>

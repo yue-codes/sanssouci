@@ -128,7 +128,7 @@ const cifras = [
     <EncabezadoSeccion id="camino" eyebrow="El mapa" titulo={`${c.niveles.length} zonas hasta la cumbre`} enlace={{ href: "/mapa", texto: "Ver el mapa" }} />
     <div class="relative">
       <div class="pointer-events-none absolute top-1/2 right-0 left-0 h-px bg-gradient-to-r from-acento via-borde to-transparent" aria-hidden="true"></div>
-      <div class="relative -mx-4 flex snap-x gap-4 overflow-x-auto px-4 pb-4 [scrollbar-width:thin]" tabindex="0" aria-label="Zonas del camino (desplazable)">
+      <div class="relative -mx-4 flex snap-x gap-4 overflow-x-auto px-4 pb-4 [scrollbar-width:thin]" tabindex="0" role="region" aria-label="Zonas del camino (desplazable)">
         {paradas.map((p) => (
           <TarjetaZona nivel={p.nivel} estado={p.estado} progreso={p.requisitos.length ? p.hechos / p.requisitos.length : 0} />
         ))}
@@ -144,7 +144,7 @@ const cifras = [
         <li>
           <a
             href={`/canciones?ruta=${ruta.id}`}
-            class="tarjeta group relative flex h-full flex-col overflow-hidden p-5 transition hover:-translate-y-0.5 motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+            class="tarjeta group relative flex h-full flex-col overflow-hidden p-5 transition hover:-translate-y-0.5"
             style={{ "--ruta": ruta.data.color }}
           >
             <span class="absolute inset-x-0 top-0 h-1 bg-(--ruta)" aria-hidden="true" />
@@ -154,7 +154,7 @@ const cifras = [
             </span>
             <span class="mt-2 line-clamp-3 text-sm leading-relaxed text-tenue">{ruta.data.descripcion}</span>
             <span class="mt-auto inline-flex items-center gap-1 pt-4 text-sm font-medium text-acento">
-              Ver canciones <ArrowRight size={14} class="transition group-hover:translate-x-0.5 motion-reduce:transition-none" aria-hidden="true" />
+              Ver canciones <ArrowRight size={14} class="transition group-hover:translate-x-0.5" aria-hidden="true" />
             </span>
           </a>
         </li>

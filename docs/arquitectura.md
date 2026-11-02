@@ -140,6 +140,20 @@ Cuando un valor del esquema (una categoría de logro, un uso de versión, un tip
 
 Se escriben como `Record<Tipo, …>`, con el tipo sacado del esquema (por ejemplo, `Dia["data"]["bloques"][number]["tipo"]`). Así, si el esquema gana un valor nuevo y falta aquí, `astro check` da error en vez de mostrar un hueco en la página.
 
+## Accesibilidad
+
+Reglas que cumple cada página. **`pnpm auditar`** comprueba sobre el HTML generado las que se pueden ver leyendo el código; lo demás (teclado, lector de pantalla) se prueba a mano.
+
+- **Un solo `<h1>` por página y sin saltos de nivel** (h1 → h2 → h3). Quien usa lector de pantalla navega por encabezados; si una sección no necesita título visible, lleva un `<h2 class="sr-only">`.
+- **Imágenes:** `alt=""` si son decorativas (la miniatura de un video junto a su título); texto en `alt` si aportan información.
+- **Controles con nombre:** cada `<input>`/`<select>` tiene su `<label>` (visible o `sr-only`), y cada botón o enlace solo con icono, `aria-label`. Los iconos llevan `aria-hidden="true"`.
+- **`aria-label` solo en elementos con papel:** en un `<div>` o `<span>` sin `role` se ignora. Una zona desplazable con `tabindex="0"` lleva `role="region"` + `aria-label`.
+- **Gráficos** (anillos, barras, tiras de días): el dato también está en texto (visible o `sr-only`); el dibujo va con `aria-hidden`.
+- **Plegables:** `<details>` nativo antes que JavaScript. Controles propios: `aria-expanded`, `aria-pressed`, `aria-controls` o el patrón de pestañas de WAI-ARIA.
+- **Movimiento:** la regla global de `global.css` anula animaciones y transiciones con `prefers-reduced-motion`; no hace falta `motion-reduce:` en cada clase. El desplazamiento suave por JavaScript sí debe comprobarlo (ver `ListaRama`).
+- **Foco visible** global (`:focus-visible` en `global.css`) y enlace «Saltar al contenido» en `Base`.
+- **Contraste:** mínimo 4.5 : 1 en texto; los pares de `tokens.css` se comprobaron en claro y oscuro.
+
 ## Páginas
 
 | Ruta | Archivo | Datos |
@@ -154,6 +168,5 @@ Se escriben como `Record<Tipo, …>`, con el tipo sacado del esquema (por ejempl
 | `/canciones` | `pages/canciones/index.astro` | `resumirCancion` → isla `CatalogoCanciones` (filtros en la URL: `?ruta=…&zona=…&max=…&oido=1&partitura=1&q=…&orden=…`) |
 | `/canciones/[id]` | `pages/canciones/[id].astro` | `logrosConEstado`; vecinos dentro de la misma ruta, por dificultad |
 | `/logros` | `pages/logros.astro` | `logrosConEstado`, `usosDeLogros`, `avancePorCategoria`; agrupados por `nivelSugerido` |
-| `/muestra` | `pages/muestra.astro` | Muestra de diseño; **temporal**, se borra al cerrar la fase 3 |
 
 Pendientes: `/entrar`, `/panel` y `/perfil` (fase 4).

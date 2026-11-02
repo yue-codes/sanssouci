@@ -40,7 +40,7 @@ export default function LienzoArbol({ nodos, ramas, estados, seleccion, onElegir
   const alto = ARRIBA + (Math.max(...nodos.map((n) => n.fila)) + 1) * FILA;
 
   return (
-    <div class="overflow-x-auto" tabIndex={0} aria-label="Árbol de habilidades">
+    <div class="overflow-x-auto" tabIndex={0} role="region" aria-label="Árbol de habilidades">
       <div class="relative mx-auto" style={{ width: `${ancho}px`, height: `${alto}px` }}>
         {/* Nombres de las ramas */}
         {ramas.map((r, i) => {
