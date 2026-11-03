@@ -8,6 +8,7 @@ Guía manual (no generada). Cómo se publica la web, cómo volver a publicarla y
 - **Qué se sube:** el worker (`dist/server/`, las páginas de servidor, las Server Islands y las Actions) y los archivos estáticos (`dist/client/`, las páginas prerenderizadas, las imágenes, el JS y el CSS). La configuración de Wrangler la genera el adaptador al compilar (`dist/server/wrangler.json`); no hay `wrangler.jsonc` en el repositorio.
 - **Versiones fijadas** para que Cloudflare compile igual que en local: Node en `.node-version` y pnpm en `packageManager` (`package.json`). Si actualizas Node o pnpm en tu equipo, actualiza también esos dos.
 - **Variables de Supabase:** son públicas (`context: 'client'` en `astro.config.mjs`) y Astro **las mete en el código al compilar**. Por eso van como **variables de compilación** (*build variables*) en Cloudflare, no como secretos del worker. Solo la URL y la clave *publishable*; la *secret* nunca. Si faltan o tienen mal formato, la compilación falla con un mensaje claro (lo valida `env.schema`).
+- **Páginas como archivos** (`build.format: "file"` en `astro.config.mjs`, 3 nov 2026): `arbol.html` en vez de `arbol/index.html`. Con carpetas, Cloudflare respondía a `/arbol` con una redirección 307 a `/arbol/`, y cada clic hacía dos viajes. Las URLs no cambian.
 - **Recursos:** `ASSETS` (los estáticos) y `SESSION` (un KV que añade el adaptador para las sesiones de Astro; no lo usamos, Wrangler lo crea solo y es gratis).
 
 ## Primera vez (lo hace el usuario en el panel de Cloudflare)

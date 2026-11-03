@@ -15,6 +15,11 @@ export default defineConfig({
   // un servicio aparte (de pago) que habría que configurar en la cuenta.
   adapter: cloudflare({ imageService: "compile" }),
 
+  // Páginas estáticas como `arbol.html` (no `arbol/index.html`). Con carpetas, Cloudflare
+  // redirige `/arbol` → `/arbol/` (307) y cada clic del menú hace dos viajes en vez de uno.
+  // Las URLs y los enlaces no cambian.
+  build: { format: "file" },
+
   // Variables de entorno validadas al compilar: si falta una o tiene mal formato,
   // el build falla con un mensaje claro. Se importan desde `astro:env/client`.
   // Son públicas a propósito (la clave publishable no protege nada: lo hace RLS).

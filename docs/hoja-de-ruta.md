@@ -86,7 +86,7 @@ Cuida que la página sin sesión siga funcionando (contenido para todos, progres
 **Decidido el 3 nov 2026:** Workers Builds conectado a GitHub (cada push a `main` compila y publica). Guía completa: `docs/despliegue.md`.
 
 1. ✅ Ensayo local (`pnpm wrangler deploy --dry-run`): worker de 629 KB comprimido (límite gratis: 3 MB), 570 archivos estáticos, recursos `ASSETS` y `SESSION`. Versiones fijadas para la compilación en Cloudflare: `.node-version` y `packageManager`. Script `pnpm desplegar` para publicar a mano.
-2. ⏳ El usuario conecta el repositorio en Cloudflare con la configuración de `docs/despliegue.md` y las dos *build variables* de Supabase (son públicas y se meten en el código al compilar: no son secretos del worker). Nunca la clave *secret*.
+2. ✅ (3 nov 2026, la web publicada ya entra con contraseña) El usuario conecta el repositorio en Cloudflare con la configuración de `docs/despliegue.md` y las dos *build variables* de Supabase (son públicas y se meten en el código al compilar: no son secretos del worker). Nunca la clave *secret*.
 3. ⏳ Supabase → Authentication → URL Configuration: añadir la dirección pública (Site URL y Redirect URLs).
 4. ⏳ Probar en producción: entrar con correo y contraseña, marcar un día, cerrar sesión. Recuperar la contraseña (el enlace del correo debe llevar a la dirección pública).
 5. ✅ Guía para el usuario: `docs/despliegue.md`.
