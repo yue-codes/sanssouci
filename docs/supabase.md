@@ -15,7 +15,8 @@ El esquema de la base de datos **no** se describe aquí: vive en `supabase/migra
 | 4. Instalar `@supabase/supabase-js`, `@supabase/ssr` y `@astrojs/cloudflare` (modo servidor) | Claude | ✅ + `wrangler` (peer del adaptador) |
 | 5. Primera migración: tablas + RLS | Claude | ✅ `progreso_inicial` + `permisos_minimos`, aplicadas por la API de Supabase (2 nov 2026) |
 | 6. Cliente de Supabase en `src/lib/`, middleware, `/entrar` con enlace mágico | Claude | ✅ diseño de `/entrar` aprobado; login probado (2 nov 2026): el trigger creó el perfil |
-| 7. Login con Google (credenciales en Google Cloud) | Ambos | ⏳ después de que funcione el enlace mágico |
+| 7. ~~Login con Google~~ → **correo y contraseña** (decidido el 3 nov 2026; Google descartado) | Claude | ✅ código hecho: `/entrar` con tres modos y `/contrasena` |
+| 8. Ajustes de contraseña y plantillas de correo en el panel (§7) | Usuario | ✅ login probado el 3 nov 2026 (si el enlace de un correo falla al abrirlo en otro dispositivo, revisar las plantillas) |
 
 Al recibir el «listo», comprobar que `.env` existe y tiene las dos variables **sin mostrar sus valores** (p. ej. `grep -c "=." .env`).
 
@@ -48,8 +49,8 @@ Plantilla en `.env.example` (sí está en git); los valores, en `.env` (fuera de
 ## 3. Autenticación
 
 - **Site URL:** `http://localhost:4321`. **Redirect URLs:** `http://localhost:4321/**`. En la fase 5 se añade la dirección pública.
-- **Enlace mágico (correo):** viene activado. El correo integrado de Supabase envía pocos mensajes por hora; basta para uso personal. Con más usuarios, configurar un SMTP propio.
-- **Google:** pendiente (paso 7).
+- **Correo y contraseña** (desde el 3 nov 2026; antes, enlace mágico). Registro abierto a cualquiera, con confirmación por correo. Ajustes en §7. El correo integrado de Supabase envía pocos mensajes por hora; basta para uso personal. Con más usuarios, configurar un SMTP propio.
+- **Google:** descartado por el usuario (3 nov 2026).
 
 ## 4. Tablas previstas
 
@@ -67,9 +68,32 @@ Ver `docs/diseno-tecnico.md` (sección 7): `perfiles`, `dias_completados`, `logr
 
 `src/lib/tipos-supabase.ts` se genera desde el esquema real. **Regenéralo tras cada migración**, con la CLI (`supabase gen types typescript --linked`) o con la API de administración (`GET /v1/projects/{ref}/types/typescript?included_schemas=public`, con un *access token*). Después se le vuelve a poner la cabecera `@file`.
 
-## 7. Enlace mágico: detalles a saber
+## 7. Correo y contraseña: ajustes y detalles
 
-- **Flujo PKCE (el de por defecto):** el enlace lleva a `/auth/confirmar?code=…`. Hay que abrirlo **en el mismo navegador** donde se pidió, porque la otra mitad del código está en una cookie de ese navegador. Si se abre en otro (p. ej., el correo en el móvil), `/entrar` muestra «ese enlace ya no sirve».
-  Si eso molesta, se puede cambiar la plantilla del correo (Authentication → Emails → Magic Link) para que use `{{ .TokenHash }}`: `/auth/confirmar` ya entiende `token_hash` + `type`.
-- **Límite de correos:** el correo integrado de Supabase envía muy pocos por hora (y uno por minuto por dirección). `/entrar` lo avisa con un mensaje claro (HTTP 429). Para más usuarios, configurar SMTP propio.
+**Cómo funciona** (código en `pages/entrar.astro`, `pages/contrasena.astro` y `lib/cuenta.ts`):
+
+| Acción | Supabase | Después |
+|---|---|---|
+| Entrar | `signInWithPassword` | A `siguiente`. Si falla: «correo o contraseña incorrectos» (sin decir cuál, para no revelar qué correos tienen cuenta). |
+| Crear cuenta (`?modo=registro`) | `signUp` con `emailRedirectTo` = `/auth/confirmar?siguiente=…` | Correo para activarla; el enlace abre la sesión. Si el correo ya tenía cuenta, Supabase no avisa ni manda nada (tampoco lo revela). |
+| Olvidé la contraseña (`?modo=recuperar`) | `resetPasswordForEmail` con `redirectTo` = `/auth/confirmar?siguiente=/contrasena` | El enlace abre la sesión y lleva a `/contrasena`. |
+| Poner o cambiar la contraseña | `updateUser({ password })` en `/contrasena` (privada) | `/contrasena?guardada=1`. |
+
+Contraseña: de 8 a 72 bytes (bcrypt, el algoritmo con el que Supabase guarda el *hash*, ignora lo que pase de 72). Validada en el servidor con Zod aunque el navegador ya lo haga. **Una cuenta creada con el enlace mágico no tiene contraseña:** con la sesión abierta, entra a `/contrasena` y pon una (o usa «¿La olvidaste?»).
+
+**Ajustes en el panel** (paso 8, lo hace el usuario):
+
+1. **Authentication → Sign In / Providers → Email:**
+   - *Enable Email provider*: activado (ya lo está).
+   - *Confirm email*: **activado**. Sin él, cualquiera podría crear cuentas con correos ajenos.
+   - *Minimum password length*: **8** (el mismo número que `CONTRASENA_MIN` en `lib/cuenta.ts`).
+   - *Secure password change*: desactivado. Si se activa, cambiar la contraseña con una sesión de más de 24 h pide volver a entrar (la página muestra un mensaje para usar «¿La olvidaste?»).
+   - *Leaked password protection* (comprueba contraseñas filtradas) solo existe en el plan Pro.
+2. **Authentication → Emails → Templates** (recomendado): por defecto el enlace usa el flujo PKCE y **solo funciona en el mismo navegador** donde se pidió (la otra mitad del código va en una cookie). Para que funcione en cualquiera (p. ej., el correo en el móvil), cambia el enlace de estas plantillas:
+   - *Confirm signup*: `<a href="{{ .RedirectTo }}&token_hash={{ .TokenHash }}&type=email">Activar mi cuenta</a>`
+   - *Reset password*: `<a href="{{ .RedirectTo }}&token_hash={{ .TokenHash }}&type=recovery">Poner una contraseña nueva</a>`
+
+   `{{ .RedirectTo }}` es nuestra URL (ya trae `?siguiente=…`, por eso se añade con `&`), y `/auth/confirmar` ya entiende `token_hash` + `type`. Funciona porque esas URLs están en *Redirect URLs* (§3); si no, Supabase usaría la *Site URL*, que no lleva `?`. La plantilla *Magic Link* ya no se usa.
+3. **Límite de correos:** el correo integrado envía muy pocos por hora (y uno por minuto por dirección). La página lo avisa con un mensaje claro (HTTP 429). Para más usuarios, configurar SMTP propio.
+
 - **Pendiente para la fase 5:** el adaptador de Cloudflare activa solo un *binding* de Cloudflare Images (`IMAGES`) y otro de KV para sesiones de Astro (`SESSION`). No los usamos; decidir al desplegar si se desactivan o se crean.

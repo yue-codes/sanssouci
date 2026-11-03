@@ -8,13 +8,13 @@
 
 1. `git status`. Pasos a–e de la fase 4 con commit (`84e410d`, 3 nov 2026). El paso f (todas las páginas con el progreso real) quedó hecho el 3 nov 2026; si `git status` aún lo muestra sin commit, pregunta al usuario.
    - Verificado: `pnpm astro check` 0 errores, `pnpm build` y `pnpm auditar` sin problemas (226 páginas prerenderizadas, más las 7 de servidor auditadas aparte; ver «Accesibilidad» en `docs/arquitectura.md`).
-   - **Siguiente:** el paso g (Google) y luego la fase 5 (despliegue).
+   - Paso g (correo y contraseña) hecho y probado el 3 nov 2026. **Siguiente:** la fase 5 (despliegue, §2).
 2. ✅ (3 nov 2026) El usuario aprobó todo el rediseño: `/niveles/[id]`, `/logros`, `/canciones`, `/canciones/[id]`, `/panel` y `/entrar`.
    - **No ejecutes `pnpm dev` tú.**
 
 ## 1. Fase 4: terminar el progreso real
 
-El login con enlace mágico ya funciona. Las tablas existen con RLS (`supabase/migrations/`): `perfiles`, `dias_completados`, `logros_obtenidos`, `victorias_jefe` y `estado_canciones`. **Falta todo lo que escribe** en ellas y que las páginas lean el progreso real.
+El login funciona (desde el paso g, con correo y contraseña). Las tablas existen con RLS (`supabase/migrations/`): `perfiles`, `dias_completados`, `logros_obtenidos`, `victorias_jefe` y `estado_canciones`. **Falta todo lo que escribe** en ellas y que las páginas lean el progreso real.
 
 ### Decisión 1: cómo se escribe (recomendado: Astro Actions)
 
@@ -67,7 +67,7 @@ Cuida que la página sin sesión siga funcionando (contenido para todos, progres
 | d | **Estado de cada canción:** pendiente / aprendiendo / dominada. Control en la ficha de la canción; un sello en la carta (`TarjetaCancion`) y, quizá, un filtro en el catálogo. | `src/actions/` (`estadoCancion`), `pages/canciones/[id].astro`, `TarjetaCancion.tsx`, `lib/canciones.ts` (añadir `estado` a `CancionResumen`) | Cambiar el estado → se ve en la ficha y en la carta. | ✅ 3 nov 2026, probado por el usuario: Action `cambiarEstadoCancion`, `lib/estado-cancion.ts`, `SelectorEstado`, Server Islands `CartaConProgreso` y `CatalogoConProgreso`, sello en `TarjetaCancion` y filtro «Mi avance». Con esto `/canciones` y `/canciones/[id]` ya leen el progreso real (adelanta parte del paso f). |
 | e | **`/perfil`** (ya está en `RUTAS_PRIVADAS`): nombre, `fecha_inicio` y `fecha_llegada_flauta`. **Ojo:** `fecha_inicio` tiene por defecto el día en que se creó la cuenta; la del usuario debe ser **2026-11-02**. Formulario HTML con `method="post"`, como `/entrar`. | `pages/perfil.astro` (servidor), componente en `components/cuenta/` | Cambiar la fecha de inicio → «Día N de 90» del panel cambia. | ✅ 3 nov 2026, probado por el usuario: `pages/perfil.astro`, `cuenta/TarjetaPerfil.astro`, `lib/perfil.ts` (`validarPerfil`), enlace «Perfil y fechas» en el panel. |
 | f | **Que las páginas lean el progreso real** (Decisión 2). Si una página pasa a servidor: `prerender = false`, `cargarProgresoUsuario` y fallback sin sesión. Borrar `PROGRESO_EJEMPLO` cuando ninguna página lo use (o dejarlo solo para quien no ha entrado). | las 9 páginas de la lista, `lib/ejemplo.ts` | Sin sesión: todo se ve. Con sesión: tu progreso en todas las páginas. | ✅ 3 nov 2026: `/`, `/mapa`, `/logros`, `/niveles/[id]` y `/calendario` son de servidor con `progresoDeVisita` (`lib/progreso-usuario.ts`) y `AvisoProgreso` (`ui/`); `/dias/[n]` pasa sus «Recompensas posibles» a la isla `MisionConProgreso`; `/jefes/[id]` calcula «faltan N días» en el navegador (`FaltanDias`). «Hoy» con `diaDelPlanHoy` (`lib/fechas.ts`). Borrados `lib/ejemplo.ts` y `ui/Aviso.astro`. |
-| g | **Login con Google** (paso 7 de `docs/supabase.md`). Lo hace el usuario en Google Cloud y Supabase (credenciales OAuth); luego un botón en `TarjetaEntrar`. | `components/cuenta/TarjetaEntrar.astro`, `docs/supabase.md` | Entrar con Google crea el perfil (trigger). | ⏳ |
+| g | ~~Login con Google~~ → **correo y contraseña** (el usuario descartó Google el 3 nov 2026; registro abierto, sin enlace mágico). `/entrar` con tres modos (entrar, crear cuenta, recuperar) y `/contrasena` (privada) para ponerla o cambiarla. | `pages/entrar.astro`, `pages/contrasena.astro`, `lib/cuenta.ts`, `cuenta/TarjetaEntrar.astro`, `TarjetaContrasena.astro`, `CampoContrasena.tsx`, `PantallaCuenta.astro` | Crear una cuenta con otro correo → llega el correo → entrar. Recuperar → `/contrasena`. La cuenta del usuario pone su contraseña en `/contrasena`. | ✅ 3 nov 2026, probado por el usuario. Cerrar sesión también en `/perfil`. |
 
 **Fechas por usuario (a tener en cuenta en e y f):**
 - `dias.json` tiene fechas fijas (día 1 = 2 nov 2026). El panel ya calcula «hoy» con la `fecha_inicio` del perfil.
@@ -87,7 +87,7 @@ Cuida que la página sin sesión siga funcionando (contenido para todos, progres
 2. Secretos: `PUBLIC_SUPABASE_URL` y `PUBLIC_SUPABASE_PUBLISHABLE_KEY` como variables del worker. Nunca la clave *secret*.
 3. `pnpm build` y `pnpm wrangler deploy`. Revisar que las páginas prerenderizadas (`dist/client/`) y el worker (`dist/server/`) salen bien.
 4. Supabase → Authentication → URL Configuration: añadir el dominio real (Site URL y Redirect URLs para `/auth/confirmar`).
-5. Probar en producción: entrar con enlace mágico, marcar un día, cerrar sesión.
+5. Probar en producción: entrar con correo y contraseña, marcar un día, cerrar sesión. Recuperar la contraseña (el enlace del correo debe llevar a la dirección pública).
 6. Escribir la guía para el usuario (`docs/despliegue.md`): cómo volver a desplegar y dónde ver los registros.
 7. Antes de compartir la web con otras personas: **cambiar las imágenes ajenas** (ver `docs/arquitectura.md` «Imágenes»).
 

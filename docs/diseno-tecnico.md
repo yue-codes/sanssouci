@@ -149,7 +149,7 @@ Six Trillion Years se divide en dos obras: el cover normal (dificultad ≈ 7) y 
 | Ruta | Contenido |
 |---|---|
 | `/` | Inicio: qué es y acceso |
-| `/entrar` | Inicio de sesión con enlace mágico al correo, con opción de Google |
+| `/entrar` | Inicio de sesión con correo y contraseña, crear cuenta y recuperar la contraseña (cambió el 3 nov 2026: antes, enlace mágico y Google) |
 | `/panel` | Hoy: la sesión del día, racha, nivel actual, próximo jefe |
 | `/mapa` | El camino como sendero: zona → jefe → zona, con su estado (bloqueada, actual, superada); lo cercano con detalle y lo lejano «en niebla» |
 | `/arbol` | Árbol de talentos estilo RPG: ramas = categorías de logro, líneas = requisitos (conseguido, disponible, bloqueado) |

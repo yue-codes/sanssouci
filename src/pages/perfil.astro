@@ -10,9 +10,9 @@
  * no vuelve a mandar el formulario, y la confirmación sale una sola vez.
  * Aquí está la lógica; lo que se ve está en `TarjetaPerfil`.
  */
-import { Flame, Sprout } from "lucide-preact";
-import FondoPortada from "@/components/ui/FondoPortada.astro";
+import { Flame, KeyRound, LogOut, Sprout } from "lucide-preact";
 import Base from "@/layouts/Base.astro";
+import PantallaCuenta from "@/components/cuenta/PantallaCuenta.astro";
 import TarjetaPerfil from "@/components/cuenta/TarjetaPerfil.astro";
 import { IMAGENES } from "@/config/imagenes";
 import { SITIO } from "@/config/sitio";
@@ -56,44 +56,47 @@ const guardado = Astro.request.method === "GET" && Astro.url.searchParams.get("g
 const fechaHoy = hoyIso(SITIO.zonaHoraria);
 const hoy = diaDelPlan(parsearFecha(fechaHoy), perfil.fecha_inicio);
 const enPlan = hoy < 1 ? `Empiezas el ${fechaLarga(perfil.fecha_inicio)}` : hoy > 90 ? "Ya completaste los 90 días" : `Hoy es el día ${hoy} de 90`;
-const imagen = IMAGENES.flautaCerezos;
 ---
 
 <Base titulo="Perfil" descripcion="Tu nombre y las fechas de tu plan." ancho="completo">
-  <section class="relative isolate flex min-h-[calc(100svh-5rem)] items-center overflow-hidden" aria-labelledby="titulo-perfil">
-    <FondoPortada imagen={imagen} base={40} />
+  <PantallaCuenta imagen={IMAGENES.flautaCerezos} titulo="titulo-perfil">
+    <!-- ============ Lo que significan tus fechas ============ -->
+    <p class="eyebrow">Sanssouci · ajustes de partida</p>
+    <h1 id="titulo-perfil" class="mt-4 text-6xl leading-[0.92] sm:text-8xl">
+      Tu <em class="text-acento">partida</em>.
+    </h1>
+    <p class="mt-5 max-w-[46ch] text-lg text-tenue">
+      Tus fechas mueven el calendario: el día 1 dice en qué misión vas, y la llegada de la flauta marca el paso a las semanas con flauta.
+    </p>
+    <ul class="mt-10 grid gap-4">
+      <li class="flex items-center gap-4">
+        <span class="grid size-10 shrink-0 place-items-center rounded-full border border-acento/50 text-acento" aria-hidden="true"><Flame size={17} /></span>
+        <span><strong class="font-medium">{enPlan}</strong> <span class="text-tenue">· día 1: {fechaLarga(perfil.fecha_inicio)}</span></span>
+      </li>
+      <li class="flex items-center gap-4">
+        <span class="grid size-10 shrink-0 place-items-center rounded-full border border-resalte/50 text-resalte" aria-hidden="true"><Sprout size={17} /></span>
+        <span>
+          {perfil.fecha_llegada_flauta
+            ? <><strong class="font-medium">La flauta llegó</strong> <span class="text-tenue">el {fechaLarga(perfil.fecha_llegada_flauta)}</span></>
+            : <><strong class="font-medium">La flauta aún no llega</strong> <span class="text-tenue">· anótala aquí el día que la tengas</span></>}
+        </span>
+      </li>
+    </ul>
 
-    <div class="contenedor grid w-full gap-10 py-12 lg:grid-cols-[1.1fr_1fr] lg:items-center lg:gap-20">
-      <!-- ============ Lo que significan tus fechas ============ -->
-      <div data-revelar="hijos">
-        <p class="eyebrow">Sanssouci · ajustes de partida</p>
-        <h1 id="titulo-perfil" class="mt-4 text-6xl leading-[0.92] sm:text-8xl">
-          Tu <em class="text-acento">partida</em>.
-        </h1>
-        <p class="mt-5 max-w-[46ch] text-lg text-tenue">
-          Tus fechas mueven el calendario: el día 1 dice en qué misión vas, y la llegada de la flauta marca el paso a las semanas con flauta.
-        </p>
-        <ul class="mt-10 grid gap-4">
-          <li class="flex items-center gap-4">
-            <span class="grid size-10 shrink-0 place-items-center rounded-full border border-acento/50 text-acento" aria-hidden="true"><Flame size={17} /></span>
-            <span><strong class="font-medium">{enPlan}</strong> <span class="text-tenue">· día 1: {fechaLarga(perfil.fecha_inicio)}</span></span>
-          </li>
-          <li class="flex items-center gap-4">
-            <span class="grid size-10 shrink-0 place-items-center rounded-full border border-resalte/50 text-resalte" aria-hidden="true"><Sprout size={17} /></span>
-            <span>
-              {perfil.fecha_llegada_flauta
-                ? <><strong class="font-medium">La flauta llegó</strong> <span class="text-tenue">el {fechaLarga(perfil.fecha_llegada_flauta)}</span></>
-                : <><strong class="font-medium">La flauta aún no llega</strong> <span class="text-tenue">· anótala aquí el día que la tengas</span></>}
-            </span>
-          </li>
-        </ul>
-      </div>
-
-      <!-- ============ Tarjeta: el formulario ============ -->
-      <div class="w-full max-w-md lg:justify-self-end" data-revelar>
-        <TarjetaPerfil valores={valores} errores={errores} errorGeneral={errorGeneral} guardado={guardado} email={usuario.email ?? undefined} />
-        <p class="mt-4 text-center text-sm"><a href="/panel" class="enlace-flecha">Volver al panel <span aria-hidden="true">→</span></a></p>
+    <!-- ============ Tarjeta: el formulario ============ -->
+    <div slot="tarjeta">
+      <TarjetaPerfil valores={valores} errores={errores} errorGeneral={errorGeneral} guardado={guardado} email={usuario.email ?? undefined} />
+      <!-- Cerrar sesión es un formulario POST, no un enlace: un GET lo puede pedir el navegador
+           solo (al precargar) u otra web, y te sacaría sin querer. -->
+      <div class="mt-4 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm">
+        <a href="/contrasena" class="inline-flex items-center gap-1.5 text-acento hover:text-acento-claro"><KeyRound size={14} aria-hidden="true" /> Cambiar contraseña</a>
+        <form method="post" action="/auth/salir">
+          <button type="submit" class="inline-flex items-center gap-1.5 text-tenue transition-colors hover:text-texto">
+            <LogOut size={14} aria-hidden="true" /> Cerrar sesión
+          </button>
+        </form>
+        <a href="/panel" class="enlace-flecha">Volver al panel <span aria-hidden="true">→</span></a>
       </div>
     </div>
-  </section>
+  </PantallaCuenta>
 </Base>

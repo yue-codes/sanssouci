@@ -32,6 +32,8 @@ src/
 │   │                  cargarProgresoUsuario (panel), PROGRESO_VACIO (solo servidor)
 │   ├── estado-cancion.ts  ESTADOS_CANCION (pendiente/aprendiendo/dominada) (pura, va al navegador)
 │   ├── perfil.ts      validarPerfil: el formulario de /perfil (solo servidor)
+│   ├── cuenta.ts      correo y contraseña: validarCredenciales, validarCorreo,
+│   │                  validarContrasenaNueva, mensajeErrorAuth, urlEntrar (puras)
 │   └── tipos-supabase.ts  tipos de las tablas (GENERADO desde la base de datos)
 ├── components/      Componentes agrupados por DOMINIO (de qué tratan):
 │   ├── layout/        Cabecera, PiePagina, Logo
@@ -51,13 +53,15 @@ src/
 │   │   └── arbol/       isla ArbolTalentos y sus piezas (LienzoArbol, ListaRama,
 │   │                    PestanasRamas, DetalleTalento, Hexagono, AvisoDesbloqueo, estilos.ts)
 │   ├── calendario/    SemanaCalendario → CeldaDia; RecorridoPlan; isla PartituraNoventaDias; hitos.ts
-│   ├── cuenta/        lo que se ve en /panel y /entrar: PantallaPanel; TarjetaEntrar + estado-entrar.ts
+│   ├── cuenta/        lo que se ve en /panel, /entrar, /perfil y /contrasena: PantallaPanel;
+│   │                  PantallaCuenta (marco común); TarjetaEntrar + estado-entrar.ts;
+│   │                  TarjetaPerfil; TarjetaContrasena; isla CampoContrasena (mostrar u ocultar)
 │   └── sesion/        isla MisionDelDia (cronómetro); ResumenSesion; bloques.ts
 ├── layouts/         Esqueletos de página (Base.astro)
 ├── middleware.ts    Sesión de cada petición de servidor y protección de RUTAS_PRIVADAS
 ├── env.d.ts         Tipos de Astro.locals (supabase, usuario)
 ├── pages/           Rutas: cada archivo es una URL (ver «Páginas»)
-│   └── auth/          endpoints de sesión: confirmar (GET, enlace mágico), salir (POST)
+│   └── auth/          endpoints de sesión: confirmar (GET, enlaces de los correos), salir (POST)
 ├── scripts/         JavaScript de página entera, sin componente: movimiento.ts (ver «Movimiento»)
 └── styles/
     ├── tokens.css     colores y fuentes: el único sitio para cambiar la paleta
@@ -132,7 +136,7 @@ Una isla se ejecuta **también en el navegador**, así que todo lo que importe (
 
 **Las canciones (`/canciones`, `/canciones/[id]`):** el repertorio como un mazo de cartas. La rareza sale de la dificultad (`rarezaDe` en `components/canciones/rareza.ts`: común 1–3, rara 4–6, épica 7–8, legendaria 9–10) y colorea el borde de la carta y las barras de `Dificultad`. `resumirCancion(c, s, obtenidos)` añade `faltan` (requisitos que no tienes; la carta sale bloqueada si es > 0) y `jefe`. El catálogo filtra «¿Qué puedo tocar ya?» (`soloListas`, `?listas=1`). La ficha usa `ListaMisiones` para «Para desbloquearla» y «Lo que entrena», y `AnuncioJefe` si es canción de jefe. **Tu avance** con cada canción (pendiente / aprendiendo / dominada; `lib/estado-cancion.ts`, módulo sin imports para que lo usen las islas) se elige en el panel «Tu carta» de la ficha (`SelectorEstado`, Action `cambiarEstadoCancion`; «pendiente» borra la fila) y sale como sello en la carta y en el filtro «Mi avance» del catálogo (`?estado=`). Lo que depende del progreso es Server Island: `CartaConProgreso` (el panel y las listas; el sello «lista / bloqueada» salió de la portada a ese panel) y `CatalogoConProgreso`. La portada de `/canciones` solo enseña cifras del mazo; «puedes tocar ya» pasó al botón del filtro.
 
-**El panel (`/panel`) y la entrada (`/entrar`):** las dos son páginas de servidor, así que **la página solo carga los datos y un componente de `components/cuenta/` pinta** (`PantallaPanel`, `TarjetaEntrar`). Así se pueden probar sin iniciar sesión: una página temporal (no se sube) que les pase un `Progreso` hecho a mano (o `PROGRESO_VACIO`), compilar y mirar. El panel es la pantalla del personaje: día del plan, racha, rango, `MiniMapa` con tu posición, la sesión de hoy, un marcador (sesiones, tiempo, logros, jefes) y debajo la partitura, tus misiones y el próximo jefe. `/entrar` es «Continúa tu partida»: imagen a sangre y la tarjeta con sus tres caras.
+**El panel (`/panel`), la entrada (`/entrar`), `/perfil` y `/contrasena`:** son páginas de servidor, así que **la página solo carga los datos y un componente de `components/cuenta/` pinta** (`PantallaPanel`, `TarjetaEntrar`). Así se pueden probar sin iniciar sesión: una página temporal (no se sube) que les pase un `Progreso` hecho a mano (o `PROGRESO_VACIO`), compilar y mirar. El panel es la pantalla del personaje: día del plan, racha, rango, `MiniMapa` con tu posición, la sesión de hoy, un marcador (sesiones, tiempo, logros, jefes) y debajo la partitura, tus misiones y el próximo jefe. `/entrar` es «Continúa tu partida»: imagen a sangre y la tarjeta con sus tres caras. `/entrar`, `/perfil` y `/contrasena` comparten el marco `PantallaCuenta` (imagen a sangre, el porqué a la izquierda y la tarjeta a la derecha). Las cuentas son de **correo y contraseña** (decidido el 3 nov 2026; detalle y ajustes del panel en `docs/supabase.md` §7): `/entrar?modo=registro|recuperar` cambia de cara, el error al entrar no dice si falló el correo o la contraseña, los campos llevan `autocomplete` (`email`, `current-password`, `new-password`) para el gestor de contraseñas, y la isla `CampoContrasena` añade el botón de mostrarla (sin JavaScript es un campo normal).
 
 - **Solo tema oscuro**, a propósito: no hay `light-dark()`, ni selector de tema, ni `data-theme`.
 - **Dos capas** en `src/styles/tokens.css`:
@@ -264,5 +268,6 @@ Reglas que cumple cada página. **`pnpm auditar`** comprueba sobre el HTML gener
 | `/canciones/[id]` | `pages/canciones/[id].astro` | Server Island `CartaConProgreso` (sello, `SelectorEstado`, `ListaMisiones`), `rarezaDe`, `diaDelJefe` → `AnuncioJefe`; vecinos dentro de la misma ruta, por dificultad |
 | `/logros` | `pages/logros.astro` (servidor) | `progresoDeVisita` → `AvisoProgreso`; `logrosConEstado`, `usosDeLogros`, `avancePorCategoria`, `rangoTalentos`; vitrinas por `nivelSugerido`, filtro con `:has()` |
 | `/panel` | `pages/panel.astro` (servidor) | `cargarProgresoUsuario` (Supabase) → `PantallaPanel` (`racha`, `rangoTalentos`, `construirSendero` → `MiniMapa` + `ListaMisiones`, `sesionDeReferencia` → `ResumenSesion`, isla `PartituraNoventaDias`, `AnuncioJefe`) |
-| `/entrar` | `pages/entrar.astro` (servidor) | `signInWithOtp` (enlace mágico) → `TarjetaEntrar` (formulario, «revisa tu correo» o «ya estás dentro») |
+| `/entrar` | `pages/entrar.astro` (servidor) | `?modo=` entrar (`signInWithPassword`), registro (`signUp`) o recuperar (`resetPasswordForEmail`), validados con `lib/cuenta.ts` → `TarjetaEntrar` (formulario, «revisa tu correo» o «ya estás dentro») |
+| `/contrasena` | `pages/contrasena.astro` (servidor, privada) | `validarContrasenaNueva` → `updateUser({ password })` → redirección 303 a `?guardada=1` → `TarjetaContrasena` |
 | `/perfil` | `pages/perfil.astro` (servidor, privada) | formulario `method="post"` → `validarPerfil` → `perfiles` y redirección 303 a `?guardado=1` → `TarjetaPerfil` |

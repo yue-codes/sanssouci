@@ -75,7 +75,7 @@ teoría, respiración, sonido, escalas, estudios y repertorio.
 | **Canciones** `/canciones` | El repertorio como un mazo de cartas con rareza según la dificultad, cartas bloqueadas y filtros que se guardan en la URL. |
 | **Logros** `/logros` | Sala de trofeos: vitrinas por zona, avance por rama y filtro por estado. |
 | **Panel** `/panel` | Tu pantalla de personaje con progreso real: racha, rango, sesión de hoy, partitura y próximo jefe. |
-| **Entrar** `/entrar` | Inicio de sesión sin contraseña, con enlace mágico al correo. |
+| **Entrar** `/entrar` | Entrar con correo y contraseña, crear cuenta o recuperarla. |
 
 Todo el sitio respeta `prefers-reduced-motion`, se maneja con el teclado y funciona primero en el móvil.
 
@@ -88,7 +88,7 @@ Todo el sitio respeta `prefers-reduced-motion`, se maneja con el teclado y funci
 | [Tailwind CSS 4](https://tailwindcss.com) | Estilos | Tokens de diseño propios en `src/styles/tokens.css`; sin archivo de configuración. |
 | [Preact](https://preactjs.com) + Signals | Partes interactivas | La API de React en 3 KB. Los *signals* comparten estado entre islas (por ejemplo, la vida del jefe y sus golpes). |
 | [Motion](https://motion.dev) + [Lenis](https://lenis.darkroom.engineering) | Animación y desplazamiento suave | Animaciones declarativas que se desactivan si el sistema pide menos movimiento. |
-| [Supabase](https://supabase.com) | Cuentas y progreso | Postgres con seguridad por filas (RLS), y login por enlace mágico. |
+| [Supabase](https://supabase.com) | Cuentas y progreso | Postgres con seguridad por filas (RLS), y cuentas con correo y contraseña. |
 | [Cloudflare Workers](https://workers.cloudflare.com) | Despliegue | Páginas estáticas en el borde, más un worker para las páginas con sesión. |
 
 Fuentes autoalojadas con [Fontsource](https://fontsource.org): Instrument Serif, Bricolage Grotesque, Martian Mono y Pixelify Sans. Iconos de [Lucide](https://lucide.dev).
@@ -201,7 +201,7 @@ El proyecto se verifica en tres capas, de lo más barato a lo más completo:
 | 1. Datos y esquemas | ✅ |
 | 2. Documentos generados | ✅ |
 | 3. Web de contenido | ✅ (rediseño «Nocturno» terminado) |
-| 4. Cuentas y progreso | 🟡 se guardan días, logros, victorias, avance por canción y perfil, y todas las páginas leen el progreso real; falta el login con Google |
+| 4. Cuentas y progreso | 🟡 se guardan días, logros, victorias, avance por canción y perfil, y todas las páginas leen el progreso real; cuentas con correo y contraseña |
 | 5. Despliegue en Cloudflare Workers | ⏳ |
 
 Los pasos pendientes, con sus decisiones abiertas, están en [`docs/hoja-de-ruta.md`](docs/hoja-de-ruta.md).

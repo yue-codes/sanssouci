@@ -1,0 +1,40 @@
+---
+/**
+ * @component PantallaCuenta
+ * El marco de las pantallas de cuenta (`/entrar`, `/perfil`, `/contrasena`): imagen a
+ * sangre con `FondoPortada` y dos columnas, el porqué a la izquierda y la tarjeta
+ * (el formulario) a la derecha. En pantallas estrechas, una debajo de la otra.
+ *
+ * Slots: el de por defecto es la columna izquierda (con su `<h1>`, cuyo id va en
+ * `titulo`); `tarjeta` es la derecha.
+ *
+ * @example
+ * <PantallaCuenta imagen={IMAGENES.animeNubes} titulo="titulo-entrar">
+ *   <h1 id="titulo-entrar">…</h1>
+ *   <TarjetaEntrar slot="tarjeta" … />
+ * </PantallaCuenta>
+ */
+import FondoPortada from "@/components/ui/FondoPortada.astro";
+import type { ImagenSitio } from "@/config/imagenes";
+
+interface Props {
+  /** Imagen de fondo (del catálogo `IMAGENES`). */
+  imagen: ImagenSitio;
+  /** Id del `<h1>` de la columna izquierda (nombra la sección para lectores de pantalla). */
+  titulo: string;
+}
+const { imagen, titulo } = Astro.props;
+---
+
+<section class="relative isolate flex min-h-[calc(100svh-5rem)] items-center overflow-hidden" aria-labelledby={titulo}>
+  <FondoPortada imagen={imagen} base={40} />
+
+  <div class="contenedor grid w-full gap-10 py-12 lg:grid-cols-[1.1fr_1fr] lg:items-center lg:gap-20">
+    <div data-revelar="hijos">
+      <slot />
+    </div>
+    <div class="w-full max-w-md lg:justify-self-end" data-revelar>
+      <slot name="tarjeta" />
+    </div>
+  </div>
+</section>

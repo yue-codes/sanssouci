@@ -50,4 +50,4 @@ export const NAVEGACION: readonly EnlaceNavegacion[] = [
  * a quien visite una de ellas (o algo debajo, p. ej. `/perfil/editar`) sin sesión.
  * Esas páginas deben declarar `export const prerender = false`.
  */
-export const RUTAS_PRIVADAS: readonly string[] = ["/panel", "/perfil"];
+export const RUTAS_PRIVADAS: readonly string[] = ["/panel", "/perfil", "/contrasena"];

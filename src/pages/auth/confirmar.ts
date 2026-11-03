@@ -1,5 +1,6 @@
 /**
- * @file Endpoint GET /auth/confirmar: a donde lleva el enlace mágico del correo.
+ * @file Endpoint GET /auth/confirmar: a donde llevan los enlaces de los correos de
+ * Supabase (activar la cuenta y recuperar la contraseña).
  *
  * Supabase redirige aquí con un `code` (flujo PKCE, el de por defecto) o con
  * `token_hash` + `type` (si algún día se cambia la plantilla del correo). Aquí se

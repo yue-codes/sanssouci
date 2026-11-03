@@ -1,0 +1,77 @@
+---
+/**
+ * @component TarjetaContrasena
+ * La tarjeta de /contrasena: poner o cambiar la contraseña. Dos caras: el
+ * formulario (con su error, si lo hay) y «contraseña guardada». Solo pinta: qué
+ * cara toca lo decide la página, que habla con Supabase.
+ *
+ * El formulario es HTML normal (`method="post"`); `CampoContrasena` añade el botón
+ * de mostrarla cuando hay JavaScript.
+ */
+import { Check, KeyRound, TriangleAlert } from "lucide-preact";
+import CampoContrasena from "./CampoContrasena";
+import { CONTRASENA_MIN } from "@/lib/cuenta";
+
+interface Props {
+  /** Se acaba de guardar: enseña la confirmación. */
+  guardada?: boolean;
+  /** Por qué no se pudo guardar, si pasó. */
+  error?: string;
+  /** Correo de la cuenta (solo se muestra, y ayuda al gestor de contraseñas a asociarla). */
+  email?: string;
+}
+const { guardada = false, error, email } = Astro.props;
+const ETIQUETA = "font-mono text-[0.625rem] tracking-[0.08em] text-tenue uppercase";
+---
+
+<div class="relative overflow-hidden rounded-md border border-borde-fuerte bg-fondo/85 p-6 shadow-2xl shadow-black/40 backdrop-blur-md sm:p-8">
+  <!-- Línea de luz arriba, como el borde de una ventana de juego -->
+  <span class="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-acento to-transparent" aria-hidden="true"></span>
+
+  {guardada ? (
+    <div class="text-center" role="status">
+      <span class="mx-auto grid size-14 place-items-center rounded-full border-2 border-exito text-exito" aria-hidden="true"><Check size={22} strokeWidth={3} /></span>
+      <p class:list={[ETIQUETA, "mt-5"]}>Llave nueva</p>
+      <h2 class="mt-1 text-4xl">Contraseña guardada</h2>
+      <p class="mt-3 text-sm text-tenue">La próxima vez, entra con tu correo y esta contraseña.</p>
+      <a href="/panel" class="boton mt-7 justify-center">Ir al panel <span aria-hidden="true">→</span></a>
+    </div>
+  ) : (
+    <form method="post" class="grid gap-6">
+      <div>
+        <p class={ETIQUETA}>Tu llave</p>
+        <h2 class="mt-1 text-4xl">Contraseña nueva</h2>
+        {email && <p class="mt-2 text-sm text-tenue">Cuenta: <strong class="font-medium text-texto">{email}</strong></p>}
+      </div>
+
+      {error && (
+        <p id="error-contrasena" role="alert" class="flex items-start gap-2.5 rounded-[3px] border border-peligro/40 bg-peligro/10 px-4 py-3 text-sm">
+          <TriangleAlert size={16} class="mt-0.5 shrink-0 text-peligro" aria-hidden="true" />
+          <span>{error}</span>
+        </p>
+      )}
+
+      <!-- El correo, oculto, ayuda al gestor de contraseñas a saber de qué cuenta es. -->
+      {email && <input type="email" name="usuario" value={email} autocomplete="username" hidden />}
+
+      <div>
+        <label for="contrasena" class:list={[ETIQUETA, "mb-2 block"]}>Contraseña nueva</label>
+        <CampoContrasena
+          client:load
+          id="contrasena"
+          autocomplete="new-password"
+          minLength={CONTRASENA_MIN}
+          describedby={["contrasena-ayuda", error && "error-contrasena"].filter(Boolean).join(" ")}
+          invalido={!!error}
+        />
+        <p id="contrasena-ayuda" class="mt-1.5 text-xs text-tenue">
+          Mínimo {CONTRASENA_MIN} caracteres. Una frase de varias palabras es fácil de recordar y difícil de adivinar.
+        </p>
+      </div>
+
+      <button type="submit" class="boton justify-center">
+        <KeyRound size={16} aria-hidden="true" /> Guardar contraseña
+      </button>
+    </form>
+  )}
+</div>

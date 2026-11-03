@@ -1,0 +1,66 @@
+---
+/**
+ * Página /contrasena: poner o cambiar tu contraseña. Es privada (`RUTAS_PRIVADAS`)
+ * y de servidor (`prerender = false`). Se llega:
+ * - desde el correo de «¿Olvidaste tu contraseña?»: /auth/confirmar abre la sesión
+ *   con el enlace y trae aquí;
+ * - desde /perfil («Cambiar contraseña»), con la sesión de siempre.
+ *
+ * POST: valida (`validarContrasenaNueva`), la guarda con `updateUser` y redirige a
+ * `/contrasena?guardada=1` (POST → redirección → GET: recargar no la reenvía).
+ * Aquí está la lógica; lo que se ve está en `TarjetaContrasena`.
+ */
+import { KeyRound, ShieldCheck } from "lucide-preact";
+import Base from "@/layouts/Base.astro";
+import PantallaCuenta from "@/components/cuenta/PantallaCuenta.astro";
+import TarjetaContrasena from "@/components/cuenta/TarjetaContrasena.astro";
+import { IMAGENES } from "@/config/imagenes";
+import { mensajeErrorAuth, validarContrasenaNueva } from "@/lib/cuenta";
+
+export const prerender = false;
+
+const { supabase, usuario } = Astro.locals;
+// El middleware ya garantiza la sesión en esta ruta; esto es para TypeScript.
+if (!usuario) return Astro.redirect("/entrar?siguiente=%2Fcontrasena");
+
+let error: string | undefined;
+if (Astro.request.method === "POST") {
+  const r = validarContrasenaNueva(await Astro.request.formData());
+  if (!r.ok) error = r.error;
+  else {
+    const { error: e } = await supabase.auth.updateUser({ password: r.contrasena });
+    if (!e) return Astro.redirect("/contrasena?guardada=1", 303);
+    console.error("[contrasena]", e.code, e.message);
+    error = mensajeErrorAuth(e);
+  }
+}
+
+const guardada = Astro.request.method === "GET" && Astro.url.searchParams.get("guardada") === "1";
+---
+
+<Base titulo="Contraseña" descripcion="Pon o cambia la contraseña de tu cuenta." ancho="completo">
+  <PantallaCuenta imagen={IMAGENES.flautaCerezos} titulo="titulo-contrasena">
+    <p class="eyebrow">Sanssouci · tu cuenta</p>
+    <h1 id="titulo-contrasena" class="mt-4 text-6xl leading-[0.92] sm:text-8xl">
+      Tu <em class="text-acento">llave</em>.
+    </h1>
+    <p class="mt-5 max-w-[46ch] text-lg text-tenue">
+      Con ella entras desde cualquier dispositivo. Si algún día la olvidas, «¿La olvidaste?» en la entrada te manda un enlace para poner otra.
+    </p>
+    <ul class="mt-10 grid gap-4">
+      <li class="flex items-center gap-4">
+        <span class="grid size-10 shrink-0 place-items-center rounded-full border border-acento/50 text-acento" aria-hidden="true"><ShieldCheck size={17} /></span>
+        <span>Nadie la ve, ni nosotros: se guarda cifrada (solo su <em>hash</em>).</span>
+      </li>
+      <li class="flex items-center gap-4">
+        <span class="grid size-10 shrink-0 place-items-center rounded-full border border-acento/50 text-acento" aria-hidden="true"><KeyRound size={17} /></span>
+        <span>Deja que tu navegador o tu gestor de contraseñas la recuerde.</span>
+      </li>
+    </ul>
+
+    <div slot="tarjeta">
+      <TarjetaContrasena guardada={guardada} error={error} email={usuario.email ?? undefined} />
+      <p class="mt-4 text-center text-sm"><a href="/perfil" class="enlace-flecha">Volver al perfil <span aria-hidden="true">→</span></a></p>
+    </div>
+  </PantallaCuenta>
+</Base>

@@ -1,66 +1,84 @@
 ---
 /**
- * Página /entrar: inicio de sesión con enlace mágico (sin contraseña).
+ * Página /entrar: cuentas con correo y contraseña.
  *
- * Es de servidor (`prerender = false`) porque responde distinto a cada visita:
- * - GET: muestra el formulario (o «ya has entrado» si hay sesión).
- * - POST: pide a Supabase que mande el enlace al correo y muestra «revisa tu correo».
- * El formulario es HTML normal, sin JavaScript: funciona aunque falle una isla.
- * Aquí está la lógica (hablar con Supabase); lo que se ve está en `TarjetaEntrar`.
+ * Es de servidor (`prerender = false`) porque responde distinto a cada visita. El
+ * modo va en la URL (`?modo=`), y el formulario se manda a esa misma URL:
+ * - `entrar` (por defecto): `signInWithPassword` y, si sale bien, a `siguiente`.
+ * - `registro`: `signUp`. Supabase manda un correo para activar la cuenta; el enlace
+ *   lleva a /auth/confirmar, que abre la sesión.
+ * - `recuperar`: `resetPasswordForEmail`. El enlace del correo abre la sesión y
+ *   lleva a /contrasena para poner una nueva.
+ * Con sesión, solo «ya estás dentro». El formulario es HTML normal: funciona aunque
+ * falle una isla. Aquí está la lógica (hablar con Supabase); lo que se ve está en
+ * `TarjetaEntrar`; la validación y los mensajes de error, en `lib/cuenta.ts`.
  *
- * Parámetros de la URL: `siguiente` (a dónde volver tras entrar; lo pone el middleware)
- * y `error=enlace` (lo pone /auth/confirmar si el enlace no sirvió).
+ * Parámetros de la URL: `modo`, `siguiente` (a dónde volver tras entrar; lo pone el
+ * middleware) y `error=enlace` (lo pone /auth/confirmar si el enlace no sirvió).
  */
 import { BookCheck, Swords, Trophy } from "lucide-preact";
-import FondoPortada from "@/components/ui/FondoPortada.astro";
 import Base from "@/layouts/Base.astro";
+import PantallaCuenta from "@/components/cuenta/PantallaCuenta.astro";
 import TarjetaEntrar from "@/components/cuenta/TarjetaEntrar.astro";
 import type { EstadoEntrar } from "@/components/cuenta/estado-entrar";
 import { IMAGENES } from "@/config/imagenes";
+import { mensajeErrorAuth, modoEntrar, validarCorreo, validarCredenciales } from "@/lib/cuenta";
 import { rutaInterna } from "@/lib/supabase";
 
 export const prerender = false;
 
 const { supabase, usuario } = Astro.locals;
 const siguiente = rutaInterna(Astro.url.searchParams.get("siguiente"));
+const modo = modoEntrar(Astro.url.searchParams.get("modo"));
+
+/** A dónde lleva el enlace de un correo de Supabase (después, a `destino`). */
+const urlConfirmar = (destino: string) => `${Astro.url.origin}/auth/confirmar?siguiente=${encodeURIComponent(destino)}`;
 
 let estado: EstadoEntrar = {
   tipo: "formulario",
+  modo,
   email: "",
   error: Astro.url.searchParams.get("error") === "enlace"
-    ? "Ese enlace ya no sirve: caducó, ya se usó o se abrió en otro navegador. Pide uno nuevo."
+    ? "Ese enlace ya no sirve: caducó, ya se usó o se abrió en otro navegador. Pide otro."
     : undefined,
 };
 
 if (Astro.request.method === "POST" && !usuario) {
   const datos = await Astro.request.formData();
-  const email = String(datos.get("email") ?? "").trim().toLowerCase();
 
-  // El navegador ya valida el correo (type="email"), pero el servidor no se fía:
-  // cualquiera puede mandar un POST sin pasar por el formulario.
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 254) {
-    estado = { tipo: "formulario", email, error: "Escribe un correo válido, como nombre@ejemplo.com." };
+  if (modo === "recuperar") {
+    const r = validarCorreo(datos);
+    if (!r.ok) estado = { tipo: "formulario", modo, email: r.email, error: r.error };
+    else {
+      const { error } = await supabase.auth.resetPasswordForEmail(r.datos, { redirectTo: urlConfirmar("/contrasena") });
+      if (error) console.error("[entrar] recuperar:", error.code, error.message);
+      // Supabase no da error si el correo no tiene cuenta (para no revelarlo); nosotros tampoco.
+      estado = error ? { tipo: "formulario", modo, email: r.datos, error: mensajeErrorAuth(error) } : { tipo: "enviado", motivo: "recuperar", email: r.datos };
+    }
   } else {
-    const { error } = await supabase.auth.signInWithOtp({
-      email,
-      options: {
-        emailRedirectTo: `${Astro.url.origin}/auth/confirmar?siguiente=${encodeURIComponent(siguiente)}`,
-      },
-    });
-    estado = error
-      ? {
-          tipo: "formulario",
-          email,
-          // 429: Supabase limita los correos (por persona cada minuto y en total por hora).
-          error: error.status === 429
-            ? "Se han pedido demasiados enlaces seguidos. Espera unos minutos y vuelve a intentarlo."
-            : "No se pudo enviar el correo. Inténtalo de nuevo en un momento.",
-        }
-      : { tipo: "enviado", email };
+    const r = validarCredenciales(datos, modo === "registro");
+    if (!r.ok) estado = { tipo: "formulario", modo, email: r.email, error: r.error };
+    else if (modo === "entrar") {
+      const { error } = await supabase.auth.signInWithPassword({ email: r.datos.email, password: r.datos.contrasena });
+      // 303: tras un POST, el navegador pide la página siguiente con GET (recargar no reenvía la contraseña).
+      if (!error) return Astro.redirect(siguiente, 303);
+      if (error.code !== "invalid_credentials") console.error("[entrar] entrar:", error.code, error.message);
+      estado = { tipo: "formulario", modo, email: r.datos.email, error: mensajeErrorAuth(error) };
+    } else {
+      const { data, error } = await supabase.auth.signUp({
+        email: r.datos.email,
+        password: r.datos.contrasena,
+        options: { emailRedirectTo: urlConfirmar(siguiente) },
+      });
+      // Si en Supabase se desactiva «Confirm email», la sesión llega ya y se entra directo.
+      if (!error && data.session) return Astro.redirect(siguiente, 303);
+      if (error) console.error("[entrar] registro:", error.code, error.message);
+      estado = error
+        ? { tipo: "formulario", modo, email: r.datos.email, error: mensajeErrorAuth(error) }
+        : { tipo: "enviado", motivo: "registro", email: r.datos.email };
+    }
   }
 }
-
-const imagen = IMAGENES.animeNubes;
 
 /** Qué se guarda al tener cuenta (texto de la columna izquierda). */
 const ventajas = [
@@ -70,35 +88,25 @@ const ventajas = [
 ];
 ---
 
-<Base titulo="Entrar" descripcion="Inicia sesión para guardar tu progreso en Sanssouci." ancho="completo">
-  <section class="relative isolate flex min-h-[calc(100svh-5rem)] items-center overflow-hidden" aria-labelledby="titulo-entrar">
-    <FondoPortada imagen={imagen} base={40} />
+<Base titulo="Entrar" descripcion="Inicia sesión o crea tu cuenta para guardar tu progreso en Sanssouci." ancho="completo">
+  <PantallaCuenta imagen={IMAGENES.animeNubes} titulo="titulo-entrar">
+    <p class="eyebrow">Sanssouci · tu cuenta</p>
+    <h1 id="titulo-entrar" class="mt-4 text-6xl leading-[0.92] sm:text-8xl">
+      Guarda tu <em class="text-acento">camino</em>.
+    </h1>
+    <p class="mt-5 max-w-[46ch] text-lg text-tenue">
+      El mapa y el temario son para todos. Con una cuenta, el progreso es tuyo y te espera en cualquier dispositivo.
+    </p>
+    <!-- Solo con dos columnas: en pantallas estrechas empujaría el formulario fuera de la vista. -->
+    <ul class="mt-10 hidden gap-4 lg:grid">
+      {ventajas.map(({ Icono, texto }) => (
+        <li class="flex items-center gap-4">
+          <span class="grid size-10 shrink-0 place-items-center rounded-full border border-acento/50 text-acento" aria-hidden="true"><Icono size={17} /></span>
+          <span>{texto}</span>
+        </li>
+      ))}
+    </ul>
 
-    <div class="contenedor grid w-full gap-10 py-12 lg:grid-cols-[1.1fr_1fr] lg:items-center lg:gap-20">
-      <!-- ============ Por qué entrar ============ -->
-      <div data-revelar="hijos">
-        <p class="eyebrow">Sanssouci · tu cuenta</p>
-        <h1 id="titulo-entrar" class="mt-4 text-6xl leading-[0.92] sm:text-8xl">
-          Guarda tu <em class="text-acento">camino</em>.
-        </h1>
-        <p class="mt-5 max-w-[46ch] text-lg text-tenue">
-          El mapa y el temario son para todos. Con una cuenta, el progreso es tuyo y te espera en cualquier dispositivo.
-        </p>
-        <!-- Solo con dos columnas: en pantallas estrechas empujaría el formulario fuera de la vista. -->
-        <ul class="mt-10 hidden gap-4 lg:grid">
-          {ventajas.map(({ Icono, texto }) => (
-            <li class="flex items-center gap-4">
-              <span class="grid size-10 shrink-0 place-items-center rounded-full border border-acento/50 text-acento" aria-hidden="true"><Icono size={17} /></span>
-              <span>{texto}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <!-- ============ Tarjeta: formulario / enviado / ya dentro ============ -->
-      <div class="w-full max-w-md lg:justify-self-end" data-revelar>
-        <TarjetaEntrar estado={estado} sesion={usuario ?? undefined} siguiente={siguiente} />
-      </div>
-    </div>
-  </section>
+    <TarjetaEntrar slot="tarjeta" estado={estado} sesion={usuario ?? undefined} siguiente={siguiente} />
+  </PantallaCuenta>
 </Base>

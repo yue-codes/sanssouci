@@ -64,7 +64,8 @@ for (const pagina of paginas) {
     if (!/aria-label=/.test(m[2]) && !textoVisible(m[3])) anotar(`<${m[1]}> sin nombre accesible`, pagina, m[2].slice(0, 60));
 
   for (const m of h.matchAll(/<(input|select|textarea)\b([^>]*)>/g)) {
-    if (/type="(hidden|submit|button)"/.test(m[2])) continue;
+    // Ocultos (type="hidden" o el atributo `hidden`): no existen para el lector de pantalla.
+    if (/type="(hidden|submit|button)"/.test(m[2]) || /(^|\s)hidden(\s|=|$)/.test(m[2])) continue;
     const id = m[2].match(/\bid="([^"]+)"/)?.[1];
     // Dentro de un <label> también cuenta: el último <label> abierto antes del control sigue sin cerrar.
     const antes = h.slice(0, m.index);
