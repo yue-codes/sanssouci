@@ -8,7 +8,7 @@
 
 1. `git status`. Todo lo hecho tiene commit (último: `8adf53f`, 3 nov 2026). Fases 1 a 4 terminadas; la web está publicada (fase 5) en https://sanssouci.eduardo-jes-angeles-hdz.workers.dev.
    - Verificado: `pnpm astro check` 0 errores, `pnpm build` y `pnpm auditar` sin problemas (226 páginas prerenderizadas, más las de servidor auditadas aparte; ver «Accesibilidad» en `docs/arquitectura.md`). El usuario probó todo en local y en producción.
-   - **Pendiente:** el punto 6 de §2 (confirmar que no quedan redirecciones 307) y, antes de compartir la web, cambiar las imágenes ajenas. Después, lo que pida el usuario (ideas aplazadas en §4).
+   - **Pendiente:** antes de compartir la web, cambiar las imágenes ajenas (§2, punto 7). Después, lo que pida el usuario (ideas aplazadas en §4).
 2. ✅ (3 nov 2026) El usuario aprobó todo el rediseño: `/niveles/[id]`, `/logros`, `/canciones`, `/canciones/[id]`, `/panel` y `/entrar`.
    - **No ejecutes `pnpm dev` tú.**
 
@@ -90,7 +90,7 @@ Cuida que la página sin sesión siga funcionando (contenido para todos, progres
 3. ✅ (3 nov 2026) Supabase → Authentication → URL Configuration: dirección pública (https://sanssouci.eduardo-jes-angeles-hdz.workers.dev) en Site URL y Redirect URLs.
 4. ✅ (3 nov 2026, el usuario: «funciona bien») Probar en producción: entrar con correo y contraseña, marcar un día, cerrar sesión. Recuperar la contraseña (el enlace del correo debe llevar a la dirección pública).
 5. ✅ Guía para el usuario: `docs/despliegue.md`.
-6. ⏳ Comprobar en producción que `/arbol`, `/canciones`, `/jefes/…` y `/dias/…` responden 200 sin redirección 307 (`build.format: "file"`, commit `8adf53f`).
+6. ✅ (3 nov 2026) Comprobado en producción: `/arbol`, `/canciones`, `/jefes/…` y `/dias/…` responden 200 sin redirección 307 (`build.format: "file"`, commit `8adf53f`).
 7. Antes de compartir la web con otras personas: **cambiar las imágenes ajenas** (ver `docs/arquitectura.md` «Imágenes»).
 
 ## 3. Datos que solo sabe el usuario
