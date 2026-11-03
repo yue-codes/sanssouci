@@ -1,4 +1,5 @@
 import { useComputed, useSignal } from "@preact/signals";
+import { actions } from "astro:actions";
 import { useEffect } from "preact/hooks";
 import { KeyRound } from "lucide-preact";
 import { ancestrosDe, rangoTalentos, type NodoTalento } from "@/lib/arbol";
@@ -16,8 +17,10 @@ interface Props {
   nodos: NodoTalento[];
   /** Categorías en el orden de las columnas. */
   ramas: CategoriaLogro[];
-  /** Ids de los logros que el jugador ya tiene. */
+  /** Ids de los logros que el jugador ya tiene (vacío sin sesión). */
   obtenidos: string[];
+  /** ¿Hay sesión? Sin ella, la ficha invita a entrar en vez de conseguir. */
+  sesion: boolean;
 }
 
 /**
@@ -35,9 +38,11 @@ interface Props {
  * Arriba, el marcador del jugador (rango, talentos, disponibles) y el filtro
  * «¿Qué puedo hacer ya?». Al pasar el ratón por un talento se ve su ruta. Al conseguir un
  * talento hay celebración: estallido en el nodo, marca «nuevo» en lo que se abre
- * y un aviso. Por ahora se puede marcar (demo); en la fase 4, `obtenidos` vendrá de Supabase.
+ * y un aviso. Conseguir y quitar se guardan con las Actions `conseguirLogro` y
+ * `quitarLogro` (el servidor vuelve a comprobar los requisitos). La pinta la Server
+ * Island `ArbolConProgreso`, que trae tus logros.
  */
-export default function ArbolTalentos({ nodos, ramas, obtenidos: iniciales }: Props) {
+export default function ArbolTalentos({ nodos, ramas, obtenidos: iniciales, sesion }: Props) {
   const porId = new Map(nodos.map((n) => [n.id, n]));
 
   const obtenidos = useSignal<Set<string>>(new Set(iniciales));
@@ -62,6 +67,10 @@ export default function ArbolTalentos({ nodos, ramas, obtenidos: iniciales }: Pr
   const fichaAbierta = useSignal(true);
   const celebracion = useSignal<Celebracion | undefined>(undefined);
   const recienAbiertos = useSignal<ReadonlySet<string>>(new Set());
+  /** Talento que se está guardando (sus botones se desactivan mientras tanto). */
+  const ocupado = useSignal<string | undefined>(undefined);
+  /** Último error al guardar, con el talento al que pertenece. */
+  const fallo = useSignal<{ id: string; mensaje: string } | undefined>(undefined);
 
   /** Selecciona un talento y muestra su rama (en el celular). */
   function elegir(id: string) {
@@ -75,11 +84,25 @@ export default function ArbolTalentos({ nodos, ramas, obtenidos: iniciales }: Pr
     elegir((deRama.find((n) => estados.value.get(n.id) === "disponible") ?? deRama[0]).id);
   }
 
-  /** Consigue o quita un talento (demo). Al conseguirlo, celebra y marca lo que se abre. */
-  function alternar(id: string) {
+  /**
+   * Consigue o quita un talento y lo guarda. Se espera al servidor antes de cambiar
+   * nada: si dice que no (falta un requisito, sin conexión…), el árbol no se mueve.
+   * Al conseguirlo, celebra y marca lo que se abre.
+   */
+  async function alternar(id: string) {
+    if (ocupado.value) return;
+    const conseguir = !obtenidos.value.has(id);
+    ocupado.value = id;
+    fallo.value = undefined;
+    const { error } = conseguir ? await actions.conseguirLogro({ logro: id }) : await actions.quitarLogro({ logro: id });
+    ocupado.value = undefined;
+    if (error) {
+      fallo.value = { id, mensaje: error.message };
+      return;
+    }
+
     const antes = estados.value;
     const s = new Set(obtenidos.value);
-    const conseguir = !s.has(id);
     conseguir ? s.add(id) : s.delete(id);
     obtenidos.value = s; // un Set nuevo es lo que avisa a los signals del cambio
 
@@ -113,6 +136,9 @@ export default function ArbolTalentos({ nodos, ramas, obtenidos: iniciales }: Pr
       porId={porId}
       onElegir={elegir}
       onAlternar={alternar}
+      sesion={sesion}
+      ocupado={ocupado.value === elegido.id}
+      error={fallo.value?.id === elegido.id ? fallo.value.mensaje : undefined}
       disposicion={disposicion}
       abierta={fichaAbierta.value}
       onAbrir={(v) => (fichaAbierta.value = v)}

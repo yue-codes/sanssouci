@@ -7,6 +7,7 @@
  */
 import type { Cancion, Contenido } from "@/lib/contenido";
 import { esRetoDeOido, nombreCortoRuta } from "@/lib/contenido";
+import type { EstadoCancion } from "@/lib/estado-cancion";
 
 /** Lo que muestra una tarjeta de canción. */
 export interface CancionResumen {
@@ -26,6 +27,8 @@ export interface CancionResumen {
   faltan: number;
   /** Nombre del jefe, si es la canción de un jefe. */
   jefe?: string;
+  /** Dónde vas con ella (pendiente si no has dicho nada). */
+  estado: EstadoCancion;
 }
 
 /**
@@ -33,9 +36,15 @@ export interface CancionResumen {
  * @param c Contenido cargado con `cargarContenido()`.
  * @param cancion Obra a resumir.
  * @param obtenidos Ids de los logros del jugador (para saber si ya puede tocarla).
+ * @param estados Estado de cada canción por id (ver `cargarEstadosCanciones`); las que no estén, pendientes.
  * @example resumirCancion(c, cancion, progreso.obtenidos).faltan // → 2
  */
-export function resumirCancion(c: Contenido, cancion: Cancion, obtenidos: ReadonlySet<string>): CancionResumen {
+export function resumirCancion(
+  c: Contenido,
+  cancion: Cancion,
+  obtenidos: ReadonlySet<string>,
+  estados: ReadonlyMap<string, EstadoCancion> = new Map(),
+): CancionResumen {
   const d = cancion.data;
   const ruta = c.rutaPorId.get(d.ruta.id)!;
   const nivel = c.nivelPorId.get(d.nivel.id)!;
@@ -53,5 +62,6 @@ export function resumirCancion(c: Contenido, cancion: Cancion, obtenidos: Readon
     retoDeOido: esRetoDeOido(cancion),
     faltan: d.requiere.filter((r) => !obtenidos.has(r.id)).length,
     jefe: c.jefes.find((j) => j.data.cancion.id === cancion.id)?.data.nombre,
+    estado: estados.get(cancion.id) ?? "pendiente",
   };
 }

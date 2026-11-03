@@ -1,39 +1,36 @@
 ---
 /**
- * Página /canciones: el repertorio como un mazo de cartas. Portada con lo que
- * tienes (cuántas puedes tocar ya, retos de oído, legendarias) y la leyenda de
- * rarezas; debajo, el catálogo con filtros (isla `CatalogoCanciones`).
- * Datos: `resumirCancion` (src/lib/canciones.ts). Acepta filtros en la URL,
- * p. ej. /canciones?zona=nivel-3&oido=1 o /canciones?listas=1.
- * Progreso: de ejemplo hasta la fase 4.
+ * Página /canciones: el repertorio como un mazo de cartas. Portada con el mazo
+ * (obras, retos de oído, de jefe) y la leyenda de rarezas; debajo, el catálogo con
+ * filtros. La portada es estática; el catálogo es una Server Island
+ * (`CatalogoConProgreso`, `server:defer`) con tu progreso: cartas bloqueadas y tu
+ * avance con cada una. Acepta filtros en la URL, p. ej. /canciones?zona=nivel-3&oido=1,
+ * /canciones?listas=1 o /canciones?estado=aprendiendo.
  */
 import FondoPortada from "@/components/ui/FondoPortada.astro";
 import Base from "@/layouts/Base.astro";
-import CatalogoCanciones from "@/components/canciones/catalogo/CatalogoCanciones";
+import CatalogoConProgreso from "@/components/canciones/catalogo/CatalogoConProgreso.astro";
 import { RAREZAS } from "@/components/canciones/rareza";
-import { cargarContenido, nombreCortoRuta } from "@/lib/contenido";
-import { resumirCancion } from "@/lib/canciones";
-import { PROGRESO_EJEMPLO } from "@/lib/ejemplo";
+import { cargarContenido, esRetoDeOido } from "@/lib/contenido";
 import { IMAGENES } from "@/config/imagenes";
 
 const c = await cargarContenido();
-const canciones = c.canciones.map((s) => resumirCancion(c, s, PROGRESO_EJEMPLO.obtenidos));
-const rutas = c.rutas.map((r) => ({ id: r.id, nombre: nombreCortoRuta(r), color: r.data.color }));
-const zonas = c.niveles.map((n) => ({ id: n.id, orden: n.data.orden, nombre: n.data.nombre }));
+const canciones = c.canciones;
 const imagen = IMAGENES.animeAula;
+const deJefe = new Set(c.jefes.map((j) => j.data.cancion.id));
 
-const estadisticas = [
+// Solo cifras del mazo (iguales para todos): esta portada es estática. Lo que
+// depende de tu progreso («puedes tocar ya») está en el catálogo, que es de servidor.
+const estadisticas: { valor: number; texto: string; href?: string }[] = [
   { valor: canciones.length, texto: "obras" },
-  { valor: canciones.filter((s) => s.faltan === 0).length, texto: "puedes tocar ya", href: "/canciones?listas=1" },
-  { valor: canciones.filter((s) => s.faltan === 1).length, texto: "a un talento" },
-  { valor: canciones.filter((s) => s.retoDeOido).length, texto: "retos de oído", href: "/canciones?oido=1" },
-  { valor: canciones.filter((s) => s.jefe).length, texto: "de jefe" },
+  { valor: canciones.filter(esRetoDeOido).length, texto: "retos de oído", href: "/canciones?oido=1" },
+  { valor: canciones.filter((s) => deJefe.has(s.id)).length, texto: "de jefe" },
 ];
 // Cuántas cartas hay de cada rareza (el tramo empieza donde acaba el anterior).
 const porRareza = RAREZAS.map((r, i) => ({
   ...r,
   desde: i === 0 ? 1 : RAREZAS[i - 1].hasta + 1,
-  n: canciones.filter((s) => s.dificultad <= r.hasta && (i === 0 || s.dificultad > RAREZAS[i - 1].hasta)).length,
+  n: canciones.filter((s) => s.data.dificultad <= r.hasta && (i === 0 || s.data.dificultad > RAREZAS[i - 1].hasta)).length,
 }));
 ---
 
@@ -44,7 +41,7 @@ const porRareza = RAREZAS.map((r, i) => ({
 
     <div class="contenedor grid gap-10 py-14 sm:py-20 lg:grid-cols-[1.3fr_1fr] lg:items-end lg:gap-16">
       <div data-revelar="hijos">
-        <p class="eyebrow">El repertorio · {rutas.length} rutas</p>
+        <p class="eyebrow">El repertorio · {c.rutas.length} rutas</p>
         <h1 id="titulo-canciones" class="mt-4 text-6xl leading-[0.92] sm:text-8xl">Canciones</h1>
         <p class="mt-5 max-w-[50ch] text-lg text-tenue">
           Cada obra es una carta: se desbloquea cuando tienes los talentos que pide. Las que no
@@ -83,6 +80,15 @@ const porRareza = RAREZAS.map((r, i) => ({
   </section>
 
   <div class="contenedor py-14 sm:py-20">
-    <CatalogoCanciones client:load canciones={canciones} rutas={rutas} zonas={zonas} />
+    <CatalogoConProgreso server:defer>
+      <!-- Mientras llega del servidor: un esqueleto con la forma del catálogo. -->
+      <div slot="fallback" class="grid gap-6 lg:grid-cols-[17rem_minmax(0,1fr)]" aria-busy="true">
+        <p class="sr-only">Cargando el catálogo…</p>
+        <div class="h-96 animate-pulse rounded-md border border-borde bg-superficie" aria-hidden="true"></div>
+        <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3" aria-hidden="true">
+          {Array.from({ length: 6 }, () => <div class="h-72 animate-pulse rounded-md border border-borde bg-superficie"></div>)}
+        </div>
+      </div>
+    </CatalogoConProgreso>
   </div>
 </Base>

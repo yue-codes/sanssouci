@@ -1,31 +1,29 @@
 ---
 /**
  * Página /canciones/[id]: la ficha de una obra, como la carta abierta.
- * Portada con su miniatura de fondo, rareza, ruta, dificultad, zona y su estado
- * (lista para tocar o cuántos talentos faltan); el video principal al lado.
- * Debajo: qué la desbloquea y qué entrena (`ListaMisiones`, la misma lista de
- * misiones del mapa y las zonas), su jefe si la tiene (`AnuncioJefe`) y las
- * demás versiones.
+ * Portada con su miniatura de fondo, rareza, ruta, dificultad y zona; el video
+ * principal al lado. Debajo, lo que depende de tu progreso es una Server Island
+ * (`CartaConProgreso`, `server:defer`): «Tu carta» (lista o bloqueada, y tu avance
+ * con ella) y qué la desbloquea y qué entrena (`ListaMisiones`). Después, su jefe si
+ * la tiene (`AnuncioJefe`) y las demás versiones.
  * `getStaticPaths` genera una página por obra del catálogo.
  */
 import { getCollection } from "astro:content";
-import { Ear, Lock, MapPin, Sparkles } from "lucide-preact";
+import { Ear, MapPin } from "lucide-preact";
 import Base from "@/layouts/Base.astro";
 import MigasDePan from "@/components/ui/MigasDePan.astro";
 import EncabezadoSeccion from "@/components/ui/EncabezadoSeccion.astro";
 import NavegacionVecinos from "@/components/ui/NavegacionVecinos.astro";
 import ReproductorYoutube from "@/components/ui/ReproductorYoutube.astro";
-import ListaMisiones from "@/components/logros/ListaMisiones.astro";
 import AnuncioJefe from "@/components/jefes/AnuncioJefe.astro";
 import ChipRuta from "@/components/canciones/ChipRuta";
 import Dificultad from "@/components/canciones/Dificultad";
 import ListaVersiones from "@/components/canciones/ListaVersiones.astro";
+import CartaConProgreso from "@/components/canciones/CartaConProgreso.astro";
 import { rarezaDe } from "@/components/canciones/rareza";
 import { cargarContenido, esRetoDeOido, nombreCortoRuta } from "@/lib/contenido";
-import { logrosConEstado } from "@/lib/logros";
 import { diaDelJefe } from "@/lib/jefes";
 import { miniaturaYoutube } from "@/lib/youtube";
-import { PROGRESO_EJEMPLO } from "@/lib/ejemplo";
 
 export async function getStaticPaths() {
   const canciones = await getCollection("canciones");
@@ -41,10 +39,6 @@ const nivel = c.nivelPorId.get(d.nivel.id)!;
 const retoDeOido = esRetoDeOido(cancion);
 const rareza = rarezaDe(d.dificultad);
 const jefes = c.jefes.filter((j) => j.data.cancion.id === id);
-
-const requiere = logrosConEstado(c, d.requiere.map((l) => l.id), PROGRESO_EJEMPLO.obtenidos);
-const tecnicas = logrosConEstado(c, d.tecnicas.map((l) => l.id), PROGRESO_EJEMPLO.obtenidos);
-const faltan = requiere.filter((r) => r.estado !== "conseguido").length;
 
 // Video principal: el de partitura si hay (es el más útil para aprender); si no, el primero.
 const principal = d.versiones.find((v) => v.usos.includes("partitura")) ?? d.versiones[0];
@@ -87,16 +81,6 @@ const vecino = (s?: (typeof deRuta)[number]) =>
             </a>
           </div>
 
-          <!-- Estado: el sello de la carta -->
-          <p class:list={[
-            "mt-6 inline-flex items-center gap-1.5 rounded-[2px] px-2 py-1 font-mono text-[0.625rem] font-semibold uppercase",
-            faltan === 0 ? "bg-resalte text-fondo" : "border border-borde-fuerte bg-fondo/80 text-tenue",
-          ]}>
-            {faltan === 0
-              ? <><Sparkles size={12} aria-hidden="true" /> Lista para tocar</>
-              : <><Lock size={12} aria-hidden="true" /> Bloqueada · te {faltan === 1 ? "falta 1 talento" : `faltan ${faltan} talentos`}</>}
-          </p>
-
           {retoDeOido && (
             <p class="mt-6 flex max-w-md items-start gap-3 rounded-md border border-resalte/40 bg-fondo/70 p-4 text-sm backdrop-blur-md">
               <Ear size={18} class="mt-0.5 shrink-0 text-resalte" aria-hidden="true" />
@@ -115,25 +99,18 @@ const vecino = (s?: (typeof deRuta)[number]) =>
   </section>
 
   <div class="contenedor py-14 sm:py-20">
-    <!-- ============ DESBLOQUEO Y ENTRENAMIENTO ============ -->
-    <div class="grid gap-12 lg:grid-cols-2">
-      {requiere.length > 0 && (
-        <section aria-labelledby="titulo-requiere">
-          <EncabezadoSeccion id="titulo-requiere" eyebrow={`${requiere.length - faltan} de ${requiere.length} conseguidos`} titulo="Para desbloquearla" descripcion="Los talentos que pide antes de empezarla." />
-          <div class="rounded-md border border-borde bg-superficie p-3 sm:p-4">
-            <ListaMisiones misiones={requiere} conDescripcion />
-          </div>
-        </section>
-      )}
-      {tecnicas.length > 0 && (
-        <section aria-labelledby="titulo-tecnicas">
-          <EncabezadoSeccion id="titulo-tecnicas" eyebrow="Mientras la estudias" titulo="Lo que entrena" descripcion="Talentos que esta obra te ayuda a conseguir." />
-          <div class="rounded-md border border-borde bg-superficie/60 p-3 sm:p-4">
-            <ListaMisiones misiones={tecnicas} conDescripcion />
-          </div>
-        </section>
-      )}
-    </div>
+    <!-- ============ TU CARTA, DESBLOQUEO Y ENTRENAMIENTO (con tu progreso) ============ -->
+    <CartaConProgreso server:defer cancionId={cancion.id}>
+      <!-- Mientras llega del servidor: un esqueleto con su forma. -->
+      <div slot="fallback" class="grid gap-12" aria-busy="true">
+        <p class="sr-only">Cargando tu progreso con esta canción…</p>
+        <div class="h-28 animate-pulse rounded-md border border-borde bg-superficie" aria-hidden="true"></div>
+        <div class="grid gap-12 lg:grid-cols-2" aria-hidden="true">
+          <div class="h-64 animate-pulse rounded-md border border-borde bg-superficie"></div>
+          <div class="h-64 animate-pulse rounded-md border border-borde bg-superficie/60"></div>
+        </div>
+      </div>
+    </CartaConProgreso>
 
     <!-- ============ JEFE ============ -->
     {jefes.length > 0 && (

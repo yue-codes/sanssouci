@@ -8,6 +8,7 @@
  * (depende de `astro:content`, que solo existe en el servidor). Solo `import type`.
  */
 import type { CancionResumen } from "@/lib/canciones";
+import { esEstadoCancion, type EstadoCancion } from "@/lib/estado-cancion";
 
 /** Criterios de orden del catálogo. */
 export type Orden = "dificultad" | "titulo" | "zona";
@@ -26,6 +27,8 @@ export interface Filtros {
   soloPartitura: boolean;
   /** Solo las que ya puedes tocar (no te falta ningún requisito). */
   soloListas: boolean;
+  /** Tu avance con ella; "" = cualquiera. */
+  estado: "" | EstadoCancion;
   orden: Orden;
 }
 
@@ -37,6 +40,7 @@ export const FILTROS_VACIOS: Filtros = {
   soloOido: false,
   soloPartitura: false,
   soloListas: false,
+  estado: "",
   orden: "dificultad",
 };
 
@@ -62,7 +66,8 @@ export function filtrarCanciones(lista: readonly CancionResumen[], f: Filtros): 
       s.dificultad <= f.dificultadMax &&
       (!f.soloOido || s.retoDeOido) &&
       (!f.soloPartitura || s.conPartitura) &&
-      (!f.soloListas || s.faltan === 0),
+      (!f.soloListas || s.faltan === 0) &&
+      (!f.estado || s.estado === f.estado),
   );
   const porTitulo = (a: CancionResumen, b: CancionResumen) => a.titulo.localeCompare(b.titulo, "es");
   const comparar = {
@@ -75,7 +80,7 @@ export function filtrarCanciones(lista: readonly CancionResumen[], f: Filtros): 
 
 /** Cuántos filtros (sin contar el orden) están activos. */
 export function filtrosActivos(f: Filtros): number {
-  return [f.texto.trim() !== "", f.rutas.length > 0, f.zona !== "", f.dificultadMax < 10, f.soloOido, f.soloPartitura, f.soloListas].filter(Boolean).length;
+  return [f.texto.trim() !== "", f.rutas.length > 0, f.zona !== "", f.dificultadMax < 10, f.soloOido, f.soloPartitura, f.soloListas, f.estado !== ""].filter(Boolean).length;
 }
 
 /**
@@ -86,6 +91,7 @@ export function filtrosActivos(f: Filtros): number {
 export function filtrosDesdeURL(p: URLSearchParams): Filtros {
   const max = Number(p.get("max"));
   const orden = p.get("orden");
+  const estado = p.get("estado") ?? "";
   return {
     texto: p.get("q") ?? "",
     rutas: p.getAll("ruta"),
@@ -94,6 +100,7 @@ export function filtrosDesdeURL(p: URLSearchParams): Filtros {
     soloOido: p.get("oido") === "1",
     soloPartitura: p.get("partitura") === "1",
     soloListas: p.get("listas") === "1",
+    estado: esEstadoCancion(estado) ? estado : "",
     orden: orden === "titulo" || orden === "zona" ? orden : "dificultad",
   };
 }
@@ -111,6 +118,7 @@ export function filtrosAURL(f: Filtros): URLSearchParams {
   if (f.soloOido) p.set("oido", "1");
   if (f.soloPartitura) p.set("partitura", "1");
   if (f.soloListas) p.set("listas", "1");
+  if (f.estado) p.set("estado", f.estado);
   if (f.orden !== "dificultad") p.set("orden", f.orden);
   return p;
 }

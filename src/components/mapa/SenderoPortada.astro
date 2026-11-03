@@ -62,7 +62,7 @@ const { paradas } = Astro.props;
 
         <div class="relative mt-4 aspect-[4/5] overflow-hidden rounded-[3px] bg-superficie">
           <Picture
-            src={imagen.src}
+            src={actual ? imagen.src : imagen.mini}
             alt=""
             widths={actual ? [360, 720] : [260, 520]}
             sizes={actual ? "22rem" : "15rem"}

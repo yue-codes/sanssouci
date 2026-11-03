@@ -24,6 +24,18 @@ export interface Semana {
 }
 
 /**
+ * Id de un día en `dias.json` (y en la tabla `dias_completados`) a partir de su número.
+ *
+ * @param numero Número del día (1 a 90).
+ * @returns El id, con dos cifras como mínimo.
+ *
+ * @example
+ * idDeDia(7)  // "dia-07"
+ * idDeDia(90) // "dia-90"
+ */
+export const idDeDia = (numero: number) => `dia-${String(numero).padStart(2, "0")}`;
+
+/**
  * Agrupa los días por semana, colocando cada uno en su día de la semana.
  *
  * @param dias Los días del plan, en cualquier orden.

@@ -1,0 +1,96 @@
+---
+/**
+ * @component CartaConProgreso (Server Island: se usa con `server:defer`)
+ *
+ * La parte de la ficha de una canción que depende de TU progreso: el panel «Tu carta»
+ * (si ya puedes tocarla y dónde vas con ella, con `SelectorEstado`) y las listas de
+ * «Para desbloquearla» y «Lo que entrena» con el estado de cada talento.
+ * La página `/canciones/[id]` es estática; este trozo se genera en cada visita.
+ *
+ * Recibe solo el id de la canción (las props viajan cifradas en la URL).
+ */
+import { Lock, Sparkles } from "lucide-preact";
+import EncabezadoSeccion from "@/components/ui/EncabezadoSeccion.astro";
+import ListaMisiones from "@/components/logros/ListaMisiones.astro";
+import SelectorEstado from "@/components/canciones/SelectorEstado";
+import type { EstadoCancion } from "@/lib/estado-cancion";
+import { cargarContenido } from "@/lib/contenido";
+import { logrosConEstado } from "@/lib/logros";
+import type { Progreso } from "@/lib/progreso";
+import { cargarEstadosCanciones, cargarProgreso, PROGRESO_VACIO } from "@/lib/progreso-usuario";
+
+interface Props {
+  /** Id de la canción. */
+  cancionId: string;
+}
+
+const { cancionId } = Astro.props;
+const { supabase, usuario } = Astro.locals;
+// Esta respuesta es de UNA persona: que ningún CDN ni navegador compartido la guarde.
+Astro.response.headers.set("Cache-Control", "private, no-store");
+
+const c = await cargarContenido();
+const cancion = c.cancionPorId.get(cancionId);
+if (!cancion) throw new Error(`No existe la canción ${cancionId}`);
+const d = cancion.data;
+
+let progreso: Progreso = PROGRESO_VACIO;
+let estado: EstadoCancion = "pendiente";
+let fallo = false;
+if (usuario) {
+  // Si Supabase falla, la ficha se pinta igual (sin progreso) con un aviso.
+  try {
+    const [p, estados] = await Promise.all([cargarProgreso(supabase), cargarEstadosCanciones(supabase, cancionId)]);
+    progreso = p;
+    estado = estados.get(cancionId) ?? "pendiente";
+  } catch (e) {
+    console.error("[CartaConProgreso]", e);
+    fallo = true;
+  }
+}
+
+const requiere = logrosConEstado(c, d.requiere.map((l) => l.id), progreso.obtenidos);
+const tecnicas = logrosConEstado(c, d.tecnicas.map((l) => l.id), progreso.obtenidos);
+const faltan = requiere.filter((r) => r.estado !== "conseguido").length;
+---
+
+<!-- ============ TU CARTA ============ -->
+<section class="mb-16 grid gap-5 rounded-md border border-borde bg-superficie p-5 sm:p-6 lg:grid-cols-[auto_1fr] lg:items-center lg:gap-10" aria-labelledby="titulo-tu-carta">
+  <div>
+    <h2 id="titulo-tu-carta" class="eyebrow">Tu carta</h2>
+    <!-- El sello: si ya puedes tocarla o cuántos talentos te faltan -->
+    <p class:list={[
+      "mt-3 inline-flex items-center gap-1.5 rounded-[2px] px-2 py-1 font-mono text-[0.625rem] font-semibold uppercase",
+      faltan === 0 ? "bg-resalte text-fondo" : "border border-borde-fuerte bg-fondo/80 text-tenue",
+    ]}>
+      {faltan === 0
+        ? <><Sparkles size={12} aria-hidden="true" /> Lista para tocar</>
+        : <><Lock size={12} aria-hidden="true" /> Bloqueada · te {faltan === 1 ? "falta 1 talento" : `faltan ${faltan} talentos`}</>}
+    </p>
+    {!usuario && <p class="mt-2 max-w-xs text-xs text-tenue">Sin sesión, se cuenta como si empezaras de cero.</p>}
+  </div>
+  <div>
+    {fallo && <p role="alert" class="mb-3 text-sm text-peligro">No se pudo leer tu progreso. Recarga la página en un momento.</p>}
+    <SelectorEstado client:load cancion={cancionId} estado={estado} sesion={!!usuario && !fallo} />
+  </div>
+</section>
+
+<!-- ============ DESBLOQUEO Y ENTRENAMIENTO ============ -->
+<div class="grid gap-12 lg:grid-cols-2">
+  {requiere.length > 0 && (
+    <section aria-labelledby="titulo-requiere">
+      <EncabezadoSeccion id="titulo-requiere" eyebrow={`${requiere.length - faltan} de ${requiere.length} conseguidos`} titulo="Para desbloquearla" descripcion="Los talentos que pide antes de empezarla." />
+      <div class="rounded-md border border-borde bg-superficie p-3 sm:p-4">
+        <ListaMisiones misiones={requiere} conDescripcion />
+      </div>
+    </section>
+  )}
+  {tecnicas.length > 0 && (
+    <section aria-labelledby="titulo-tecnicas">
+      <EncabezadoSeccion id="titulo-tecnicas" eyebrow="Mientras la estudias" titulo="Lo que entrena" descripcion="Talentos que esta obra te ayuda a conseguir." />
+      <div class="rounded-md border border-borde bg-superficie/60 p-3 sm:p-4">
+        <ListaMisiones misiones={tecnicas} conDescripcion />
+      </div>
+    </section>
+  )}
+</div>

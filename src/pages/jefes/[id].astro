@@ -4,24 +4,20 @@
  * Arriba, el enemigo (`CabeceraJefe`, con su barra de vida). Debajo, la arena:
  * el video de referencia y las condiciones de victoria como golpes (`CombateJefe`);
  * después, las llaves de su puerta y las demás versiones de la canción.
- * La barra de vida y los golpes son dos islas que comparten estado (`jefes/combate.ts`).
- * Progreso: de ejemplo hasta la fase 4, en la que se registrará la victoria con el video.
+ * La página es estática (la portada con su imagen se optimiza al compilar). La arena
+ * y las llaves son una Server Island (`ArenaConProgreso`, `server:defer`) con tu
+ * progreso, que lo comparte con las islas de la portada (`jefes/combate.ts`).
  */
 import { getCollection } from "astro:content";
-import { KeyRound, Lightbulb } from "lucide-preact";
 import Base from "@/layouts/Base.astro";
 import EncabezadoSeccion from "@/components/ui/EncabezadoSeccion.astro";
 import NavegacionVecinos from "@/components/ui/NavegacionVecinos.astro";
-import ReproductorYoutube from "@/components/ui/ReproductorYoutube.astro";
-import ChipLogro from "@/components/logros/ChipLogro.astro";
 import CabeceraJefe from "@/components/jefes/CabeceraJefe.astro";
-import CombateJefe from "@/components/jefes/CombateJefe";
+import ArenaConProgreso from "@/components/jefes/ArenaConProgreso.astro";
 import ListaVersiones from "@/components/canciones/ListaVersiones.astro";
 import { cargarContenido } from "@/lib/contenido";
-import { logrosConEstado } from "@/lib/logros";
 import { diaDelJefe, jefesEnOrden } from "@/lib/jefes";
 import { diaDelPlan } from "@/lib/fechas";
-import { PROGRESO_EJEMPLO } from "@/lib/ejemplo";
 
 export async function getStaticPaths() {
   const jefes = await getCollection("jefes");
@@ -40,10 +36,6 @@ const ruta = c.rutaPorId.get(cancion.data.ruta.id)!;
 const dia = diaDelJefe(c, id);
 const hoy = diaDelPlan(new Date(), c.dias[0].data.fecha);
 
-const llaves = logrosConEstado(c, j.requiere.map((r) => r.id), PROGRESO_EJEMPLO.obtenidos);
-const vencido = PROGRESO_EJEMPLO.jefesVencidos.has(id);
-const abierta = llaves.every((l) => l.estado === "conseguido");
-
 // Versión de referencia: la que indica el jefe o, si no, la primera.
 const referencia = cancion.data.versiones.find((v) => v.youtubeId === j.version) ?? cancion.data.versiones[0];
 const otrasVersiones = cancion.data.versiones.filter((v) => v !== referencia);
@@ -58,60 +50,20 @@ const vecino = (x?: (typeof jefes)[number]) =>
     nivel={nivel}
     cancion={cancion}
     ruta={ruta}
-    llaves={llaves}
-    vencido={vencido}
     dia={dia && { numero: dia.data.numero, fecha: dia.data.fecha }}
     hoy={hoy}
   />
 
   <div class="contenedor py-14 sm:py-20">
-    <!-- ============ LA ARENA ============ -->
-    <section aria-labelledby="titulo-arena">
-      <EncabezadoSeccion id="titulo-arena" eyebrow="La arena" titulo="El combate" descripcion="Estudia la versión de referencia y ve cumpliendo las condiciones: cada una es un golpe. El último siempre es grabar." />
-      <div class="grid gap-6 lg:grid-cols-[1.35fr_1fr] lg:items-start">
-        <div>
-          <ReproductorYoutube youtubeId={referencia.youtubeId} titulo={`${referencia.tituloVideo} (${referencia.canal})`} />
-          <p class="mt-2 font-mono text-[0.6875rem] text-tenue">Referencia: {referencia.canal} · {referencia.instrumentacion}</p>
-          {j.notas && (
-            <p class="mt-5 flex gap-3 rounded-md border border-resalte/30 bg-resalte/5 p-4 text-sm leading-relaxed">
-              <Lightbulb size={18} class="mt-0.5 shrink-0 text-resalte" aria-hidden="true" />
-              <span><span class="font-semibold text-resalte">Pista:</span> {j.notas}</span>
-            </p>
-          )}
-        </div>
-        <CombateJefe
-          client:load
-          nombre={j.nombre}
-          criterios={j.condicionVictoria.criterios}
-          tempo={j.condicionVictoria.tempo}
-          vencido={vencido}
-          abierta={abierta}
-        />
+    <!-- ============ LA ARENA Y LAS LLAVES (con tu progreso) ============ -->
+    <ArenaConProgreso server:defer jefeId={jefe.id}>
+      <!-- Mientras llega del servidor: un esqueleto con la forma de la arena. -->
+      <div slot="fallback" class="grid gap-6 lg:grid-cols-[1.35fr_1fr]" aria-busy="true">
+        <p class="sr-only">Cargando el combate…</p>
+        <div class="aspect-video animate-pulse rounded-md border border-borde bg-superficie" aria-hidden="true"></div>
+        <div class="h-80 animate-pulse rounded-md border border-peligro/30 bg-superficie" aria-hidden="true"></div>
       </div>
-      <p class="mt-4 font-mono text-[0.625rem] text-tenue uppercase">
-        Progreso de ejemplo · el combate es de prueba y no se guarda ·
-        <a href="/entrar" class="text-acento underline-offset-4 hover:underline">entra</a> para llevar el tuyo
-      </p>
-    </section>
-
-    <!-- ============ LLAVES ============ -->
-    {llaves.length > 0 && (
-      <section class="mt-20" aria-labelledby="titulo-llaves">
-        <EncabezadoSeccion id="titulo-llaves" eyebrow="Antes del combate" titulo="Las llaves de su puerta" descripcion="Los talentos que pide este jefe. Cuando los tengas todos, la puerta se abre." enlace={{ href: "/arbol", texto: "Ver en el árbol" }} />
-        <ul class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {llaves.map((l) => (
-            <li class:list={[
-              "flex items-center gap-3 rounded-md border bg-superficie p-3",
-              l.estado === "conseguido" ? "border-acento/40" : "border-borde",
-            ]}>
-              <KeyRound size={20} aria-hidden="true"
-                class:list={["shrink-0", l.estado === "conseguido" ? "text-acento drop-shadow-[0_0_6px_var(--acento)]" : "text-borde-fuerte"]} />
-              <ChipLogro logro={l.logro} estado={l.estado} />
-            </li>
-          ))}
-        </ul>
-      </section>
-    )}
+    </ArenaConProgreso>
 
     <!-- ============ OTRAS VERSIONES ============ -->
     {otrasVersiones.length > 0 && (

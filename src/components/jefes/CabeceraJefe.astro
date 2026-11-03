@@ -4,16 +4,19 @@
  * Portada de la página de un jefe, como la entrada de un enemigo en un juego: su
  * imagen a sangre con un resplandor rosa (el color de los jefes), el nombre en
  * grande, su barra de vida (isla `VidaJefe`) y la ficha del enemigo: tempo,
- * dificultad, ruta, llaves y cuándo toca enfrentarlo.
+ * dificultad, ruta, llaves (isla `LlavesPuerta`) y cuándo toca enfrentarlo.
+ *
+ * Es estática (la imagen se optimiza al compilar): lo que depende de tu progreso
+ * está en esas dos islas, que lo reciben de la arena por `estadoJefe` (`./combate`).
  */
-import { CalendarDays, Crown, KeyRound, Swords } from "lucide-preact";
+import { CalendarDays, Crown, Swords } from "lucide-preact";
 import FondoPortada from "@/components/ui/FondoPortada.astro";
 import MigasDePan from "@/components/ui/MigasDePan.astro";
 import ChipRuta from "@/components/canciones/ChipRuta";
 import Dificultad from "@/components/canciones/Dificultad";
+import LlavesPuerta from "./LlavesPuerta";
 import VidaJefe from "./VidaJefe";
 import type { Cancion, Jefe, Nivel, Ruta } from "@/lib/contenido";
-import type { LogroConEstado } from "@/lib/logros";
 import { nombreCortoRuta } from "@/lib/contenido";
 import { imagenDeJefe } from "@/config/imagenes";
 import { fechaLarga } from "@/lib/fechas";
@@ -23,29 +26,17 @@ interface Props {
   nivel: Nivel;
   cancion: Cancion;
   ruta: Ruta;
-  /** Las llaves de su puerta (los logros que pide), con su estado. */
-  llaves: LogroConEstado[];
-  /** Ya está vencido. */
-  vencido: boolean;
   /** Día del plan en que toca enfrentarlo, si cae en los 90 días. */
   dia?: { numero: number; fecha: string };
   /** Número de día de hoy (cuenta atrás). */
   hoy: number;
 }
-const { jefe, nivel, cancion, ruta, llaves, vencido, dia, hoy } = Astro.props;
+const { jefe, nivel, cancion, ruta, dia, hoy } = Astro.props;
 const j = jefe.data;
 const imagen = imagenDeJefe(jefe.id);
-const conseguidas = llaves.filter((l) => l.estado === "conseguido").length;
-const abierta = conseguidas === llaves.length;
-const estado = vencido ? "derrotado" : abierta ? "abierta" : "cerrada";
-const faltan = dia && !vencido && hoy <= dia.numero ? dia.numero - Math.max(hoy, 0) : undefined;
+const llaves = j.requiere.map((r) => r.id);
+const faltan = dia && hoy <= dia.numero ? dia.numero - Math.max(hoy, 0) : undefined;
 const Icono = j.final ? Crown : Swords;
-
-const SELLO = {
-  derrotado: { texto: "Derrotado", clase: "bg-exito text-fondo" },
-  abierta: { texto: "Puerta abierta · ya puedes enfrentarlo", clase: "bg-peligro text-fondo" },
-  cerrada: { texto: "Puerta cerrada", clase: "bg-fondo/80 text-peligro border border-peligro/50" },
-}[estado];
 ---
 
 <section class="relative isolate overflow-hidden border-b border-peligro/30" aria-labelledby="titulo-jefe">
@@ -73,11 +64,8 @@ const SELLO = {
         <p class="mt-3 max-w-[52ch] text-tenue">{j.descripcion}</p>
 
         <div class="mt-8">
-          <VidaJefe client:load total={j.condicionVictoria.criterios.length + 1} vencido={vencido} />
+          <VidaJefe client:load total={j.condicionVictoria.criterios.length + 1} llaves={llaves} />
         </div>
-        <p class:list={["mt-4 inline-flex items-center gap-1.5 rounded-[2px] px-2 py-1 font-mono text-[0.625rem] font-semibold uppercase", SELLO.clase]}>
-          {SELLO.texto}
-        </p>
       </div>
 
       <!-- Ficha del enemigo -->
@@ -92,13 +80,7 @@ const SELLO = {
         </div>
         <div class="bg-fondo/85 p-4 backdrop-blur-md">
           <dt class="font-mono text-[0.625rem] text-tenue uppercase">Llaves</dt>
-          <dd class="mt-1.5 flex flex-wrap items-center gap-1">
-            {llaves.map((l) => (
-              <KeyRound size={16} aria-hidden="true"
-                class={l.estado === "conseguido" ? "text-acento drop-shadow-[0_0_4px_var(--acento)]" : "text-borde-fuerte"} />
-            ))}
-            <span class="ml-1 font-mono text-xs tabular-nums">{conseguidas} / {llaves.length}</span>
-          </dd>
+          <dd class="mt-1.5"><LlavesPuerta client:load llaves={llaves} /></dd>
         </div>
         <div class="bg-fondo/85 p-4 backdrop-blur-md">
           <dt class="font-mono text-[0.625rem] text-tenue uppercase">Ruta</dt>

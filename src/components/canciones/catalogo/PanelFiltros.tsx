@@ -1,5 +1,7 @@
 import { Search, Sparkles, X } from "lucide-preact";
 import type { Filtros, Orden } from "@/lib/catalogo";
+import { ESTADOS_CANCION, type EstadoCancion } from "@/lib/estado-cancion";
+import { ESTADO_CANCION } from "../estado";
 
 /** Una opción de ruta para los botones de filtro. */
 export interface OpcionRuta {
@@ -22,6 +24,10 @@ interface Props {
   zonas: OpcionZona[];
   /** Cuántos filtros hay activos (para el botón de limpiar). */
   activos: number;
+  /** Cuántas obras puedes tocar ya (se enseña en «¿Qué puedo tocar ya?»). */
+  listas: number;
+  /** ¿Hay sesión? Sin ella no se enseña el filtro «Mi avance» (todas estarían pendientes). */
+  sesion: boolean;
   /** Se llama con los campos que cambian. */
   onCambiar: (cambio: Partial<Filtros>) => void;
   /** Vuelve a los filtros vacíos. */
@@ -45,7 +51,7 @@ const ETIQUETA = "mb-2 block font-mono text-[0.625rem] tracking-[0.08em] text-te
  * Cada control tiene su etiqueta visible o `sr-only`. Las rutas y «¿Qué puedo
  * tocar ya?» son botones con `aria-pressed` (interruptores: se encienden y apagan).
  */
-export default function PanelFiltros({ filtros: f, rutas, zonas, activos, onCambiar, onLimpiar }: Props) {
+export default function PanelFiltros({ filtros: f, rutas, zonas, activos, listas, sesion, onCambiar, onLimpiar }: Props) {
   const alternarRuta = (id: string) =>
     onCambiar({ rutas: f.rutas.includes(id) ? f.rutas.filter((r) => r !== id) : [...f.rutas, id] });
 
@@ -59,7 +65,9 @@ export default function PanelFiltros({ filtros: f, rutas, zonas, activos, onCamb
       >
         <Sparkles size={16} class="shrink-0" aria-hidden="true" />
         <span>
-          <span class="block font-medium">¿Qué puedo tocar ya?</span>
+          <span class="flex items-baseline justify-between gap-2 font-medium">
+            ¿Qué puedo tocar ya? <span class="font-mono text-xs tabular-nums">{listas}</span>
+          </span>
           <span class="block text-xs opacity-75">Solo las que no piden talentos que te falten</span>
         </span>
       </button>
@@ -100,6 +108,16 @@ export default function PanelFiltros({ filtros: f, rutas, zonas, activos, onCamb
           })}
         </div>
       </fieldset>
+
+      {sesion && (
+        <div>
+          <label for="estado" class={ETIQUETA}>Mi avance</label>
+          <select id="estado" value={f.estado} onChange={(e) => onCambiar({ estado: e.currentTarget.value as "" | EstadoCancion })} class={CAMPO}>
+            <option value="">Todas</option>
+            {ESTADOS_CANCION.map((e) => <option key={e} value={e}>{ESTADO_CANCION[e].nombre}</option>)}
+          </select>
+        </div>
+      )}
 
       <div>
         <label for="zona" class={ETIQUETA}>Zona</label>

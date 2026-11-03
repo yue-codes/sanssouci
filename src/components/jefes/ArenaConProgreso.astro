@@ -1,0 +1,109 @@
+---
+/**
+ * @component ArenaConProgreso (Server Island: se usa con `server:defer`)
+ *
+ * La arena del jefe con TU progreso: el video de referencia, el combate
+ * (`CombateJefe`) y las llaves de su puerta. La página `/jefes/[id]` es estática
+ * (la portada con su imagen se optimiza al compilar); este trozo se genera en cada
+ * visita con tu sesión. `CombateJefe` publica luego tu progreso en `estadoJefe` para
+ * las islas de la portada, así que basta UNA petición al servidor por página.
+ *
+ * Recibe solo el id del jefe (las props viajan cifradas en la URL); lo demás se lee aquí.
+ */
+import { KeyRound, Lightbulb } from "lucide-preact";
+import EncabezadoSeccion from "@/components/ui/EncabezadoSeccion.astro";
+import ReproductorYoutube from "@/components/ui/ReproductorYoutube.astro";
+import ChipLogro from "@/components/logros/ChipLogro.astro";
+import CombateJefe from "@/components/jefes/CombateJefe";
+import { cargarContenido } from "@/lib/contenido";
+import { logrosConEstado } from "@/lib/logros";
+import type { Progreso } from "@/lib/progreso";
+import { cargarProgreso, PROGRESO_VACIO, type Victoria } from "@/lib/progreso-usuario";
+
+interface Props {
+  /** Id del jefe (`jefe-1`…). */
+  jefeId: string;
+}
+
+const { jefeId } = Astro.props;
+const { supabase, usuario } = Astro.locals;
+// Esta respuesta es de UNA persona: que ningún CDN ni navegador compartido la guarde.
+Astro.response.headers.set("Cache-Control", "private, no-store");
+
+const c = await cargarContenido();
+const jefe = c.jefePorId.get(jefeId);
+if (!jefe) throw new Error(`No existe el jefe ${jefeId}`);
+const j = jefe.data;
+const cancion = c.cancionPorId.get(j.cancion.id)!;
+
+let progreso: Progreso = PROGRESO_VACIO;
+let victoria: Victoria | null = null;
+let fallo = false;
+if (usuario) {
+  // Si Supabase falla, la arena se pinta igual (sin progreso) con un aviso: si esta
+  // isla lanzara un error, el esqueleto se quedaría en pantalla para siempre.
+  try {
+    const [p, v] = await Promise.all([
+      cargarProgreso(supabase),
+      supabase.from("victorias_jefe").select("video_url, tempo_logrado, vencido_en").eq("jefe_id", jefeId).maybeSingle(),
+    ]);
+    if (v.error) throw new Error(v.error.message);
+    progreso = p;
+    victoria = v.data;
+  } catch (e) {
+    console.error("[ArenaConProgreso]", e);
+    fallo = true;
+  }
+}
+
+const llaves = logrosConEstado(c, j.requiere.map((r) => r.id), progreso.obtenidos);
+
+// Versión de referencia: la que indica el jefe o, si no, la primera.
+const referencia = cancion.data.versiones.find((v) => v.youtubeId === j.version) ?? cancion.data.versiones[0];
+---
+
+<section aria-labelledby="titulo-arena">
+  <EncabezadoSeccion id="titulo-arena" eyebrow="La arena" titulo="El combate" descripcion="Estudia la versión de referencia y ve cumpliendo las condiciones: cada una es un golpe. El último siempre es grabar." />
+  {fallo && <p role="alert" class="mb-4 text-sm text-peligro">No se pudo leer tu progreso. Recarga la página en un momento.</p>}
+  <div class="grid gap-6 lg:grid-cols-[1.35fr_1fr] lg:items-start">
+    <div>
+      <ReproductorYoutube youtubeId={referencia.youtubeId} titulo={`${referencia.tituloVideo} (${referencia.canal})`} />
+      <p class="mt-2 font-mono text-[0.6875rem] text-tenue">Referencia: {referencia.canal} · {referencia.instrumentacion}</p>
+      {j.notas && (
+        <p class="mt-5 flex gap-3 rounded-md border border-resalte/30 bg-resalte/5 p-4 text-sm leading-relaxed">
+          <Lightbulb size={18} class="mt-0.5 shrink-0 text-resalte" aria-hidden="true" />
+          <span><span class="font-semibold text-resalte">Pista:</span> {j.notas}</span>
+        </p>
+      )}
+    </div>
+    <CombateJefe
+      client:load
+      jefe={jefeId}
+      nombre={j.nombre}
+      criterios={j.condicionVictoria.criterios}
+      tempo={j.condicionVictoria.tempo}
+      llaves={j.requiere.map((r) => r.id)}
+      obtenidos={[...progreso.obtenidos]}
+      victoria={victoria}
+      sesion={!!usuario && !fallo}
+    />
+  </div>
+</section>
+
+{llaves.length > 0 && (
+  <section class="mt-20" aria-labelledby="titulo-llaves">
+    <EncabezadoSeccion id="titulo-llaves" eyebrow="Antes del combate" titulo="Las llaves de su puerta" descripcion="Los talentos que pide este jefe. Cuando los tengas todos, la puerta se abre." enlace={{ href: "/arbol", texto: "Ver en el árbol" }} />
+    <ul class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      {llaves.map((l) => (
+        <li class:list={[
+          "flex items-center gap-3 rounded-md border bg-superficie p-3",
+          l.estado === "conseguido" ? "border-acento/40" : "border-borde",
+        ]}>
+          <KeyRound size={20} aria-hidden="true"
+            class:list={["shrink-0", l.estado === "conseguido" ? "text-acento drop-shadow-[0_0_6px_var(--acento)]" : "text-borde-fuerte"]} />
+          <ChipLogro logro={l.logro} estado={l.estado} />
+        </li>
+      ))}
+    </ul>
+  </section>
+)}

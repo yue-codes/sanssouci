@@ -1,18 +1,17 @@
 ---
 /**
  * Página /arbol: árbol de talentos estilo RPG, como un mapa de estrellas.
- * Arriba, una portada con la imagen; debajo, la isla `ArbolTalentos` (marcador,
- * lienzo y ficha). Datos: `construirNodosArbol` (src/lib/arbol.ts).
- * Progreso: de ejemplo hasta la fase 4.
+ * Arriba, una portada con la imagen; debajo, el árbol (marcador, lienzo y ficha).
+ * La página es estática; el árbol es una Server Island (`ArbolConProgreso`,
+ * `server:defer`) que trae tus logros en cada visita.
  */
 import "@fontsource-variable/pixelify-sans";
 import FondoPortada from "@/components/ui/FondoPortada.astro";
 import Base from "@/layouts/Base.astro";
-import ArbolTalentos from "@/components/logros/arbol/ArbolTalentos";
+import ArbolConProgreso from "@/components/logros/arbol/ArbolConProgreso.astro";
 import { ORDEN_RAMAS } from "@/components/logros/categorias";
 import { cargarContenido } from "@/lib/contenido";
 import { construirNodosArbol } from "@/lib/arbol";
-import { PROGRESO_EJEMPLO } from "@/lib/ejemplo";
 import { IMAGENES } from "@/config/imagenes";
 
 const c = await cargarContenido();
@@ -37,14 +36,17 @@ const imagen = IMAGENES.animeLago;
         Lo <span class="text-resalte">disponible</span> lo puedes conseguir ya;
         lo <span class="text-exito">conseguido</span> ya es tuyo. Elige un talento para ver su ruta.
       </p>
-      <p class="mt-6 font-mono text-[0.625rem] text-tenue uppercase">
-        Progreso de ejemplo · puedes desbloquear talentos para probar, no se guarda ·
-        <a href="/entrar" class="text-acento underline-offset-4 hover:underline">entra</a> para llevar el tuyo
-      </p>
     </div>
   </section>
 
   <div class="mx-auto w-full max-w-[90rem] px-4 py-10 sm:px-8 sm:py-14">
-    <ArbolTalentos client:load nodos={nodos} ramas={ORDEN_RAMAS} obtenidos={[...PROGRESO_EJEMPLO.obtenidos]} />
+    <ArbolConProgreso server:defer>
+      <!-- Mientras llega del servidor: un esqueleto con la forma del árbol. -->
+      <div slot="fallback" class="grid gap-6" aria-busy="true">
+        <p class="sr-only">Cargando tu árbol…</p>
+        <div class="h-20 animate-pulse rounded-md border border-borde bg-superficie" aria-hidden="true"></div>
+        <div class="h-[36rem] animate-pulse rounded-md border border-borde bg-superficie/60" aria-hidden="true"></div>
+      </div>
+    </ArbolConProgreso>
   </div>
 </Base>

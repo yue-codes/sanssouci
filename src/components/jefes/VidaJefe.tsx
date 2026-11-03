@@ -1,25 +1,39 @@
 import { useEffect, useRef } from "preact/hooks";
 import { animate } from "motion";
-import { golpes } from "./combate";
+import { estadoJefe, golpes } from "./combate";
 
 interface Props {
   /** Número de condiciones de victoria, contando la grabación: la vida del jefe. */
   total: number;
-  /** Ya está vencido (progreso guardado): la vida empieza en cero. */
-  vencido: boolean;
+  /** Ids de los logros que abren su puerta (sus llaves). */
+  llaves: string[];
 }
+
+/** Sello de la puerta según tu progreso. */
+const SELLO = {
+  derrotado: { texto: "Derrotado", clase: "bg-exito text-fondo" },
+  abierta: { texto: "Puerta abierta · ya puedes enfrentarlo", clase: "bg-peligro text-fondo" },
+  cerrada: { texto: "Puerta cerrada", clase: "bg-fondo/80 text-peligro border border-peligro/50" },
+};
 
 /**
  * @component VidaJefe (isla: `client:load`)
  * Barra de vida del jefe, como en un juego de combate: un segmento por condición
  * de victoria. Cada condición cumplida en `CombateJefe` le quita uno, y la barra
- * tiembla. Comparte el estado con esa isla a través de `./combate`.
+ * tiembla. Debajo, el sello de la puerta (cerrada, abierta o derrotado).
+ *
+ * Vive en la portada, que es estática: tu progreso le llega por `estadoJefe`
+ * (`./combate`) cuando la arena carga. Mientras tanto, el sello es un hueco discreto.
  */
-export default function VidaJefe({ total, vencido }: Props) {
+export default function VidaJefe({ total, llaves }: Props) {
   const barra = useRef<HTMLDivElement>(null);
+  const estado = estadoJefe.value;
+  const vencido = estado?.vencido ?? false;
   const quitados = vencido ? total : golpes.value.size;
   const vida = total - quitados;
   const anterior = useRef(vida);
+  const sello =
+    estado && SELLO[vencido ? "derrotado" : llaves.every((l) => estado.obtenidos.has(l)) ? "abierta" : "cerrada"];
 
   // Al perder vida, la barra tiembla (si no se pide menos movimiento).
   useEffect(() => {
@@ -50,6 +64,13 @@ export default function VidaJefe({ total, vencido }: Props) {
       <p class="sr-only" aria-live="polite">
         {vida === 0 ? "Jefe derrotado." : `Vida del jefe: ${vida} de ${total}.`}
       </p>
+      {sello ? (
+        <p class={`mt-4 inline-flex items-center gap-1.5 rounded-[2px] px-2 py-1 font-mono text-[0.625rem] font-semibold uppercase ${sello.clase}`}>
+          {sello.texto}
+        </p>
+      ) : (
+        <span class="mt-4 inline-block h-6 w-40 animate-pulse rounded-[2px] bg-fondo/60" aria-hidden="true" />
+      )}
     </div>
   );
 }

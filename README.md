@@ -110,7 +110,10 @@ flowchart LR
     CC --> LIB["src/lib/<br/>funciones puras"]
     DB --> MW["middleware<br/>(sesión por cookie)"] --> LIB
     LIB --> PAG["páginas .astro<br/>(HTML estático o de servidor)"]
+    PAG --> SI["Server Islands<br/>(el trozo con tu progreso)"]
     PAG --> ISL["islas de Preact<br/>(solo lo interactivo)"]
+    SI --> ISL
+    ISL -- "Astro Actions<br/>(Zod + sesión)" --> DB
 ```
 
 **Decisiones clave:**
@@ -118,7 +121,10 @@ flowchart LR
 - **Lo derivable no se guarda.** La URL de YouTube sale del id del video. Que una obra sea «reto de oído» se deduce de sus versiones.
 - **La lógica vive en funciones puras** (`src/lib/`). Ejemplos: `estadoLogro`, `construirSendero`, `racha`, `rarezaDe`. Las páginas solo componen.
 - **Las islas reciben datos planos por props:** nunca importan las colecciones, que solo existen en el servidor.
-- **Las páginas con sesión** (`/panel`, `/entrar`) solo cargan los datos. Un componente de `src/components/cuenta/` los pinta, y así se puede probar con datos de ejemplo.
+- **Las páginas con sesión** (`/panel`, `/entrar`, `/perfil`) solo cargan los datos. Un componente de `src/components/cuenta/` los pinta, y así se puede probar con datos de ejemplo.
+- **Leer el progreso sin perder lo estático: Server Islands.** Las páginas públicas se compilan una vez (con sus imágenes optimizadas) y solo el trozo que depende de quién visita se genera en el servidor en cada visita (`server:defer`).
+- **Escribir el progreso: Astro Actions** (`src/actions/`). Una isla llama a una función del servidor que valida con Zod, exige sesión y comprueba las reglas del juego (no se consigue un logro sin sus requisitos ni se vence a un jefe sin sus llaves).
+- **Imágenes optimizadas a mano** (`pnpm optimizar-imagenes`): lo que pinta el servidor no puede transformarlas, así que los archivos ya vienen ligeros (WebP grande y mini).
 
 ```
 src/
@@ -127,11 +133,13 @@ src/
 ├── lib/             lógica pura: progreso, mapa, árbol, calendario, catálogo…
 ├── components/      por dominio: mapa, logros, jefes, canciones, calendario, sesion, cuenta, ui, layout
 ├── pages/           rutas del sitio (y /auth para la sesión)
+├── actions/         Astro Actions: lo que escribe el progreso
 ├── middleware.ts    sesión de Supabase y rutas privadas
 ├── config/          nombre del sitio, navegación, horario e imágenes
 └── styles/          tokens de diseño y estilos globales
 supabase/migrations/ esquema de la base de datos (SQL versionado)
-scripts/             verificar datos, generar documentos, auditar accesibilidad
+imagenes-originales/ imágenes tal cual llegaron (de aquí sale src/assets/imagenes/)
+scripts/             verificar datos, generar documentos, auditar accesibilidad, optimizar imágenes
 docs/                plan, catálogo, arquitectura y hoja de ruta
 ```
 
@@ -161,6 +169,7 @@ Cómo crear el proyecto y aplicar las migraciones: [`docs/supabase.md`](docs/sup
 | `pnpm astro check` | Tipos, y validación de cada JSON contra su esquema (incluidas las referencias rotas) |
 | `pnpm verificar` | Reglas entre archivos que un esquema no ve: videos únicos, 90 días, 65 sesiones de 45–60 min, descansos, jefe ↔ zona |
 | `pnpm auditar` | Compila y revisa la accesibilidad del HTML generado |
+| `pnpm optimizar-imagenes` | Genera `src/assets/imagenes/` (WebP grande y mini) desde `imagenes-originales/` |
 | `pnpm generar-docs` | Regenera `docs/mapa.md`, `docs/catalogo.md` y `docs/plan-90-dias.md` desde los JSON |
 
 ## Calidad
@@ -182,6 +191,8 @@ El proyecto se verifica en tres capas, de lo más barato a lo más completo:
 - **Solo se usa la clave *publishable* de Supabase.** Es pública por diseño, porque la protección la ponen las reglas de la base de datos. La clave *secret* no existe en el proyecto.
 - **Las credenciales** viven en `.env` (fuera de git) y en los secretos de Cloudflare. La plantilla es [`.env.example`](.env.example).
 - **La sesión** va en cookies gestionadas en el servidor (`@supabase/ssr`). Las rutas privadas las protege el middleware.
+- **Toda escritura se valida en el servidor** (Zod en cada Action y en `/perfil`), aunque el formulario ya valide: cualquiera puede mandar una petición sin pasar por él.
+- **Lo que depende de quién visita no se guarda en caché:** cada Server Island responde con `Cache-Control: private, no-store`.
 
 ## Estado del proyecto
 
@@ -190,7 +201,7 @@ El proyecto se verifica en tres capas, de lo más barato a lo más completo:
 | 1. Datos y esquemas | ✅ |
 | 2. Documentos generados | ✅ |
 | 3. Web de contenido | ✅ (rediseño «Nocturno» terminado) |
-| 4. Cuentas y progreso | 🟡 el login y el panel funcionan; falta guardar progreso desde las páginas |
+| 4. Cuentas y progreso | 🟡 se guardan días, logros, victorias, avance por canción y perfil; faltan el mapa, las zonas, los logros y la portada con el progreso real |
 | 5. Despliegue en Cloudflare Workers | ⏳ |
 
 Los pasos pendientes, con sus decisiones abiertas, están en [`docs/hoja-de-ruta.md`](docs/hoja-de-ruta.md).
@@ -212,6 +223,6 @@ Los pasos pendientes, con sus decisiones abiertas, están en [`docs/hoja-de-ruta
 
 Proyecto personal de aprendizaje.
 
-- Las ilustraciones y fotografías de `src/assets/imagenes/` son de **terceros** y se usan solo de forma privada. Hay que sustituirlas antes de publicar o compartir el sitio.
+- Las ilustraciones y fotografías de `imagenes-originales/` (y sus versiones en `src/assets/imagenes/`) son de **terceros** y se usan solo de forma privada. Hay que sustituirlas antes de publicar o compartir el sitio.
 - Los videos del catálogo pertenecen a sus autores y se enlazan o incrustan desde YouTube.
 - *Sanssouci* («sin preocupaciones») es el palacio de Federico el Grande en Potsdam. Federico fue un flautista aficionado de primer nivel y compuso más de cien sonatas para flauta.

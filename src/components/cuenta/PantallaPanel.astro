@@ -10,7 +10,7 @@
  * Supabase; así este componente se puede probar con progreso de ejemplo y no
  * sabe nada de la base de datos (datos separados de la presentación).
  */
-import { BookCheck, Clock, Crown, Flame, LogOut, Sparkles, Swords, Trophy } from "lucide-preact";
+import { BookCheck, Clock, Crown, Flame, LogOut, Settings, Sparkles, Swords, Trophy } from "lucide-preact";
 import FondoPortada from "@/components/ui/FondoPortada.astro";
 import EncabezadoSeccion from "@/components/ui/EncabezadoSeccion.astro";
 import ResumenSesion from "@/components/sesion/ResumenSesion.astro";
@@ -200,6 +200,9 @@ const diaJefe = proximoJefe && diaDelJefe(c, proximoJefe.jefe.id)?.data.numero;
   <!-- ============ CUENTA ============ -->
   <form method="post" action="/auth/salir" class="mt-20 flex flex-wrap items-center justify-end gap-3 border-t border-borde pt-6 text-sm text-tenue">
     <span>Sesión iniciada como <strong class="font-medium text-texto">{email}</strong></span>
+    <a href="/perfil" class="boton-borde px-3 py-1.5">
+      <Settings size={14} aria-hidden="true" /> Perfil y fechas
+    </a>
     <button type="submit" class="boton-borde px-3 py-1.5">
       <LogOut size={14} aria-hidden="true" /> Cerrar sesión
     </button>

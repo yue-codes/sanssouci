@@ -1,0 +1,99 @@
+---
+/**
+ * Página /perfil: tu nombre y las fechas que mueven el plan (día 1 y llegada de la
+ * flauta). Es privada (`RUTAS_PRIVADAS`: sin sesión, el middleware manda a /entrar)
+ * y de servidor (`prerender = false`):
+ * - GET: muestra el formulario con lo guardado.
+ * - POST: valida (`validarPerfil`), guarda en `perfiles` y redirige a `/perfil?guardado=1`.
+ *
+ * Tras guardar se redirige (patrón POST → redirección → GET): así, recargar la página
+ * no vuelve a mandar el formulario, y la confirmación sale una sola vez.
+ * Aquí está la lógica; lo que se ve está en `TarjetaPerfil`.
+ */
+import { Flame, Sprout } from "lucide-preact";
+import FondoPortada from "@/components/ui/FondoPortada.astro";
+import Base from "@/layouts/Base.astro";
+import TarjetaPerfil from "@/components/cuenta/TarjetaPerfil.astro";
+import { IMAGENES } from "@/config/imagenes";
+import { SITIO } from "@/config/sitio";
+import { diaDelPlan, fechaLarga, hoyIso, parsearFecha } from "@/lib/fechas";
+import { validarPerfil, valoresDeFormulario, type ValoresPerfil } from "@/lib/perfil";
+
+export const prerender = false;
+
+const { supabase, usuario } = Astro.locals;
+// El middleware ya garantiza la sesión en esta ruta; esto es para TypeScript.
+if (!usuario) return Astro.redirect("/entrar?siguiente=%2Fperfil");
+
+const { data: perfil, error: errorLectura } = await supabase.from("perfiles").select("nombre, fecha_inicio, fecha_llegada_flauta").single();
+if (errorLectura) throw new Error(`No se pudo leer el perfil: ${errorLectura.message}`);
+
+let valores: ValoresPerfil = {
+  nombre: perfil.nombre ?? "",
+  fechaInicio: perfil.fecha_inicio,
+  fechaFlauta: perfil.fecha_llegada_flauta ?? "",
+};
+let errores: Partial<Record<keyof ValoresPerfil, string>> = {};
+let errorGeneral: string | undefined;
+
+if (Astro.request.method === "POST") {
+  valores = valoresDeFormulario(await Astro.request.formData());
+  const r = validarPerfil(valores);
+  if (!r.ok) errores = r.errores;
+  else {
+    // `.eq("id", …)`: Supabase pide un filtro en cada update (para no tocar toda la tabla
+    // por error). RLS ya impide tocar otro perfil, pero el filtro deja clara la intención.
+    const { error } = await supabase.from("perfiles").update(r.datos).eq("id", usuario.id);
+    if (!error) return Astro.redirect("/perfil?guardado=1", 303);
+    console.error("[perfil] Supabase:", error.message);
+    errorGeneral = "No se pudo guardar. Inténtalo de nuevo en un momento.";
+  }
+}
+
+const guardado = Astro.request.method === "GET" && Astro.url.searchParams.get("guardado") === "1";
+
+// Lo que significan tus fechas guardadas, para verlo antes de cambiarlas.
+const fechaHoy = hoyIso(SITIO.zonaHoraria);
+const hoy = diaDelPlan(parsearFecha(fechaHoy), perfil.fecha_inicio);
+const enPlan = hoy < 1 ? `Empiezas el ${fechaLarga(perfil.fecha_inicio)}` : hoy > 90 ? "Ya completaste los 90 días" : `Hoy es el día ${hoy} de 90`;
+const imagen = IMAGENES.flautaCerezos;
+---
+
+<Base titulo="Perfil" descripcion="Tu nombre y las fechas de tu plan." ancho="completo">
+  <section class="relative isolate flex min-h-[calc(100svh-5rem)] items-center overflow-hidden" aria-labelledby="titulo-perfil">
+    <FondoPortada imagen={imagen} base={40} />
+
+    <div class="contenedor grid w-full gap-10 py-12 lg:grid-cols-[1.1fr_1fr] lg:items-center lg:gap-20">
+      <!-- ============ Lo que significan tus fechas ============ -->
+      <div data-revelar="hijos">
+        <p class="eyebrow">Sanssouci · ajustes de partida</p>
+        <h1 id="titulo-perfil" class="mt-4 text-6xl leading-[0.92] sm:text-8xl">
+          Tu <em class="text-acento">partida</em>.
+        </h1>
+        <p class="mt-5 max-w-[46ch] text-lg text-tenue">
+          Tus fechas mueven el calendario: el día 1 dice en qué misión vas, y la llegada de la flauta marca el paso a las semanas con flauta.
+        </p>
+        <ul class="mt-10 grid gap-4">
+          <li class="flex items-center gap-4">
+            <span class="grid size-10 shrink-0 place-items-center rounded-full border border-acento/50 text-acento" aria-hidden="true"><Flame size={17} /></span>
+            <span><strong class="font-medium">{enPlan}</strong> <span class="text-tenue">· día 1: {fechaLarga(perfil.fecha_inicio)}</span></span>
+          </li>
+          <li class="flex items-center gap-4">
+            <span class="grid size-10 shrink-0 place-items-center rounded-full border border-resalte/50 text-resalte" aria-hidden="true"><Sprout size={17} /></span>
+            <span>
+              {perfil.fecha_llegada_flauta
+                ? <><strong class="font-medium">La flauta llegó</strong> <span class="text-tenue">el {fechaLarga(perfil.fecha_llegada_flauta)}</span></>
+                : <><strong class="font-medium">La flauta aún no llega</strong> <span class="text-tenue">· anótala aquí el día que la tengas</span></>}
+            </span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- ============ Tarjeta: el formulario ============ -->
+      <div class="w-full max-w-md lg:justify-self-end" data-revelar>
+        <TarjetaPerfil valores={valores} errores={errores} errorGeneral={errorGeneral} guardado={guardado} email={usuario.email ?? undefined} />
+        <p class="mt-4 text-center text-sm"><a href="/panel" class="enlace-flecha">Volver al panel <span aria-hidden="true">→</span></a></p>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -14,6 +14,8 @@ interface Props {
   canciones: CancionResumen[];
   rutas: OpcionRuta[];
   zonas: OpcionZona[];
+  /** ¿Hay sesión? Sin ella, no hay filtro por tu avance. */
+  sesion: boolean;
 }
 
 /**
@@ -27,7 +29,7 @@ interface Props {
  * URL del navegador) y se escriben con `history.replaceState`, que cambia la
  * dirección sin recargar ni llenar el historial de «atrás».
  */
-export default function CatalogoCanciones({ canciones, rutas, zonas }: Props) {
+export default function CatalogoCanciones({ canciones, rutas, zonas, sesion }: Props) {
   const filtros = useSignal<Filtros>(FILTROS_VACIOS);
   const resultados = useComputed(() => filtrarCanciones(canciones, filtros.value));
   const activos = useComputed(() => filtrosActivos(filtros.value));
@@ -65,6 +67,8 @@ export default function CatalogoCanciones({ canciones, rutas, zonas }: Props) {
             rutas={rutas}
             zonas={zonas}
             activos={activos.value}
+            listas={canciones.filter((s) => s.faltan === 0).length}
+            sesion={sesion}
             onCambiar={(cambio) => aplicar({ ...filtros.value, ...cambio })}
             onLimpiar={() => aplicar(FILTROS_VACIOS)}
           />

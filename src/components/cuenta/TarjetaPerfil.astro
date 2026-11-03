@@ -1,0 +1,88 @@
+---
+/**
+ * @component TarjetaPerfil
+ * La tarjeta de /perfil, como la ficha de guardado de un juego: tu nombre y las
+ * fechas que mueven el plan (día 1 y llegada de la flauta). Solo pinta: los valores,
+ * los errores y si se acaba de guardar los decide la página, que habla con Supabase.
+ *
+ * El formulario es HTML normal (`method="post"`), sin JavaScript: funciona aunque
+ * falle una isla. Cada campo tiene su etiqueta, y su error va enlazado con
+ * `aria-describedby` y marcado con `aria-invalid`.
+ */
+import { CalendarDays, Check, Save, TriangleAlert, User } from "lucide-preact";
+import type { ValoresPerfil } from "@/lib/perfil";
+
+interface Props {
+  /** Valores que se pintan en los campos (los guardados o los que se mandaron con error). */
+  valores: ValoresPerfil;
+  /** Error de cada campo, si lo hay. */
+  errores?: Partial<Record<keyof ValoresPerfil, string>>;
+  /** Error al guardar que no es de un campo (Supabase falló). */
+  errorGeneral?: string;
+  /** Se acaba de guardar: enseña la confirmación. */
+  guardado?: boolean;
+  /** Correo de la cuenta (solo se muestra). */
+  email?: string;
+}
+const { valores, errores = {}, errorGeneral, guardado = false, email } = Astro.props;
+
+const ETIQUETA = "mb-2 block font-mono text-[0.625rem] tracking-[0.08em] text-tenue uppercase";
+const CAMPO =
+  "w-full rounded-[3px] border border-borde-fuerte bg-superficie py-3 pr-3 pl-9 text-sm transition-colors focus:border-acento aria-invalid:border-peligro/60 [color-scheme:dark]";
+
+/** Los tres campos, con lo que cambia entre ellos. */
+const campos = [
+  { id: "nombre", etiqueta: "Nombre", tipo: "text", Icono: User, ayuda: "Cómo te saluda el panel. Si lo dejas vacío, usa tu correo.", extra: { maxlength: 80, autocomplete: "nickname" } },
+  { id: "fechaInicio", etiqueta: "Día 1 del plan", tipo: "date", Icono: CalendarDays, ayuda: "El día en que empezaste. De aquí sale «Día N de 90».", extra: { required: true } },
+  { id: "fechaFlauta", etiqueta: "Llegada de la flauta", tipo: "date", Icono: CalendarDays, ayuda: "Déjalo vacío hasta que la tengas en las manos.", extra: { min: valores.fechaInicio || undefined } },
+] as const;
+---
+
+<div class="relative overflow-hidden rounded-md border border-borde-fuerte bg-fondo/85 p-6 shadow-2xl shadow-black/40 backdrop-blur-md sm:p-8">
+  <!-- Línea de luz arriba, como el borde de una ventana de juego -->
+  <span class="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-acento to-transparent" aria-hidden="true"></span>
+
+  <h2 class="text-3xl">Tu ficha</h2>
+  {email && <p class="mt-1 text-sm text-tenue">Cuenta: <strong class="font-medium text-texto">{email}</strong></p>}
+
+  {guardado && (
+    <p role="status" class="mt-5 flex items-center gap-2 rounded-[3px] border border-exito/40 bg-exito/10 px-3 py-2 text-sm">
+      <Check size={15} strokeWidth={3} class="shrink-0 text-exito" aria-hidden="true" /> Guardado. El panel ya usa estas fechas.
+    </p>
+  )}
+  {errorGeneral && (
+    <p role="alert" class="mt-5 flex items-start gap-2 rounded-[3px] border border-peligro/40 bg-peligro/10 px-3 py-2 text-sm">
+      <TriangleAlert size={15} class="mt-0.5 shrink-0 text-peligro" aria-hidden="true" /> {errorGeneral}
+    </p>
+  )}
+
+  <form method="post" class="mt-6 grid gap-6">
+    {campos.map(({ id, etiqueta, tipo, Icono, ayuda, extra }) => {
+      const error = errores[id];
+      return (
+        <div>
+          <label for={id} class={ETIQUETA}>{etiqueta}</label>
+          <div class="relative">
+            <Icono size={16} class="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-tenue" aria-hidden="true" />
+            <input
+              id={id}
+              name={id}
+              type={tipo}
+              value={valores[id]}
+              aria-invalid={error ? "true" : undefined}
+              aria-describedby={`${id}-ayuda${error ? ` ${id}-error` : ""}`}
+              class={CAMPO}
+              {...extra}
+            />
+          </div>
+          <p id={`${id}-ayuda`} class="mt-1.5 text-xs text-tenue">{ayuda}</p>
+          {error && <p id={`${id}-error`} class="mt-1 text-sm text-peligro">{error}</p>}
+        </div>
+      );
+    })}
+
+    <button type="submit" class="boton justify-center">
+      <Save size={16} aria-hidden="true" /> Guardar
+    </button>
+  </form>
+</div>

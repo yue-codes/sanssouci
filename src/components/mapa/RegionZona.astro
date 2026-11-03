@@ -76,7 +76,7 @@ const SELLO = { actual: "Estás aquí", superada: "Superada", bloqueada: "Bloque
 
   {p.lejana ? (
     <article class="relative overflow-hidden rounded-md border border-borde/60" data-revelar>
-      <Picture src={imagen.src} alt="" widths={[320]} sizes="20rem" formats={["avif"]} fallbackFormat="webp" loading="lazy"
+      <Picture src={imagen.mini} alt="" widths={[320]} sizes="20rem" formats={["avif"]} fallbackFormat="webp" loading="lazy"
         class="absolute inset-0 size-full scale-110 object-cover opacity-30 blur-md grayscale" style={{ objectPosition: imagen.enfoque }} />
       <div class="relative p-5">
         <p class="font-mono text-[0.625rem] tracking-[0.08em] text-tenue uppercase">Zona {n.orden} · en la niebla</p>

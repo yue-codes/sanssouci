@@ -1,0 +1,53 @@
+---
+/**
+ * @component MisionConProgreso (Server Island: se usa con `server:defer`)
+ *
+ * La misión del día con TU progreso. La página `/dias/[n]` es estática (se compila
+ * una vez, con las imágenes optimizadas), pero este trozo se genera en el servidor
+ * en cada visita: Astro deja un hueco en el HTML y, al cargar, pide este componente
+ * a `/_server-islands/…` con las cookies de quien visita. Por eso aquí sí hay
+ * `Astro.locals.usuario` y se puede leer si el día ya está guardado.
+ *
+ * Recibe solo el número del día: las props de una Server Island viajan cifradas en
+ * la URL, así que conviene que sean pocas; los bloques se leen aquí del contenido.
+ */
+import { getEntry } from "astro:content";
+import MisionDelDia from "@/components/sesion/MisionDelDia";
+import { idDeDia } from "@/lib/calendario";
+import type { RegistroDia } from "@/lib/progreso-usuario";
+
+interface Props {
+  /** Número del día (1 a 90). */
+  numero: number;
+}
+
+const { numero } = Astro.props;
+const { supabase, usuario } = Astro.locals;
+const dia = await getEntry("dias", idDeDia(numero));
+if (!dia) throw new Error(`No existe el día ${numero}`);
+
+// Esta respuesta es de UNA persona: que ningún CDN ni navegador compartido la guarde.
+Astro.response.headers.set("Cache-Control", "private, no-store");
+
+let registro: RegistroDia | null = null;
+let fallo = false;
+if (usuario) {
+  // RLS ya filtra por usuario: solo puede salir TU fila de este día.
+  const { data, error } = await supabase
+    .from("dias_completados")
+    .select("completado_en, minutos, notas")
+    .eq("dia_id", dia.id)
+    .maybeSingle();
+  // Si Supabase falla, la misión se puede jugar igual; solo se avisa de que no se pudo leer.
+  if (error) {
+    console.error("[MisionConProgreso] Supabase:", error.message);
+    fallo = true;
+  }
+  registro = data;
+}
+---
+
+{fallo && (
+  <p role="alert" class="mb-4 text-sm text-peligro">No se pudo leer tu progreso de este día. Recarga la página en un momento.</p>
+)}
+<MisionDelDia client:load numero={numero} bloques={dia.data.bloques} sesion={!!usuario} registro={registro} />

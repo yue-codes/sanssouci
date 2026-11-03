@@ -3,6 +3,7 @@ import type { CancionResumen } from "@/lib/canciones";
 import { miniaturaYoutube } from "@/lib/youtube";
 import ChipRuta from "./ChipRuta";
 import Dificultad from "./Dificultad";
+import { ESTADO_CANCION } from "./estado";
 import { rarezaDe } from "./rareza";
 
 interface Props {
@@ -17,13 +18,15 @@ interface Props {
  * Una obra como carta de juego. El borde y la etiqueta de arriba dicen su rareza
  * (según la dificultad, ver `rareza.ts`); las legendarias brillan. Si te faltan
  * talentos para tocarla, la carta sale bloqueada: imagen apagada, candado y
- * cuántos te faltan. Marca también los retos de oído y las canciones de jefe.
+ * cuántos te faltan. Marca también los retos de oído, las canciones de jefe y tu
+ * avance con ella (aprendiendo o dominada; las pendientes no llevan sello).
  * Sin estado: sirve en páginas de Astro y dentro de la isla del catálogo.
  */
 export default function TarjetaCancion({ cancion: s, conZona = false }: Props) {
   const rareza = rarezaDe(s.dificultad);
   const bloqueada = s.faltan > 0;
   const legendaria = rareza.nombre === "Legendaria";
+  const avance = s.estado !== "pendiente" && ESTADO_CANCION[s.estado];
 
   return (
     <a
@@ -57,6 +60,12 @@ export default function TarjetaCancion({ cancion: s, conZona = false }: Props) {
             </span>
           )}
         </span>
+
+        {avance && (
+          <span class={`absolute right-2.5 bottom-2.5 inline-flex items-center gap-1 rounded-[2px] px-1.5 py-0.5 font-mono text-[0.5625rem] font-semibold uppercase ${avance.sello}`}>
+            <avance.Icono size={10} aria-hidden="true" /> {avance.nombre}
+          </span>
+        )}
 
         {bloqueada && (
           <span class="absolute bottom-2.5 left-2.5 inline-flex items-center gap-1.5 rounded-[2px] border border-borde-fuerte bg-fondo/85 px-1.5 py-0.5 font-mono text-[0.5625rem] text-tenue uppercase backdrop-blur">

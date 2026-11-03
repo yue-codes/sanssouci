@@ -1,4 +1,4 @@
-import { ChevronDown, KeyRound, Sparkles, Target, Undo2, Lock } from "lucide-preact";
+import { ChevronDown, KeyRound, LogIn, Sparkles, Target, Undo2, Lock } from "lucide-preact";
 import type { NodoTalento } from "@/lib/arbol";
 import type { EstadoLogro } from "@/lib/progreso";
 import { NOMBRE_CATEGORIA } from "../categorias";
@@ -14,8 +14,14 @@ interface Props {
   porId: ReadonlyMap<string, NodoTalento>;
   /** Se llama al elegir un requisito o un desbloqueo (para saltar a él). */
   onElegir: (id: string) => void;
-  /** Se llama al pulsar el botón de conseguir/quitar (demo, hasta la fase 4). */
+  /** Se llama al pulsar el botón de conseguir/quitar. */
   onAlternar: (id: string) => void;
+  /** ¿Hay sesión? Sin ella, en vez de conseguir se invita a entrar. */
+  sesion: boolean;
+  /** ¿Se está guardando este talento? Desactiva el botón. */
+  ocupado: boolean;
+  /** Mensaje del servidor si no se pudo guardar. */
+  error?: string;
   /**
    * Cómo se coloca:
    * - `barra`: horizontal, fija abajo del árbol en escritorio (con botón para minimizar).
@@ -49,7 +55,7 @@ const ID_CUERPO = "ficha-talento-cuerpo";
  * mismas piezas (`Mision`, `Relacionados`, `Accion`), solo cambia la colocación.
  */
 export default function DetalleTalento(props: Props) {
-  const { nodo, estados, porId, onElegir, onAlternar, disposicion, abierta = true, onAbrir } = props;
+  const { nodo, estados, porId, onElegir, onAlternar, sesion, ocupado, error, disposicion, abierta = true, onAbrir } = props;
   const estado = estados.get(nodo.id)!;
   const desbloquea = [...porId.values()].filter((n) => n.requiere.includes(nodo.id)).map((n) => n.id);
   const faltan = nodo.requiere.filter((id) => estados.get(id) !== "conseguido").length;
@@ -70,7 +76,16 @@ export default function DetalleTalento(props: Props) {
     />
   );
   const abre = <Relacionados titulo="Desbloquea" ids={desbloquea} vacio="Es una hoja del árbol." estados={estados} porId={porId} onElegir={onElegir} />;
-  const accion = <Accion estado={estado} onClick={() => onAlternar(nodo.id)} />;
+  const accion = (
+    <div class="grid gap-2">
+      <Accion id={nodo.id} estado={estado} sesion={sesion} ocupado={ocupado} onClick={() => onAlternar(nodo.id)} />
+      {error && (
+        <p role="alert" class="text-sm text-peligro">
+          {error}
+        </p>
+      )}
+    </div>
+  );
 
   if (disposicion === "lista") {
     return (
@@ -139,19 +154,30 @@ function Mision({ criterio }: { criterio: string }) {
   );
 }
 
-/** Botón para conseguir o quitar el talento (demo), o aviso de que sigue bloqueado. */
-function Accion({ estado, onClick }: { estado: EstadoLogro; onClick: () => void }) {
+/**
+ * Botón para conseguir o quitar el talento, aviso de que sigue bloqueado o,
+ * sin sesión, enlace para entrar y volver a este talento.
+ */
+function Accion(props: { id: string; estado: EstadoLogro; sesion: boolean; ocupado: boolean; onClick: () => void }) {
+  const { id, estado, sesion, ocupado, onClick } = props;
+  if (!sesion && estado !== "bloqueado") {
+    return (
+      <a href={`/entrar?siguiente=${encodeURIComponent(`/arbol#${id}`)}`} class="boton w-full justify-center">
+        <LogIn size={15} aria-hidden="true" /> Entra para conseguirlo
+      </a>
+    );
+  }
   if (estado === "conseguido") {
     return (
-      <button type="button" onClick={onClick} class="boton-borde w-full justify-center">
-        <Undo2 size={15} aria-hidden="true" /> Quitar (demo)
+      <button type="button" onClick={onClick} disabled={ocupado} class="boton-borde w-full justify-center disabled:opacity-60">
+        <Undo2 size={15} aria-hidden="true" /> {ocupado ? "Quitando…" : "Quitar"}
       </button>
     );
   }
   if (estado === "disponible") {
     return (
-      <button type="button" onClick={onClick} class="boton w-full justify-center">
-        <Sparkles size={15} aria-hidden="true" /> Desbloquear (demo)
+      <button type="button" onClick={onClick} disabled={ocupado} class="boton w-full justify-center disabled:opacity-60">
+        <Sparkles size={15} aria-hidden="true" /> {ocupado ? "Guardando…" : "Conseguir"}
       </button>
     );
   }

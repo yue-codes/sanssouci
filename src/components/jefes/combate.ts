@@ -1,20 +1,31 @@
 /**
- * @file Estado del combate contra un jefe, compartido entre dos islas de la misma
- * página: `VidaJefe` (la barra de vida, arriba) y `CombateJefe` (la lista de golpes,
- * abajo).
+ * @file Estado del combate contra un jefe, compartido entre las islas de la misma
+ * página: `VidaJefe` y `LlavesPuerta` (en la portada, que es estática) y
+ * `CombateJefe` (en la arena, que pinta la Server Island `ArenaConProgreso`).
  *
  * Cada isla de Astro se monta por separado, pero si importan el mismo módulo
  * comparten sus variables: un `signal` creado aquí, fuera de cualquier componente,
- * es el mismo para las dos. Cuando una lo cambia, la otra se vuelve a pintar.
+ * es el mismo para todas. Cuando una lo cambia, las demás se vuelven a pintar.
  * (Dentro de un componente se usa `useSignal`; aquí, a nivel de módulo, `signal`.)
  *
- * Es demo hasta la fase 4: no se guarda. Después, la victoria se registrará en
- * Supabase con el enlace al video.
+ * Así la portada no necesita su propia petición al servidor: `CombateJefe` llega con
+ * tu progreso y lo publica en `estadoJefe`.
  */
 import { signal } from "@preact/signals";
 
 /** Índices de las condiciones de victoria ya cumplidas (la última es la grabación). */
 export const golpes = signal<ReadonlySet<number>>(new Set());
+
+/** Lo que se sabe de TU combate contra este jefe. */
+export interface EstadoJefe {
+  /** Ya lo venciste (victoria guardada). */
+  vencido: boolean;
+  /** Ids de los logros que tienes (para saber qué llaves de su puerta son tuyas). */
+  obtenidos: ReadonlySet<string>;
+}
+
+/** Estado del jefe para quien visita; `undefined` mientras llega del servidor. */
+export const estadoJefe = signal<EstadoJefe | undefined>(undefined);
 
 /**
  * Marca o desmarca una condición.

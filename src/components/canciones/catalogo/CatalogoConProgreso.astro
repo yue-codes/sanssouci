@@ -1,0 +1,48 @@
+---
+/**
+ * @component CatalogoConProgreso (Server Island: se usa con `server:defer`)
+ *
+ * El catálogo de `/canciones` con TU progreso: qué cartas están bloqueadas (según tus
+ * logros) y tu avance con cada una. La página es estática; este trozo se genera en
+ * cada visita con tu sesión. Sin sesión, todo como si empezaras de cero.
+ * No recibe props: todo lo que necesita lo lee aquí.
+ */
+import CatalogoCanciones from "@/components/canciones/catalogo/CatalogoCanciones";
+import { resumirCancion } from "@/lib/canciones";
+import { cargarContenido, nombreCortoRuta } from "@/lib/contenido";
+import type { EstadoCancion } from "@/lib/estado-cancion";
+import type { Progreso } from "@/lib/progreso";
+import { cargarEstadosCanciones, cargarProgreso, PROGRESO_VACIO } from "@/lib/progreso-usuario";
+
+const { supabase, usuario } = Astro.locals;
+// Esta respuesta es de UNA persona: que ningún CDN ni navegador compartido la guarde.
+Astro.response.headers.set("Cache-Control", "private, no-store");
+
+const c = await cargarContenido();
+
+let progreso: Progreso = PROGRESO_VACIO;
+let estados: ReadonlyMap<string, EstadoCancion> = new Map();
+let fallo = false;
+if (usuario) {
+  // Si Supabase falla, el catálogo se ve igual (sin progreso) con un aviso.
+  try {
+    [progreso, estados] = await Promise.all([cargarProgreso(supabase), cargarEstadosCanciones(supabase)]);
+  } catch (e) {
+    console.error("[CatalogoConProgreso]", e);
+    fallo = true;
+  }
+}
+
+const canciones = c.canciones.map((s) => resumirCancion(c, s, progreso.obtenidos, estados));
+const rutas = c.rutas.map((r) => ({ id: r.id, nombre: nombreCortoRuta(r), color: r.data.color }));
+const zonas = c.niveles.map((n) => ({ id: n.id, orden: n.data.orden, nombre: n.data.nombre }));
+---
+
+{!usuario && (
+  <p class="mb-6 text-sm text-tenue">
+    Sin sesión, las cartas se cuentan como si empezaras de cero.
+    <a href="/entrar?siguiente=%2Fcanciones" class="font-semibold text-acento hover:text-acento-claro">Entra</a> para ver las tuyas.
+  </p>
+)}
+{fallo && <p role="alert" class="mb-6 text-sm text-peligro">No se pudo leer tu progreso. Recarga la página en un momento.</p>}
+<CatalogoCanciones client:load canciones={canciones} rutas={rutas} zonas={zonas} sesion={!!usuario && !fallo} />

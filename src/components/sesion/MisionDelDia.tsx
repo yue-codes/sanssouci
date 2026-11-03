@@ -3,7 +3,9 @@ import { useEffect } from "preact/hooks";
 import { Check, Pause, Play, RotateCcw, SkipForward, Timer, Trophy } from "lucide-preact";
 import AnilloProgreso from "@/components/ui/AnilloProgreso";
 import Estallido from "@/components/ui/Estallido";
+import type { RegistroDia as Registro } from "@/lib/progreso-usuario";
 import { TIPO_BLOQUE, type TipoBloque } from "./bloques";
+import RegistroDia from "./RegistroDia";
 
 /** Un bloque de la sesión (mismo formato que en dias.json). */
 export interface Bloque {
@@ -14,8 +16,14 @@ export interface Bloque {
 }
 
 interface Props {
+  /** Número del día (1 a 90): es lo que se guarda. */
+  numero: number;
   /** Bloques del día, en orden. */
   bloques: Bloque[];
+  /** ¿Hay sesión? Sin ella, al terminar se invita a entrar. */
+  sesion: boolean;
+  /** El registro guardado de este día, o `null` si aún no está marcado. */
+  registro: Registro | null;
 }
 
 /** Segundos en formato «m:ss». */
@@ -31,10 +39,19 @@ const reloj = (s: number) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2,
  *
  * Estado con signals: `hechos` (etapas cumplidas), `activa` (la del cronómetro),
  * `restante` (segundos) y `corriendo`. El intervalo de un segundo vive en un
- * `useEffect` que se limpia al pausar o al salir. Demo hasta la fase 4: no se guarda.
+ * `useEffect` que se limpia al pausar o al salir.
+ *
+ * Al terminar, `RegistroDia` guarda el día en tu progreso. Si el día ya estaba
+ * guardado, la misión empieza cumplida (todas las etapas marcadas). La pinta la
+ * Server Island `MisionConProgreso`, que sabe quién visita.
  */
-export default function MisionDelDia({ bloques }: Props) {
-  const hechos = useSignal<ReadonlySet<number>>(new Set());
+export default function MisionDelDia({ numero, bloques, sesion, registro: registroInicial }: Props) {
+  const todas = () => new Set(bloques.map((_, i) => i));
+  const hechos = useSignal<ReadonlySet<number>>(registroInicial ? todas() : new Set());
+  const registro = useSignal(registroInicial);
+  // Cuántas veces se ha cumplido la misión en esta visita: cambia la `key` del estallido
+  // para repetirlo, y en 0 no se celebra (un día que ya venía guardado no estalla al cargar).
+  const celebraciones = useSignal(0);
   const activa = useSignal<number | undefined>(undefined);
   const restante = useSignal(0);
   const corriendo = useSignal(false);
@@ -68,6 +85,7 @@ export default function MisionDelDia({ bloques }: Props) {
     const marcar = !s.has(i);
     marcar ? s.add(i) : s.delete(i);
     hechos.value = s;
+    if (marcar && s.size === bloques.length) celebraciones.value += 1;
     if (marcar && activa.value === i) {
       const siguiente = bloques.findIndex((_, j) => j > i && !s.has(j));
       siguiente >= 0 ? empezar(siguiente) : ((activa.value = undefined), (corriendo.value = false));
@@ -119,9 +137,12 @@ export default function MisionDelDia({ bloques }: Props) {
         ) : null}
 
         <p class="sr-only" aria-live="polite">{a !== undefined && restante.value === 0 ? "Tiempo de la etapa cumplido." : ""}</p>
-        <p class="text-xs leading-relaxed text-tenue">
-          El cronómetro es una guía: si una etapa pide más tiempo, dáselo. Demo, no se guarda todavía.
-        </p>
+        {registro.value && (
+          <p class="inline-flex items-center justify-center gap-1.5 font-mono text-[0.6875rem] tracking-[0.06em] text-exito uppercase">
+            <Check size={13} strokeWidth={3} aria-hidden="true" /> Día guardado
+          </p>
+        )}
+        <p class="text-xs leading-relaxed text-tenue">El cronómetro es una guía: si una etapa pide más tiempo, dáselo.</p>
       </div>
 
       {/* Las etapas, sobre un camino */}
@@ -176,13 +197,13 @@ export default function MisionDelDia({ bloques }: Props) {
 
         {completa && (
           <div class="relative mt-6 grid place-items-center overflow-hidden rounded-md border border-exito/50 bg-exito/10 px-5 py-8 text-center" role="status">
-            <Estallido chispas={18} alcance={90} />
+            {celebraciones.value > 0 && <Estallido key={celebraciones.value} chispas={18} alcance={90} />}
             <Trophy size={30} class="text-exito" aria-hidden="true" />
             <p class="mt-2 font-mono text-[0.6875rem] tracking-[0.12em] text-exito uppercase">¡Misión cumplida!</p>
             <p class="mt-1 font-display text-3xl">+{total} minutos de práctica</p>
-            <p class="mt-2 max-w-sm text-sm text-tenue">Cuando exista el inicio de sesión, este día quedará marcado y sumará a tu racha.</p>
-            <button type="button" onClick={reiniciar} class="boton-borde mt-5">
-              <RotateCcw size={14} aria-hidden="true" /> Empezar de nuevo (demo)
+            <RegistroDia numero={numero} sesion={sesion} registro={registro.value} alCambiar={(r) => (registro.value = r)} minutos={total} />
+            <button type="button" onClick={reiniciar} class="mt-5 inline-flex items-center gap-1.5 text-xs font-semibold text-tenue hover:text-texto">
+              <RotateCcw size={13} aria-hidden="true" /> Repetir la misión
             </button>
           </div>
         )}

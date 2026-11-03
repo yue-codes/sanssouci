@@ -3,8 +3,10 @@
  * Página /dias/[n]: un día del plan como «misión del día».
  * Arriba, la portada con la imagen de su zona (o de su jefe), el objetivo y el
  * recorrido de los 90 días (`RecorridoPlan`). Debajo, el combate si hay jefe
- * (`AnuncioJefe`), la sesión como misión con cronómetro (isla `MisionDelDia`) y
- * las recompensas posibles. Los días de descanso son un campamento.
+ * (`AnuncioJefe`), la sesión como misión con cronómetro y las recompensas posibles.
+ * La misión es una Server Island (`MisionConProgreso`, `server:defer`): la página
+ * sigue siendo estática y solo ese trozo se genera en cada visita, con tu sesión,
+ * para saber si el día ya está guardado. Los días de descanso son un campamento.
  * `getStaticPaths` genera las 90 páginas (/dias/1 … /dias/90).
  */
 import { getCollection } from "astro:content";
@@ -14,7 +16,7 @@ import Base from "@/layouts/Base.astro";
 import MigasDePan from "@/components/ui/MigasDePan.astro";
 import EncabezadoSeccion from "@/components/ui/EncabezadoSeccion.astro";
 import NavegacionVecinos from "@/components/ui/NavegacionVecinos.astro";
-import MisionDelDia from "@/components/sesion/MisionDelDia";
+import MisionConProgreso from "@/components/sesion/MisionConProgreso.astro";
 import ChipLogro from "@/components/logros/ChipLogro.astro";
 import AnuncioJefe from "@/components/jefes/AnuncioJefe.astro";
 import RecorridoPlan from "@/components/calendario/RecorridoPlan.astro";
@@ -134,7 +136,16 @@ const vecino = (x?: (typeof dias)[number]) =>
     ) : (
       <section aria-labelledby="sesion">
         <EncabezadoSeccion id="sesion" eyebrow="Calentamiento → técnica → estudios → repertorio" titulo="La misión" descripcion="Cada bloque es una etapa. Márcala al terminarla, o juégala con el cronómetro." />
-        <MisionDelDia client:load bloques={d.bloques} />
+        <MisionConProgreso server:defer numero={d.numero}>
+          <!-- Mientras llega del servidor: un esqueleto con la forma de la misión. -->
+          <div slot="fallback" class="grid gap-8 lg:grid-cols-[16rem_1fr]" aria-busy="true">
+            <p class="sr-only">Cargando la misión…</p>
+            <div class="h-64 animate-pulse rounded-md border border-borde bg-superficie" aria-hidden="true"></div>
+            <div class="grid gap-3" aria-hidden="true">
+              {d.bloques.map(() => <div class="h-24 animate-pulse rounded-md border border-borde bg-superficie/70"></div>)}
+            </div>
+          </div>
+        </MisionConProgreso>
       </section>
     )}
 
