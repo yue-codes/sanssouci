@@ -201,8 +201,8 @@ El proyecto se verifica en tres capas, de lo más barato a lo más completo:
 | 1. Datos y esquemas | ✅ |
 | 2. Documentos generados | ✅ |
 | 3. Web de contenido | ✅ (rediseño «Nocturno» terminado) |
-| 4. Cuentas y progreso | 🟡 se guardan días, logros, victorias, avance por canción y perfil, y todas las páginas leen el progreso real; cuentas con correo y contraseña |
-| 5. Despliegue en Cloudflare Workers | ⏳ |
+| 4. Cuentas y progreso | ✅ se guardan días, logros, victorias, avance por canción y perfil; todas las páginas leen el progreso real; cuentas con correo y contraseña |
+| 5. Despliegue en Cloudflare Workers | ✅ publicada en [sanssouci.eduardo-jes-angeles-hdz.workers.dev](https://sanssouci.eduardo-jes-angeles-hdz.workers.dev) (cada push a `main` publica) |
 
 Los pasos pendientes, con sus decisiones abiertas, están en [`docs/hoja-de-ruta.md`](docs/hoja-de-ruta.md).
 

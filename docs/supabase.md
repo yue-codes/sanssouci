@@ -44,11 +44,11 @@ Plantilla en `.env.example` (sí está en git); los valores, en `.env` (fuera de
 
 - El prefijo `PUBLIC_` hace que Astro las deje usar también en el navegador (islas). Es correcto: la clave *publishable* es pública por diseño; lo que protege los datos es RLS.
 - La clave **secret** (antes `service_role`) se salta RLS: **no se usa en esta web** ni se escribe en ningún archivo.
-- En la fase 5 las mismas variables se configuran en Cloudflare.
+- En Cloudflare van como **variables de compilación** (*build variables*), no como secretos del worker: Astro las mete en el código al compilar (ver `docs/despliegue.md`).
 
 ## 3. Autenticación
 
-- **Site URL:** `http://localhost:4321`. **Redirect URLs:** `http://localhost:4321/**`. En la fase 5 se añade la dirección pública.
+- **Site URL:** `http://localhost:4321`. **Redirect URLs:** `http://localhost:4321/**`. Desde la fase 5 (3 nov 2026), la *Site URL* es la dirección pública (https://sanssouci.eduardo-jes-angeles-hdz.workers.dev) y en *Redirect URLs* está también `https://sanssouci.eduardo-jes-angeles-hdz.workers.dev/**`.
 - **Correo y contraseña** (desde el 3 nov 2026; antes, enlace mágico). Registro abierto a cualquiera, con confirmación por correo. Ajustes en §7. El correo integrado de Supabase envía pocos mensajes por hora; basta para uso personal. Con más usuarios, configurar un SMTP propio.
 - **Google:** descartado por el usuario (3 nov 2026).
 
@@ -96,4 +96,4 @@ Contraseña: de 8 a 72 bytes (bcrypt, el algoritmo con el que Supabase guarda el
    `{{ .RedirectTo }}` es nuestra URL (ya trae `?siguiente=…`, por eso se añade con `&`), y `/auth/confirmar` ya entiende `token_hash` + `type`. Funciona porque esas URLs están en *Redirect URLs* (§3); si no, Supabase usaría la *Site URL*, que no lleva `?`. La plantilla *Magic Link* ya no se usa.
 3. **Límite de correos:** el correo integrado envía muy pocos por hora (y uno por minuto por dirección). La página lo avisa con un mensaje claro (HTTP 429). Para más usuarios, configurar SMTP propio.
 
-- **Pendiente para la fase 5:** el adaptador de Cloudflare activa solo un *binding* de Cloudflare Images (`IMAGES`) y otro de KV para sesiones de Astro (`SESSION`). No los usamos; decidir al desplegar si se desactivan o se crean.
+- **Bindings del adaptador** (resuelto en la fase 5): con `imageService: "compile"` ya no se crea `IMAGES`. Queda `SESSION` (KV para las sesiones de Astro, que no usamos): Wrangler lo creó solo al desplegar y es gratis.

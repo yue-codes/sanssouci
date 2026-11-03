@@ -6,9 +6,9 @@
 
 ## 0. Al abrir la próxima sesión
 
-1. `git status`. Pasos a–e de la fase 4 con commit (`84e410d`, 3 nov 2026). El paso f (todas las páginas con el progreso real) quedó hecho el 3 nov 2026; si `git status` aún lo muestra sin commit, pregunta al usuario.
-   - Verificado: `pnpm astro check` 0 errores, `pnpm build` y `pnpm auditar` sin problemas (226 páginas prerenderizadas, más las 7 de servidor auditadas aparte; ver «Accesibilidad» en `docs/arquitectura.md`).
-   - Paso g (correo y contraseña) hecho y probado el 3 nov 2026. **Siguiente:** la fase 5 (despliegue, §2).
+1. `git status`. Todo lo hecho tiene commit (último: `8adf53f`, 3 nov 2026). Fases 1 a 4 terminadas; la web está publicada (fase 5) en https://sanssouci.eduardo-jes-angeles-hdz.workers.dev.
+   - Verificado: `pnpm astro check` 0 errores, `pnpm build` y `pnpm auditar` sin problemas (226 páginas prerenderizadas, más las de servidor auditadas aparte; ver «Accesibilidad» en `docs/arquitectura.md`). El usuario probó todo en local y en producción.
+   - **Pendiente:** el punto 6 de §2 (confirmar que no quedan redirecciones 307) y, antes de compartir la web, cambiar las imágenes ajenas. Después, lo que pida el usuario (ideas aplazadas en §4).
 2. ✅ (3 nov 2026) El usuario aprobó todo el rediseño: `/niveles/[id]`, `/logros`, `/canciones`, `/canciones/[id]`, `/panel` y `/entrar`.
    - **No ejecutes `pnpm dev` tú.**
 
@@ -87,10 +87,11 @@ Cuida que la página sin sesión siga funcionando (contenido para todos, progres
 
 1. ✅ Ensayo local (`pnpm wrangler deploy --dry-run`): worker de 629 KB comprimido (límite gratis: 3 MB), 570 archivos estáticos, recursos `ASSETS` y `SESSION`. Versiones fijadas para la compilación en Cloudflare: `.node-version` y `packageManager`. Script `pnpm desplegar` para publicar a mano.
 2. ✅ (3 nov 2026, la web publicada ya entra con contraseña) El usuario conecta el repositorio en Cloudflare con la configuración de `docs/despliegue.md` y las dos *build variables* de Supabase (son públicas y se meten en el código al compilar: no son secretos del worker). Nunca la clave *secret*.
-3. ⏳ Supabase → Authentication → URL Configuration: añadir la dirección pública (Site URL y Redirect URLs).
-4. ⏳ Probar en producción: entrar con correo y contraseña, marcar un día, cerrar sesión. Recuperar la contraseña (el enlace del correo debe llevar a la dirección pública).
+3. ✅ (3 nov 2026) Supabase → Authentication → URL Configuration: dirección pública (https://sanssouci.eduardo-jes-angeles-hdz.workers.dev) en Site URL y Redirect URLs.
+4. ✅ (3 nov 2026, el usuario: «funciona bien») Probar en producción: entrar con correo y contraseña, marcar un día, cerrar sesión. Recuperar la contraseña (el enlace del correo debe llevar a la dirección pública).
 5. ✅ Guía para el usuario: `docs/despliegue.md`.
-6. Antes de compartir la web con otras personas: **cambiar las imágenes ajenas** (ver `docs/arquitectura.md` «Imágenes»).
+6. ⏳ Comprobar en producción que `/arbol`, `/canciones`, `/jefes/…` y `/dias/…` responden 200 sin redirección 307 (`build.format: "file"`, commit `8adf53f`).
+7. Antes de compartir la web con otras personas: **cambiar las imágenes ajenas** (ver `docs/arquitectura.md` «Imágenes»).
 
 ## 3. Datos que solo sabe el usuario
 
