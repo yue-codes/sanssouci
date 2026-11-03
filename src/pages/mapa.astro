@@ -2,23 +2,33 @@
 /**
  * Página /mapa: el camino completo como el mapa del mundo de un juego.
  * Arriba, el marcador (`HudMapa`); debajo, el mapa que se sube de abajo arriba
- * (`MundoMapa`). Datos: `construirSendero` (src/lib/mapa.ts). Progreso: de ejemplo
- * hasta que la página pase a modo servidor (fase 4).
+ * (`MundoMapa`). Datos: `construirSendero` (src/lib/mapa.ts).
+ *
+ * Es de servidor (`prerender = false`): todo el mapa depende de TU progreso (zona
+ * actual, niebla, puertas de jefe), así que se genera en cada visita con
+ * `progresoDeVisita`; «hoy» también se calcula en cada visita. Sin sesión, como si
+ * empezaras. Las imágenes salen tal cual (ya optimizadas con `pnpm optimizar-imagenes`).
  */
 import Base from "@/layouts/Base.astro";
 import HudMapa from "@/components/mapa/HudMapa.astro";
 import MundoMapa from "@/components/mapa/MundoMapa.astro";
+import AvisoProgreso from "@/components/ui/AvisoProgreso.astro";
 import { cargarContenido } from "@/lib/contenido";
 import { construirSendero } from "@/lib/mapa";
-import { diaDelPlan } from "@/lib/fechas";
-import { PROGRESO_EJEMPLO } from "@/lib/ejemplo";
+import { diaDelPlanHoy } from "@/lib/fechas";
+import { progresoDeVisita } from "@/lib/progreso-usuario";
+import { SITIO } from "@/config/sitio";
+
+export const prerender = false;
 
 const c = await cargarContenido();
-const progreso = PROGRESO_EJEMPLO;
+const { progreso, sesion, fallo } = await progresoDeVisita(Astro.locals);
+// Esta respuesta es de UNA persona: que ningún CDN ni navegador compartido la guarde.
+Astro.response.headers.set("Cache-Control", "private, no-store");
 const paradas = construirSendero(c, progreso);
 const actual = paradas.find((p) => p.estado === "actual") ?? paradas[paradas.length - 1];
 const inicio = c.dias[0].data.fecha;
-const hoy = diaDelPlan(new Date(), inicio);
+const hoy = diaDelPlanHoy(inicio, SITIO.zonaHoraria);
 
 // El próximo jefe sin vencer, en el orden del camino.
 const proximo = paradas
@@ -38,7 +48,9 @@ const cifras = {
   descripcion="El mapa del camino: nueve zonas, de la Pradera del Silencio a la Cumbre de Paganini, con un jefe en cada puerta."
   ancho="completo"
 >
-  <HudMapa actual={actual} ultimaZona={paradas[paradas.length - 1].nivel.data.orden} proximo={proximo} hoy={hoy} cifras={cifras} deEjemplo />
+  <HudMapa actual={actual} ultimaZona={paradas[paradas.length - 1].nivel.data.orden} proximo={proximo} hoy={hoy} cifras={cifras}>
+    <AvisoProgreso slot="aviso" sesion={sesion} fallo={fallo} volver="/mapa" que="el mapa" class="mt-6 max-w-md bg-fondo/70 backdrop-blur-md" />
+  </HudMapa>
 
   <section class="overflow-x-clip py-16 sm:py-24" aria-labelledby="titulo-camino">
     <div class="contenedor">

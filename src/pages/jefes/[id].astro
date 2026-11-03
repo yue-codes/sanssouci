@@ -17,7 +17,6 @@ import ArenaConProgreso from "@/components/jefes/ArenaConProgreso.astro";
 import ListaVersiones from "@/components/canciones/ListaVersiones.astro";
 import { cargarContenido } from "@/lib/contenido";
 import { diaDelJefe, jefesEnOrden } from "@/lib/jefes";
-import { diaDelPlan } from "@/lib/fechas";
 
 export async function getStaticPaths() {
   const jefes = await getCollection("jefes");
@@ -34,7 +33,6 @@ const nivel = c.nivelPorId.get(j.nivel.id)!;
 const cancion = c.cancionPorId.get(j.cancion.id)!;
 const ruta = c.rutaPorId.get(cancion.data.ruta.id)!;
 const dia = diaDelJefe(c, id);
-const hoy = diaDelPlan(new Date(), c.dias[0].data.fecha);
 
 // Versión de referencia: la que indica el jefe o, si no, la primera.
 const referencia = cancion.data.versiones.find((v) => v.youtubeId === j.version) ?? cancion.data.versiones[0];
@@ -51,7 +49,7 @@ const vecino = (x?: (typeof jefes)[number]) =>
     cancion={cancion}
     ruta={ruta}
     dia={dia && { numero: dia.data.numero, fecha: dia.data.fecha }}
-    hoy={hoy}
+    inicio={c.dias[0].data.fecha}
   />
 
   <div class="contenedor py-14 sm:py-20">

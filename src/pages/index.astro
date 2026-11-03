@@ -4,8 +4,10 @@
  * «Nocturno», paleta «Cian» (sacada de la imagen principal): imagen grande, los 90 días como partitura, la sesión, la
  * puerta del próximo jefe, el sendero de zonas y las rutas del repertorio.
  *
- * Progreso: de ejemplo (`PROGRESO_EJEMPLO`), porque la página es pública y estática;
- * el progreso real está en /panel. «Hoy» es la fecha del build.
+ * Es de servidor (`prerender = false`): «hoy» (qué sesión toca) se calcula en cada
+ * visita, y el sendero y el próximo jefe salen de TU progreso (`progresoDeVisita`).
+ * Sin sesión, como si empezaras. Las imágenes salen tal cual (el worker no las
+ * transforma), por eso ya vienen optimizadas (`pnpm optimizar-imagenes`).
  */
 import { Picture, getImage } from "astro:assets";
 import Base from "@/layouts/Base.astro";
@@ -15,24 +17,31 @@ import PartituraNoventaDias from "@/components/calendario/PartituraNoventaDias";
 import AnuncioJefe from "@/components/jefes/AnuncioJefe.astro";
 import SenderoPortada from "@/components/mapa/SenderoPortada.astro";
 import IndiceRutas, { type RutaIndice } from "@/components/canciones/IndiceRutas";
+import AvisoProgreso from "@/components/ui/AvisoProgreso.astro";
 import { cargarContenido, nombreCortoRuta } from "@/lib/contenido";
 import { diasParaPartitura, minutosDelDia, sesionDeReferencia, titularDelDia } from "@/lib/calendario";
-import { diaDelPlan, fechaLarga } from "@/lib/fechas";
+import { diaDelPlanHoy, fechaLarga } from "@/lib/fechas";
 import { sumarMinutos } from "@/lib/formato";
 import { construirSendero } from "@/lib/mapa";
 import { diaDelJefe } from "@/lib/jefes";
-import { PROGRESO_EJEMPLO } from "@/lib/ejemplo";
-import { HORARIO } from "@/config/sitio";
+import { progresoDeVisita } from "@/lib/progreso-usuario";
+import { HORARIO, SITIO } from "@/config/sitio";
 import { IMAGENES, IMAGEN_RUTA } from "@/config/imagenes";
 
+export const prerender = false;
+
 const c = await cargarContenido();
+const { progreso, sesion: conSesion, fallo } = await progresoDeVisita(Astro.locals);
+// Esta respuesta es de UNA persona: que ningún CDN ni navegador compartido la guarde.
+Astro.response.headers.set("Cache-Control", "private, no-store");
+
 const partitura = diasParaPartitura(c);
-const hoy = diaDelPlan(new Date(), partitura[0].fecha);
+const hoy = diaDelPlanHoy(partitura[0].fecha, SITIO.zonaHoraria);
 const { dia: sesion, motivo } = sesionDeReferencia(c.dias, hoy);
 const s = sesion.data;
 const minutos = minutosDelDia(sesion);
 
-const paradas = construirSendero(c, PROGRESO_EJEMPLO);
+const paradas = construirSendero(c, progreso);
 const actual = paradas.find((p) => p.estado === "actual") ?? paradas[paradas.length - 1];
 const proximo = paradas.flatMap((p) => p.jefes.map((j) => ({ ...j, zona: p.nivel.data.orden }))).find((j) => !j.vencido);
 const diaJefe = proximo && diaDelJefe(c, proximo.jefe.id)?.data.numero;
@@ -84,9 +93,7 @@ const totalJefes = c.jefes.length;
         <a href={`/dias/${s.numero}`} class="boton">Empezar la sesión <span aria-hidden="true">→</span></a>
         <a href="/calendario" class="boton-borde">Ver la semana</a>
       </div>
-      <p class="mt-8 font-mono text-[0.625rem] text-tenue uppercase">
-        Progreso de ejemplo · <a href="/entrar" class="text-acento underline-offset-4 hover:underline">entra</a> para llevar el tuyo
-      </p>
+      <AvisoProgreso sesion={conSesion} fallo={fallo} volver="/" que="el camino" class="mt-8 max-w-md" />
     </div>
 
     <div class="relative min-h-[24rem] overflow-hidden rounded-md sm:min-h-[30rem] lg:min-h-[40rem]" data-marco>

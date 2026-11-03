@@ -79,3 +79,18 @@ export function hoyIso(zona: string, ahora: Date = new Date()): string {
   // El formato de Canadá en inglés («en-CA») es justo AAAA-MM-DD.
   return new Intl.DateTimeFormat("en-CA", { timeZone: zona, year: "numeric", month: "2-digit", day: "2-digit" }).format(ahora);
 }
+
+/**
+ * Qué día del plan es hoy, en una zona horaria. En una página de servidor se calcula
+ * en cada visita; en una estática, al compilar (por eso las páginas que enseñan «hoy»
+ * son de servidor o lo calculan en una Server Island).
+ *
+ * @param inicioIso Fecha del día 1, «AAAA-MM-DD».
+ * @param zona Zona horaria IANA (la del plan: `SITIO.zonaHoraria`).
+ * @param ahora Instante de referencia (por defecto, ahora mismo; útil para pruebas).
+ * @returns 1 el día de inicio; 0 o negativo si aún no empieza; más de 90 si ya terminó.
+ * @example diaDelPlanHoy("2026-11-02", "America/Mexico_City", new Date("2026-11-04T03:00:00Z")) // → 2 (9 pm del día 2 en México)
+ */
+export function diaDelPlanHoy(inicioIso: string, zona: string, ahora: Date = new Date()): number {
+  return diaDelPlan(parsearFecha(hoyIso(zona, ahora)), inicioIso);
+}

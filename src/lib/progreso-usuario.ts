@@ -1,7 +1,7 @@
 /**
  * @file Progreso real de quien ha iniciado sesión, leído de Supabase (solo servidor).
  *
- * Devuelve el mismo `Progreso` que usaban las páginas con `PROGRESO_EJEMPLO`,
+ * Devuelve el mismo `Progreso` (`src/lib/progreso.ts`) que esperan todas las funciones del juego,
  * más lo que solo existe con datos reales (perfil y días completados).
  * No filtra por usuario: RLS ya hace que cada consulta devuelva solo tus filas.
  */
@@ -109,4 +109,37 @@ export async function cargarEstadosCanciones(supabase: ClienteSupabase, cancionI
   // La columna es texto: se descarta lo que no sea un estado válido.
   const filas = data.flatMap((f) => (esEstadoCancion(f.estado) ? [[f.cancion_id, f.estado] as const] : []));
   return new Map(filas);
+}
+
+/** El progreso de quien visita una página pública, y en qué situación se cargó. */
+export interface ProgresoDeVisita {
+  /** Su progreso, o `PROGRESO_VACIO` sin sesión o si Supabase falló. */
+  progreso: Progreso;
+  /** ¿Hay sesión (y se pudo leer el progreso)? Sin ella, la página invita a entrar. */
+  sesion: boolean;
+  /** Hay sesión pero Supabase falló: la página se pinta igual y avisa. */
+  fallo: boolean;
+}
+
+/**
+ * Carga el progreso de quien visita una página pública (de servidor o Server Island).
+ *
+ * Nunca lanza: si Supabase falla, devuelve el progreso vacío con `fallo: true`. Una
+ * página pública debe verse aunque la base de datos no responda (y en una Server
+ * Island, un error dejaría el esqueleto en pantalla para siempre).
+ *
+ * @param locals `Astro.locals` (el middleware deja ahí el cliente y el usuario).
+ * @returns El progreso y si hay sesión o hubo un fallo.
+ *
+ * @example
+ * const { progreso, sesion, fallo } = await progresoDeVisita(Astro.locals);
+ */
+export async function progresoDeVisita(locals: App.Locals): Promise<ProgresoDeVisita> {
+  if (!locals.usuario) return { progreso: PROGRESO_VACIO, sesion: false, fallo: false };
+  try {
+    return { progreso: await cargarProgreso(locals.supabase), sesion: true, fallo: false };
+  } catch (e) {
+    console.error("[progresoDeVisita]", e);
+    return { progreso: PROGRESO_VACIO, sesion: false, fallo: true };
+  }
 }

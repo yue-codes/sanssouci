@@ -14,6 +14,7 @@ import FondoPortada from "@/components/ui/FondoPortada.astro";
 import MigasDePan from "@/components/ui/MigasDePan.astro";
 import ChipRuta from "@/components/canciones/ChipRuta";
 import Dificultad from "@/components/canciones/Dificultad";
+import FaltanDias from "./FaltanDias";
 import LlavesPuerta from "./LlavesPuerta";
 import VidaJefe from "./VidaJefe";
 import type { Cancion, Jefe, Nivel, Ruta } from "@/lib/contenido";
@@ -28,14 +29,13 @@ interface Props {
   ruta: Ruta;
   /** Día del plan en que toca enfrentarlo, si cae en los 90 días. */
   dia?: { numero: number; fecha: string };
-  /** Número de día de hoy (cuenta atrás). */
-  hoy: number;
+  /** Fecha del día 1 del plan (la cuenta atrás se calcula en el navegador, con `FaltanDias`). */
+  inicio: string;
 }
-const { jefe, nivel, cancion, ruta, dia, hoy } = Astro.props;
+const { jefe, nivel, cancion, ruta, dia, inicio } = Astro.props;
 const j = jefe.data;
 const imagen = imagenDeJefe(jefe.id);
 const llaves = j.requiere.map((r) => r.id);
-const faltan = dia && hoy <= dia.numero ? dia.numero - Math.max(hoy, 0) : undefined;
 const Icono = j.final ? Crown : Swords;
 ---
 
@@ -93,7 +93,7 @@ const Icono = j.final ? Crown : Swords;
               <a href={`/dias/${dia.numero}`} class="group inline-flex items-center gap-2 hover:text-acento-claro">
                 <CalendarDays size={16} class="text-peligro" aria-hidden="true" />
                 <span class="font-display text-2xl">Día {dia.numero}</span>
-                <span class="text-sm text-tenue">· {fechaLarga(dia.fecha)}{faltan !== undefined && ` · faltan ${faltan} días`}</span>
+                <span class="text-sm text-tenue">· {fechaLarga(dia.fecha)}<FaltanDias client:load dia={dia.numero} inicio={inicio} /></span>
               </a>
             ) : (
               <span class="text-sm text-tenue">Fuera de los 90 días: se enfrenta cuando cumplas los criterios de la zona ({nivel.data.estimacion}).</span>

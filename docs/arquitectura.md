@@ -16,7 +16,8 @@ src/
 │   ├── youtube.ts     URLs de YouTube: urlYoutube, urlEmbedYoutube, miniaturaYoutube (puras)
 │   ├── canciones.ts   resumirCancion → CancionResumen (datos planos para las islas)
 │   ├── catalogo.ts    filtros del catálogo: filtrarCanciones, filtrosDesdeURL… (puras, van al navegador)
-│   ├── fechas.ts      utilidades de fechas: diaDelPlan, hoyIso (hoy en una zona horaria), fechaLarga… (puras)
+│   ├── fechas.ts      utilidades de fechas: diaDelPlan, hoyIso (hoy en una zona horaria),
+│   │                  diaDelPlanHoy, fechaLarga… (puras, van al navegador)
 │   ├── progreso.ts    reglas del progreso: Progreso, estadoLogro, ordenZonaActual, racha… (puras)
 │   ├── mapa.ts        datos del sendero: construirSendero, siguientePaso
 │   ├── logros.ts      logrosConEstado, usosDeLogros (qué abre cada logro), avancePorCategoria
@@ -26,18 +27,21 @@ src/
 │   ├── formato.ts     formato para mostrar: duracion, sumarMinutos (puras)
 │   ├── partitura.ts   los 90 días como partitura: componerPartitura (pura, va al navegador)
 │   ├── arbol.ts       nodos y disposición del árbol: construirNodosArbol, posicionarArbol
-│   ├── ejemplo.ts     PROGRESO_EJEMPLO, inventado (temporal, hasta la fase 4)
 │   ├── supabase.ts    crearClienteServidor, usuarioActual, rutaInterna (solo servidor)
-│   ├── progreso-usuario.ts  cargarProgresoUsuario: Progreso real desde Supabase (solo servidor)
+│   ├── progreso-usuario.ts  progreso real desde Supabase: cargarProgreso, progresoDeVisita,
+│   │                  cargarProgresoUsuario (panel), PROGRESO_VACIO (solo servidor)
+│   ├── estado-cancion.ts  ESTADOS_CANCION (pendiente/aprendiendo/dominada) (pura, va al navegador)
+│   ├── perfil.ts      validarPerfil: el formulario de /perfil (solo servidor)
 │   └── tipos-supabase.ts  tipos de las tablas (GENERADO desde la base de datos)
 ├── components/      Componentes agrupados por DOMINIO (de qué tratan):
 │   ├── layout/        Cabecera, PiePagina, Logo
-│   ├── ui/            genéricos, sin conocer el juego: AnilloProgreso, Aviso, MigasDePan,
+│   ├── ui/            genéricos, sin conocer el juego: AnilloProgreso, AvisoProgreso, MigasDePan,
 │   │                  EncabezadoSeccion, NavegacionVecinos, ReproductorYoutube, FondoPortada, isla Estallido
 │   ├── mapa/          HudMapa (marcador); MundoMapa → FilaCamino + RegionZona + PuertaJefe; MiniMapa;
 │   │                  SenderoPortada (el sendero en horizontal, con imágenes)
 │   ├── niveles/       TemarioZona
-│   ├── jefes/         CabeceraJefe; islas VidaJefe y CombateJefe (comparten estado en combate.ts);
+│   ├── jefes/         CabeceraJefe; Server Island ArenaConProgreso; islas VidaJefe, LlavesPuerta,
+│   │                  FaltanDias y CombateJefe (comparten estado en combate.ts);
 │   │                  AnuncioJefe (el jefe como puerta)
 │   ├── canciones/     TarjetaCancion, ChipRuta, Dificultad (.tsx: sirven en páginas e islas), rareza.ts,
 │   │                  isla IndiceRutas (rutas con imagen que sigue al cursor),
@@ -93,9 +97,19 @@ Una isla se ejecuta **también en el navegador**, así que todo lo que importe (
 - **Redirecciones tras entrar:** siempre pasan por `rutaInterna()`, que solo acepta rutas del propio sitio (evita la «redirección abierta»).
 - **Formularios:** HTML normal con `method="post"`, sin JavaScript (`/entrar`, `/perfil`). La validación va en una función pura de `src/lib/` (p. ej. `validarPerfil` en `lib/perfil.ts`) y, si sale bien, la página redirige con 303 (POST → redirección → GET: recargar no reenvía el formulario). Astro rechaza los POST que vienen de otro dominio (`security.checkOrigin`, activo por defecto), lo que protege contra CSRF. Cerrar sesión es un POST, nunca un enlace.
 - **«Hoy» en el servidor:** Cloudflare funciona en UTC. Usa siempre `hoyIso(SITIO.zonaHoraria)`, nunca `new Date()` a secas, y el día del plan sale de `perfil.fecha_inicio`.
-- **Progreso real:** `cargarProgresoUsuario(Astro.locals.supabase)` devuelve el mismo `Progreso` que `PROGRESO_EJEMPLO`, así que las funciones de `src/lib/` sirven igual. No filtres por `user_id`: lo hace RLS.
+- **Progreso real:** `cargarProgreso(Astro.locals.supabase)` devuelve un `Progreso` (logros y jefes vencidos), el mismo tipo que reciben las funciones de `src/lib/`; `cargarProgresoUsuario` añade perfil, días y racha para el panel. No filtres por `user_id`: lo hace RLS.
 - **Variables de entorno:** se declaran y validan en `env.schema` (`astro.config.mjs`) y se importan de `astro:env/client`. Si falta una, el build falla.
-- **Leer el progreso en una página estática: Server Islands** (decidido el 3 nov 2026). El trozo que depende de quién visita es un `.astro` que se usa con `server:defer` (con un `slot="fallback"` de esqueleto). La página se sigue compilando una vez, con las imágenes optimizadas; el trozo se pide a `/_server-islands/…` en cada visita, pasa por el middleware y tiene `Astro.locals.usuario`. Reglas: props pocas y pequeñas (viajan cifradas en la URL; lo demás se lee dentro), `Cache-Control: private, no-store` en la respuesta, y si Supabase falla se pinta igual con un aviso (si la isla lanza, el esqueleto se queda para siempre). Por qué no `prerender = false` en toda la página: el worker no tiene sharp y las imágenes saldrían sin optimizar. Ejemplos: `components/sesion/MisionConProgreso.astro`, `components/logros/arbol/ArbolConProgreso.astro` `components/jefes/ArenaConProgreso.astro`, `components/canciones/CartaConProgreso.astro` y `components/canciones/catalogo/CatalogoConProgreso.astro`. **Si el progreso se ve en varios sitios de la página** (como en los jefes: barra y llaves en la portada, combate abajo), usa UNA isla de servidor y que su isla de Preact publique el progreso en un `signal` de módulo que leen las islas pequeñas de la parte estática (`jefes/combate.ts` → `estadoJefe`); mientras llega, esas islas enseñan un hueco discreto. Para leer logros y jefes vencidos: `usuario ? await cargarProgreso(supabase) : PROGRESO_VACIO` (`lib/progreso-usuario.ts`). **Ojo en `pnpm dev`:** una Server Island nueva no se registra en caliente; hay que reiniciar el servidor («Could not find server component name…»).
+- **Leer el progreso en una página estática: Server Islands** (decidido el 3 nov 2026). El trozo que depende de quién visita es un `.astro` que se usa con `server:defer` (con un `slot="fallback"` de esqueleto). La página se sigue compilando una vez, con las imágenes optimizadas; el trozo se pide a `/_server-islands/…` en cada visita, pasa por el middleware y tiene `Astro.locals.usuario`. Reglas: props pocas y pequeñas (viajan cifradas en la URL; lo demás se lee dentro), `Cache-Control: private, no-store` en la respuesta, y si Supabase falla se pinta igual con un aviso (si la isla lanza, el esqueleto se queda para siempre). Por qué no `prerender = false` en toda la página: el worker no tiene sharp y las imágenes saldrían sin optimizar. Ejemplos: `components/sesion/MisionConProgreso.astro`, `components/logros/arbol/ArbolConProgreso.astro` `components/jefes/ArenaConProgreso.astro`, `components/canciones/CartaConProgreso.astro` y `components/canciones/catalogo/CatalogoConProgreso.astro`. **Si el progreso se ve en varios sitios de la página** (como en los jefes: barra y llaves en la portada, combate abajo), usa UNA isla de servidor y que su isla de Preact publique el progreso en un `signal` de módulo que leen las islas pequeñas de la parte estática (`jefes/combate.ts` → `estadoJefe`); mientras llega, esas islas enseñan un hueco discreto. Para leer logros y jefes vencidos: `progresoDeVisita(Astro.locals)` (`lib/progreso-usuario.ts`; nunca lanza) y `AvisoProgreso` para el aviso sin sesión o con error. **Ojo en `pnpm dev`:** una Server Island nueva no se registra en caliente; hay que reiniciar el servidor («Could not find server component name…»).
+- **Páginas públicas de servidor** (paso f, 3 nov 2026): `/`, `/mapa`, `/logros`, `/niveles/[id]` y `/calendario` llevan `prerender = false`, porque casi todo lo que pintan depende del progreso (o de «hoy»): una Server Island habría sido la página entera. Patrón (cópialo de `pages/mapa.astro`):
+  ```astro
+  export const prerender = false;
+  const { progreso, sesion, fallo } = await progresoDeVisita(Astro.locals);
+  Astro.response.headers.set("Cache-Control", "private, no-store");
+  …
+  <AvisoProgreso sesion={sesion} fallo={fallo} volver="/mapa" que="el mapa" />
+  ```
+  `progresoDeVisita` nunca lanza: sin sesión devuelve `PROGRESO_VACIO`; si Supabase falla, vacío y `fallo: true` (la página se ve igual, con un aviso de error). `AvisoProgreso` (`ui/`) dice «estás viendo esto sin progreso» con un enlace a `/entrar?siguiente=…`, o el error. Una ruta con parámetro (`/niveles/[id]`) ya no tiene `getStaticPaths`: busca el id y, si no existe, devuelve `404`. Sus imágenes salen sin transformar (ver «Imágenes»), por eso están optimizadas a mano.
+- **«Hoy» en una página estática:** no se puede calcular al compilar (sería la fecha del build). O la página es de servidor (`diaDelPlanHoy(inicio, SITIO.zonaHoraria)`, como `/calendario`), o lo calcula una isla pequeña en el navegador (`jefes/FaltanDias.tsx`, que no pinta nada hasta montarse).
 - **Escribir el progreso: Astro Actions** (`src/actions/index.ts`). Una isla llama `await actions.marcarDia({ … })` y recibe `{ data, error }`. Cada acción valida con Zod, exige sesión (`exigirSesion` → `UNAUTHORIZED`), comprueba las reglas del contenido (un descanso no se marca; un logro solo se consigue con todo lo que `requiere` y no se quita si otro conseguido depende de él) y devuelve datos planos para repintar sin recargar. Errores como `ActionError`, con mensaje para la persona; el detalle técnico va a `console.error` del servidor.
 
 ## Colores, tipografía y tema
@@ -118,7 +132,7 @@ Una isla se ejecuta **también en el navegador**, así que todo lo que importe (
 
 **Las canciones (`/canciones`, `/canciones/[id]`):** el repertorio como un mazo de cartas. La rareza sale de la dificultad (`rarezaDe` en `components/canciones/rareza.ts`: común 1–3, rara 4–6, épica 7–8, legendaria 9–10) y colorea el borde de la carta y las barras de `Dificultad`. `resumirCancion(c, s, obtenidos)` añade `faltan` (requisitos que no tienes; la carta sale bloqueada si es > 0) y `jefe`. El catálogo filtra «¿Qué puedo tocar ya?» (`soloListas`, `?listas=1`). La ficha usa `ListaMisiones` para «Para desbloquearla» y «Lo que entrena», y `AnuncioJefe` si es canción de jefe. **Tu avance** con cada canción (pendiente / aprendiendo / dominada; `lib/estado-cancion.ts`, módulo sin imports para que lo usen las islas) se elige en el panel «Tu carta» de la ficha (`SelectorEstado`, Action `cambiarEstadoCancion`; «pendiente» borra la fila) y sale como sello en la carta y en el filtro «Mi avance» del catálogo (`?estado=`). Lo que depende del progreso es Server Island: `CartaConProgreso` (el panel y las listas; el sello «lista / bloqueada» salió de la portada a ese panel) y `CatalogoConProgreso`. La portada de `/canciones` solo enseña cifras del mazo; «puedes tocar ya» pasó al botón del filtro.
 
-**El panel (`/panel`) y la entrada (`/entrar`):** las dos son páginas de servidor, así que **la página solo carga los datos y un componente de `components/cuenta/` pinta** (`PantallaPanel`, `TarjetaEntrar`). Así se pueden probar con datos de ejemplo sin iniciar sesión: una página temporal (no se sube) que les pase `PROGRESO_EJEMPLO`, compilar y mirar. El panel es la pantalla del personaje: día del plan, racha, rango, `MiniMapa` con tu posición, la sesión de hoy, un marcador (sesiones, tiempo, logros, jefes) y debajo la partitura, tus misiones y el próximo jefe. `/entrar` es «Continúa tu partida»: imagen a sangre y la tarjeta con sus tres caras.
+**El panel (`/panel`) y la entrada (`/entrar`):** las dos son páginas de servidor, así que **la página solo carga los datos y un componente de `components/cuenta/` pinta** (`PantallaPanel`, `TarjetaEntrar`). Así se pueden probar sin iniciar sesión: una página temporal (no se sube) que les pase un `Progreso` hecho a mano (o `PROGRESO_VACIO`), compilar y mirar. El panel es la pantalla del personaje: día del plan, racha, rango, `MiniMapa` con tu posición, la sesión de hoy, un marcador (sesiones, tiempo, logros, jefes) y debajo la partitura, tus misiones y el próximo jefe. `/entrar` es «Continúa tu partida»: imagen a sangre y la tarjeta con sus tres caras.
 
 - **Solo tema oscuro**, a propósito: no hay `light-dark()`, ni selector de tema, ni `data-theme`.
 - **Dos capas** en `src/styles/tokens.css`:
@@ -152,7 +166,7 @@ Una isla se ejecuta **también en el navegador**, así que todo lo que importe (
 - **Portadas con imagen a sangre:** usa `FondoPortada` (`components/ui/`) dentro de una `<section class="relative isolate overflow-hidden …">`. Pinta la imagen con zoom lento, el velo y los dos degradados; se ajusta con `velo`, `lateral`, `base` y `apagada`, y las capas propias de la página (niebla, brillo de jefe) van en su slot. No copies esas capas a mano en una página nueva.
 - **En una isla** no se puede usar `<Picture>`: la página llama a `getImage()` y le pasa la URL ya optimizada (ver `IndiceRutas`).
 - **Optimizadas a mano antes de compilar** (decidido el 3 nov 2026): los originales están en `imagenes-originales/` (fuera de `src`, no se tocan) y `pnpm optimizar-imagenes` (`scripts/optimizar-imagenes.mjs`) escribe en `src/assets/imagenes/` dos WebP por imagen: hasta 1920 px (calidad 82) y `-mini` de 640 px (calidad 78). Total: de 2.8 MB a 1.4 MB. Para añadir una: déjala en `imagenes-originales/`, pasa el script y regístrala en `config/imagenes.ts` con su `mini`. Nunca edites ni pongas imágenes a mano en `src/assets/imagenes/`.
-- **Por qué:** lo que genera el worker (páginas de servidor como `/panel`, `/entrar` y `/perfil`, y las Server Islands) no puede transformar imágenes (no hay `sharp`) y sirve el archivo tal cual. Con los archivos ya ligeros, eso no pesa. En miniaturas usa `img.mini` (`PuertaJefe`, la miniatura de `RegionZona`, las paradas lejanas de `SenderoPortada`): así el worker no sirve 1920 px para pintar 80.
+- **Por qué:** lo que genera el worker (páginas de servidor como `/`, `/mapa`, `/niveles/[id]`, `/panel` o `/perfil`, y las Server Islands) no puede transformar imágenes (no hay `sharp`) y sirve el archivo tal cual. Con los archivos ya ligeros, eso no pesa. En miniaturas usa `img.mini` (`PuertaJefe`, la miniatura de `RegionZona`, las paradas lejanas de `SenderoPortada`): así el worker no sirve 1920 px para pintar 80.
 - Casi todas son imágenes ajenas: sirven mientras la web es personal; antes de compartirla, hay que cambiarlas.
 
 ## Movimiento
@@ -223,6 +237,8 @@ Se escriben como `Record<Tipo, …>`, con el tipo sacado del esquema (por ejempl
 
 Reglas que cumple cada página. **`pnpm auditar`** comprueba sobre el HTML generado las que se pueden ver leyendo el código; lo demás (teclado, lector de pantalla) se prueba a mano.
 
+**Ojo: `pnpm auditar` solo ve las páginas prerenderizadas** (`dist/client/`). Las de servidor (`/`, `/mapa`, `/logros`, `/niveles/[id]`, `/calendario`, `/entrar`) se auditan bajando su HTML con `pnpm dev` en marcha (`curl -s http://localhost:4321/mapa -o carpeta/mapa.html`, una por página) y pasando `node scripts/auditar.mjs carpeta`. `/panel` y `/perfil` redirigen sin sesión (cuerpo vacío): no las bajes así.
+
 - **Un solo `<h1>` por página y sin saltos de nivel** (h1 → h2 → h3). Quien usa lector de pantalla navega por encabezados; si una sección no necesita título visible, lleva un `<h2 class="sr-only">`.
 - **Imágenes:** `alt=""` si son decorativas (la miniatura de un video junto a su título); texto en `alt` si aportan información.
 - **Controles con nombre:** cada `<input>`/`<select>` tiene su `<label>` (visible o `sr-only`), y cada botón o enlace solo con icono, `aria-label`. Los iconos llevan `aria-hidden="true"`.
@@ -237,18 +253,16 @@ Reglas que cumple cada página. **`pnpm auditar`** comprueba sobre el HTML gener
 
 | Ruta | Archivo | Datos |
 |---|---|---|
-| `/` | `pages/index.astro` | `sesionDeReferencia`, `diasParaPartitura` → isla `PartituraNoventaDias`, `construirSendero`, `diaDelJefe`, rutas con `getImage` → isla `IndiceRutas` |
-| `/mapa` | `pages/mapa.astro` | `construirSendero` (zonas, jefes con llaves, `abierto` y `dia`) → `HudMapa` + `MundoMapa` |
-| `/arbol` | `pages/arbol.astro` | `construirNodosArbol` → isla `ArbolTalentos` (usa `ancestrosDe` y `rangoTalentos`) |
-| `/niveles/[id]` | `pages/niveles/[id].astro` | `construirSendero` (todas las zonas, para el `MiniMapa`), `logrosConEstado` (misiones secundarias) |
-| `/jefes/[id]` | `pages/jefes/[id].astro` | `jefesEnOrden`, `diaDelJefe`, `logrosConEstado` → `CabeceraJefe` (isla `VidaJefe`) + isla `CombateJefe` |
-| `/calendario` | `pages/calendario.astro` | `semanasDelPlan`, `hitosDelDia`, `zonaDelDia` (puertas tras cada jefe) → `RecorridoPlan` + `SemanaCalendario` → `CeldaDia` |
-| `/dias/[n]` | `pages/dias/[n].astro` | `hitosDelDia`, `zonaDelDia`, `logrosConEstado` → `RecorridoPlan`, `AnuncioJefe`, isla `MisionDelDia` |
-| `/canciones` | `pages/canciones/index.astro` | `resumirCancion` (con el progreso: `faltan`) → isla `CatalogoCanciones` (filtros en la URL: `?ruta=…&zona=…&max=…&oido=1&partitura=1&listas=1&q=…&orden=…`); leyenda con `RAREZAS` |
-| `/canciones/[id]` | `pages/canciones/[id].astro` | `logrosConEstado` → `ListaMisiones`, `rarezaDe`, `diaDelJefe` → `AnuncioJefe`; vecinos dentro de la misma ruta, por dificultad |
-| `/logros` | `pages/logros.astro` | `logrosConEstado`, `usosDeLogros`, `avancePorCategoria`, `rangoTalentos`; vitrinas por `nivelSugerido`, filtro con `:has()` |
-
+| `/` | `pages/index.astro` (servidor) | `progresoDeVisita` → `AvisoProgreso`; `sesionDeReferencia`, `diasParaPartitura` → isla `PartituraNoventaDias`, `construirSendero`, `diaDelJefe`, rutas con `getImage` → isla `IndiceRutas` |
+| `/mapa` | `pages/mapa.astro` (servidor) | `progresoDeVisita`; `construirSendero` (zonas, jefes con llaves, `abierto` y `dia`) → `HudMapa` (con `AvisoProgreso` en su slot `aviso`) + `MundoMapa` |
+| `/arbol` | `pages/arbol.astro` | Server Island `ArbolConProgreso`: `construirNodosArbol` → isla `ArbolTalentos` (usa `ancestrosDe` y `rangoTalentos`) |
+| `/niveles/[id]` | `pages/niveles/[id].astro` (servidor; 404 si el id no existe) | `progresoDeVisita`, `cargarEstadosCanciones`; `construirSendero` (todas las zonas, para el `MiniMapa`), `logrosConEstado` (misiones secundarias) |
+| `/jefes/[id]` | `pages/jefes/[id].astro` | `jefesEnOrden`, `diaDelJefe` → `CabeceraJefe` (islas `VidaJefe`, `LlavesPuerta`, `FaltanDias`) + Server Island `ArenaConProgreso` (isla `CombateJefe`) |
+| `/calendario` | `pages/calendario.astro` (servidor, solo por «hoy») | `diaDelPlanHoy`, `semanasDelPlan`, `hitosDelDia`, `zonaDelDia` (puertas tras cada jefe) → `RecorridoPlan` + `SemanaCalendario` → `CeldaDia` |
+| `/dias/[n]` | `pages/dias/[n].astro` | `hitosDelDia`, `zonaDelDia` → `RecorridoPlan`, `AnuncioJefe`; Server Island `MisionConProgreso` (isla `MisionDelDia` y «Recompensas posibles» con `logrosConEstado`) |
+| `/canciones` | `pages/canciones/index.astro` | Server Island `CatalogoConProgreso`: `resumirCancion` (con el progreso: `faltan` y `estado`) → isla `CatalogoCanciones` (filtros en la URL: `?ruta=…&zona=…&max=…&oido=1&partitura=1&listas=1&estado=…&q=…&orden=…`); leyenda con `RAREZAS` |
+| `/canciones/[id]` | `pages/canciones/[id].astro` | Server Island `CartaConProgreso` (sello, `SelectorEstado`, `ListaMisiones`), `rarezaDe`, `diaDelJefe` → `AnuncioJefe`; vecinos dentro de la misma ruta, por dificultad |
+| `/logros` | `pages/logros.astro` (servidor) | `progresoDeVisita` → `AvisoProgreso`; `logrosConEstado`, `usosDeLogros`, `avancePorCategoria`, `rangoTalentos`; vitrinas por `nivelSugerido`, filtro con `:has()` |
 | `/panel` | `pages/panel.astro` (servidor) | `cargarProgresoUsuario` (Supabase) → `PantallaPanel` (`racha`, `rangoTalentos`, `construirSendero` → `MiniMapa` + `ListaMisiones`, `sesionDeReferencia` → `ResumenSesion`, isla `PartituraNoventaDias`, `AnuncioJefe`) |
 | `/entrar` | `pages/entrar.astro` (servidor) | `signInWithOtp` (enlace mágico) → `TarjetaEntrar` (formulario, «revisa tu correo» o «ya estás dentro») |
-
-Pendiente: `/perfil` (fase 4).
+| `/perfil` | `pages/perfil.astro` (servidor, privada) | formulario `method="post"` → `validarPerfil` → `perfiles` y redirección 303 a `?guardado=1` → `TarjetaPerfil` |

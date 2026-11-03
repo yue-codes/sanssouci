@@ -122,7 +122,7 @@ flowchart LR
 - **La lógica vive en funciones puras** (`src/lib/`). Ejemplos: `estadoLogro`, `construirSendero`, `racha`, `rarezaDe`. Las páginas solo componen.
 - **Las islas reciben datos planos por props:** nunca importan las colecciones, que solo existen en el servidor.
 - **Las páginas con sesión** (`/panel`, `/entrar`, `/perfil`) solo cargan los datos. Un componente de `src/components/cuenta/` los pinta, y así se puede probar con datos de ejemplo.
-- **Leer el progreso sin perder lo estático: Server Islands.** Las páginas públicas se compilan una vez (con sus imágenes optimizadas) y solo el trozo que depende de quién visita se genera en el servidor en cada visita (`server:defer`).
+- **Leer el progreso: Server Islands o página de servidor, según cuánto dependa de quién visita.** Si es solo un trozo (el árbol, el catálogo, la arena del jefe, la misión del día), la página se compila una vez y ese trozo se genera en cada visita (`server:defer`). Si es casi todo (portada, mapa, logros, zonas, calendario), la página entera se genera en el servidor. Sin sesión, todo se ve con el progreso vacío y un aviso para entrar.
 - **Escribir el progreso: Astro Actions** (`src/actions/`). Una isla llama a una función del servidor que valida con Zod, exige sesión y comprueba las reglas del juego (no se consigue un logro sin sus requisitos ni se vence a un jefe sin sus llaves).
 - **Imágenes optimizadas a mano** (`pnpm optimizar-imagenes`): lo que pinta el servidor no puede transformarlas, así que los archivos ya vienen ligeros (WebP grande y mini).
 
@@ -201,7 +201,7 @@ El proyecto se verifica en tres capas, de lo más barato a lo más completo:
 | 1. Datos y esquemas | ✅ |
 | 2. Documentos generados | ✅ |
 | 3. Web de contenido | ✅ (rediseño «Nocturno» terminado) |
-| 4. Cuentas y progreso | 🟡 se guardan días, logros, victorias, avance por canción y perfil; faltan el mapa, las zonas, los logros y la portada con el progreso real |
+| 4. Cuentas y progreso | 🟡 se guardan días, logros, victorias, avance por canción y perfil, y todas las páginas leen el progreso real; falta el login con Google |
 | 5. Despliegue en Cloudflare Workers | ⏳ |
 
 Los pasos pendientes, con sus decisiones abiertas, están en [`docs/hoja-de-ruta.md`](docs/hoja-de-ruta.md).

@@ -6,16 +6,18 @@
  * el guardián (`AnuncioJefe`, el jefe como puerta), las canciones y las misiones
  * secundarias (logros opcionales de la zona).
  *
- * `getStaticPaths` le dice a Astro qué páginas generar al compilar: una por zona.
- * Si mañana se añade una zona en niveles.json, su página aparece sola.
+ * Es de servidor (`prerender = false`): casi todo depende de TU progreso (si la zona
+ * está superada, es la actual o sigue en la niebla; misiones, guardián, canciones), así
+ * que se genera en cada visita con `progresoDeVisita`. Sin sesión, como si empezaras.
+ * El `id` de la URL se comprueba aquí: si no es una zona, responde 404.
  */
-import { getCollection } from "astro:content";
 import { Check, CloudFog, Footprints, Lock, Music2 } from "lucide-preact";
 import FondoPortada from "@/components/ui/FondoPortada.astro";
 import Base from "@/layouts/Base.astro";
 import MigasDePan from "@/components/ui/MigasDePan.astro";
 import EncabezadoSeccion from "@/components/ui/EncabezadoSeccion.astro";
 import NavegacionVecinos from "@/components/ui/NavegacionVecinos.astro";
+import AvisoProgreso from "@/components/ui/AvisoProgreso.astro";
 import MiniMapa from "@/components/mapa/MiniMapa.astro";
 import BarraMisiones from "@/components/logros/BarraMisiones.astro";
 import ListaMisiones from "@/components/logros/ListaMisiones.astro";
@@ -26,23 +28,32 @@ import { cargarContenido } from "@/lib/contenido";
 import { construirSendero } from "@/lib/mapa";
 import { logrosConEstado } from "@/lib/logros";
 import { resumirCancion } from "@/lib/canciones";
-import { diaDelPlan } from "@/lib/fechas";
-import { PROGRESO_EJEMPLO } from "@/lib/ejemplo";
+import { diaDelPlanHoy } from "@/lib/fechas";
+import type { EstadoCancion } from "@/lib/estado-cancion";
+import { cargarEstadosCanciones, progresoDeVisita } from "@/lib/progreso-usuario";
 import { IMAGEN_ZONA, IMAGENES } from "@/config/imagenes";
+import { SITIO } from "@/config/sitio";
 
-export async function getStaticPaths() {
-  const niveles = await getCollection("niveles");
-  return niveles.map((n) => ({ params: { id: n.id } }));
-}
+export const prerender = false;
 
-const { id } = Astro.params;
+const id = Astro.params.id ?? "";
 const c = await cargarContenido();
-const paradas = construirSendero(c, PROGRESO_EJEMPLO);
+if (!c.nivelPorId.has(id)) return new Response("Esa zona no existe.", { status: 404 });
+
+const { progreso, sesion, fallo } = await progresoDeVisita(Astro.locals);
+// Tu avance con cada canción (para el sello de sus cartas). Si falla, se ven sin sello.
+const estados: ReadonlyMap<string, EstadoCancion> = sesion
+  ? await cargarEstadosCanciones(Astro.locals.supabase).catch(() => new Map())
+  : new Map();
+// Esta respuesta es de UNA persona: que ningún CDN ni navegador compartido la guarde.
+Astro.response.headers.set("Cache-Control", "private, no-store");
+
+const paradas = construirSendero(c, progreso);
 const i = paradas.findIndex((p) => p.nivel.id === id);
 const parada = paradas[i];
 const n = parada.nivel.data;
 const imagen = IMAGEN_ZONA[id] ?? IMAGENES.animeCian;
-const hoy = diaDelPlan(new Date(), c.dias[0].data.fecha);
+const hoy = diaDelPlanHoy(c.dias[0].data.fecha, SITIO.zonaHoraria);
 
 const canciones = c.canciones
   .filter((s) => s.data.nivel.id === id)
@@ -53,7 +64,7 @@ const idsRequisitos = new Set(parada.requisitos.map((r) => r.logro.id));
 const secundarias = logrosConEstado(
   c,
   c.logros.filter((l) => l.data.nivelSugerido.id === id && !idsRequisitos.has(l.id)).map((l) => l.id),
-  PROGRESO_EJEMPLO.obtenidos,
+  progreso.obtenidos,
 );
 
 const ESTADO = {
@@ -88,6 +99,7 @@ const vecino = (p?: (typeof paradas)[number]) =>
           <p class:list={["mt-6 inline-flex items-center gap-1.5 rounded-[2px] px-2 py-1 font-mono text-[0.625rem] font-semibold uppercase", ESTADO.clase]}>
             <ESTADO.Icono size={12} aria-hidden="true" /> {ESTADO.texto}
           </p>
+          <AvisoProgreso sesion={sesion} fallo={fallo} volver={`/niveles/${id}`} que="la zona" class="mt-6 max-w-md bg-fondo/70 backdrop-blur-md" />
         </div>
 
         <dl class="grid grid-cols-2 gap-px overflow-hidden rounded-md border border-borde bg-borde" data-revelar>
@@ -166,7 +178,7 @@ const vecino = (p?: (typeof paradas)[number]) =>
       <section class="mt-20" aria-labelledby="titulo-canciones">
         <EncabezadoSeccion id="titulo-canciones" eyebrow={`${canciones.length} ${canciones.length === 1 ? "obra" : "obras"} · de fácil a difícil`} titulo="Canciones de la zona" descripcion="Lo que puedes tocar con lo que ya tienes al llegar aquí." enlace={{ href: `/canciones?zona=${id}`, texto: "Filtrar en el catálogo" }} />
         <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {canciones.map((s) => <TarjetaCancion cancion={resumirCancion(c, s, PROGRESO_EJEMPLO.obtenidos)} />)}
+          {canciones.map((s) => <TarjetaCancion cancion={resumirCancion(c, s, progreso.obtenidos, estados)} />)}
         </div>
       </section>
     )}

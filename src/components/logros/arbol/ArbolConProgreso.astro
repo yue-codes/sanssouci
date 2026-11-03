@@ -7,42 +7,23 @@
  * primer ejemplo). Sin sesión, el árbol sale vacío y un aviso invita a entrar.
  * No recibe props: todo lo que necesita lo lee aquí.
  */
-import { LogIn } from "lucide-preact";
+import AvisoProgreso from "@/components/ui/AvisoProgreso.astro";
 import ArbolTalentos from "@/components/logros/arbol/ArbolTalentos";
 import { ORDEN_RAMAS } from "@/components/logros/categorias";
 import { construirNodosArbol } from "@/lib/arbol";
 import { cargarContenido } from "@/lib/contenido";
-import { cargarProgreso, PROGRESO_VACIO } from "@/lib/progreso-usuario";
-import type { Progreso } from "@/lib/progreso";
+import { progresoDeVisita } from "@/lib/progreso-usuario";
 
-const { supabase, usuario } = Astro.locals;
 // Esta respuesta es de UNA persona: que ningún CDN ni navegador compartido la guarde.
 Astro.response.headers.set("Cache-Control", "private, no-store");
 
 const c = await cargarContenido();
 const nodos = construirNodosArbol(c, ORDEN_RAMAS);
 
-let progreso: Progreso = PROGRESO_VACIO;
-let fallo = false;
-if (usuario) {
-  // Si Supabase falla, el árbol se ve igual (vacío) con un aviso: si esta isla
-  // lanzara un error, el esqueleto se quedaría en pantalla para siempre.
-  try {
-    progreso = await cargarProgreso(supabase);
-  } catch (e) {
-    console.error("[ArbolConProgreso]", e);
-    fallo = true;
-  }
-}
+// Nunca lanza: si Supabase falla, el árbol se ve vacío con un aviso (si esta isla
+// lanzara un error, el esqueleto se quedaría en pantalla para siempre).
+const { progreso, sesion, fallo } = await progresoDeVisita(Astro.locals);
 ---
 
-{!usuario && (
-  <p class="mb-6 flex flex-wrap items-center gap-x-3 gap-y-2 rounded-md border border-acento/30 bg-acento-suave/30 px-4 py-3 text-sm">
-    <span>Estás viendo el árbol sin progreso. Entra para conseguir talentos y que se guarden.</span>
-    <a href="/entrar?siguiente=%2Farbol" class="inline-flex items-center gap-1.5 font-semibold text-acento hover:text-acento-claro">
-      <LogIn size={14} aria-hidden="true" /> Entrar
-    </a>
-  </p>
-)}
-{fallo && <p role="alert" class="mb-6 text-sm text-peligro">No se pudo leer tu progreso. Recarga la página en un momento.</p>}
-<ArbolTalentos client:load nodos={nodos} ramas={ORDEN_RAMAS} obtenidos={[...progreso.obtenidos]} sesion={!!usuario && !fallo} />
+<AvisoProgreso sesion={sesion} fallo={fallo} volver="/arbol" que="el árbol" class="mb-6" />
+<ArbolTalentos client:load nodos={nodos} ramas={ORDEN_RAMAS} obtenidos={[...progreso.obtenidos]} sesion={sesion} />

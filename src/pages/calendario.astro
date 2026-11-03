@@ -3,8 +3,9 @@
  * Página /calendario: los 90 días como una campaña en dos actos (sin flauta y
  * con flauta). Cada semana es una fila de casillas; tras la semana de cada jefe,
  * una puerta marca el paso a la zona siguiente.
- * «Hoy» es la fecha del build mientras el sitio sea estático (en la fase 4 se
- * calculará en cada visita).
+ * Es de servidor (`prerender = false`) porque todo gira alrededor de «hoy» (la casilla
+ * de hoy, los días que ya pasaron, la próxima misión): se calcula en cada visita, en
+ * la zona horaria del plan. La imagen sale tal cual (ya optimizada a mano).
  */
 import { ArrowRight, DoorOpen, Flag, Moon } from "lucide-preact";
 import FondoPortada from "@/components/ui/FondoPortada.astro";
@@ -14,14 +15,17 @@ import RecorridoPlan from "@/components/calendario/RecorridoPlan.astro";
 import { HITO } from "@/components/calendario/hitos";
 import { cargarContenido } from "@/lib/contenido";
 import { semanasDelPlan, primerDiaConFlauta, minutosDelDia, zonaDelDia, type Hito } from "@/lib/calendario";
-import { diaDelPlan, fechaLarga } from "@/lib/fechas";
+import { diaDelPlanHoy, fechaLarga } from "@/lib/fechas";
 import { IMAGENES } from "@/config/imagenes";
+import { SITIO } from "@/config/sitio";
+
+export const prerender = false;
 
 const c = await cargarContenido();
 const dias = [...c.dias].sort((a, b) => a.data.numero - b.data.numero);
 const semanas = semanasDelPlan(dias);
 const diaFlauta = primerDiaConFlauta(dias);
-const hoy = diaDelPlan(new Date(), dias[0].data.fecha);
+const hoy = diaDelPlanHoy(dias[0].data.fecha, SITIO.zonaHoraria);
 const imagen = IMAGENES.cuartoGhibli;
 
 // La próxima sesión desde hoy (si hoy es descanso, la siguiente).

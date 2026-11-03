@@ -94,11 +94,21 @@ export default function LienzoArbol(props: Props) {
   useEffect(() => {
     const el = caja.current;
     if (!el) return;
+    // El cambio va al siguiente fotograma: escalar cambia la altura (y quizá la barra de
+    // scroll, y con ella el ancho); hacerlo dentro del aviso provoca el error
+    // «ResizeObserver loop completed with undelivered notifications».
+    let fotograma = 0;
     const observador = new ResizeObserver(([e]) => {
-      escala.value = Math.max(ESCALA_MIN, Math.min(ESCALA_MAX, e.contentRect.width / ancho));
+      cancelAnimationFrame(fotograma);
+      fotograma = requestAnimationFrame(() => {
+        escala.value = Math.max(ESCALA_MIN, Math.min(ESCALA_MAX, e.contentRect.width / ancho));
+      });
     });
     observador.observe(el);
-    return () => observador.disconnect();
+    return () => {
+      cancelAnimationFrame(fotograma);
+      observador.disconnect();
+    };
   }, [ancho]);
 
   // Entrada: líneas que se dibujan y talentos que aparecen por filas. Solo con la

@@ -6,10 +6,9 @@
 
 ## 0. Al abrir la próxima sesión
 
-1. `git status`. Lo último **ya tiene commit** (3 nov 2026): pasos a–e de la fase 4 (Actions, Server Islands, `/perfil`) y las imágenes optimizadas a mano.
-   - Verificado: `pnpm astro check` 0 errores, `pnpm build` y `pnpm auditar` sin problemas (239 páginas). Cada paso lo probó el usuario con su sesión.
-   - Si `git status` muestra cambios, pregunta al usuario antes de seguir.
-   - **Siguiente:** el paso f (abajo).
+1. `git status`. Pasos a–e de la fase 4 con commit (`84e410d`, 3 nov 2026). El paso f (todas las páginas con el progreso real) quedó hecho el 3 nov 2026; si `git status` aún lo muestra sin commit, pregunta al usuario.
+   - Verificado: `pnpm astro check` 0 errores, `pnpm build` y `pnpm auditar` sin problemas (226 páginas prerenderizadas, más las 7 de servidor auditadas aparte; ver «Accesibilidad» en `docs/arquitectura.md`).
+   - **Siguiente:** el paso g (Google) y luego la fase 5 (despliegue).
 2. ✅ (3 nov 2026) El usuario aprobó todo el rediseño: `/niveles/[id]`, `/logros`, `/canciones`, `/canciones/[id]`, `/panel` y `/entrar`.
    - **No ejecutes `pnpm dev` tú.**
 
@@ -40,11 +39,12 @@ El login con enlace mágico ya funciona. Las tablas existen con RLS (`supabase/m
 - **Sin sesión:** progreso **vacío** (zona 1 abierta, nada conseguido) y el aviso «entra para llevar tu progreso». `PROGRESO_EJEMPLO` se borra cuando ninguna página lo use.
 - **Fechas por usuario:** por ahora no se desplazan (el único usuario empieza el 2 nov 2026, como `dias.json`). Queda anotado para cuando haya más usuarios.
 - Se empieza por el paso **a** (marcar días), que estrena la primera Server Island en `/dias/[n]` y la primera Action.
+- **Ajuste en el paso f** (3 nov 2026, elegido por el usuario): `/`, `/mapa`, `/logros`, `/niveles/[id]` y `/calendario` pasaron a **páginas de servidor** (`prerender = false`). Casi todo lo que pintan depende del progreso (o de «hoy»), así que una Server Island habría sido casi la página entera. Sus imágenes ya vienen optimizadas a mano, que era el motivo para no hacerlo. Siguen con Server Islands las páginas donde el progreso es solo un trozo: `/arbol`, `/canciones`, `/canciones/[id]`, `/jefes/[id]` y `/dias/[n]`.
 - **Imágenes dentro de islas** (3 nov 2026): en `/mapa`, `/niveles/[id]` y la portada las imágenes dependen del progreso (fondo de tu zona, niebla, jefes), así que van dentro de la isla y el worker las sirve sin transformar. El usuario eligió **optimizar los archivos a mano** (`pnpm optimizar-imagenes`, versiones grande y `-mini`) en vez de Cloudflare Images o URLs precalculadas. Ver `docs/arquitectura.md`, «Imágenes».
 
 Lo que se comparó (para el registro):
 
-Hoy 9 páginas usan `PROGRESO_EJEMPLO` (progreso inventado, `src/lib/ejemplo.ts`): `/`, `/mapa`, `/arbol`, `/logros`, `/canciones`, `/canciones/[id]`, `/jefes/[id]`, `/dias/[n]` y `/niveles/[id]`. Solo `/panel` lee el real.
+Al decidir, 9 páginas usaban `PROGRESO_EJEMPLO` (progreso inventado, `src/lib/ejemplo.ts`): `/`, `/mapa`, `/arbol`, `/logros`, `/canciones`, `/canciones/[id]`, `/jefes/[id]`, `/dias/[n]` y `/niveles/[id]`. Solo `/panel` lee el real.
 
 | Opción | Cómo | A favor | En contra |
 |---|---|---|---|
@@ -66,7 +66,7 @@ Cuida que la página sin sesión siga funcionando (contenido para todos, progres
 | c | **Vencer a un jefe.** Al completar los golpes en `CombateJefe` («¡Victoria!»), formulario con el enlace del video (obligatorio, https: grabar es parte de la victoria) y el tempo logrado (20–300). Solo si la puerta está abierta (todas sus llaves). | `src/actions/` (`registrarVictoria`), `jefes/CombateJefe.tsx`, `pages/jefes/[id].astro` | La puerta del mapa pasa a «derrotado» y la zona siguiente se abre. | ✅ 3 nov 2026, probado por el usuario: Actions `registrarVictoria` / `anularVictoria`, Server Island `jefes/ArenaConProgreso.astro`, islas `VidaJefe` y `LlavesPuerta` leen `estadoJefe`. El mapa seguirá con el ejemplo hasta el paso f. |
 | d | **Estado de cada canción:** pendiente / aprendiendo / dominada. Control en la ficha de la canción; un sello en la carta (`TarjetaCancion`) y, quizá, un filtro en el catálogo. | `src/actions/` (`estadoCancion`), `pages/canciones/[id].astro`, `TarjetaCancion.tsx`, `lib/canciones.ts` (añadir `estado` a `CancionResumen`) | Cambiar el estado → se ve en la ficha y en la carta. | ✅ 3 nov 2026, probado por el usuario: Action `cambiarEstadoCancion`, `lib/estado-cancion.ts`, `SelectorEstado`, Server Islands `CartaConProgreso` y `CatalogoConProgreso`, sello en `TarjetaCancion` y filtro «Mi avance». Con esto `/canciones` y `/canciones/[id]` ya leen el progreso real (adelanta parte del paso f). |
 | e | **`/perfil`** (ya está en `RUTAS_PRIVADAS`): nombre, `fecha_inicio` y `fecha_llegada_flauta`. **Ojo:** `fecha_inicio` tiene por defecto el día en que se creó la cuenta; la del usuario debe ser **2026-11-02**. Formulario HTML con `method="post"`, como `/entrar`. | `pages/perfil.astro` (servidor), componente en `components/cuenta/` | Cambiar la fecha de inicio → «Día N de 90» del panel cambia. | ✅ 3 nov 2026, probado por el usuario: `pages/perfil.astro`, `cuenta/TarjetaPerfil.astro`, `lib/perfil.ts` (`validarPerfil`), enlace «Perfil y fechas» en el panel. |
-| f | **Que las páginas lean el progreso real** (Decisión 2). Si una página pasa a servidor: `prerender = false`, `cargarProgresoUsuario` y fallback sin sesión. Borrar `PROGRESO_EJEMPLO` cuando ninguna página lo use (o dejarlo solo para quien no ha entrado). | las 9 páginas de la lista, `lib/ejemplo.ts` | Sin sesión: todo se ve. Con sesión: tu progreso en todas las páginas. | ⏳ |
+| f | **Que las páginas lean el progreso real** (Decisión 2). Si una página pasa a servidor: `prerender = false`, `cargarProgresoUsuario` y fallback sin sesión. Borrar `PROGRESO_EJEMPLO` cuando ninguna página lo use (o dejarlo solo para quien no ha entrado). | las 9 páginas de la lista, `lib/ejemplo.ts` | Sin sesión: todo se ve. Con sesión: tu progreso en todas las páginas. | ✅ 3 nov 2026: `/`, `/mapa`, `/logros`, `/niveles/[id]` y `/calendario` son de servidor con `progresoDeVisita` (`lib/progreso-usuario.ts`) y `AvisoProgreso` (`ui/`); `/dias/[n]` pasa sus «Recompensas posibles» a la isla `MisionConProgreso`; `/jefes/[id]` calcula «faltan N días» en el navegador (`FaltanDias`). «Hoy» con `diaDelPlanHoy` (`lib/fechas.ts`). Borrados `lib/ejemplo.ts` y `ui/Aviso.astro`. |
 | g | **Login con Google** (paso 7 de `docs/supabase.md`). Lo hace el usuario en Google Cloud y Supabase (credenciales OAuth); luego un botón en `TarjetaEntrar`. | `components/cuenta/TarjetaEntrar.astro`, `docs/supabase.md` | Entrar con Google crea el perfil (trigger). | ⏳ |
 
 **Fechas por usuario (a tener en cuenta en e y f):**

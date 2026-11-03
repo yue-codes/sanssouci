@@ -4,6 +4,8 @@
  * Cabecera del mapa como el marcador de un juego: tu zona a sangre, sus misiones
  * en una barra por segmentos (una por misión) y, al lado, tus cifras: zona,
  * jefes vencidos, logros, el próximo jefe y la siguiente misión.
+ *
+ * Slot `aviso`: lo que la página quiera decir bajo los botones (p. ej. `AvisoProgreso`).
  */
 import FondoPortada from "@/components/ui/FondoPortada.astro";
 import ChipLogro from "@/components/logros/ChipLogro.astro";
@@ -22,10 +24,8 @@ interface Props {
   hoy: number;
   /** Cifras del jugador. */
   cifras: { logros: number; logrosTotal: number; jefes: number; jefesTotal: number };
-  /** El progreso es de ejemplo (portada pública) y no del usuario. */
-  deEjemplo?: boolean;
 }
-const { actual, ultimaZona, proximo, hoy, cifras, deEjemplo = false } = Astro.props;
+const { actual, ultimaZona, proximo, hoy, cifras } = Astro.props;
 const n = actual.nivel.data;
 const imagen = IMAGEN_ZONA[actual.nivel.id] ?? IMAGENES.animeCian;
 const paso = siguientePaso(actual);
@@ -50,11 +50,7 @@ const faltan = proximo?.dia !== undefined && hoy <= proximo.dia ? proximo.dia - 
         <a href="#tu-posicion" class="boton">Ir a tu posición <span aria-hidden="true">↓</span></a>
         <a href={`/niveles/${actual.nivel.id}`} class="boton-borde">Temario de la zona</a>
       </div>
-      {deEjemplo && (
-        <p class="mt-6 font-mono text-[0.625rem] text-tenue uppercase">
-          Progreso de ejemplo · <a href="/entrar" class="text-acento underline-offset-4 hover:underline">entra</a> para llevar el tuyo
-        </p>
-      )}
+      <slot name="aviso" />
     </div>
 
     <!-- El marcador: cifras del jugador -->

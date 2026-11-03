@@ -10,12 +10,17 @@
  * funciona con teclado y lector de pantalla sin código extra.
  *
  * Datos: `logrosConEstado`, `usosDeLogros`, `avancePorCategoria` (src/lib/logros.ts)
- * y `rangoTalentos` (src/lib/arbol.ts). Progreso: de ejemplo hasta la fase 4.
+ * y `rangoTalentos` (src/lib/arbol.ts).
+ *
+ * Es de servidor (`prerender = false`): casi todo depende de TU progreso (rango, avance,
+ * vitrinas), así que se genera entera en cada visita con `progresoDeVisita`. Sin sesión,
+ * se ve vacía con un aviso para entrar. La imagen de fondo sale tal cual (el worker no
+ * la transforma), por eso los archivos ya vienen optimizados (`pnpm optimizar-imagenes`).
  */
 import { ArrowRight, Crown, Sparkles } from "lucide-preact";
 import FondoPortada from "@/components/ui/FondoPortada.astro";
 import Base from "@/layouts/Base.astro";
-import Aviso from "@/components/ui/Aviso.astro";
+import AvisoProgreso from "@/components/ui/AvisoProgreso.astro";
 import EncabezadoSeccion from "@/components/ui/EncabezadoSeccion.astro";
 import AvanceCategorias from "@/components/logros/AvanceCategorias.astro";
 import TarjetaLogro from "@/components/logros/TarjetaLogro.astro";
@@ -24,11 +29,16 @@ import { ORDEN_RAMAS } from "@/components/logros/categorias";
 import { cargarContenido } from "@/lib/contenido";
 import { avancePorCategoria, logrosConEstado, usosDeLogros } from "@/lib/logros";
 import { rangoTalentos } from "@/lib/arbol";
-import { PROGRESO_EJEMPLO } from "@/lib/ejemplo";
+import { progresoDeVisita } from "@/lib/progreso-usuario";
 import { IMAGENES } from "@/config/imagenes";
 
+export const prerender = false;
+
 const c = await cargarContenido();
-const { obtenidos } = PROGRESO_EJEMPLO;
+const { progreso, sesion, fallo } = await progresoDeVisita(Astro.locals);
+const { obtenidos } = progreso;
+// Esta respuesta es de UNA persona: que ningún CDN ni navegador compartido la guarde.
+Astro.response.headers.set("Cache-Control", "private, no-store");
 const imagen = IMAGENES.animeLago;
 
 // Dentro de cada zona, por rama (el mismo orden que el árbol) y luego por nombre.
@@ -92,7 +102,7 @@ const FILTROS = [
             )}
           </dl>
         </div>
-        <Aviso class="mt-8 max-w-md bg-fondo/70 backdrop-blur-md">El progreso es de ejemplo hasta que exista el inicio de sesión.</Aviso>
+        <AvisoProgreso sesion={sesion} fallo={fallo} volver="/logros" que="la sala" class="mt-8 max-w-md bg-fondo/70 backdrop-blur-md" />
       </div>
 
       <section aria-labelledby="titulo-ramas" data-revelar>

@@ -7,6 +7,7 @@
  * cada visita con tu sesión. Sin sesión, todo como si empezaras de cero.
  * No recibe props: todo lo que necesita lo lee aquí.
  */
+import AvisoProgreso from "@/components/ui/AvisoProgreso.astro";
 import CatalogoCanciones from "@/components/canciones/catalogo/CatalogoCanciones";
 import { resumirCancion } from "@/lib/canciones";
 import { cargarContenido, nombreCortoRuta } from "@/lib/contenido";
@@ -38,11 +39,5 @@ const rutas = c.rutas.map((r) => ({ id: r.id, nombre: nombreCortoRuta(r), color:
 const zonas = c.niveles.map((n) => ({ id: n.id, orden: n.data.orden, nombre: n.data.nombre }));
 ---
 
-{!usuario && (
-  <p class="mb-6 text-sm text-tenue">
-    Sin sesión, las cartas se cuentan como si empezaras de cero.
-    <a href="/entrar?siguiente=%2Fcanciones" class="font-semibold text-acento hover:text-acento-claro">Entra</a> para ver las tuyas.
-  </p>
-)}
-{fallo && <p role="alert" class="mb-6 text-sm text-peligro">No se pudo leer tu progreso. Recarga la página en un momento.</p>}
+<AvisoProgreso sesion={!!usuario && !fallo} fallo={fallo} volver="/canciones" que="el catálogo" class="mb-6" />
 <CatalogoCanciones client:load canciones={canciones} rutas={rutas} zonas={zonas} sesion={!!usuario && !fallo} />

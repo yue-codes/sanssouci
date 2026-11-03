@@ -1,0 +1,42 @@
+---
+/**
+ * @component AvisoProgreso
+ * El aviso de una página pública sobre TU progreso (ver `progresoDeVisita`):
+ * - Sin sesión: «estás viendo esto sin progreso» y un enlace a /entrar que vuelve aquí.
+ * - Si Supabase falló: un error (`role="alert"`) para que recargues.
+ * - Con sesión y sin fallo: nada.
+ *
+ * @example
+ * <AvisoProgreso sesion={sesion} fallo={fallo} volver="/mapa" class="mt-8" />
+ */
+import { Info, LogIn, TriangleAlert } from "lucide-preact";
+
+interface Props {
+  /** ¿Hay sesión (y se pudo leer el progreso)? */
+  sesion: boolean;
+  /** Hay sesión pero Supabase falló. */
+  fallo: boolean;
+  /** Ruta a la que volver después de entrar (la de esta página). */
+  volver: string;
+  /** Qué se ve sin progreso, para el texto («el mapa», «la sala»…). Por defecto, «esta página». */
+  que?: string;
+  /** Clases extra (por ejemplo, márgenes). */
+  class?: string;
+}
+const { sesion, fallo, volver, que = "esta página", class: clase = "" } = Astro.props;
+---
+
+{fallo ? (
+  <p role="alert" class:list={["flex items-start gap-2.5 rounded-md border border-peligro/40 bg-peligro/10 px-4 py-3 text-sm", clase]}>
+    <TriangleAlert size={16} class="mt-0.5 shrink-0 text-peligro" aria-hidden="true" />
+    <span>No se pudo leer tu progreso. Recarga la página en un momento.</span>
+  </p>
+) : !sesion && (
+  <p class:list={["flex flex-wrap items-start gap-x-3 gap-y-2 rounded-md border border-dashed border-acento/50 bg-acento-suave/30 px-4 py-3 text-sm", clase]}>
+    <Info size={16} class="mt-0.5 shrink-0 text-acento" aria-hidden="true" />
+    <span class="flex-1">Estás viendo {que} sin progreso, como si empezaras de cero.</span>
+    <a href={`/entrar?siguiente=${encodeURIComponent(volver)}`} class="inline-flex items-center gap-1.5 font-semibold text-acento hover:text-acento-claro">
+      <LogIn size={14} aria-hidden="true" /> Entra para llevar el tuyo
+    </a>
+  </p>
+)}

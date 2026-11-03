@@ -2,8 +2,9 @@
 /**
  * @component MisionConProgreso (Server Island: se usa con `server:defer`)
  *
- * La misión del día con TU progreso. La página `/dias/[n]` es estática (se compila
- * una vez, con las imágenes optimizadas), pero este trozo se genera en el servidor
+ * La misión del día con TU progreso, y debajo sus recompensas posibles (los
+ * talentos que esa sesión te acerca, con su estado para ti). La página `/dias/[n]`
+ * es estática (se compila una vez, con las imágenes optimizadas), pero este trozo se genera en el servidor
  * en cada visita: Astro deja un hueco en el HTML y, al cargar, pide este componente
  * a `/_server-islands/…` con las cookies de quien visita. Por eso aquí sí hay
  * `Astro.locals.usuario` y se puede leer si el día ya está guardado.
@@ -11,10 +12,14 @@
  * Recibe solo el número del día: las props de una Server Island viajan cifradas en
  * la URL, así que conviene que sean pocas; los bloques se leen aquí del contenido.
  */
-import { getEntry } from "astro:content";
+import EncabezadoSeccion from "@/components/ui/EncabezadoSeccion.astro";
+import ChipLogro from "@/components/logros/ChipLogro.astro";
 import MisionDelDia from "@/components/sesion/MisionDelDia";
 import { idDeDia } from "@/lib/calendario";
-import type { RegistroDia } from "@/lib/progreso-usuario";
+import { cargarContenido } from "@/lib/contenido";
+import { logrosConEstado } from "@/lib/logros";
+import type { Progreso } from "@/lib/progreso";
+import { cargarProgreso, PROGRESO_VACIO, type RegistroDia } from "@/lib/progreso-usuario";
 
 interface Props {
   /** Número del día (1 a 90). */
@@ -23,31 +28,46 @@ interface Props {
 
 const { numero } = Astro.props;
 const { supabase, usuario } = Astro.locals;
-const dia = await getEntry("dias", idDeDia(numero));
+const c = await cargarContenido();
+const dia = c.dias.find((x) => x.id === idDeDia(numero));
 if (!dia) throw new Error(`No existe el día ${numero}`);
 
 // Esta respuesta es de UNA persona: que ningún CDN ni navegador compartido la guarde.
 Astro.response.headers.set("Cache-Control", "private, no-store");
 
 let registro: RegistroDia | null = null;
+let progreso: Progreso = PROGRESO_VACIO;
 let fallo = false;
 if (usuario) {
-  // RLS ya filtra por usuario: solo puede salir TU fila de este día.
-  const { data, error } = await supabase
-    .from("dias_completados")
-    .select("completado_en, minutos, notas")
-    .eq("dia_id", dia.id)
-    .maybeSingle();
   // Si Supabase falla, la misión se puede jugar igual; solo se avisa de que no se pudo leer.
-  if (error) {
-    console.error("[MisionConProgreso] Supabase:", error.message);
+  // (Si esta isla lanzara un error, el esqueleto se quedaría en pantalla para siempre.)
+  try {
+    const [r, p] = await Promise.all([
+      // RLS ya filtra por usuario: solo puede salir TU fila de este día.
+      supabase.from("dias_completados").select("completado_en, minutos, notas").eq("dia_id", dia.id).maybeSingle(),
+      cargarProgreso(supabase),
+    ]);
+    if (r.error) throw new Error(r.error.message);
+    registro = r.data;
+    progreso = p;
+  } catch (e) {
+    console.error("[MisionConProgreso]", e);
     fallo = true;
   }
-  registro = data;
 }
+const logros = logrosConEstado(c, dia.data.logrosPosibles.map((l) => l.id), progreso.obtenidos);
 ---
 
 {fallo && (
   <p role="alert" class="mb-4 text-sm text-peligro">No se pudo leer tu progreso de este día. Recarga la página en un momento.</p>
 )}
-<MisionDelDia client:load numero={numero} bloques={dia.data.bloques} sesion={!!usuario} registro={registro} />
+<MisionDelDia client:load numero={numero} bloques={dia.data.bloques} sesion={!!usuario && !fallo} registro={registro} />
+
+{logros.length > 0 && (
+  <section class="mt-20" aria-labelledby="logros-del-dia">
+    <EncabezadoSeccion id="logros-del-dia" eyebrow="Si lo consigues hoy" titulo="Recompensas posibles" descripcion="Talentos del árbol que esta sesión te acerca." enlace={{ href: "/arbol", texto: "Ver en el árbol" }} />
+    <div class="flex flex-wrap gap-2">
+      {logros.map((r) => <ChipLogro logro={r.logro} estado={r.estado} />)}
+    </div>
+  </section>
+)}

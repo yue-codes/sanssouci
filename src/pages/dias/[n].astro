@@ -4,9 +4,9 @@
  * Arriba, la portada con la imagen de su zona (o de su jefe), el objetivo y el
  * recorrido de los 90 días (`RecorridoPlan`). Debajo, el combate si hay jefe
  * (`AnuncioJefe`), la sesión como misión con cronómetro y las recompensas posibles.
- * La misión es una Server Island (`MisionConProgreso`, `server:defer`): la página
- * sigue siendo estática y solo ese trozo se genera en cada visita, con tu sesión,
- * para saber si el día ya está guardado. Los días de descanso son un campamento.
+ * La misión y sus recompensas son una Server Island (`MisionConProgreso`,
+ * `server:defer`): la página sigue siendo estática y solo ese trozo se genera en
+ * cada visita, con tu sesión (si el día ya está guardado, qué talentos tienes). Los días de descanso son un campamento.
  * `getStaticPaths` genera las 90 páginas (/dias/1 … /dias/90).
  */
 import { getCollection } from "astro:content";
@@ -17,15 +17,12 @@ import MigasDePan from "@/components/ui/MigasDePan.astro";
 import EncabezadoSeccion from "@/components/ui/EncabezadoSeccion.astro";
 import NavegacionVecinos from "@/components/ui/NavegacionVecinos.astro";
 import MisionConProgreso from "@/components/sesion/MisionConProgreso.astro";
-import ChipLogro from "@/components/logros/ChipLogro.astro";
 import AnuncioJefe from "@/components/jefes/AnuncioJefe.astro";
 import RecorridoPlan from "@/components/calendario/RecorridoPlan.astro";
 import { HITO } from "@/components/calendario/hitos";
 import { cargarContenido } from "@/lib/contenido";
 import { hitosDelDia, minutosDelDia, primerDiaConFlauta, zonaDelDia } from "@/lib/calendario";
-import { logrosConEstado } from "@/lib/logros";
 import { fechaLarga, fechaCorta } from "@/lib/fechas";
-import { PROGRESO_EJEMPLO } from "@/lib/ejemplo";
 import { IMAGEN_ZONA, IMAGENES, imagenDeJefe } from "@/config/imagenes";
 
 export async function getStaticPaths() {
@@ -42,7 +39,6 @@ const d = dia.data;
 const descanso = d.tipo === "descanso";
 const conFlauta = primerDiaConFlauta(dias);
 const hitos = hitosDelDia(dia, conFlauta);
-const logros = logrosConEstado(c, d.logrosPosibles.map((l) => l.id), PROGRESO_EJEMPLO.obtenidos);
 const jefe = d.jefe && c.jefePorId.get(d.jefe.id)!;
 const zona = zonaDelDia(c, numero);
 const siguientePractica = dias.slice(i + 1).find((x) => x.data.tipo !== "descanso");
@@ -146,16 +142,6 @@ const vecino = (x?: (typeof dias)[number]) =>
             </div>
           </div>
         </MisionConProgreso>
-      </section>
-    )}
-
-    <!-- ============ RECOMPENSAS ============ -->
-    {logros.length > 0 && (
-      <section class="mt-20" aria-labelledby="logros-del-dia">
-        <EncabezadoSeccion id="logros-del-dia" eyebrow="Si lo consigues hoy" titulo="Recompensas posibles" descripcion="Talentos del árbol que esta sesión te acerca." enlace={{ href: "/arbol", texto: "Ver en el árbol" }} />
-        <div class="flex flex-wrap gap-2">
-          {logros.map((r) => <ChipLogro logro={r.logro} estado={r.estado} />)}
-        </div>
       </section>
     )}
 
