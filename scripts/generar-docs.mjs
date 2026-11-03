@@ -35,7 +35,7 @@ const escribir = (nombre, contenido) => {
   const ordenados = [...niveles].sort((a, b) => a.orden - b.orden);
   let md = `# Mapa de Sanssouci\n\n`;
   md += `Rutas (ramas que se cruzan): ${rutas.map((r) => `**${r.nombre}**`).join(" · ")}.\n\n`;
-  md += `> Del día 91 en adelante, las estimaciones de tiempo son **orientativas**. Se pasa de zona al cumplir los criterios, no por fecha. Lo que diga tu maestro manda.\n\n`;
+  md += `> Del día 91 en adelante, las estimaciones de tiempo son **orientativas**. Se pasa de zona al cumplir los criterios, no por fecha. Tú te evalúas con grabación, afinador y metrónomo (ver plan.md).\n\n`;
   md += tabla(["#", "Zona", "Jefe", "Estimación"], ordenados.map((n) => {
     const jefesNivel = jefes.filter((j) => j.nivel === n.id).map((j) => `${j.nombre} (${C.get(j.cancion).titulo})`);
     return [n.orden, `${n.nombre} — ${n.zona}`, jefesNivel.join(" + "), n.estimacion];
@@ -98,7 +98,7 @@ const escribir = (nombre, contenido) => {
 {
   let md = `# Plan de 90 días\n\n`;
   md += `Del **${fechaLarga(dias[0].fecha)}** al **${fechaLarga(dias.at(-1).fecha)}**. Práctica de lunes, martes, miércoles, viernes y sábado (20:00–22:00, de 45 a 60 min). Descanso jueves y domingo.\n\n`;
-  md += `> Si la flauta llega más tarde de lo previsto (≈ 30 nov), recorre la fase con flauta **por número de sesión**, no por fecha. Lo que diga tu maestro manda sobre este plan.\n`;
+  md += `> Si la flauta llega más tarde de lo previsto (≈ ${fechaLarga(dias.find((d) => d.fase === "con-flauta").fecha)}), recorre la fase con flauta **por número de sesión**, no por fecha.\n`;
   const semanas = [...new Set(dias.map((d) => d.semana))];
   for (const s of semanas) {
     const ds = dias.filter((d) => d.semana === s);

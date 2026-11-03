@@ -5,6 +5,7 @@ import { KeyRound } from "lucide-preact";
 import { ancestrosDe, rangoTalentos, type NodoTalento } from "@/lib/arbol";
 import type { CategoriaLogro } from "@/lib/contenido";
 import { estadoLogro, type EstadoLogro } from "@/lib/progreso";
+import { cancionesQueSeAbren, type CancionRequisitos } from "@/lib/desbloqueos";
 import { ESTILO_ESTADO, ICONO_ESTADO } from "./estilos";
 import AvisoDesbloqueo, { type Celebracion } from "./AvisoDesbloqueo";
 import DetalleTalento from "./DetalleTalento";
@@ -21,6 +22,8 @@ interface Props {
   obtenidos: string[];
   /** ¿Hay sesión? Sin ella, la ficha invita a entrar en vez de conseguir. */
   sesion: boolean;
+  /** Canciones con sus requisitos: para avisar de las que abre cada talento. */
+  canciones: CancionRequisitos[];
 }
 
 /**
@@ -38,11 +41,11 @@ interface Props {
  * Arriba, el marcador del jugador (rango, talentos, disponibles) y el filtro
  * «¿Qué puedo hacer ya?». Al pasar el ratón por un talento se ve su ruta. Al conseguir un
  * talento hay celebración: estallido en el nodo, marca «nuevo» en lo que se abre
- * y un aviso. Conseguir y quitar se guardan con las Actions `conseguirLogro` y
+ * y un aviso (con las canciones que ya puedes tocar). Conseguir y quitar se guardan con las Actions `conseguirLogro` y
  * `quitarLogro` (el servidor vuelve a comprobar los requisitos). La pinta la Server
  * Island `ArbolConProgreso`, que trae tus logros.
  */
-export default function ArbolTalentos({ nodos, ramas, obtenidos: iniciales, sesion }: Props) {
+export default function ArbolTalentos({ nodos, ramas, obtenidos: iniciales, sesion, canciones }: Props) {
   const porId = new Map(nodos.map((n) => [n.id, n]));
 
   const obtenidos = useSignal<Set<string>>(new Set(iniciales));
@@ -113,7 +116,13 @@ export default function ArbolTalentos({ nodos, ramas, obtenidos: iniciales, sesi
     }
     const abiertos = nodos.filter((n) => antes.get(n.id) === "bloqueado" && estados.value.get(n.id) === "disponible");
     recienAbiertos.value = new Set(abiertos.map((n) => n.id));
-    celebracion.value = { id, nombre: porId.get(id)!.nombre, abre: abiertos.map((n) => n.nombre), clave: Date.now() };
+    celebracion.value = {
+      id,
+      nombre: porId.get(id)!.nombre,
+      abre: abiertos.map((n) => n.nombre),
+      canciones: cancionesQueSeAbren(canciones, id, s).map((x) => x.titulo),
+      clave: Date.now(),
+    };
   }
 
   const nodosDeRama = (rama: CategoriaLogro) => nodos.filter((n) => n.categoria === rama).sort((a, b) => a.fila - b.fila);

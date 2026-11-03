@@ -42,6 +42,7 @@ export const NAVEGACION: readonly EnlaceNavegacion[] = [
   { href: "/arbol", texto: "Árbol" },
   { href: "/calendario", texto: "Calendario" },
   { href: "/canciones", texto: "Canciones" },
+  { href: "/repertorio", texto: "Repertorio" },
   { href: "/logros", texto: "Logros" },
 ];
 

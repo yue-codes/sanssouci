@@ -19,6 +19,8 @@ Astro.response.headers.set("Cache-Control", "private, no-store");
 
 const c = await cargarContenido();
 const nodos = construirNodosArbol(c, ORDEN_RAMAS);
+// Solo lo necesario para avisar de qué canciones abre cada talento (la isla lo escribe en el HTML).
+const canciones = c.canciones.map((x) => ({ id: x.id, titulo: x.data.titulo, requiere: x.data.requiere.map((r) => r.id) }));
 
 // Nunca lanza: si Supabase falla, el árbol se ve vacío con un aviso (si esta isla
 // lanzara un error, el esqueleto se quedaría en pantalla para siempre).
@@ -26,4 +28,4 @@ const { progreso, sesion, fallo } = await progresoDeVisita(Astro.locals);
 ---
 
 <AvisoProgreso sesion={sesion} fallo={fallo} volver="/arbol" que="el árbol" class="mb-6" />
-<ArbolTalentos client:load nodos={nodos} ramas={ORDEN_RAMAS} obtenidos={[...progreso.obtenidos]} sesion={sesion} />
+<ArbolTalentos client:load nodos={nodos} ramas={ORDEN_RAMAS} obtenidos={[...progreso.obtenidos]} sesion={sesion} canciones={canciones} />

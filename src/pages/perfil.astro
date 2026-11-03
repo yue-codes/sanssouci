@@ -10,12 +10,13 @@
  * no vuelve a mandar el formulario, y la confirmación sale una sola vez.
  * Aquí está la lógica; lo que se ve está en `TarjetaPerfil`.
  */
-import { Flame, KeyRound, LogOut, Sprout } from "lucide-preact";
+import { Flame, KeyRound, LogOut, Sprout, TriangleAlert } from "lucide-preact";
 import Base from "@/layouts/Base.astro";
 import PantallaCuenta from "@/components/cuenta/PantallaCuenta.astro";
 import TarjetaPerfil from "@/components/cuenta/TarjetaPerfil.astro";
 import { IMAGENES } from "@/config/imagenes";
 import { SITIO } from "@/config/sitio";
+import { cargarContenido } from "@/lib/contenido";
 import { diaDelPlan, fechaLarga, hoyIso, parsearFecha } from "@/lib/fechas";
 import { validarPerfil, valoresDeFormulario, type ValoresPerfil } from "@/lib/perfil";
 
@@ -55,6 +56,10 @@ const guardado = Astro.request.method === "GET" && Astro.url.searchParams.get("g
 // Lo que significan tus fechas guardadas, para verlo antes de cambiarlas.
 const fechaHoy = hoyIso(SITIO.zonaHoraria);
 const hoy = diaDelPlan(parsearFecha(fechaHoy), perfil.fecha_inicio);
+// Las páginas públicas (portada, mapa, calendario) cuentan los días desde el día 1 de
+// dias.json; el panel, desde tu perfil. Si no coinciden, cada sitio diría un día distinto.
+const inicioPlan = [...(await cargarContenido()).dias].sort((a, b) => a.data.numero - b.data.numero)[0].data.fecha;
+const desfase = perfil.fecha_inicio !== inicioPlan;
 const enPlan = hoy < 1 ? `Empiezas el ${fechaLarga(perfil.fecha_inicio)}` : hoy > 90 ? "Ya completaste los 90 días" : `Hoy es el día ${hoy} de 90`;
 ---
 
@@ -82,6 +87,12 @@ const enPlan = hoy < 1 ? `Empiezas el ${fechaLarga(perfil.fecha_inicio)}` : hoy 
         </span>
       </li>
     </ul>
+    {desfase && (
+      <p role="alert" class="mt-6 flex max-w-[46ch] items-start gap-2.5 rounded-md border border-resalte/40 bg-resalte/10 px-4 py-3 text-sm">
+        <TriangleAlert size={16} class="mt-0.5 shrink-0 text-resalte" aria-hidden="true" />
+        <span>Tu día 1 no coincide con el del plan (<strong class="font-medium">{fechaLarga(inicioPlan)}</strong>): el panel y el calendario contarían días distintos. Pon esa fecha en «Día 1 del plan».</span>
+      </p>
+    )}
 
     <!-- ============ Tarjeta: el formulario ============ -->
     <div slot="tarjeta">

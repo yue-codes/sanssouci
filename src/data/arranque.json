@@ -1,0 +1,46 @@
+[
+  {
+    "id": "arranque-1",
+    "numero": 1,
+    "fecha": "2026-11-04",
+    "diaSemana": "miércoles",
+    "titulo": "Preparar el campamento",
+    "objetivo": "Tener listas tus herramientas y empezar el hábito sin presión.",
+    "bloques": [
+      { "tipo": "revision", "minutos": 10, "actividad": "Instala y prueba un metrónomo y un afinador (una app sirve para los dos). Abre musictheory.net y localiza el ejercicio de identificar notas; no lo hagas todavía: el test es el día 1.", "recurso": "musictheory.net (Exercises → Note Identification)" },
+      { "tipo": "respiracion", "minutos": 10, "actividad": "Respiración diafragmática tumbado: una mano en el abdomen, inhala en 4 tiempos y exhala en 8. Ocho repeticiones, sin forzar." },
+      { "tipo": "escucha", "minutos": 15, "actividad": "Escucha activa: Syrinx de Debussy (Emmanuel Pahud o James Galway). Apunta tres cosas que notes del sonido: ¿brillante u oscuro? ¿dónde respira? ¿cómo empiezan las notas?" },
+      { "tipo": "lectura", "minutos": 10, "actividad": "Escribe en papel el pentagrama en clave de sol: líneas (Mi, Sol, Si, Re, Fa) y espacios (Fa, La, Do, Mi). Dilo en voz alta tres veces." }
+    ],
+    "notas": "Semana 0: no cuenta para los 90 días. Crea hoy tu cuaderno de práctica (fecha, minutos y qué hiciste); lo usarás todo el plan."
+  },
+  {
+    "id": "arranque-2",
+    "numero": 2,
+    "fecha": "2026-11-06",
+    "diaSemana": "viernes",
+    "titulo": "Pulso y aire",
+    "objetivo": "Sentir el pulso con el metrónomo y medir tu aire de partida.",
+    "bloques": [
+      { "tipo": "respiracion", "minutos": 10, "actividad": "Soplido sostenido con «sss», contando los segundos con el metrónomo a 60. Tres intentos con descanso. Apunta tu mejor marca: es tu punto de partida, no una meta." },
+      { "tipo": "ritmo", "minutos": 15, "actividad": "Metrónomo a 60: palmea negras (4 compases), luego corcheas diciendo «ta ti-ti» (4 compases). Si te pierdes, para y vuelve a entrar en el primer tiempo." },
+      { "tipo": "guitarra", "minutos": 15, "actividad": "Afina la guitarra con el afinador. Toca las cuerdas al aire Mi, La y Re y cántalas: busca que tu voz y la nota coincidan." },
+      { "tipo": "escucha", "minutos": 5, "actividad": "Escucha Wellerman y Always With Me: son tus jefes de los días 62 y 90." }
+    ]
+  },
+  {
+    "id": "arranque-3",
+    "numero": 3,
+    "fecha": "2026-11-07",
+    "diaSemana": "sábado",
+    "titulo": "Conocer el mapa",
+    "objetivo": "Saber cómo funciona el juego y dejar todo listo para el lunes.",
+    "bloques": [
+      { "tipo": "revision", "minutos": 15, "actividad": "Recorre la web: el mapa, el árbol de talentos y la primera semana del calendario. En /perfil, comprueba que tu día 1 es el lunes 9 de noviembre." },
+      { "tipo": "oido", "minutos": 15, "actividad": "En la guitarra, busca de oído las primeras notas de una melodía que sepas cantar (por ejemplo, «Las mañanitas» o «Cumpleaños feliz»). Prueba nota a nota: canta, busca en el mástil, compara." },
+      { "tipo": "respiracion", "minutos": 10, "actividad": "Repite la respiración del miércoles y el «sss» del viernes. Apunta si te cuesta menos." },
+      { "tipo": "teoria", "minutos": 5, "actividad": "Lee qué son un tono y un semitono.", "recurso": "musictheory.net (Lessons → Steps and Accidentals)" }
+    ],
+    "notas": "El lunes empieza el día 1 con el test inicial de lectura. Descansa el domingo."
+  }
+]

@@ -2,7 +2,7 @@
   {
     "id": "dia-01",
     "numero": 1,
-    "fecha": "2026-11-02",
+    "fecha": "2026-11-09",
     "diaSemana": "lunes",
     "semana": 1,
     "fase": "sin-flauta",
@@ -36,12 +36,12 @@
     "logrosPosibles": [
       "logro-test-lectura"
     ],
-    "notas": "Día de Muertos: sesión ligera de 45 min. Empieza tu cuaderno de práctica hoy (fecha, minutos y qué hiciste)."
+    "notas": "Primera sesión: tómala con calma, sin prisa por terminar. Empieza tu cuaderno de práctica hoy (fecha, minutos y qué hiciste)."
   },
   {
     "id": "dia-02",
     "numero": 2,
-    "fecha": "2026-11-03",
+    "fecha": "2026-11-10",
     "diaSemana": "martes",
     "semana": 1,
     "fase": "sin-flauta",
@@ -79,7 +79,7 @@
   {
     "id": "dia-03",
     "numero": 3,
-    "fecha": "2026-11-04",
+    "fecha": "2026-11-11",
     "diaSemana": "miércoles",
     "semana": 1,
     "fase": "sin-flauta",
@@ -120,7 +120,7 @@
   {
     "id": "dia-04",
     "numero": 4,
-    "fecha": "2026-11-05",
+    "fecha": "2026-11-12",
     "diaSemana": "jueves",
     "semana": 1,
     "fase": "sin-flauta",
@@ -133,7 +133,7 @@
   {
     "id": "dia-05",
     "numero": 5,
-    "fecha": "2026-11-06",
+    "fecha": "2026-11-13",
     "diaSemana": "viernes",
     "semana": 1,
     "fase": "sin-flauta",
@@ -172,7 +172,7 @@
   {
     "id": "dia-06",
     "numero": 6,
-    "fecha": "2026-11-07",
+    "fecha": "2026-11-14",
     "diaSemana": "sábado",
     "semana": 1,
     "fase": "sin-flauta",
@@ -210,7 +210,7 @@
   {
     "id": "dia-07",
     "numero": 7,
-    "fecha": "2026-11-08",
+    "fecha": "2026-11-15",
     "diaSemana": "domingo",
     "semana": 1,
     "fase": "sin-flauta",
@@ -223,7 +223,7 @@
   {
     "id": "dia-08",
     "numero": 8,
-    "fecha": "2026-11-09",
+    "fecha": "2026-11-16",
     "diaSemana": "lunes",
     "semana": 2,
     "fase": "sin-flauta",
@@ -259,7 +259,7 @@
   {
     "id": "dia-09",
     "numero": 9,
-    "fecha": "2026-11-10",
+    "fecha": "2026-11-17",
     "diaSemana": "martes",
     "semana": 2,
     "fase": "sin-flauta",
@@ -303,7 +303,7 @@
   {
     "id": "dia-10",
     "numero": 10,
-    "fecha": "2026-11-11",
+    "fecha": "2026-11-18",
     "diaSemana": "miércoles",
     "semana": 2,
     "fase": "sin-flauta",
@@ -344,7 +344,7 @@
   {
     "id": "dia-11",
     "numero": 11,
-    "fecha": "2026-11-12",
+    "fecha": "2026-11-19",
     "diaSemana": "jueves",
     "semana": 2,
     "fase": "sin-flauta",
@@ -357,7 +357,7 @@
   {
     "id": "dia-12",
     "numero": 12,
-    "fecha": "2026-11-13",
+    "fecha": "2026-11-20",
     "diaSemana": "viernes",
     "semana": 2,
     "fase": "sin-flauta",
@@ -394,7 +394,7 @@
   {
     "id": "dia-13",
     "numero": 13,
-    "fecha": "2026-11-14",
+    "fecha": "2026-11-21",
     "diaSemana": "sábado",
     "semana": 2,
     "fase": "sin-flauta",
@@ -434,7 +434,7 @@
   {
     "id": "dia-14",
     "numero": 14,
-    "fecha": "2026-11-15",
+    "fecha": "2026-11-22",
     "diaSemana": "domingo",
     "semana": 2,
     "fase": "sin-flauta",
@@ -447,7 +447,7 @@
   {
     "id": "dia-15",
     "numero": 15,
-    "fecha": "2026-11-16",
+    "fecha": "2026-11-23",
     "diaSemana": "lunes",
     "semana": 3,
     "fase": "sin-flauta",
@@ -490,7 +490,7 @@
   {
     "id": "dia-16",
     "numero": 16,
-    "fecha": "2026-11-17",
+    "fecha": "2026-11-24",
     "diaSemana": "martes",
     "semana": 3,
     "fase": "sin-flauta",
@@ -528,7 +528,7 @@
   {
     "id": "dia-17",
     "numero": 17,
-    "fecha": "2026-11-18",
+    "fecha": "2026-11-25",
     "diaSemana": "miércoles",
     "semana": 3,
     "fase": "sin-flauta",
@@ -566,7 +566,7 @@
   {
     "id": "dia-18",
     "numero": 18,
-    "fecha": "2026-11-19",
+    "fecha": "2026-11-26",
     "diaSemana": "jueves",
     "semana": 3,
     "fase": "sin-flauta",
@@ -579,7 +579,7 @@
   {
     "id": "dia-19",
     "numero": 19,
-    "fecha": "2026-11-20",
+    "fecha": "2026-11-27",
     "diaSemana": "viernes",
     "semana": 3,
     "fase": "sin-flauta",
@@ -616,7 +616,7 @@
   {
     "id": "dia-20",
     "numero": 20,
-    "fecha": "2026-11-21",
+    "fecha": "2026-11-28",
     "diaSemana": "sábado",
     "semana": 3,
     "fase": "sin-flauta",
@@ -646,7 +646,7 @@
   {
     "id": "dia-21",
     "numero": 21,
-    "fecha": "2026-11-22",
+    "fecha": "2026-11-29",
     "diaSemana": "domingo",
     "semana": 3,
     "fase": "sin-flauta",
@@ -659,7 +659,7 @@
   {
     "id": "dia-22",
     "numero": 22,
-    "fecha": "2026-11-23",
+    "fecha": "2026-11-30",
     "diaSemana": "lunes",
     "semana": 4,
     "fase": "sin-flauta",
@@ -698,7 +698,7 @@
   {
     "id": "dia-23",
     "numero": 23,
-    "fecha": "2026-11-24",
+    "fecha": "2026-12-01",
     "diaSemana": "martes",
     "semana": 4,
     "fase": "sin-flauta",
@@ -730,7 +730,7 @@
   {
     "id": "dia-24",
     "numero": 24,
-    "fecha": "2026-11-25",
+    "fecha": "2026-12-02",
     "diaSemana": "miércoles",
     "semana": 4,
     "fase": "sin-flauta",
@@ -763,7 +763,7 @@
   {
     "id": "dia-25",
     "numero": 25,
-    "fecha": "2026-11-26",
+    "fecha": "2026-12-03",
     "diaSemana": "jueves",
     "semana": 4,
     "fase": "sin-flauta",
@@ -776,7 +776,7 @@
   {
     "id": "dia-26",
     "numero": 26,
-    "fecha": "2026-11-27",
+    "fecha": "2026-12-04",
     "diaSemana": "viernes",
     "semana": 4,
     "fase": "sin-flauta",
@@ -803,7 +803,7 @@
       {
         "tipo": "repaso",
         "minutos": 5,
-        "actividad": "Prepara la llegada de la flauta y del maestro: lee la lista de revisión y las preguntas para la primera clase (docs/plan.md, Guía de la flauta)."
+        "actividad": "Prepara la llegada de la flauta: lee la lista de revisión (docs/plan.md, Guía de la flauta) y busca un técnico de instrumentos de viento (o pregunta en la tienda) que pueda revisarla dentro del plazo de devolución."
       }
     ],
     "logrosPosibles": []
@@ -811,7 +811,7 @@
   {
     "id": "dia-27",
     "numero": 27,
-    "fecha": "2026-11-28",
+    "fecha": "2026-12-05",
     "diaSemana": "sábado",
     "semana": 4,
     "fase": "sin-flauta",
@@ -851,7 +851,7 @@
   {
     "id": "dia-28",
     "numero": 28,
-    "fecha": "2026-11-29",
+    "fecha": "2026-12-06",
     "diaSemana": "domingo",
     "semana": 4,
     "fase": "sin-flauta",
@@ -864,7 +864,7 @@
   {
     "id": "dia-29",
     "numero": 29,
-    "fecha": "2026-11-30",
+    "fecha": "2026-12-07",
     "diaSemana": "lunes",
     "semana": 5,
     "fase": "con-flauta",
@@ -892,12 +892,12 @@
     "logrosPosibles": [
       "logro-primer-sonido"
     ],
-    "notas": "Fecha estimada. Si la flauta no ha llegado, repite una sesión de lectura y oído, y empieza esta el día que llegue. Esta semana se abre la ventana de la primera clase: lleva la flauta para que el maestro la revise. Sopla en bloques de 3 a 5 min con descansos. Si te mareas, para y respira normal; si te duelen los labios, termina la parte de soplar."
+    "notas": "Fecha estimada. Si la flauta no ha llegado, repite una sesión de lectura y oído, y empieza esta el día que llegue (anota la fecha real en tu perfil). Esta semana, lleva la flauta a revisar con un técnico o la tienda, dentro del plazo de devolución. Sopla en bloques de 3 a 5 min con descansos. Si te mareas, para y respira normal; si te duelen los labios, termina la parte de soplar."
   },
   {
     "id": "dia-30",
     "numero": 30,
-    "fecha": "2026-12-01",
+    "fecha": "2026-12-08",
     "diaSemana": "martes",
     "semana": 5,
     "fase": "con-flauta",
@@ -914,7 +914,7 @@
       {
         "tipo": "tecnica",
         "minutos": 15,
-        "actividad": "Armado completo y postura: posición de manos y apoyo de la flauta."
+        "actividad": "Armado completo y postura: posición de manos y apoyo de la flauta. Grábate 1 min de frente y de lado; el viernes lo revisarás con la lista de postura."
       },
       {
         "tipo": "sonido",
@@ -934,7 +934,7 @@
   {
     "id": "dia-31",
     "numero": 31,
-    "fecha": "2026-12-02",
+    "fecha": "2026-12-09",
     "diaSemana": "miércoles",
     "semana": 5,
     "fase": "con-flauta",
@@ -970,7 +970,7 @@
   {
     "id": "dia-32",
     "numero": 32,
-    "fecha": "2026-12-03",
+    "fecha": "2026-12-10",
     "diaSemana": "jueves",
     "semana": 5,
     "fase": "con-flauta",
@@ -983,31 +983,47 @@
   {
     "id": "dia-33",
     "numero": 33,
-    "fecha": "2026-12-04",
+    "fecha": "2026-12-11",
     "diaSemana": "viernes",
     "semana": 5,
     "fase": "con-flauta",
     "tipo": "practica",
     "sesion": 24,
-    "titulo": "Ventana de la primera clase",
-    "objetivo": "Primera clase con maestro y revisión de la flauta, o la sesión normal si aún no hay clase.",
+    "titulo": "Revisión de la flauta y de tu postura",
+    "objetivo": "Autoevaluar tu embocadura y tu postura con video, y revisar la flauta.",
     "bloques": [
       {
-        "tipo": "clase",
-        "minutos": 45,
-        "actividad": "Si hoy tienes clase, esa es la sesión: lleva la flauta para que la revise (sellado, ajuste y afinación), haz las preguntas de docs/plan.md y toma notas de todo lo que te corrija. Si no hay clase: Notas largas Si-La-Sol; Inventa y lee melodías con Si-La-Sol con metrónomo a 60; Respiraciones: inhala en los silencios, nunca a mitad de la nota; Toca de oído en la flauta frases simples con esas 3 notas."
+        "tipo": "revision",
+        "minutos": 15,
+        "actividad": "Autoevaluación con video: grábate de frente y de lado tocando Si-La-Sol 1 min. Revísalo con la lista de postura y embocadura de docs/plan.md (hombros, muñecas, cabeza, labios, apertura) y anota 2 cosas a corregir. Si ya llevaste la flauta al técnico, apunta lo que te dijo."
+      },
+      {
+        "tipo": "sonido",
+        "minutos": 15,
+        "actividad": "Notas largas Si-La-Sol corrigiendo lo que viste en el video."
+      },
+      {
+        "tipo": "estudios",
+        "minutos": 10,
+        "actividad": "Inventa y lee melodías con Si-La-Sol con metrónomo a 60. Inhala en los silencios, nunca a mitad de la nota."
+      },
+      {
+        "tipo": "oido",
+        "minutos": 5,
+        "actividad": "Toca de oído en la flauta frases simples con esas 3 notas."
       }
     ],
     "logrosPosibles": [
-      "logro-primera-clase",
-      "logro-flauta-revisada"
+      "logro-postura",
+      "logro-flauta-revisada",
+      "logro-primera-clase"
     ],
-    "notas": "Si el maestro te da otras indicaciones, lo que él diga manda sobre el plan. Si la clase cae otro día de esta semana o la siguiente, cambia esa sesión por la clase. Sopla en bloques de 3 a 5 min con descansos."
+    "notas": "Si puedes, toma esta semana o la siguiente una clase suelta de chequeo (presencial o en línea): es opcional, pero corrige a tiempo los vicios de embocadura y postura, los más difíciles de quitar después. Sopla en bloques de 3 a 5 min con descansos. Si te mareas, para y respira normal; si te duelen los labios, termina la parte de soplar."
   },
   {
     "id": "dia-34",
     "numero": 34,
-    "fecha": "2026-12-05",
+    "fecha": "2026-12-12",
     "diaSemana": "sábado",
     "semana": 5,
     "fase": "con-flauta",
@@ -1045,7 +1061,7 @@
   {
     "id": "dia-35",
     "numero": 35,
-    "fecha": "2026-12-06",
+    "fecha": "2026-12-13",
     "diaSemana": "domingo",
     "semana": 5,
     "fase": "con-flauta",
@@ -1058,7 +1074,7 @@
   {
     "id": "dia-36",
     "numero": 36,
-    "fecha": "2026-12-07",
+    "fecha": "2026-12-14",
     "diaSemana": "lunes",
     "semana": 6,
     "fase": "con-flauta",
@@ -1089,12 +1105,12 @@
       }
     ],
     "logrosPosibles": [],
-    "notas": "Si ya tuviste la primera clase, aplica hoy lo que te dijo el maestro. Sopla en bloques de 3 a 5 min con descansos. Si te mareas, para y respira normal; si te duelen los labios, termina la parte de soplar."
+    "notas": "Aplica hoy las 2 correcciones que anotaste en tu autoevaluación del viernes. Sopla en bloques de 3 a 5 min con descansos. Si te mareas, para y respira normal; si te duelen los labios, termina la parte de soplar."
   },
   {
     "id": "dia-37",
     "numero": 37,
-    "fecha": "2026-12-08",
+    "fecha": "2026-12-15",
     "diaSemana": "martes",
     "semana": 6,
     "fase": "con-flauta",
@@ -1130,7 +1146,7 @@
   {
     "id": "dia-38",
     "numero": 38,
-    "fecha": "2026-12-09",
+    "fecha": "2026-12-16",
     "diaSemana": "miércoles",
     "semana": 6,
     "fase": "con-flauta",
@@ -1166,7 +1182,7 @@
   {
     "id": "dia-39",
     "numero": 39,
-    "fecha": "2026-12-10",
+    "fecha": "2026-12-17",
     "diaSemana": "jueves",
     "semana": 6,
     "fase": "con-flauta",
@@ -1179,7 +1195,7 @@
   {
     "id": "dia-40",
     "numero": 40,
-    "fecha": "2026-12-11",
+    "fecha": "2026-12-18",
     "diaSemana": "viernes",
     "semana": 6,
     "fase": "con-flauta",
@@ -1210,7 +1226,7 @@
   {
     "id": "dia-41",
     "numero": 41,
-    "fecha": "2026-12-12",
+    "fecha": "2026-12-19",
     "diaSemana": "sábado",
     "semana": 6,
     "fase": "con-flauta",
@@ -1222,7 +1238,7 @@
       {
         "tipo": "calentamiento",
         "minutos": 10,
-        "actividad": "Notas largas."
+        "actividad": "Notas largas con el afinador a la vista: observa hacia dónde se va cada nota, sin forzar para corregirla."
       },
       {
         "tipo": "sonido",
@@ -1236,14 +1252,15 @@
       }
     ],
     "logrosPosibles": [
-      "logro-registro-grave"
+      "logro-registro-grave",
+      "logro-afinacion-basica"
     ],
     "notas": "Sopla en bloques de 3 a 5 min con descansos. Si te mareas, para y respira normal; si te duelen los labios, termina la parte de soplar."
   },
   {
     "id": "dia-42",
     "numero": 42,
-    "fecha": "2026-12-13",
+    "fecha": "2026-12-20",
     "diaSemana": "domingo",
     "semana": 6,
     "fase": "con-flauta",
@@ -1256,7 +1273,7 @@
   {
     "id": "dia-43",
     "numero": 43,
-    "fecha": "2026-12-14",
+    "fecha": "2026-12-21",
     "diaSemana": "lunes",
     "semana": 7,
     "fase": "con-flauta",
@@ -1277,8 +1294,13 @@
       },
       {
         "tipo": "repertorio",
-        "minutos": 20,
+        "minutos": 15,
         "actividad": "Wellerman: estribillo."
+      },
+      {
+        "tipo": "oido",
+        "minutos": 5,
+        "actividad": "De oído en la flauta: busca, sin partitura, la frase inicial de una melodía que sepas cantar (por ejemplo, «Las mañanitas»)."
       },
       {
         "tipo": "repaso",
@@ -1292,7 +1314,7 @@
   {
     "id": "dia-44",
     "numero": 44,
-    "fecha": "2026-12-15",
+    "fecha": "2026-12-22",
     "diaSemana": "martes",
     "semana": 7,
     "fase": "con-flauta",
@@ -1304,7 +1326,7 @@
       {
         "tipo": "calentamiento",
         "minutos": 10,
-        "actividad": "Notas largas."
+        "actividad": "Notas largas con el afinador a la vista: observa hacia dónde se va cada nota, sin forzar para corregirla."
       },
       {
         "tipo": "repertorio",
@@ -1324,7 +1346,7 @@
   {
     "id": "dia-45",
     "numero": 45,
-    "fecha": "2026-12-16",
+    "fecha": "2026-12-23",
     "diaSemana": "miércoles",
     "semana": 7,
     "fase": "con-flauta",
@@ -1336,7 +1358,7 @@
       {
         "tipo": "calentamiento",
         "minutos": 10,
-        "actividad": "Notas largas."
+        "actividad": "Notas largas con el afinador a la vista: observa hacia dónde se va cada nota, sin forzar para corregirla."
       },
       {
         "tipo": "tecnica",
@@ -1354,7 +1376,7 @@
   {
     "id": "dia-46",
     "numero": 46,
-    "fecha": "2026-12-17",
+    "fecha": "2026-12-24",
     "diaSemana": "jueves",
     "semana": 7,
     "fase": "con-flauta",
@@ -1367,12 +1389,38 @@
   {
     "id": "dia-47",
     "numero": 47,
-    "fecha": "2026-12-18",
+    "fecha": "2026-12-25",
     "diaSemana": "viernes",
     "semana": 7,
     "fase": "con-flauta",
-    "tipo": "practica",
+    "tipo": "festivo-opcional",
     "sesion": 34,
+    "titulo": "Navidad (opcional)",
+    "objetivo": "Sesión corta y sin presión.",
+    "bloques": [
+      {
+        "tipo": "calentamiento",
+        "minutos": 10,
+        "actividad": "Notas largas suaves."
+      },
+      {
+        "tipo": "repertorio",
+        "minutos": 15,
+        "actividad": "Toca lo que te apetezca: Wellerman o un villancico de oído."
+      }
+    ],
+    "logrosPosibles": [],
+    "notas": "Festivo: sesión opcional de 20–30 min."
+  },
+  {
+    "id": "dia-48",
+    "numero": 48,
+    "fecha": "2026-12-26",
+    "diaSemana": "sábado",
+    "semana": 7,
+    "fase": "con-flauta",
+    "tipo": "practica",
+    "sesion": 35,
     "titulo": "Subir el tempo",
     "objetivo": "Wellerman a 66.",
     "bloques": [
@@ -1395,21 +1443,34 @@
     "logrosPosibles": []
   },
   {
-    "id": "dia-48",
-    "numero": 48,
-    "fecha": "2026-12-19",
-    "diaSemana": "sábado",
+    "id": "dia-49",
+    "numero": 49,
+    "fecha": "2026-12-27",
+    "diaSemana": "domingo",
     "semana": 7,
     "fase": "con-flauta",
+    "tipo": "descanso",
+    "titulo": "Descanso",
+    "objetivo": "Descansar también es entrenar: los labios y la memoria se consolidan.",
+    "bloques": [],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-50",
+    "numero": 50,
+    "fecha": "2026-12-28",
+    "diaSemana": "lunes",
+    "semana": 8,
+    "fase": "con-flauta",
     "tipo": "practica",
-    "sesion": 35,
+    "sesion": 36,
     "titulo": "Escucharte",
     "objetivo": "Grabar y escuchar con oído crítico.",
     "bloques": [
       {
         "tipo": "calentamiento",
         "minutos": 10,
-        "actividad": "Notas largas."
+        "actividad": "Notas largas con el afinador a la vista: observa hacia dónde se va cada nota, sin forzar para corregirla."
       },
       {
         "tipo": "grabacion",
@@ -1425,34 +1486,21 @@
     "logrosPosibles": []
   },
   {
-    "id": "dia-49",
-    "numero": 49,
-    "fecha": "2026-12-20",
-    "diaSemana": "domingo",
-    "semana": 7,
-    "fase": "con-flauta",
-    "tipo": "descanso",
-    "titulo": "Descanso",
-    "objetivo": "Descansar también es entrenar: los labios y la memoria se consolidan.",
-    "bloques": [],
-    "logrosPosibles": []
-  },
-  {
-    "id": "dia-50",
-    "numero": 50,
-    "fecha": "2026-12-21",
-    "diaSemana": "lunes",
+    "id": "dia-51",
+    "numero": 51,
+    "fecha": "2026-12-29",
+    "diaSemana": "martes",
     "semana": 8,
     "fase": "con-flauta",
     "tipo": "practica",
-    "sesion": 36,
+    "sesion": 37,
     "titulo": "Saltos de octava",
     "objetivo": "Pasar al registro medio.",
     "bloques": [
       {
         "tipo": "calentamiento",
         "minutos": 10,
-        "actividad": "Notas largas."
+        "actividad": "Notas largas con el afinador a la vista: observa hacia dónde se va cada nota, sin forzar para corregirla."
       },
       {
         "tipo": "sonido",
@@ -1468,14 +1516,14 @@
     "logrosPosibles": []
   },
   {
-    "id": "dia-51",
-    "numero": 51,
-    "fecha": "2026-12-22",
-    "diaSemana": "martes",
+    "id": "dia-52",
+    "numero": 52,
+    "fecha": "2026-12-30",
+    "diaSemana": "miércoles",
     "semana": 8,
     "fase": "con-flauta",
     "tipo": "practica",
-    "sesion": 37,
+    "sesion": 38,
     "titulo": "Mi, Fa# y Sol medios",
     "objetivo": "Notas de la segunda octava.",
     "bloques": [
@@ -1503,14 +1551,53 @@
     "logrosPosibles": []
   },
   {
-    "id": "dia-52",
-    "numero": 52,
-    "fecha": "2026-12-23",
-    "diaSemana": "miércoles",
+    "id": "dia-53",
+    "numero": 53,
+    "fecha": "2026-12-31",
+    "diaSemana": "jueves",
+    "semana": 8,
+    "fase": "con-flauta",
+    "tipo": "descanso",
+    "titulo": "Descanso",
+    "objetivo": "Descansar también es entrenar: los labios y la memoria se consolidan.",
+    "bloques": [],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-54",
+    "numero": 54,
+    "fecha": "2027-01-01",
+    "diaSemana": "viernes",
+    "semana": 8,
+    "fase": "con-flauta",
+    "tipo": "festivo-opcional",
+    "sesion": 39,
+    "titulo": "Año Nuevo (opcional)",
+    "objetivo": "Sesión corta y suave.",
+    "bloques": [
+      {
+        "tipo": "calentamiento",
+        "minutos": 10,
+        "actividad": "Notas largas con el afinador a la vista: observa hacia dónde se va cada nota, sin forzar para corregirla."
+      },
+      {
+        "tipo": "repertorio",
+        "minutos": 15,
+        "actividad": "Wellerman tranquila, solo para disfrutar."
+      }
+    ],
+    "logrosPosibles": [],
+    "notas": "Festivo: sesión opcional de 20–30 min."
+  },
+  {
+    "id": "dia-55",
+    "numero": 55,
+    "fecha": "2027-01-02",
+    "diaSemana": "sábado",
     "semana": 8,
     "fase": "con-flauta",
     "tipo": "practica",
-    "sesion": 38,
+    "sesion": 40,
     "titulo": "Escala de Sol mayor",
     "objetivo": "La primera escala completa.",
     "bloques": [
@@ -1533,10 +1620,10 @@
     "logrosPosibles": []
   },
   {
-    "id": "dia-53",
-    "numero": 53,
-    "fecha": "2026-12-24",
-    "diaSemana": "jueves",
+    "id": "dia-56",
+    "numero": 56,
+    "fecha": "2027-01-03",
+    "diaSemana": "domingo",
     "semana": 8,
     "fase": "con-flauta",
     "tipo": "descanso",
@@ -1546,47 +1633,21 @@
     "logrosPosibles": []
   },
   {
-    "id": "dia-54",
-    "numero": 54,
-    "fecha": "2026-12-25",
-    "diaSemana": "viernes",
-    "semana": 8,
-    "fase": "con-flauta",
-    "tipo": "festivo-opcional",
-    "sesion": 39,
-    "titulo": "Navidad (opcional)",
-    "objetivo": "Sesión corta y sin presión.",
-    "bloques": [
-      {
-        "tipo": "calentamiento",
-        "minutos": 10,
-        "actividad": "Notas largas suaves."
-      },
-      {
-        "tipo": "repertorio",
-        "minutos": 15,
-        "actividad": "Toca lo que te apetezca: Wellerman o un villancico de oído."
-      }
-    ],
-    "logrosPosibles": [],
-    "notas": "Festivo: sesión opcional de 20–30 min."
-  },
-  {
-    "id": "dia-55",
-    "numero": 55,
-    "fecha": "2026-12-26",
-    "diaSemana": "sábado",
-    "semana": 8,
+    "id": "dia-57",
+    "numero": 57,
+    "fecha": "2027-01-04",
+    "diaSemana": "lunes",
+    "semana": 9,
     "fase": "con-flauta",
     "tipo": "practica",
-    "sesion": 40,
+    "sesion": 41,
     "titulo": "Ensayo general de Wellerman",
     "objetivo": "Prepararte para el jefe 1.",
     "bloques": [
       {
         "tipo": "calentamiento",
         "minutos": 10,
-        "actividad": "Notas largas."
+        "actividad": "Notas largas con el afinador a la vista: observa hacia dónde se va cada nota, sin forzar para corregirla."
       },
       {
         "tipo": "repertorio",
@@ -1602,34 +1663,21 @@
     "logrosPosibles": []
   },
   {
-    "id": "dia-56",
-    "numero": 56,
-    "fecha": "2026-12-27",
-    "diaSemana": "domingo",
-    "semana": 8,
-    "fase": "con-flauta",
-    "tipo": "descanso",
-    "titulo": "Descanso",
-    "objetivo": "Descansar también es entrenar: los labios y la memoria se consolidan.",
-    "bloques": [],
-    "logrosPosibles": []
-  },
-  {
-    "id": "dia-57",
-    "numero": 57,
-    "fecha": "2026-12-28",
-    "diaSemana": "lunes",
+    "id": "dia-58",
+    "numero": 58,
+    "fecha": "2027-01-05",
+    "diaSemana": "martes",
     "semana": 9,
     "fase": "con-flauta",
     "tipo": "practica",
-    "sesion": 41,
+    "sesion": 42,
     "titulo": "Pulir respiraciones",
     "objetivo": "Wellerman sin quedarte sin aire.",
     "bloques": [
       {
         "tipo": "calentamiento",
         "minutos": 10,
-        "actividad": "Notas largas."
+        "actividad": "Notas largas con el afinador a la vista: observa hacia dónde se va cada nota, sin forzar para corregirla."
       },
       {
         "tipo": "repertorio",
@@ -1645,21 +1693,21 @@
     "logrosPosibles": []
   },
   {
-    "id": "dia-58",
-    "numero": 58,
-    "fecha": "2026-12-29",
-    "diaSemana": "martes",
+    "id": "dia-59",
+    "numero": 59,
+    "fecha": "2027-01-06",
+    "diaSemana": "miércoles",
     "semana": 9,
     "fase": "con-flauta",
     "tipo": "practica",
-    "sesion": 42,
+    "sesion": 43,
     "titulo": "Tomas de prueba",
     "objetivo": "Simular el día del jefe.",
     "bloques": [
       {
         "tipo": "calentamiento",
         "minutos": 10,
-        "actividad": "Notas largas."
+        "actividad": "Notas largas con el afinador a la vista: observa hacia dónde se va cada nota, sin forzar para corregirla."
       },
       {
         "tipo": "grabacion",
@@ -1667,29 +1715,42 @@
         "actividad": "Graba 3 tomas de Wellerman y elige la mejor."
       },
       {
-        "tipo": "lectura",
+        "tipo": "oido",
         "minutos": 10,
-        "actividad": "La Llorona: lee la partitura."
+        "actividad": "De oído en la flauta: saca el estribillo de una canción que sepas cantar. Después, lee la partitura de La Llorona."
       }
     ],
     "logrosPosibles": []
   },
   {
-    "id": "dia-59",
-    "numero": 59,
-    "fecha": "2026-12-30",
-    "diaSemana": "miércoles",
+    "id": "dia-60",
+    "numero": 60,
+    "fecha": "2027-01-07",
+    "diaSemana": "jueves",
+    "semana": 9,
+    "fase": "con-flauta",
+    "tipo": "descanso",
+    "titulo": "Descanso",
+    "objetivo": "Descansar también es entrenar: los labios y la memoria se consolidan.",
+    "bloques": [],
+    "logrosPosibles": []
+  },
+  {
+    "id": "dia-61",
+    "numero": 61,
+    "fecha": "2027-01-08",
+    "diaSemana": "viernes",
     "semana": 9,
     "fase": "con-flauta",
     "tipo": "practica",
-    "sesion": 43,
+    "sesion": 44,
     "titulo": "Último ajuste",
     "objetivo": "Arreglar los puntos débiles.",
     "bloques": [
       {
         "tipo": "calentamiento",
         "minutos": 10,
-        "actividad": "Notas largas."
+        "actividad": "Notas largas con el afinador a la vista: observa hacia dónde se va cada nota, sin forzar para corregirla."
       },
       {
         "tipo": "repertorio",
@@ -1705,48 +1766,9 @@
     "logrosPosibles": []
   },
   {
-    "id": "dia-60",
-    "numero": 60,
-    "fecha": "2026-12-31",
-    "diaSemana": "jueves",
-    "semana": 9,
-    "fase": "con-flauta",
-    "tipo": "descanso",
-    "titulo": "Descanso",
-    "objetivo": "Descansar también es entrenar: los labios y la memoria se consolidan.",
-    "bloques": [],
-    "logrosPosibles": []
-  },
-  {
-    "id": "dia-61",
-    "numero": 61,
-    "fecha": "2027-01-01",
-    "diaSemana": "viernes",
-    "semana": 9,
-    "fase": "con-flauta",
-    "tipo": "festivo-opcional",
-    "sesion": 44,
-    "titulo": "Año Nuevo (opcional)",
-    "objetivo": "Sesión corta y suave.",
-    "bloques": [
-      {
-        "tipo": "calentamiento",
-        "minutos": 10,
-        "actividad": "Notas largas."
-      },
-      {
-        "tipo": "repertorio",
-        "minutos": 15,
-        "actividad": "Wellerman tranquila, solo para disfrutar."
-      }
-    ],
-    "logrosPosibles": [],
-    "notas": "Festivo: sesión opcional de 20–30 min."
-  },
-  {
     "id": "dia-62",
     "numero": 62,
-    "fecha": "2027-01-02",
+    "fecha": "2027-01-09",
     "diaSemana": "sábado",
     "semana": 9,
     "fase": "con-flauta",
@@ -1778,7 +1800,7 @@
   {
     "id": "dia-63",
     "numero": 63,
-    "fecha": "2027-01-03",
+    "fecha": "2027-01-10",
     "diaSemana": "domingo",
     "semana": 9,
     "fase": "con-flauta",
@@ -1791,7 +1813,7 @@
   {
     "id": "dia-64",
     "numero": 64,
-    "fecha": "2027-01-04",
+    "fecha": "2027-01-11",
     "diaSemana": "lunes",
     "semana": 10,
     "fase": "con-flauta",
@@ -1822,12 +1844,13 @@
         "actividad": "Cuaderno (sin soplar): anota los minutos, qué salió bien y qué repetir mañana."
       }
     ],
-    "logrosPosibles": []
+    "logrosPosibles": [],
+    "notas": "Desde esta semana, una vez por semana toca Wellerman completa: lo que no se repasa, se olvida (es el logro «Repertorio vivo»)."
   },
   {
     "id": "dia-65",
     "numero": 65,
-    "fecha": "2027-01-05",
+    "fecha": "2027-01-12",
     "diaSemana": "martes",
     "semana": 10,
     "fase": "con-flauta",
@@ -1839,7 +1862,7 @@
       {
         "tipo": "calentamiento",
         "minutos": 10,
-        "actividad": "Notas largas."
+        "actividad": "Notas largas con el afinador a la vista: observa hacia dónde se va cada nota, sin forzar para corregirla."
       },
       {
         "tipo": "escalas",
@@ -1859,7 +1882,7 @@
   {
     "id": "dia-66",
     "numero": 66,
-    "fecha": "2027-01-06",
+    "fecha": "2027-01-13",
     "diaSemana": "miércoles",
     "semana": 10,
     "fase": "con-flauta",
@@ -1871,7 +1894,7 @@
       {
         "tipo": "calentamiento",
         "minutos": 10,
-        "actividad": "Notas largas."
+        "actividad": "Notas largas con el afinador a la vista: observa hacia dónde se va cada nota, sin forzar para corregirla."
       },
       {
         "tipo": "tecnica",
@@ -1891,7 +1914,7 @@
   {
     "id": "dia-67",
     "numero": 67,
-    "fecha": "2027-01-07",
+    "fecha": "2027-01-14",
     "diaSemana": "jueves",
     "semana": 10,
     "fase": "con-flauta",
@@ -1904,7 +1927,7 @@
   {
     "id": "dia-68",
     "numero": 68,
-    "fecha": "2027-01-08",
+    "fecha": "2027-01-15",
     "diaSemana": "viernes",
     "semana": 10,
     "fase": "con-flauta",
@@ -1916,7 +1939,7 @@
       {
         "tipo": "calentamiento",
         "minutos": 10,
-        "actividad": "Notas largas."
+        "actividad": "Notas largas con el afinador a la vista: observa hacia dónde se va cada nota, sin forzar para corregirla."
       },
       {
         "tipo": "escalas",
@@ -1935,7 +1958,7 @@
   {
     "id": "dia-69",
     "numero": 69,
-    "fecha": "2027-01-09",
+    "fecha": "2027-01-16",
     "diaSemana": "sábado",
     "semana": 10,
     "fase": "con-flauta",
@@ -1947,7 +1970,7 @@
       {
         "tipo": "calentamiento",
         "minutos": 10,
-        "actividad": "Notas largas."
+        "actividad": "Notas largas con el afinador a la vista: observa hacia dónde se va cada nota, sin forzar para corregirla."
       },
       {
         "tipo": "escalas",
@@ -1968,7 +1991,7 @@
   {
     "id": "dia-70",
     "numero": 70,
-    "fecha": "2027-01-10",
+    "fecha": "2027-01-17",
     "diaSemana": "domingo",
     "semana": 10,
     "fase": "con-flauta",
@@ -1981,7 +2004,7 @@
   {
     "id": "dia-71",
     "numero": 71,
-    "fecha": "2027-01-11",
+    "fecha": "2027-01-18",
     "diaSemana": "lunes",
     "semana": 11,
     "fase": "con-flauta",
@@ -2011,7 +2034,7 @@
   {
     "id": "dia-72",
     "numero": 72,
-    "fecha": "2027-01-12",
+    "fecha": "2027-01-19",
     "diaSemana": "martes",
     "semana": 11,
     "fase": "con-flauta",
@@ -2023,7 +2046,7 @@
       {
         "tipo": "calentamiento",
         "minutos": 10,
-        "actividad": "Notas largas."
+        "actividad": "Notas largas con el afinador a la vista: observa hacia dónde se va cada nota, sin forzar para corregirla."
       },
       {
         "tipo": "repertorio",
@@ -2041,7 +2064,7 @@
   {
     "id": "dia-73",
     "numero": 73,
-    "fecha": "2027-01-13",
+    "fecha": "2027-01-20",
     "diaSemana": "miércoles",
     "semana": 11,
     "fase": "con-flauta",
@@ -2053,7 +2076,7 @@
       {
         "tipo": "calentamiento",
         "minutos": 10,
-        "actividad": "Notas largas."
+        "actividad": "Notas largas con el afinador a la vista: observa hacia dónde se va cada nota, sin forzar para corregirla."
       },
       {
         "tipo": "repertorio",
@@ -2071,7 +2094,7 @@
   {
     "id": "dia-74",
     "numero": 74,
-    "fecha": "2027-01-14",
+    "fecha": "2027-01-21",
     "diaSemana": "jueves",
     "semana": 11,
     "fase": "con-flauta",
@@ -2084,7 +2107,7 @@
   {
     "id": "dia-75",
     "numero": 75,
-    "fecha": "2027-01-15",
+    "fecha": "2027-01-22",
     "diaSemana": "viernes",
     "semana": 11,
     "fase": "con-flauta",
@@ -2096,7 +2119,7 @@
       {
         "tipo": "calentamiento",
         "minutos": 10,
-        "actividad": "Notas largas."
+        "actividad": "Notas largas con el afinador a la vista: observa hacia dónde se va cada nota, sin forzar para corregirla."
       },
       {
         "tipo": "repertorio",
@@ -2104,17 +2127,19 @@
         "actividad": "Always With Me a 56."
       },
       {
-        "tipo": "repertorio",
+        "tipo": "oido",
         "minutos": 15,
-        "actividad": "La Llorona, frase 1."
+        "actividad": "De oído en la flauta: saca 8 compases de una melodía conocida sin partitura y tócalos completos (prueba de «Tocar de oído»). Si te sobra tiempo, La Llorona, frase 1."
       }
     ],
-    "logrosPosibles": []
+    "logrosPosibles": [
+      "logro-oido-flauta"
+    ]
   },
   {
     "id": "dia-76",
     "numero": 76,
-    "fecha": "2027-01-16",
+    "fecha": "2027-01-23",
     "diaSemana": "sábado",
     "semana": 11,
     "fase": "con-flauta",
@@ -2126,7 +2151,7 @@
       {
         "tipo": "calentamiento",
         "minutos": 10,
-        "actividad": "Notas largas."
+        "actividad": "Notas largas con el afinador a la vista: observa hacia dónde se va cada nota, sin forzar para corregirla."
       },
       {
         "tipo": "escalas",
@@ -2146,7 +2171,7 @@
   {
     "id": "dia-77",
     "numero": 77,
-    "fecha": "2027-01-17",
+    "fecha": "2027-01-24",
     "diaSemana": "domingo",
     "semana": 11,
     "fase": "con-flauta",
@@ -2159,7 +2184,7 @@
   {
     "id": "dia-78",
     "numero": 78,
-    "fecha": "2027-01-18",
+    "fecha": "2027-01-25",
     "diaSemana": "lunes",
     "semana": 12,
     "fase": "con-flauta",
@@ -2191,7 +2216,7 @@
   {
     "id": "dia-79",
     "numero": 79,
-    "fecha": "2027-01-19",
+    "fecha": "2027-01-26",
     "diaSemana": "martes",
     "semana": 12,
     "fase": "con-flauta",
@@ -2203,7 +2228,7 @@
       {
         "tipo": "calentamiento",
         "minutos": 10,
-        "actividad": "Notas largas."
+        "actividad": "Notas largas con el afinador a la vista: observa hacia dónde se va cada nota, sin forzar para corregirla."
       },
       {
         "tipo": "repertorio",
@@ -2221,7 +2246,7 @@
   {
     "id": "dia-80",
     "numero": 80,
-    "fecha": "2027-01-20",
+    "fecha": "2027-01-27",
     "diaSemana": "miércoles",
     "semana": 12,
     "fase": "con-flauta",
@@ -2233,7 +2258,7 @@
       {
         "tipo": "calentamiento",
         "minutos": 10,
-        "actividad": "Notas largas."
+        "actividad": "Notas largas con el afinador a la vista: observa hacia dónde se va cada nota, sin forzar para corregirla."
       },
       {
         "tipo": "repertorio",
@@ -2251,7 +2276,7 @@
   {
     "id": "dia-81",
     "numero": 81,
-    "fecha": "2027-01-21",
+    "fecha": "2027-01-28",
     "diaSemana": "jueves",
     "semana": 12,
     "fase": "con-flauta",
@@ -2264,7 +2289,7 @@
   {
     "id": "dia-82",
     "numero": 82,
-    "fecha": "2027-01-22",
+    "fecha": "2027-01-29",
     "diaSemana": "viernes",
     "semana": 12,
     "fase": "con-flauta",
@@ -2276,7 +2301,7 @@
       {
         "tipo": "calentamiento",
         "minutos": 10,
-        "actividad": "Notas largas."
+        "actividad": "Notas largas con el afinador a la vista: observa hacia dónde se va cada nota, sin forzar para corregirla."
       },
       {
         "tipo": "grabacion",
@@ -2294,7 +2319,7 @@
   {
     "id": "dia-83",
     "numero": 83,
-    "fecha": "2027-01-23",
+    "fecha": "2027-01-30",
     "diaSemana": "sábado",
     "semana": 12,
     "fase": "con-flauta",
@@ -2306,7 +2331,7 @@
       {
         "tipo": "calentamiento",
         "minutos": 10,
-        "actividad": "Notas largas."
+        "actividad": "Notas largas con el afinador a la vista: observa hacia dónde se va cada nota, sin forzar para corregirla."
       },
       {
         "tipo": "repertorio",
@@ -2325,7 +2350,7 @@
   {
     "id": "dia-84",
     "numero": 84,
-    "fecha": "2027-01-24",
+    "fecha": "2027-01-31",
     "diaSemana": "domingo",
     "semana": 12,
     "fase": "con-flauta",
@@ -2338,7 +2363,7 @@
   {
     "id": "dia-85",
     "numero": 85,
-    "fecha": "2027-01-25",
+    "fecha": "2027-02-01",
     "diaSemana": "lunes",
     "semana": 13,
     "fase": "con-flauta",
@@ -2350,7 +2375,7 @@
       {
         "tipo": "calentamiento",
         "minutos": 12,
-        "actividad": "Notas largas."
+        "actividad": "Notas largas con el afinador a la vista: observa hacia dónde se va cada nota, sin forzar para corregirla."
       },
       {
         "tipo": "repertorio",
@@ -2368,7 +2393,7 @@
   {
     "id": "dia-86",
     "numero": 86,
-    "fecha": "2027-01-26",
+    "fecha": "2027-02-02",
     "diaSemana": "martes",
     "semana": 13,
     "fase": "con-flauta",
@@ -2380,7 +2405,7 @@
       {
         "tipo": "calentamiento",
         "minutos": 10,
-        "actividad": "Notas largas."
+        "actividad": "Notas largas con el afinador a la vista: observa hacia dónde se va cada nota, sin forzar para corregirla."
       },
       {
         "tipo": "repertorio",
@@ -2398,7 +2423,7 @@
   {
     "id": "dia-87",
     "numero": 87,
-    "fecha": "2027-01-27",
+    "fecha": "2027-02-03",
     "diaSemana": "miércoles",
     "semana": 13,
     "fase": "con-flauta",
@@ -2410,7 +2435,7 @@
       {
         "tipo": "calentamiento",
         "minutos": 10,
-        "actividad": "Notas largas."
+        "actividad": "Notas largas con el afinador a la vista: observa hacia dónde se va cada nota, sin forzar para corregirla."
       },
       {
         "tipo": "escalas",
@@ -2428,7 +2453,7 @@
   {
     "id": "dia-88",
     "numero": 88,
-    "fecha": "2027-01-28",
+    "fecha": "2027-02-04",
     "diaSemana": "jueves",
     "semana": 13,
     "fase": "con-flauta",
@@ -2441,7 +2466,7 @@
   {
     "id": "dia-89",
     "numero": 89,
-    "fecha": "2027-01-29",
+    "fecha": "2027-02-05",
     "diaSemana": "viernes",
     "semana": 13,
     "fase": "con-flauta",
@@ -2453,7 +2478,7 @@
       {
         "tipo": "calentamiento",
         "minutos": 10,
-        "actividad": "Notas largas."
+        "actividad": "Notas largas con el afinador a la vista: observa hacia dónde se va cada nota, sin forzar para corregirla."
       },
       {
         "tipo": "grabacion",
@@ -2471,7 +2496,7 @@
   {
     "id": "dia-90",
     "numero": 90,
-    "fecha": "2027-01-30",
+    "fecha": "2027-02-06",
     "diaSemana": "sábado",
     "semana": 13,
     "fase": "con-flauta",
@@ -2493,7 +2518,7 @@
       {
         "tipo": "repaso",
         "minutos": 15,
-        "actividad": "Test de lectura final y retrospectiva de los 90 días: qué funcionó, qué no, y qué sigue (nivel 3) junto con tu maestro."
+        "actividad": "Test de lectura final y retrospectiva de los 90 días: qué funcionó, qué no y qué sigue (la zona 3, con su semana tipo)."
       }
     ],
     "logrosPosibles": [

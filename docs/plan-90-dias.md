@@ -2,13 +2,13 @@
 
 # Plan de 90 días
 
-Del **2 nov 2026** al **30 ene 2027**. Práctica de lunes, martes, miércoles, viernes y sábado (20:00–22:00, de 45 a 60 min). Descanso jueves y domingo.
+Del **9 nov 2026** al **6 feb 2027**. Práctica de lunes, martes, miércoles, viernes y sábado (20:00–22:00, de 45 a 60 min). Descanso jueves y domingo.
 
-> Si la flauta llega más tarde de lo previsto (≈ 30 nov), recorre la fase con flauta **por número de sesión**, no por fecha. Lo que diga tu maestro manda sobre este plan.
+> Si la flauta llega más tarde de lo previsto (≈ 7 dic 2026), recorre la fase con flauta **por número de sesión**, no por fecha.
 
-## Semana 1 · 2 nov 2026 – 8 nov 2026 · sin flauta
+## Semana 1 · 9 nov 2026 – 15 nov 2026 · sin flauta
 
-### Día 1 · lunes 2 nov 2026 · Test inicial y pentagrama
+### Día 1 · lunes 9 nov 2026 · Test inicial y pentagrama
 
 *Sesión 1 · 45 min* — Medir de dónde partes y conocer el pentagrama.
 
@@ -19,9 +19,9 @@ Del **2 nov 2026** al **30 ene 2027**. Práctica de lunes, martes, miércoles, v
 
 🏅 Logros posibles: Línea base de lectura
 
-> Día de Muertos: sesión ligera de 45 min. Empieza tu cuaderno de práctica hoy (fecha, minutos y qué hiciste).
+> Primera sesión: tómala con calma, sin prisa por terminar. Empieza tu cuaderno de práctica hoy (fecha, minutos y qué hiciste).
 
-### Día 2 · martes 3 nov 2026 · Figuras y pulso
+### Día 2 · martes 10 nov 2026 · Figuras y pulso
 
 *Sesión 2 · 50 min* — Primeras figuras rítmicas con metrónomo.
 
@@ -32,7 +32,7 @@ Del **2 nov 2026** al **30 ene 2027**. Práctica de lunes, martes, miércoles, v
 
 🏅 Logros posibles: Bitácora
 
-### Día 3 · miércoles 4 nov 2026 · Corcheas y compases
+### Día 3 · miércoles 11 nov 2026 · Corcheas y compases
 
 *Sesión 3 · 50 min* — Corcheas y compases de 2, 3 y 4 tiempos.
 
@@ -42,9 +42,9 @@ Del **2 nov 2026** al **30 ene 2027**. Práctica de lunes, martes, miércoles, v
 - [ ] **teoria** (8 min): Tonos y semitonos en el mástil de la guitarra (1 traste = 1 semitono).
 - [ ] **oido** (10 min): Saca de oído en la guitarra las primeras notas de Bella Ciao.
 
-**Día 4 · jueves 5 nov 2026**: descanso.
+**Día 4 · jueves 12 nov 2026**: descanso.
 
-### Día 5 · viernes 6 nov 2026 · La escala mayor
+### Día 5 · viernes 13 nov 2026 · La escala mayor
 
 *Sesión 4 · 45 min* — Entender cómo se construye una escala mayor.
 
@@ -55,7 +55,7 @@ Del **2 nov 2026** al **30 ene 2027**. Práctica de lunes, martes, miércoles, v
 
 🏅 Logros posibles: Arquitecto de escalas
 
-### Día 6 · sábado 7 nov 2026 · Repaso de la semana
+### Día 6 · sábado 14 nov 2026 · Repaso de la semana
 
 *Sesión 5 · 48 min* — Cerrar la semana y medir tu avance.
 
@@ -66,11 +66,11 @@ Del **2 nov 2026** al **30 ene 2027**. Práctica de lunes, martes, miércoles, v
 
 🏅 Logros posibles: Primera semana
 
-**Día 7 · domingo 8 nov 2026**: descanso.
+**Día 7 · domingo 15 nov 2026**: descanso.
 
-## Semana 2 · 9 nov 2026 – 15 nov 2026 · sin flauta
+## Semana 2 · 16 nov 2026 – 22 nov 2026 · sin flauta
 
-### Día 8 · lunes 9 nov 2026 · Las primeras agudas
+### Día 8 · lunes 16 nov 2026 · Las primeras agudas
 
 *Sesión 6 · 47 min* — Leer por encima del pentagrama.
 
@@ -79,7 +79,7 @@ Del **2 nov 2026** al **30 ene 2027**. Práctica de lunes, martes, miércoles, v
 - [ ] **ritmo** (12 min): Puntillo: blanca con puntillo y negra con puntillo, a 60.
 - [ ] **teoria** (12 min): Escala de Sol mayor (Fa#). Escríbela y tócala en guitarra.
 
-### Día 9 · martes 10 nov 2026 · Más arriba
+### Día 9 · martes 17 nov 2026 · Más arriba
 
 *Sesión 7 · 50 min* — Seguir subiendo en la lectura.
 
@@ -91,7 +91,7 @@ Del **2 nov 2026** al **30 ene 2027**. Práctica de lunes, martes, miércoles, v
 
 🏅 Logros posibles: Pulso firme
 
-### Día 10 · miércoles 11 nov 2026 · Semicorcheas
+### Día 10 · miércoles 18 nov 2026 · Semicorcheas
 
 *Sesión 8 · 52 min* — Subdividir el pulso.
 
@@ -101,9 +101,9 @@ Del **2 nov 2026** al **30 ene 2027**. Práctica de lunes, martes, miércoles, v
 - [ ] **lectura** (10 min): Mezcla de Do4 a Sol6. *(musictheory.net (Exercises → Note Identification))*
 - [ ] **oido** (12 min): La Llorona: saca de oído en la guitarra la primera frase.
 
-**Día 11 · jueves 12 nov 2026**: descanso.
+**Día 11 · jueves 19 nov 2026**: descanso.
 
-### Día 12 · viernes 13 nov 2026 · Mapa de dedos
+### Día 12 · viernes 20 nov 2026 · Mapa de dedos
 
 *Sesión 9 · 45 min* — Aprender las digitaciones sin flauta.
 
@@ -114,7 +114,7 @@ Del **2 nov 2026** al **30 ene 2027**. Práctica de lunes, martes, miércoles, v
 
 🏅 Logros posibles: Aire largo
 
-### Día 13 · sábado 14 nov 2026 · Repaso de la semana
+### Día 13 · sábado 21 nov 2026 · Repaso de la semana
 
 *Sesión 10 · 48 min* — Test de agudas y La Llorona.
 
@@ -125,11 +125,11 @@ Del **2 nov 2026** al **30 ene 2027**. Práctica de lunes, martes, miércoles, v
 
 🏅 Logros posibles: Clave de sol, Puntillos y ligaduras, Respirar desde abajo
 
-**Día 14 · domingo 15 nov 2026**: descanso.
+**Día 14 · domingo 22 nov 2026**: descanso.
 
-## Semana 3 · 16 nov 2026 – 22 nov 2026 · sin flauta
+## Semana 3 · 23 nov 2026 – 29 nov 2026 · sin flauta
 
-### Día 15 · lunes 16 nov 2026 · Círculo de quintas (sostenidos)
+### Día 15 · lunes 23 nov 2026 · Círculo de quintas (sostenidos)
 
 *Sesión 11 · 50 min* — Entender las armaduras con sostenidos.
 
@@ -139,7 +139,7 @@ Del **2 nov 2026** al **30 ene 2027**. Práctica de lunes, martes, miércoles, v
 - [ ] **tecnica** (7 min): Digitación al aire de Re4 a Re5.
 - [ ] **oido** (10 min): Intervalos de 4ª y 5ª. *(teoria.com (ejercicios en español))*
 
-### Día 16 · martes 17 nov 2026 · Bemoles y primera transcripción
+### Día 16 · martes 24 nov 2026 · Bemoles y primera transcripción
 
 *Sesión 12 · 50 min* — Armaduras con bemoles y empezar a transcribir.
 
@@ -150,7 +150,7 @@ Del **2 nov 2026** al **30 ene 2027**. Práctica de lunes, martes, miércoles, v
 
 🏅 Logros posibles: Círculo de quintas
 
-### Día 17 · miércoles 18 nov 2026 · Intervalos en el papel
+### Día 17 · miércoles 25 nov 2026 · Intervalos en el papel
 
 *Sesión 13 · 50 min* — Medir intervalos y digitar la segunda octava.
 
@@ -161,9 +161,9 @@ Del **2 nov 2026** al **30 ene 2027**. Práctica de lunes, martes, miércoles, v
 
 🏅 Logros posibles: Medir distancias, Mapa de dedos
 
-**Día 18 · jueves 19 nov 2026**: descanso.
+**Día 18 · jueves 26 nov 2026**: descanso.
 
-### Día 19 · viernes 20 nov 2026 · Cerrar Isabella's Lullaby
+### Día 19 · viernes 27 nov 2026 · Cerrar Isabella's Lullaby
 
 *Sesión 14 · 50 min* — Terminar la transcripción y medir tu lectura a mitad de fase.
 
@@ -174,7 +174,7 @@ Del **2 nov 2026** al **30 ene 2027**. Práctica de lunes, martes, miércoles, v
 
 🏅 Logros posibles: Primera transcripción
 
-### Día 20 · sábado 21 nov 2026 · Repaso de la semana
+### Día 20 · sábado 28 nov 2026 · Repaso de la semana
 
 *Sesión 15 · 50 min* — Afianzar lo de las tres primeras semanas.
 
@@ -182,11 +182,11 @@ Del **2 nov 2026** al **30 ene 2027**. Práctica de lunes, martes, miércoles, v
 - [ ] **guitarra** (20 min): Isabella's Lullaby completa en guitarra con metrónomo.
 - [ ] **lectura** (10 min): Drill de notas, con foco en las agudas.
 
-**Día 21 · domingo 22 nov 2026**: descanso.
+**Día 21 · domingo 29 nov 2026**: descanso.
 
-## Semana 4 · 23 nov 2026 – 29 nov 2026 · sin flauta
+## Semana 4 · 30 nov 2026 – 6 dic 2026 · sin flauta
 
-### Día 22 · lunes 23 nov 2026 · Escuchar Hallownest
+### Día 22 · lunes 30 nov 2026 · Escuchar Hallownest
 
 *Sesión 16 · 50 min* — Empezar a preparar el jefe 0.
 
@@ -197,7 +197,7 @@ Del **2 nov 2026** al **30 ene 2027**. Práctica de lunes, martes, miércoles, v
 
 🏅 Logros posibles: Oído afinado
 
-### Día 23 · martes 24 nov 2026 · Hallownest, sección A
+### Día 23 · martes 1 dic 2026 · Hallownest, sección A
 
 *Sesión 17 · 50 min* — Transcribir la primera sección.
 
@@ -207,7 +207,7 @@ Del **2 nov 2026** al **30 ene 2027**. Práctica de lunes, martes, miércoles, v
 
 🏅 Logros posibles: Primera vista
 
-### Día 24 · miércoles 25 nov 2026 · Hallownest, sección B
+### Día 24 · miércoles 2 dic 2026 · Hallownest, sección B
 
 *Sesión 18 · 48 min* — Terminar la transcripción y escribirla.
 
@@ -217,18 +217,18 @@ Del **2 nov 2026** al **30 ene 2027**. Práctica de lunes, martes, miércoles, v
 
 🏅 Logros posibles: Las agudas ya no asustan
 
-**Día 25 · jueves 26 nov 2026**: descanso.
+**Día 25 · jueves 3 dic 2026**: descanso.
 
-### Día 26 · viernes 27 nov 2026 · Ensayo del jefe 0
+### Día 26 · viernes 4 dic 2026 · Ensayo del jefe 0
 
 *Sesión 19 · 50 min* — Tocar la transcripción con metrónomo y probar la grabación.
 
 - [ ] **respiracion** (8 min): Rutina de respiración.
 - [ ] **guitarra** (25 min): Enter Hallownest en guitarra con metrónomo: 50 → 55 → 60.
 - [ ] **grabacion** (12 min): Prueba de grabación: graba una toma corta y escúchala.
-- [ ] **repaso** (5 min): Prepara la llegada de la flauta y del maestro: lee la lista de revisión y las preguntas para la primera clase (docs/plan.md, Guía de la flauta).
+- [ ] **repaso** (5 min): Prepara la llegada de la flauta: lee la lista de revisión (docs/plan.md, Guía de la flauta) y busca un técnico de instrumentos de viento (o pregunta en la tienda) que pueda revisarla dentro del plazo de devolución.
 
-### Día 27 · sábado 28 nov 2026 · ⚔️ JEFE 0: El Eco de Hallownest
+### Día 27 · sábado 5 dic 2026 · ⚔️ JEFE 0: El Eco de Hallownest
 
 *Sesión 20 · 50 min* — Vencer al primer jefe y cerrar la fase sin flauta.
 
@@ -243,11 +243,11 @@ Del **2 nov 2026** al **30 ene 2027**. Práctica de lunes, martes, miércoles, v
 
 > Fin de la fase sin flauta. ¡Celébralo!
 
-**Día 28 · domingo 29 nov 2026**: descanso.
+**Día 28 · domingo 6 dic 2026**: descanso.
 
-## Semana 5 · 30 nov 2026 – 6 dic 2026 · con flauta
+## Semana 5 · 7 dic 2026 – 13 dic 2026 · con flauta
 
-### Día 29 · lunes 30 nov 2026 · Llega la flauta
+### Día 29 · lunes 7 dic 2026 · Llega la flauta
 
 *Sesión 21 · 45 min* — Revisarla, armarla y sacar el primer sonido.
 
@@ -257,20 +257,20 @@ Del **2 nov 2026** al **30 ene 2027**. Práctica de lunes, martes, miércoles, v
 
 🏅 Logros posibles: Primer aliento
 
-> Fecha estimada. Si la flauta no ha llegado, repite una sesión de lectura y oído, y empieza esta el día que llegue. Esta semana se abre la ventana de la primera clase: lleva la flauta para que el maestro la revise. Sopla en bloques de 3 a 5 min con descansos. Si te mareas, para y respira normal; si te duelen los labios, termina la parte de soplar.
+> Fecha estimada. Si la flauta no ha llegado, repite una sesión de lectura y oído, y empieza esta el día que llegue (anota la fecha real en tu perfil). Esta semana, lleva la flauta a revisar con un técnico o la tienda, dentro del plazo de devolución. Sopla en bloques de 3 a 5 min con descansos. Si te mareas, para y respira normal; si te duelen los labios, termina la parte de soplar.
 
-### Día 30 · martes 1 dic 2026 · Embocadura frente al espejo
+### Día 30 · martes 8 dic 2026 · Embocadura frente al espejo
 
 *Sesión 22 · 50 min* — Un sonido estable con la cabeza sola.
 
 - [ ] **sonido** (15 min): Cabeza sola frente al espejo: labios relajados y apertura pequeña. Busca un sonido de 4 s.
-- [ ] **tecnica** (15 min): Armado completo y postura: posición de manos y apoyo de la flauta.
+- [ ] **tecnica** (15 min): Armado completo y postura: posición de manos y apoyo de la flauta. Grábate 1 min de frente y de lado; el viernes lo revisarás con la lista de postura.
 - [ ] **sonido** (10 min): Si sale: Si4 con la flauta completa.
 - [ ] **lectura** (10 min): Drill de notas. *(musictheory.net (Exercises → Note Identification))*
 
 > Sopla en bloques de 3 a 5 min con descansos. Si te mareas, para y respira normal; si te duelen los labios, termina la parte de soplar.
 
-### Día 31 · miércoles 2 dic 2026 · Si · La · Sol
+### Día 31 · miércoles 9 dic 2026 · Si · La · Sol
 
 *Sesión 23 · 45 min* — Las tres primeras notas.
 
@@ -281,19 +281,22 @@ Del **2 nov 2026** al **30 ene 2027**. Práctica de lunes, martes, miércoles, v
 
 > Sopla en bloques de 3 a 5 min con descansos. Si te mareas, para y respira normal; si te duelen los labios, termina la parte de soplar.
 
-**Día 32 · jueves 3 dic 2026**: descanso.
+**Día 32 · jueves 10 dic 2026**: descanso.
 
-### Día 33 · viernes 4 dic 2026 · Ventana de la primera clase
+### Día 33 · viernes 11 dic 2026 · Revisión de la flauta y de tu postura
 
-*Sesión 24 · 45 min* — Primera clase con maestro y revisión de la flauta, o la sesión normal si aún no hay clase.
+*Sesión 24 · 45 min* — Autoevaluar tu embocadura y tu postura con video, y revisar la flauta.
 
-- [ ] **clase** (45 min): Si hoy tienes clase, esa es la sesión: lleva la flauta para que la revise (sellado, ajuste y afinación), haz las preguntas de docs/plan.md y toma notas de todo lo que te corrija. Si no hay clase: Notas largas Si-La-Sol; Inventa y lee melodías con Si-La-Sol con metrónomo a 60; Respiraciones: inhala en los silencios, nunca a mitad de la nota; Toca de oído en la flauta frases simples con esas 3 notas.
+- [ ] **revision** (15 min): Autoevaluación con video: grábate de frente y de lado tocando Si-La-Sol 1 min. Revísalo con la lista de postura y embocadura de docs/plan.md (hombros, muñecas, cabeza, labios, apertura) y anota 2 cosas a corregir. Si ya llevaste la flauta al técnico, apunta lo que te dijo.
+- [ ] **sonido** (15 min): Notas largas Si-La-Sol corrigiendo lo que viste en el video.
+- [ ] **estudios** (10 min): Inventa y lee melodías con Si-La-Sol con metrónomo a 60. Inhala en los silencios, nunca a mitad de la nota.
+- [ ] **oido** (5 min): Toca de oído en la flauta frases simples con esas 3 notas.
 
-🏅 Logros posibles: Maestro encontrado, Flauta revisada
+🏅 Logros posibles: Postura revisada, Flauta revisada, Clase de chequeo
 
-> Si el maestro te da otras indicaciones, lo que él diga manda sobre el plan. Si la clase cae otro día de esta semana o la siguiente, cambia esa sesión por la clase. Sopla en bloques de 3 a 5 min con descansos.
+> Si puedes, toma esta semana o la siguiente una clase suelta de chequeo (presencial o en línea): es opcional, pero corrige a tiempo los vicios de embocadura y postura, los más difíciles de quitar después. Sopla en bloques de 3 a 5 min con descansos. Si te mareas, para y respira normal; si te duelen los labios, termina la parte de soplar.
 
-### Día 34 · sábado 5 dic 2026 · Repaso de la semana
+### Día 34 · sábado 12 dic 2026 · Repaso de la semana
 
 *Sesión 25 · 45 min* — Grabar tu punto de partida.
 
@@ -306,11 +309,11 @@ Del **2 nov 2026** al **30 ene 2027**. Práctica de lunes, martes, miércoles, v
 
 > Sopla en bloques de 3 a 5 min con descansos. Si te mareas, para y respira normal; si te duelen los labios, termina la parte de soplar.
 
-**Día 35 · domingo 6 dic 2026**: descanso.
+**Día 35 · domingo 13 dic 2026**: descanso.
 
-## Semana 6 · 7 dic 2026 – 13 dic 2026 · con flauta
+## Semana 6 · 14 dic 2026 – 20 dic 2026 · con flauta
 
-### Día 36 · lunes 7 dic 2026 · Do, Fa y Mi
+### Día 36 · lunes 14 dic 2026 · Do, Fa y Mi
 
 *Sesión 26 · 45 min* — Ampliar las notas.
 
@@ -319,9 +322,9 @@ Del **2 nov 2026** al **30 ene 2027**. Práctica de lunes, martes, miércoles, v
 - [ ] **estudios** (12 min): Escalitas Sol-Fa-Mi y Do-Si-La-Sol.
 - [ ] **repertorio** (8 min): Wellerman: digita la frase 1 al aire y luego tócala despacio.
 
-> Si ya tuviste la primera clase, aplica hoy lo que te dijo el maestro. Sopla en bloques de 3 a 5 min con descansos. Si te mareas, para y respira normal; si te duelen los labios, termina la parte de soplar.
+> Aplica hoy las 2 correcciones que anotaste en tu autoevaluación del viernes. Sopla en bloques de 3 a 5 min con descansos. Si te mareas, para y respira normal; si te duelen los labios, termina la parte de soplar.
 
-### Día 37 · martes 8 dic 2026 · Re grave
+### Día 37 · martes 15 dic 2026 · Re grave
 
 *Sesión 27 · 45 min* — Bajar hasta Re4 sin forzar.
 
@@ -332,7 +335,7 @@ Del **2 nov 2026** al **30 ene 2027**. Práctica de lunes, martes, miércoles, v
 
 > Sopla en bloques de 3 a 5 min con descansos. Si te mareas, para y respira normal; si te duelen los labios, termina la parte de soplar.
 
-### Día 38 · miércoles 9 dic 2026 · Fa sostenido
+### Día 38 · miércoles 16 dic 2026 · Fa sostenido
 
 *Sesión 28 · 45 min* — Completar el registro grave útil.
 
@@ -343,9 +346,9 @@ Del **2 nov 2026** al **30 ene 2027**. Práctica de lunes, martes, miércoles, v
 
 > Sopla en bloques de 3 a 5 min con descansos. Si te mareas, para y respira normal; si te duelen los labios, termina la parte de soplar.
 
-**Día 39 · jueves 10 dic 2026**: descanso.
+**Día 39 · jueves 17 dic 2026**: descanso.
 
-### Día 40 · viernes 11 dic 2026 · Trevor Wye descendente
+### Día 40 · viernes 18 dic 2026 · Trevor Wye descendente
 
 *Sesión 29 · 45 min* — Calidad de sonido en el grave.
 
@@ -355,157 +358,158 @@ Del **2 nov 2026** al **30 ene 2027**. Práctica de lunes, martes, miércoles, v
 
 > Sopla en bloques de 3 a 5 min con descansos. Si te mareas, para y respira normal; si te duelen los labios, termina la parte de soplar.
 
-### Día 41 · sábado 12 dic 2026 · Repaso: registro grave
+### Día 41 · sábado 19 dic 2026 · Repaso: registro grave
 
 *Sesión 30 · 45 min* — Re4 a Do5 limpio.
 
-- [ ] **calentamiento** (10 min): Notas largas.
+- [ ] **calentamiento** (10 min): Notas largas con el afinador a la vista: observa hacia dónde se va cada nota, sin forzar para corregirla.
 - [ ] **sonido** (10 min): Prueba del logro: notas largas de 6 s de Re4 a Do5.
 - [ ] **repertorio** (25 min): Wellerman, estrofa completa a 60.
 
-🏅 Logros posibles: Registro grave
+🏅 Logros posibles: Registro grave, Afinado
 
 > Sopla en bloques de 3 a 5 min con descansos. Si te mareas, para y respira normal; si te duelen los labios, termina la parte de soplar.
 
-**Día 42 · domingo 13 dic 2026**: descanso.
+**Día 42 · domingo 20 dic 2026**: descanso.
 
-## Semana 7 · 14 dic 2026 – 20 dic 2026 · con flauta
+## Semana 7 · 21 dic 2026 – 27 dic 2026 · con flauta
 
-### Día 43 · lunes 14 dic 2026 · Re medio y Re mayor
+### Día 43 · lunes 21 dic 2026 · Re medio y Re mayor
 
 *Sesión 31 · 45 min* — Re5 y la escala de Re mayor grave.
 
 - [ ] **calentamiento** (10 min): Notas largas de Re4 a Do5.
 - [ ] **escalas** (12 min): Do#5 y Re5; escala de Re mayor (Re4–Re5) muy lenta.
-- [ ] **repertorio** (20 min): Wellerman: estribillo.
+- [ ] **repertorio** (15 min): Wellerman: estribillo.
+- [ ] **oido** (5 min): De oído en la flauta: busca, sin partitura, la frase inicial de una melodía que sepas cantar (por ejemplo, «Las mañanitas»).
 - [ ] **repaso** (3 min): Cuaderno (sin soplar): anota los minutos, qué salió bien y qué repetir mañana.
 
 > Ya puedes alargar la parte de soplar a 30–35 min si no te cansas.
 
-### Día 44 · martes 15 dic 2026 · Wellerman completa
+### Día 44 · martes 22 dic 2026 · Wellerman completa
 
 *Sesión 32 · 45 min* — Tocarla entera, despacio.
 
-- [ ] **calentamiento** (10 min): Notas largas.
+- [ ] **calentamiento** (10 min): Notas largas con el afinador a la vista: observa hacia dónde se va cada nota, sin forzar para corregirla.
 - [ ] **repertorio** (25 min): Wellerman completa a 60.
 - [ ] **lectura** (10 min): Sadness and Sorrow: lee la partitura.
 
 🏅 Logros posibles: Primera pieza
 
-### Día 45 · miércoles 16 dic 2026 · La lengua: 'tu'
+### Día 45 · miércoles 23 dic 2026 · La lengua: 'tu'
 
 *Sesión 33 · 45 min* — Picado simple.
 
-- [ ] **calentamiento** (10 min): Notas largas.
+- [ ] **calentamiento** (10 min): Notas largas con el afinador a la vista: observa hacia dónde se va cada nota, sin forzar para corregirla.
 - [ ] **tecnica** (15 min): Picado simple 'tu' en notas largas y negras a 60.
 - [ ] **repertorio** (20 min): Wellerman con picado limpio.
 
-**Día 46 · jueves 17 dic 2026**: descanso.
+**Día 46 · jueves 24 dic 2026**: descanso.
 
-### Día 47 · viernes 18 dic 2026 · Subir el tempo
+### Día 47 · viernes 25 dic 2026 · Navidad (opcional)
 
-*Sesión 34 · 45 min* — Wellerman a 66.
-
-- [ ] **calentamiento** (10 min): Notas largas + picado.
-- [ ] **repertorio** (20 min): Wellerman a 66.
-- [ ] **repertorio** (15 min): Sadness and Sorrow, frase 1.
-
-### Día 48 · sábado 19 dic 2026 · Escucharte
-
-*Sesión 35 · 45 min* — Grabar y escuchar con oído crítico.
-
-- [ ] **calentamiento** (10 min): Notas largas.
-- [ ] **grabacion** (15 min): Graba Wellerman en audio y escúchala: anota 3 cosas a mejorar.
-- [ ] **repertorio** (20 min): Trabaja esas 3 cosas.
-
-**Día 49 · domingo 20 dic 2026**: descanso.
-
-## Semana 8 · 21 dic 2026 – 27 dic 2026 · con flauta
-
-### Día 50 · lunes 21 dic 2026 · Saltos de octava
-
-*Sesión 36 · 45 min* — Pasar al registro medio.
-
-- [ ] **calentamiento** (10 min): Notas largas.
-- [ ] **sonido** (15 min): Saltos de octava: Re4→Re5 y Mi4→Mi5 con la misma digitación; más velocidad de aire, no más fuerza.
-- [ ] **repertorio** (20 min): Wellerman a 66.
-
-### Día 51 · martes 22 dic 2026 · Mi, Fa# y Sol medios
-
-*Sesión 37 · 45 min* — Notas de la segunda octava.
-
-- [ ] **calentamiento** (10 min): Saltos de octava.
-- [ ] **sonido** (12 min): Mi5, Fa#5 y Sol5 en notas largas.
-- [ ] **repertorio** (20 min): Wellerman: meta ♩ = 72.
-- [ ] **repaso** (3 min): Cuaderno (sin soplar): anota los minutos, qué salió bien y qué repetir mañana.
-
-### Día 52 · miércoles 23 dic 2026 · Escala de Sol mayor
-
-*Sesión 38 · 45 min* — La primera escala completa.
-
-- [ ] **calentamiento** (10 min): Notas largas y saltos de octava.
-- [ ] **escalas** (15 min): Sol mayor, Sol4–Sol5, en negras a 50.
-- [ ] **repertorio** (20 min): Wellerman.
-
-**Día 53 · jueves 24 dic 2026**: descanso.
-
-### Día 54 · viernes 25 dic 2026 · Navidad (opcional)
-
-*Sesión 39 · 25 min · festivo, opcional* — Sesión corta y sin presión.
+*Sesión 34 · 25 min · festivo, opcional* — Sesión corta y sin presión.
 
 - [ ] **calentamiento** (10 min): Notas largas suaves.
 - [ ] **repertorio** (15 min): Toca lo que te apetezca: Wellerman o un villancico de oído.
 
 > Festivo: sesión opcional de 20–30 min.
 
-### Día 55 · sábado 26 dic 2026 · Ensayo general de Wellerman
+### Día 48 · sábado 26 dic 2026 · Subir el tempo
 
-*Sesión 40 · 45 min* — Prepararte para el jefe 1.
+*Sesión 35 · 45 min* — Wellerman a 66.
 
-- [ ] **calentamiento** (10 min): Notas largas.
-- [ ] **repertorio** (25 min): Wellerman a 72: 2 tomas seguidas.
-- [ ] **escalas** (10 min): Sol mayor a 55.
+- [ ] **calentamiento** (10 min): Notas largas + picado.
+- [ ] **repertorio** (20 min): Wellerman a 66.
+- [ ] **repertorio** (15 min): Sadness and Sorrow, frase 1.
 
-**Día 56 · domingo 27 dic 2026**: descanso.
+**Día 49 · domingo 27 dic 2026**: descanso.
 
-## Semana 9 · 28 dic 2026 – 3 ene 2027 · con flauta
+## Semana 8 · 28 dic 2026 – 3 ene 2027 · con flauta
 
-### Día 57 · lunes 28 dic 2026 · Pulir respiraciones
+### Día 50 · lunes 28 dic 2026 · Escucharte
 
-*Sesión 41 · 45 min* — Wellerman sin quedarte sin aire.
+*Sesión 36 · 45 min* — Grabar y escuchar con oído crítico.
 
-- [ ] **calentamiento** (10 min): Notas largas.
-- [ ] **repertorio** (20 min): Marca las respiraciones en la partitura y respétalas.
-- [ ] **grabacion** (15 min): Prueba de video: graba una toma corta y escúchala.
+- [ ] **calentamiento** (10 min): Notas largas con el afinador a la vista: observa hacia dónde se va cada nota, sin forzar para corregirla.
+- [ ] **grabacion** (15 min): Graba Wellerman en audio y escúchala: anota 3 cosas a mejorar.
+- [ ] **repertorio** (20 min): Trabaja esas 3 cosas.
 
-### Día 58 · martes 29 dic 2026 · Tomas de prueba
+### Día 51 · martes 29 dic 2026 · Saltos de octava
 
-*Sesión 42 · 45 min* — Simular el día del jefe.
+*Sesión 37 · 45 min* — Pasar al registro medio.
 
-- [ ] **calentamiento** (10 min): Notas largas.
-- [ ] **grabacion** (25 min): Graba 3 tomas de Wellerman y elige la mejor.
-- [ ] **lectura** (10 min): La Llorona: lee la partitura.
+- [ ] **calentamiento** (10 min): Notas largas con el afinador a la vista: observa hacia dónde se va cada nota, sin forzar para corregirla.
+- [ ] **sonido** (15 min): Saltos de octava: Re4→Re5 y Mi4→Mi5 con la misma digitación; más velocidad de aire, no más fuerza.
+- [ ] **repertorio** (20 min): Wellerman a 66.
 
-### Día 59 · miércoles 30 dic 2026 · Último ajuste
+### Día 52 · miércoles 30 dic 2026 · Mi, Fa# y Sol medios
 
-*Sesión 43 · 45 min* — Arreglar los puntos débiles.
+*Sesión 38 · 45 min* — Notas de la segunda octava.
 
-- [ ] **calentamiento** (10 min): Notas largas.
-- [ ] **repertorio** (25 min): Trabaja solo los compases que fallan, lento y luego a tempo.
-- [ ] **escalas** (10 min): Sol mayor a 60.
+- [ ] **calentamiento** (10 min): Saltos de octava.
+- [ ] **sonido** (12 min): Mi5, Fa#5 y Sol5 en notas largas.
+- [ ] **repertorio** (20 min): Wellerman: meta ♩ = 72.
+- [ ] **repaso** (3 min): Cuaderno (sin soplar): anota los minutos, qué salió bien y qué repetir mañana.
 
-**Día 60 · jueves 31 dic 2026**: descanso.
+**Día 53 · jueves 31 dic 2026**: descanso.
 
-### Día 61 · viernes 1 ene 2027 · Año Nuevo (opcional)
+### Día 54 · viernes 1 ene 2027 · Año Nuevo (opcional)
 
-*Sesión 44 · 25 min · festivo, opcional* — Sesión corta y suave.
+*Sesión 39 · 25 min · festivo, opcional* — Sesión corta y suave.
 
-- [ ] **calentamiento** (10 min): Notas largas.
+- [ ] **calentamiento** (10 min): Notas largas con el afinador a la vista: observa hacia dónde se va cada nota, sin forzar para corregirla.
 - [ ] **repertorio** (15 min): Wellerman tranquila, solo para disfrutar.
 
 > Festivo: sesión opcional de 20–30 min.
 
-### Día 62 · sábado 2 ene 2027 · ⚔️ JEFE 1: El Ballenero
+### Día 55 · sábado 2 ene 2027 · Escala de Sol mayor
+
+*Sesión 40 · 45 min* — La primera escala completa.
+
+- [ ] **calentamiento** (10 min): Notas largas y saltos de octava.
+- [ ] **escalas** (15 min): Sol mayor, Sol4–Sol5, en negras a 50.
+- [ ] **repertorio** (20 min): Wellerman.
+
+**Día 56 · domingo 3 ene 2027**: descanso.
+
+## Semana 9 · 4 ene 2027 – 10 ene 2027 · con flauta
+
+### Día 57 · lunes 4 ene 2027 · Ensayo general de Wellerman
+
+*Sesión 41 · 45 min* — Prepararte para el jefe 1.
+
+- [ ] **calentamiento** (10 min): Notas largas con el afinador a la vista: observa hacia dónde se va cada nota, sin forzar para corregirla.
+- [ ] **repertorio** (25 min): Wellerman a 72: 2 tomas seguidas.
+- [ ] **escalas** (10 min): Sol mayor a 55.
+
+### Día 58 · martes 5 ene 2027 · Pulir respiraciones
+
+*Sesión 42 · 45 min* — Wellerman sin quedarte sin aire.
+
+- [ ] **calentamiento** (10 min): Notas largas con el afinador a la vista: observa hacia dónde se va cada nota, sin forzar para corregirla.
+- [ ] **repertorio** (20 min): Marca las respiraciones en la partitura y respétalas.
+- [ ] **grabacion** (15 min): Prueba de video: graba una toma corta y escúchala.
+
+### Día 59 · miércoles 6 ene 2027 · Tomas de prueba
+
+*Sesión 43 · 45 min* — Simular el día del jefe.
+
+- [ ] **calentamiento** (10 min): Notas largas con el afinador a la vista: observa hacia dónde se va cada nota, sin forzar para corregirla.
+- [ ] **grabacion** (25 min): Graba 3 tomas de Wellerman y elige la mejor.
+- [ ] **oido** (10 min): De oído en la flauta: saca el estribillo de una canción que sepas cantar. Después, lee la partitura de La Llorona.
+
+**Día 60 · jueves 7 ene 2027**: descanso.
+
+### Día 61 · viernes 8 ene 2027 · Último ajuste
+
+*Sesión 44 · 45 min* — Arreglar los puntos débiles.
+
+- [ ] **calentamiento** (10 min): Notas largas con el afinador a la vista: observa hacia dónde se va cada nota, sin forzar para corregirla.
+- [ ] **repertorio** (25 min): Trabaja solo los compases que fallan, lento y luego a tempo.
+- [ ] **escalas** (10 min): Sol mayor a 60.
+
+### Día 62 · sábado 9 ene 2027 · ⚔️ JEFE 1: El Ballenero
 
 *Sesión 45 · 47 min* — Vencer a Wellerman.
 
@@ -517,11 +521,11 @@ Del **2 nov 2026** al **30 ene 2027**. Práctica de lunes, martes, miércoles, v
 
 > Si el día no te viene bien, muévelo al lunes; las condiciones de victoria no cambian.
 
-**Día 63 · domingo 3 ene 2027**: descanso.
+**Día 63 · domingo 10 ene 2027**: descanso.
 
-## Semana 10 · 4 ene 2027 – 10 ene 2027 · con flauta
+## Semana 10 · 11 ene 2027 – 17 ene 2027 · con flauta
 
-### Día 64 · lunes 4 ene 2027 · Segunda octava
+### Día 64 · lunes 11 ene 2027 · Segunda octava
 
 *Sesión 46 · 45 min* — Re5 a La5 estables.
 
@@ -530,51 +534,53 @@ Del **2 nov 2026** al **30 ene 2027**. Práctica de lunes, martes, miércoles, v
 - [ ] **repertorio** (20 min): Always With Me: lee y digita la frase 1, luego tócala lenta. *(Yayoi FLUTE)*
 - [ ] **repaso** (3 min): Cuaderno (sin soplar): anota los minutos, qué salió bien y qué repetir mañana.
 
-### Día 65 · martes 5 ene 2027 · Re mayor
+> Desde esta semana, una vez por semana toca Wellerman completa: lo que no se repasa, se olvida (es el logro «Repertorio vivo»).
+
+### Día 65 · martes 12 ene 2027 · Re mayor
 
 *Sesión 47 · 45 min* — Una octava de Re mayor.
 
-- [ ] **calentamiento** (10 min): Notas largas.
+- [ ] **calentamiento** (10 min): Notas largas con el afinador a la vista: observa hacia dónde se va cada nota, sin forzar para corregirla.
 - [ ] **escalas** (15 min): Re mayor, Re4–Re5, a 50 → 60; ligado.
 - [ ] **repertorio** (20 min): Always With Me, frase 1.
 
 🏅 Logros posibles: Ligado
 
-### Día 66 · miércoles 6 ene 2027 · Always With Me, frase 2
+### Día 66 · miércoles 13 ene 2027 · Always With Me, frase 2
 
 *Sesión 48 · 45 min* — Avanzar en la pieza del jefe 2.
 
-- [ ] **calentamiento** (10 min): Notas largas.
+- [ ] **calentamiento** (10 min): Notas largas con el afinador a la vista: observa hacia dónde se va cada nota, sin forzar para corregirla.
 - [ ] **tecnica** (10 min): Picado simple en Sol mayor a 70–80.
 - [ ] **repertorio** (25 min): Always With Me, frase 2.
 
 🏅 Logros posibles: Lengua: 'tu'
 
-**Día 67 · jueves 7 ene 2027**: descanso.
+**Día 67 · jueves 14 ene 2027**: descanso.
 
-### Día 68 · viernes 8 ene 2027 · Promise of the World
+### Día 68 · viernes 15 ene 2027 · Promise of the World
 
 *Sesión 49 · 45 min* — Una segunda pieza para variar.
 
-- [ ] **calentamiento** (10 min): Notas largas.
+- [ ] **calentamiento** (10 min): Notas largas con el afinador a la vista: observa hacia dónde se va cada nota, sin forzar para corregirla.
 - [ ] **escalas** (10 min): Sol y Re mayor.
 - [ ] **repertorio** (25 min): Promise of the World, frase 1 (arreglo para principiantes). *(Yayoi FLUTE / Satomin)*
 
-### Día 69 · sábado 9 ene 2027 · Repaso de la semana
+### Día 69 · sábado 16 ene 2027 · Repaso de la semana
 
 *Sesión 50 · 45 min* — Medir tu avance.
 
-- [ ] **calentamiento** (10 min): Notas largas.
+- [ ] **calentamiento** (10 min): Notas largas con el afinador a la vista: observa hacia dónde se va cada nota, sin forzar para corregirla.
 - [ ] **escalas** (10 min): Prueba del logro: Sol mayor a 60.
 - [ ] **grabacion** (25 min): Graba en audio Always With Me, frases 1 y 2.
 
 🏅 Logros posibles: Sol mayor, Salto de octava
 
-**Día 70 · domingo 10 ene 2027**: descanso.
+**Día 70 · domingo 17 ene 2027**: descanso.
 
-## Semana 11 · 11 ene 2027 – 17 ene 2027 · con flauta
+## Semana 11 · 18 ene 2027 – 24 ene 2027 · con flauta
 
-### Día 71 · lunes 11 ene 2027 · Frases 3 y 4
+### Día 71 · lunes 18 ene 2027 · Frases 3 y 4
 
 *Sesión 51 · 45 min* — Completar la lectura.
 
@@ -582,47 +588,49 @@ Del **2 nov 2026** al **30 ene 2027**. Práctica de lunes, martes, miércoles, v
 - [ ] **repertorio** (30 min): Always With Me, frases 3 y 4. Si aparece una nota nueva, apréndela aparte primero.
 - [ ] **repaso** (3 min): Cuaderno (sin soplar): anota los minutos, qué salió bien y qué repetir mañana.
 
-### Día 72 · martes 12 ene 2027 · Always With Me entera
+### Día 72 · martes 19 ene 2027 · Always With Me entera
 
 *Sesión 52 · 45 min* — De principio a fin, lenta.
 
-- [ ] **calentamiento** (10 min): Notas largas.
+- [ ] **calentamiento** (10 min): Notas largas con el afinador a la vista: observa hacia dónde se va cada nota, sin forzar para corregirla.
 - [ ] **repertorio** (30 min): Always With Me completa a 50.
 - [ ] **escalas** (5 min): Re mayor.
 
-### Día 73 · miércoles 13 ene 2027 · Bella Ciao
+### Día 73 · miércoles 20 ene 2027 · Bella Ciao
 
 *Sesión 53 · 45 min* — Una pieza de folk para descansar la cabeza.
 
-- [ ] **calentamiento** (10 min): Notas largas.
+- [ ] **calentamiento** (10 min): Notas largas con el afinador a la vista: observa hacia dónde se va cada nota, sin forzar para corregirla.
 - [ ] **repertorio** (20 min): Bella Ciao (si el arreglo tiene Sib, aprende esa nota primero).
 - [ ] **repertorio** (15 min): Always With Me a 50.
 
-**Día 74 · jueves 14 ene 2027**: descanso.
+**Día 74 · jueves 21 ene 2027**: descanso.
 
-### Día 75 · viernes 15 ene 2027 · Subir el tempo
+### Día 75 · viernes 22 ene 2027 · Subir el tempo
 
 *Sesión 54 · 45 min* — Always With Me a 56.
 
-- [ ] **calentamiento** (10 min): Notas largas.
+- [ ] **calentamiento** (10 min): Notas largas con el afinador a la vista: observa hacia dónde se va cada nota, sin forzar para corregirla.
 - [ ] **repertorio** (20 min): Always With Me a 56.
-- [ ] **repertorio** (15 min): La Llorona, frase 1.
+- [ ] **oido** (15 min): De oído en la flauta: saca 8 compases de una melodía conocida sin partitura y tócalos completos (prueba de «Tocar de oído»). Si te sobra tiempo, La Llorona, frase 1.
 
-### Día 76 · sábado 16 ene 2027 · Repaso de la semana
+🏅 Logros posibles: Tocar de oído
+
+### Día 76 · sábado 23 ene 2027 · Repaso de la semana
 
 *Sesión 55 · 45 min* — Re mayor y grabación.
 
-- [ ] **calentamiento** (10 min): Notas largas.
+- [ ] **calentamiento** (10 min): Notas largas con el afinador a la vista: observa hacia dónde se va cada nota, sin forzar para corregirla.
 - [ ] **escalas** (10 min): Prueba del logro: Re mayor a 60.
 - [ ] **grabacion** (25 min): Graba Always With Me completa (audio).
 
 🏅 Logros posibles: Re mayor
 
-**Día 77 · domingo 17 ene 2027**: descanso.
+**Día 77 · domingo 24 ene 2027**: descanso.
 
-## Semana 12 · 18 ene 2027 – 24 ene 2027 · con flauta
+## Semana 12 · 25 ene 2027 – 31 ene 2027 · con flauta
 
-### Día 78 · lunes 18 ene 2027 · Dinámicas suaves
+### Día 78 · lunes 25 ene 2027 · Dinámicas suaves
 
 *Sesión 56 · 45 min* — Piano y forte sin desafinar.
 
@@ -632,87 +640,87 @@ Del **2 nov 2026** al **30 ene 2027**. Práctica de lunes, martes, miércoles, v
 
 🏅 Logros posibles: Notas largas
 
-### Día 79 · martes 19 ene 2027 · Always With Me a 60
+### Día 79 · martes 26 ene 2027 · Always With Me a 60
 
 *Sesión 57 · 45 min* — Subir el tempo.
 
-- [ ] **calentamiento** (10 min): Notas largas.
+- [ ] **calentamiento** (10 min): Notas largas con el afinador a la vista: observa hacia dónde se va cada nota, sin forzar para corregirla.
 - [ ] **repertorio** (20 min): Always With Me a 60.
 - [ ] **repertorio** (15 min): Promise of the World completa.
 
-### Día 80 · miércoles 20 ene 2027 · Con la pista
+### Día 80 · miércoles 27 ene 2027 · Con la pista
 
 *Sesión 58 · 45 min* — Tocar con acompañamiento.
 
-- [ ] **calentamiento** (10 min): Notas largas.
+- [ ] **calentamiento** (10 min): Notas largas con el afinador a la vista: observa hacia dónde se va cada nota, sin forzar para corregirla.
 - [ ] **repertorio** (30 min): Always With Me con el karaoke de Yayoi (desde el minuto 3:15) si el tempo te lo permite; si no, con metrónomo.
 - [ ] **repaso** (5 min): Cuaderno (sin soplar): anota los minutos, qué salió bien y qué repetir mañana.
 
-**Día 81 · jueves 21 ene 2027**: descanso.
+**Día 81 · jueves 28 ene 2027**: descanso.
 
-### Día 82 · viernes 22 ene 2027 · Video de prueba
+### Día 82 · viernes 29 ene 2027 · Video de prueba
 
 *Sesión 59 · 45 min* — Ensayo de grabación completo.
 
-- [ ] **calentamiento** (10 min): Notas largas.
+- [ ] **calentamiento** (10 min): Notas largas con el afinador a la vista: observa hacia dónde se va cada nota, sin forzar para corregirla.
 - [ ] **grabacion** (30 min): Video completo de Always With Me: revisa encuadre, luz y audio.
 - [ ] **repaso** (5 min): Cuaderno (sin soplar): anota los minutos, qué salió bien y qué repetir mañana.
 
-### Día 83 · sábado 23 ene 2027 · Corregir
+### Día 83 · sábado 30 ene 2027 · Corregir
 
 *Sesión 60 · 45 min* — Arreglar lo que viste en el video.
 
-- [ ] **calentamiento** (10 min): Notas largas.
+- [ ] **calentamiento** (10 min): Notas largas con el afinador a la vista: observa hacia dónde se va cada nota, sin forzar para corregirla.
 - [ ] **repertorio** (30 min): Corrige lo que viste en el video; Always With Me a 63.
 - [ ] **repaso** (5 min): Cuaderno (sin soplar): anota los minutos, qué salió bien y qué repetir mañana.
 
 > Si no has publicado ningún video todavía, puedes publicar este como estreno (es opcional).
 
-**Día 84 · domingo 24 ene 2027**: descanso.
+**Día 84 · domingo 31 ene 2027**: descanso.
 
-## Semana 13 · 25 ene 2027 – 30 ene 2027 · con flauta
+## Semana 13 · 1 feb 2027 – 6 feb 2027 · con flauta
 
-### Día 85 · lunes 25 ene 2027 · Pasajes difíciles
+### Día 85 · lunes 1 feb 2027 · Pasajes difíciles
 
 *Sesión 61 · 45 min* — Always With Me a 66 por fragmentos.
 
-- [ ] **calentamiento** (12 min): Notas largas.
+- [ ] **calentamiento** (12 min): Notas largas con el afinador a la vista: observa hacia dónde se va cada nota, sin forzar para corregirla.
 - [ ] **repertorio** (30 min): Fragmentos difíciles: lento → 66.
 - [ ] **repaso** (3 min): Cuaderno (sin soplar): anota los minutos, qué salió bien y qué repetir mañana.
 
-### Día 86 · martes 26 ene 2027 · Ensayo general
+### Día 86 · martes 2 feb 2027 · Ensayo general
 
 *Sesión 62 · 45 min* — Dos tomas seguidas.
 
-- [ ] **calentamiento** (10 min): Notas largas.
+- [ ] **calentamiento** (10 min): Notas largas con el afinador a la vista: observa hacia dónde se va cada nota, sin forzar para corregirla.
 - [ ] **repertorio** (30 min): Always With Me a 66: 2 tomas seguidas.
 - [ ] **repaso** (5 min): Cuaderno (sin soplar): anota los minutos, qué salió bien y qué repetir mañana.
 
-### Día 87 · miércoles 27 ene 2027 · Tu repertorio
+### Día 87 · miércoles 3 feb 2027 · Tu repertorio
 
 *Sesión 63 · 45 min* — Repasar todo lo aprendido.
 
-- [ ] **calentamiento** (10 min): Notas largas.
+- [ ] **calentamiento** (10 min): Notas largas con el afinador a la vista: observa hacia dónde se va cada nota, sin forzar para corregirla.
 - [ ] **escalas** (10 min): Sol y Re mayor.
 - [ ] **repertorio** (25 min): Wellerman, Bella Ciao, La Llorona y Promise of the World.
 
-**Día 88 · jueves 28 ene 2027**: descanso.
+**Día 88 · jueves 4 feb 2027**: descanso.
 
-### Día 89 · viernes 29 ene 2027 · Ensayo del jefe 2
+### Día 89 · viernes 5 feb 2027 · Ensayo del jefe 2
 
 *Sesión 64 · 45 min* — Simular el día del jefe.
 
-- [ ] **calentamiento** (10 min): Notas largas.
+- [ ] **calentamiento** (10 min): Notas largas con el afinador a la vista: observa hacia dónde se va cada nota, sin forzar para corregirla.
 - [ ] **grabacion** (30 min): Graba Always With Me como si fuera el día del jefe.
 - [ ] **repaso** (5 min): Cuaderno (sin soplar): anota los minutos, qué salió bien y qué repetir mañana.
 
-### Día 90 · sábado 30 ene 2027 · ⚔️ JEFE 2: Siempre Conmigo
+### Día 90 · sábado 6 feb 2027 · ⚔️ JEFE 2: Siempre Conmigo
 
 *Sesión 65 · 52 min* — Vencer al jefe del día 90 y cerrar el plan.
 
 - [ ] **calentamiento** (12 min): Notas largas y escalas.
 - [ ] **grabacion** (25 min): Graba Always With Me completa a ♩ = 66: 2 tomas seguidas sin errores graves.
-- [ ] **repaso** (15 min): Test de lectura final y retrospectiva de los 90 días: qué funcionó, qué no, y qué sigue (nivel 3) junto con tu maestro.
+- [ ] **repaso** (15 min): Test de lectura final y retrospectiva de los 90 días: qué funcionó, qué no y qué sigue (la zona 3, con su semana tipo).
 
 🏅 Logros posibles: Los 90 días
 

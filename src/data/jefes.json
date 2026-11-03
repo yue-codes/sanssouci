@@ -73,7 +73,7 @@
     "version": "PnYftv8ZguU",
     "descripcion": "Vals de Hisaishi: dos octavas, fraseo y pulso de 3/4.",
     "condicionVictoria": {
-      "tempo": "♩ = 120 (el tempo exacto lo ajusta tu maestro)",
+      "tempo": "♩ = 120 (el de la versión de referencia)",
       "criterios": [
         "Pieza completa con acompañamiento.",
         "Pulso de vals estable.",
@@ -185,7 +185,7 @@
       "criterios": [
         "Obra completa con piano.",
         "Saltos y repeticiones limpios.",
-        "Aprobada por tu maestro."
+        "Grabación completa sin cortes, comparada con la referencia en 3 escuchas en días distintos."
       ],
       "grabacion": true
     },
@@ -208,7 +208,7 @@
       "criterios": [
         "Tema y todas las variaciones.",
         "Cada variación con su técnica clara.",
-        "Aprobado por tu maestro."
+        "Grabación completa sin cortes, comparada con la referencia en 3 escuchas en días distintos."
       ],
       "grabacion": true
     },

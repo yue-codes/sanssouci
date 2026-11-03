@@ -15,7 +15,7 @@ import RecorridoPlan from "@/components/calendario/RecorridoPlan.astro";
 import { HITO } from "@/components/calendario/hitos";
 import { cargarContenido } from "@/lib/contenido";
 import { semanasDelPlan, primerDiaConFlauta, minutosDelDia, zonaDelDia, type Hito } from "@/lib/calendario";
-import { diaDelPlanHoy, fechaLarga } from "@/lib/fechas";
+import { diaDelPlanHoy, fechaConAnio, fechaLarga } from "@/lib/fechas";
 import { IMAGENES } from "@/config/imagenes";
 import { SITIO } from "@/config/sitio";
 
@@ -25,7 +25,9 @@ const c = await cargarContenido();
 const dias = [...c.dias].sort((a, b) => a.data.numero - b.data.numero);
 const semanas = semanasDelPlan(dias);
 const diaFlauta = primerDiaConFlauta(dias);
-const hoy = diaDelPlanHoy(dias[0].data.fecha, SITIO.zonaHoraria);
+const inicio = dias[0].data.fecha;
+const fin = dias[dias.length - 1].data.fecha;
+const hoy = diaDelPlanHoy(inicio, SITIO.zonaHoraria);
 const imagen = IMAGENES.cuartoGhibli;
 
 // La próxima sesión desde hoy (si hoy es descanso, la siguiente).
@@ -51,7 +53,7 @@ const actos = [
   {
     numero: "II",
     titulo: "Con flauta",
-    texto: "Llega la flauta: revisión con el maestro, sonido, primeras notas y primeras piezas.",
+    texto: "Llega la flauta: revisión con un técnico, autoevaluación en video, sonido, primeras notas y primeras piezas.",
     semanas: semanas.filter((s) => s.numero >= semanaFlauta),
   },
 ];
@@ -68,14 +70,14 @@ function puertaTras(semana: (typeof semanas)[number]) {
 const DIAS_SEMANA = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"];
 ---
 
-<Base titulo="Calendario" descripcion="Los 90 días del plan, del 2 de noviembre de 2026 al 30 de enero de 2027." ancho="completo">
+<Base titulo="Calendario" descripcion={`Los 90 días del plan, del ${fechaConAnio(inicio, "larga")} al ${fechaConAnio(fin, "larga")}.`} ancho="completo">
   <!-- ============ PORTADA ============ -->
   <section class="relative isolate overflow-hidden border-b border-borde" aria-labelledby="titulo-calendario">
     <FondoPortada imagen={imagen} />
 
     <div class="contenedor grid gap-10 py-14 sm:py-20 lg:grid-cols-[1.3fr_1fr] lg:items-end">
       <div data-revelar="hijos">
-        <p class="eyebrow">90 días · 2 nov 2026 → 30 ene 2027</p>
+        <p class="eyebrow">90 días · {fechaConAnio(inicio)} → {fechaConAnio(fin)}</p>
         <h1 id="titulo-calendario" class="mt-4 text-6xl leading-[0.92] sm:text-8xl">La campaña</h1>
         <p class="mt-5 max-w-[52ch] text-lg text-tenue">
           Dos actos, tres jefes y 65 misiones. Práctica de 8 a 10 pm los lunes, martes, miércoles,
@@ -89,6 +91,10 @@ const DIAS_SEMANA = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"];
             </div>
           ))}
         </dl>
+        <p class="mt-8 flex flex-col gap-2">
+          <a href="/arranque" class="enlace-flecha">Semana 0: tres sesiones de arranque antes del día 1 <span aria-hidden="true">→</span></a>
+          <a href="/rutina" class="enlace-flecha">Después del día 90: tu rutina por zona <span aria-hidden="true">→</span></a>
+        </p>
       </div>
 
       {proxima && (

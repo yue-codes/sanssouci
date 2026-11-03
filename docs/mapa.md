@@ -4,14 +4,14 @@
 
 Rutas (ramas que se cruzan): **Ruta Clásica** · **Ruta Ghibli** · **Ruta Videojuegos** · **Ruta Anime · Vocaloid · J-pop** · **Ruta Folk y Mundo**.
 
-> Del día 91 en adelante, las estimaciones de tiempo son **orientativas**. Se pasa de zona al cumplir los criterios, no por fecha. Lo que diga tu maestro manda.
+> Del día 91 en adelante, las estimaciones de tiempo son **orientativas**. Se pasa de zona al cumplir los criterios, no por fecha. Tú te evalúas con grabación, afinador y metrónomo (ver plan.md).
 
 | # | Zona | Jefe | Estimación |
 |---|---|---|---|
-| 0 | Pradera del Silencio — Antes de la flauta | El Eco de Hallownest (Enter Hallownest) | Días 1–28 (2 al 29 de noviembre de 2026) |
-| 1 | Valle del Primer Aliento — Primer sonido | El Ballenero (Wellerman) | Días 29–62 (≈ 30 nov 2026 – 2 ene 2027) |
-| 2 | Aldea de las Melodías — Primeras canciones | Siempre Conmigo (Always With Me (Itsumo Nando Demo)) | Días 64–90 (4 al 30 de enero de 2027) |
-| 3 | Bosque de las Escalas — Dos octavas | El Castillo Ambulante (Merry-Go-Round of Life) | ≈ 4–9 meses desde el inicio (estimación; depende de tu avance y tu maestro) |
+| 0 | Pradera del Silencio — Antes de la flauta | El Eco de Hallownest (Enter Hallownest) | Días 1–28 (9 nov – 6 dic 2026) |
+| 1 | Valle del Primer Aliento — Primer sonido | El Ballenero (Wellerman) | Días 29–62 (≈ 7 dic 2026 – 9 ene 2027) |
+| 2 | Aldea de las Melodías — Primeras canciones | Siempre Conmigo (Always With Me (Itsumo Nando Demo)) | Días 64–90 (11 ene – 6 feb 2027) |
+| 3 | Bosque de las Escalas — Dos octavas | El Castillo Ambulante (Merry-Go-Round of Life) | ≈ 4–9 meses desde el inicio (estimación; depende de tu avance) |
 | 4 | Ciudad del Ritmo — Velocidad y tercera octava | El Capitán (He's a Pirate) | ≈ 9–15 meses (estimación) |
 | 5 | Torre del Canto — Expresión | El Tango (Por una Cabeza) | ≈ 1.5–2.5 años (estimación) |
 | 6 | Fortaleza de la Lengua — Articulación rápida | El Bufón de Bach (Badinerie) | ≈ 2–3 años (estimación) |
@@ -22,7 +22,7 @@ Rutas (ramas que se cruzan): **Ruta Clásica** · **Ruta Ghibli** · **Ruta Vide
 
 Aprender a leer, contar y escuchar antes de soplar. Lo que construyas aquí acelera todo lo demás.
 
-*Días 1–28 (2 al 29 de noviembre de 2026)*
+*Días 1–28 (9 nov – 6 dic 2026)*
 
 ### Temario
 
@@ -62,7 +62,7 @@ Jefe de oído: aún no hay flauta, así que la batalla es transcribir y tocar en
 
 La flauta llega. Embocadura, primeras notas y registro grave, sin forzar los labios.
 
-*Días 29–62 (≈ 30 nov 2026 – 2 ene 2027)*
+*Días 29–62 (≈ 7 dic 2026 – 9 ene 2027)*
 
 ### Temario
 
@@ -80,6 +80,8 @@ La flauta llega. Embocadura, primeras notas y registro grave, sin forzar los lab
 - [ ] **Si · La · Sol**: Si4, La4 y Sol4 claras, 4 s cada una.
 - [ ] **Registro grave**: Notas largas de 6 s de Re4 a Do5 sin que el sonido se rompa.
 - [ ] **Primera pieza**: Pieza completa, de principio a fin, sin pararte.
+- [ ] **Postura revisada**: Video de frente y de lado tocando 1 min: hombros abajo, muñecas rectas, cabeza recta y flauta paralela a los labios. Revísalo al día siguiente y anota qué corregir.
+- [ ] **Afinado**: Notas largas de Sol4, La4 y Si4 dentro de ±20 cents en el afinador, 3 intentos de 3.
 
 ### Jefe: El Ballenero
 
@@ -98,7 +100,7 @@ Tu primera pieza completa en la flauta, en el registro grave.
 
 Segunda octava, primeras escalas completas y tus primeras canciones de la lista.
 
-*Días 64–90 (4 al 30 de enero de 2027)*
+*Días 64–90 (11 ene – 6 feb 2027)*
 
 ### Temario
 
@@ -118,6 +120,7 @@ Segunda octava, primeras escalas completas y tus primeras canciones de la lista.
 - [ ] **Lengua: 'tu'**: Corcheas picadas en escala de Sol mayor a 80 bpm, claras.
 - [ ] **Ligado**: 8 notas ligadas por escala sin cortes.
 - [ ] **Notas largas**: 8 s estables por nota en una octava, mf, sin oscilar.
+- [ ] **Tocar de oído**: Una melodía conocida de 8 compases sacada de oído en la flauta, sin partitura, y tocada completa.
 
 ### Jefe: Siempre Conmigo
 
@@ -137,7 +140,7 @@ El jefe del día 90. La canción de El viaje de Chihiro, con sonido cantado.
 
 Consolidar dos octavas, más escalas y articulación. Aquí empieza el temario serio de verdad.
 
-*≈ 4–9 meses desde el inicio (estimación; depende de tu avance y tu maestro)*
+*≈ 4–9 meses desde el inicio (estimación; depende de tu avance)*
 
 ### Temario
 
@@ -146,7 +149,7 @@ Consolidar dos octavas, más escalas y articulación. Aquí empieza el temario s
 - **Respiracion:** Frases de 8 compases.
 - **Sonido:** Do grave, armónicos, Trevor Wye diario.
 - **Escalas:** Mayores hasta 3 alteraciones, 2 octavas.
-- **Estudios:** Estudios melódicos sencillos (los que elija tu maestro).
+- **Estudios:** Gariboldi, 20 Estudios pequeños op. 131 (nº 1–10); Moyse, De la sonorité (cap. 1).
 - **Repertorio:** Ghibli y anime de dificultad 3–4.
 
 ### Para pasar de zona
@@ -157,13 +160,16 @@ Consolidar dos octavas, más escalas y articulación. Aquí empieza el temario s
 - [ ] **Fondo del pozo**: Do4 claro de 4 s, en pp y en mf.
 - [ ] **Repertorio de cinco**: 5 piezas tocables completas.
 - [ ] **Transcriptor**: Melodía completa escrita (MuseScore o papel) y tocada en guitarra o flauta.
+- [ ] **Afinación en dos octavas**: Escala de Re mayor en 2 octavas en notas largas, cada nota dentro de ±15 cents.
+- [ ] **Gariboldi**: Estudios 1 a 10 de los 20 Estudios pequeños op. 131 de Gariboldi, cada uno grabado limpio a negra = 60 como mínimo.
+- [ ] **Repertorio vivo**: 8 semanas seguidas tocando completa al menos una pieza ya aprendida (anotada en el cuaderno).
 
 ### Jefe: El Castillo Ambulante
 
 Vals de Hisaishi: dos octavas, fraseo y pulso de 3/4.
 
 - **Canción:** Merry-Go-Round of Life — Howl's Moving Castle ([versión de referencia](https://www.youtube.com/watch?v=PnYftv8ZguU))
-- **Tempo:** ♩ = 120 (el tempo exacto lo ajusta tu maestro)
+- **Tempo:** ♩ = 120 (el de la versión de referencia)
 - [ ] Pieza completa con acompañamiento.
 - [ ] Pulso de vals estable.
 - [ ] Dinámicas básicas (p/f) audibles.
@@ -184,7 +190,7 @@ Semicorcheas, síncopa, cromática y las primeras notas de la tercera octava.
 - **Respiracion:** Respiraciones rápidas en pasajes rítmicos.
 - **Sonido:** Tercera octava hasta Sol6.
 - **Escalas:** Las 12 mayores y la cromática.
-- **Estudios:** Estudios técnicos asignados por tu maestro.
+- **Estudios:** Köhler, op. 33 libro 1; Gariboldi op. 131 (nº 11–20).
 - **Repertorio:** Openings de anime, cine y videojuegos de dificultad 4.
 
 ### Para pasar de zona
@@ -194,6 +200,8 @@ Semicorcheas, síncopa, cromática y las primeras notas de la tercera octava.
 - [ ] **Las doce mayores**: 12 escalas mayores, 2 octavas, a 80 bpm en corcheas, de memoria.
 - [ ] **Contratiempo**: Tocar un pasaje sincopado de 8 compases a 80 bpm, estable.
 - [ ] **Repertorio de diez**: 10 piezas tocables completas.
+- [ ] **Köhler I**: 6 estudios de Köhler op. 33 libro 1, grabados limpios.
+- [ ] **Dictado**: Dictado melódico de 4 compases (dos escuchas) escrito sin errores, 3 veces en días distintos.
 
 ### Jefe: El Capitán
 
@@ -221,17 +229,19 @@ Vibrato, dinámicas y la tercera octava ampliada. Taffanel & Gaubert entra en la
 - **Respiracion:** Control del aire para dinámicas extremas.
 - **Sonido:** Vibrato, dinámicas, tercera octava hasta Si6.
 - **Escalas:** Menores armónicas y melódicas; T&G EJ 1 y 4.
-- **Estudios:** Taffanel & Gaubert, Ejercicios diarios.
+- **Estudios:** Taffanel & Gaubert, Ejercicios diarios; Köhler, op. 33 libro 2.
 - **Repertorio:** Por una Cabeza y piezas de dificultad 5 (Kiki, Lumière, NieR, Gira Gira…).
 
 ### Para pasar de zona
 
-- [ ] **Vibrato**: Pulsos de 4 y 6 por negra a 60 bpm, regulares; el maestro lo aprueba.
+- [ ] **Vibrato**: Pulsos de 4 y 6 por negra a 60 bpm, regulares: compruébalo en la grabación y en la gráfica del afinador (oscilación pareja y centrada en la nota).
 - [ ] **Del susurro al grito**: Crescendo y diminuendo en notas largas de 2 octavas, afinación ±10 cents.
 - [ ] **Tercera octava (hasta Si6)**: Notas largas de La6 y Si6 afinadas (±15 cents).
 - [ ] **Las doce menores**: 12 menores armónicas y melódicas, 2 octavas, a 72 bpm.
 - [ ] **Taffanel & Gaubert: EJ 1**: EJ 1 completo a negra = 60, ligado.
 - [ ] **Trinos**: Trinos de semitono y tono en la primera y segunda octava, parejos.
+- [ ] **Köhler II**: 4 estudios de Köhler op. 33 libro 2, grabados limpios.
+- [ ] **Melodía y acordes**: Melodía y acordes (en guitarra) de un tema de 16 compases, escritos y tocados.
 
 ### Jefe: El Tango
 
@@ -259,7 +269,7 @@ Doble y triple picado, tercera octava completa y repertorio barroco rápido.
 - **Respiracion:** Gestión del aire en pasajes largos.
 - **Sonido:** Tercera octava completa (Do7).
 - **Escalas:** T&G EJ 4 con todas las articulaciones.
-- **Estudios:** Estudios de articulación asignados por tu maestro.
+- **Estudios:** Andersen, op. 41 (articulación y velocidad).
 - **Repertorio:** Badinerie, Vals op. 69 nº 2 de Chopin, Liebesleid y piezas de dificultad 6 (Senbonzakura, Crossing Field…).
 
 ### Para pasar de zona
@@ -268,6 +278,8 @@ Doble y triple picado, tercera octava completa y repertorio barroco rápido.
 - [ ] **Triple picado**: Tresillos de semicorchea a 90 bpm, parejos.
 - [ ] **Techo del mundo**: Escala cromática de Do4 a Do7 a 60 bpm en corcheas.
 - [ ] **Taffanel & Gaubert: EJ 4**: EJ 4 completo a negra = 72.
+- [ ] **Andersen**: 6 estudios de Andersen op. 41, grabados limpios.
+- [ ] **Oído de rayo**: 8 compases rápidos (semicorcheas) transcritos de una grabación, con velocidad reducida si hace falta, y tocados a tempo.
 
 ### Jefe: El Bufón de Bach
 
@@ -284,7 +296,7 @@ Badinerie de la Suite orquestal nº 2: el clásico de la articulación rápida.
 
 ## 7. Ciudadela del Virtuoso
 
-Obras de concierto exigentes. Aquí el maestro es imprescindible.
+Obras de concierto exigentes. Graba todo y compárate con las referencias; aquí una clase suelta de vez en cuando ahorra meses.
 
 *≈ 3–4+ años (estimación)*
 
@@ -295,12 +307,16 @@ Obras de concierto exigentes. Aquí el maestro es imprescindible.
 - **Respiracion:** Resistencia en obras largas.
 - **Sonido:** Color y proyección.
 - **Escalas:** Escalas en terceras y arpegios en todas las tonalidades.
-- **Estudios:** Estudios de nivel avanzado.
+- **Estudios:** Andersen, op. 15 (24 grandes estudios).
 - **Repertorio:** Romberg op. 17, Danse Macabre, Verano de Vivaldi, Introducción y Rondó Caprichoso, y el J-pop más rápido (Cry Baby, Usseewa, Yoru ni Kakeru).
 
 ### Para pasar de zona
 
 - [ ] **Lengua de rayo**: Semicorcheas en doble picado a 132 bpm o más, limpias.
+- [ ] **Escalas en terceras**: 12 escalas mayores en terceras, 2 octavas, a 72 bpm en corcheas.
+- [ ] **Arpegios**: Arpegios mayores y menores en las 12 tonalidades, 2 octavas, a 80 bpm en corcheas.
+- [ ] **Fondo de concierto**: 8 min o más seguidos (una obra o varias piezas) sin perder sonido ni afinación al final, grabados.
+- [ ] **Arreglista**: Un arreglo propio para flauta (melodía, adornos y final) escrito en MuseScore y grabado.
 
 ### Jefe: El Violinista Húngaro
 
@@ -328,7 +344,7 @@ Virtuosismo extremo. Llegar aquí es un logro de años; disfrútalo como horizon
 - **Respiracion:** Respiración circular.
 - **Sonido:** Control total del registro.
 - **Escalas:** Todo, a velocidad de concierto.
-- **Estudios:** Lo que marque tu maestro.
+- **Estudios:** Andersen, op. 15 y op. 60; los pasajes de tus jefes, como estudios.
 - **Repertorio:** La Campanella, Capricho 24, Estudio op. 25 nº 2, Six Trillion Years (arreglo transcendental).
 
 ### Para pasar de zona
@@ -343,7 +359,7 @@ Jefe final. Paganini/Liszt en el arreglo de Denis Bouriakov.
 - **Tempo:** Tempo de concierto
 - [ ] Obra completa con piano.
 - [ ] Saltos y repeticiones limpios.
-- [ ] Aprobada por tu maestro.
+- [ ] Grabación completa sin cortes, comparada con la referencia en 3 escuchas en días distintos.
 - [ ] **Grabar el video** (grabar es parte de la victoria)
 - **Requiere:** Lengua de rayo, Triple picado, Techo del mundo
 
@@ -356,7 +372,7 @@ Jefe final. Tema y variaciones de Paganini, en la versión de Jasmine Choi.
 - **Tempo:** Tempo de concierto
 - [ ] Tema y todas las variaciones.
 - [ ] Cada variación con su técnica clara.
-- [ ] Aprobado por tu maestro.
+- [ ] Grabación completa sin cortes, comparada con la referencia en 3 escuchas en días distintos.
 - [ ] **Grabar el video** (grabar es parte de la victoria)
 - **Requiere:** Lengua de rayo, Triple picado, Techo del mundo, Respiración circular
 
@@ -391,7 +407,8 @@ Jefe final. Tema y variaciones de Paganini, en la versión de Jasmine Choi.
 |---|---|---|---|
 | Respirar desde abajo | 7 días de práctica con 5 min de ejercicios de respiración cada uno. | Pradera del Silencio | — |
 | Aire largo | 20 s de soplido parejo (sin ahogarte ni marearte). | Pradera del Silencio | Respirar desde abajo |
-| Respiración circular | 30 s de pasaje continuo sin corte audible (validado por tu maestro). | Cumbre de Paganini | Techo del mundo |
+| Respiración circular | 30 s de pasaje continuo sin corte audible, comprobado en tu grabación (escúchala al día siguiente). | Cumbre de Paganini | Techo del mundo |
+| Fondo de concierto | 8 min o más seguidos (una obra o varias piezas) sin perder sonido ni afinación al final, grabados. | Ciudadela del Virtuoso | Del susurro al grito |
 
 ### Sonido
 
@@ -409,7 +426,10 @@ Jefe final. Tema y variaciones de Paganini, en la versión de Jasmine Choi.
 | Tercera octava (hasta Si6) | Notas largas de La6 y Si6 afinadas (±15 cents). | Torre del Canto | Tercera octava (hasta Sol6) |
 | Techo del mundo | Escala cromática de Do4 a Do7 a 60 bpm en corcheas. | Fortaleza de la Lengua | Tercera octava (hasta Si6) |
 | Del susurro al grito | Crescendo y diminuendo en notas largas de 2 octavas, afinación ±10 cents. | Torre del Canto | Dos octavas |
-| Vibrato | Pulsos de 4 y 6 por negra a 60 bpm, regulares; el maestro lo aprueba. | Torre del Canto | Notas largas, Del susurro al grito |
+| Vibrato | Pulsos de 4 y 6 por negra a 60 bpm, regulares: compruébalo en la grabación y en la gráfica del afinador (oscilación pareja y centrada en la nota). | Torre del Canto | Notas largas, Del susurro al grito |
+| Afinado | Notas largas de Sol4, La4 y Si4 dentro de ±20 cents en el afinador, 3 intentos de 3. | Valle del Primer Aliento | Si · La · Sol |
+| Afinación en dos octavas | Escala de Re mayor en 2 octavas en notas largas, cada nota dentro de ±15 cents. | Bosque de las Escalas | Afinado, Dos octavas |
+| De la sonorité | Moyse, De la sonorité, cap. 1: notas descendentes de Si5 a Do4 con el mismo color de sonido, grabado. | Bosque de las Escalas | Notas largas |
 
 ### Tecnica
 
@@ -424,6 +444,11 @@ Jefe final. Tema y variaciones de Paganini, en la versión de Jasmine Choi.
 | Doble picado | Semicorcheas en doble picado a 100 bpm en escala. | Fortaleza de la Lengua | Staccato |
 | Triple picado | Tresillos de semicorchea a 90 bpm, parejos. | Fortaleza de la Lengua | Doble picado |
 | Lengua de rayo | Semicorcheas en doble picado a 132 bpm o más, limpias. | Ciudadela del Virtuoso | Doble picado |
+| Postura revisada | Video de frente y de lado tocando 1 min: hombros abajo, muñecas rectas, cabeza recta y flauta paralela a los labios. Revísalo al día siguiente y anota qué corregir. | Valle del Primer Aliento | Primer aliento |
+| Gariboldi | Estudios 1 a 10 de los 20 Estudios pequeños op. 131 de Gariboldi, cada uno grabado limpio a negra = 60 como mínimo. | Bosque de las Escalas | Sol mayor, Ligado |
+| Köhler I | 6 estudios de Köhler op. 33 libro 1, grabados limpios. | Ciudad del Ritmo | Gariboldi, Staccato |
+| Köhler II | 4 estudios de Köhler op. 33 libro 2, grabados limpios. | Torre del Canto | Köhler I |
+| Andersen | 6 estudios de Andersen op. 41, grabados limpios. | Fortaleza de la Lengua | Köhler II |
 
 ### Escalas
 
@@ -437,6 +462,8 @@ Jefe final. Tema y variaciones de Paganini, en la versión de Jasmine Choi.
 | Las doce menores | 12 menores armónicas y melódicas, 2 octavas, a 72 bpm. | Torre del Canto | Las doce mayores, Lado menor |
 | Taffanel & Gaubert: EJ 1 | EJ 1 completo a negra = 60, ligado. | Torre del Canto | Las doce mayores |
 | Taffanel & Gaubert: EJ 4 | EJ 4 completo a negra = 72. | Torre del Canto | Taffanel & Gaubert: EJ 1 |
+| Escalas en terceras | 12 escalas mayores en terceras, 2 octavas, a 72 bpm en corcheas. | Ciudadela del Virtuoso | Las doce mayores, Las doce menores |
+| Arpegios | Arpegios mayores y menores en las 12 tonalidades, 2 octavas, a 80 bpm en corcheas. | Ciudadela del Virtuoso | Las doce menores |
 
 ### Oido
 
@@ -447,6 +474,12 @@ Jefe final. Tema y variaciones de Paganini, en la versión de Jasmine Choi.
 | Transcriptor | Melodía completa escrita (MuseScore o papel) y tocada en guitarra o flauta. | Bosque de las Escalas | Primera transcripción |
 | De tu oído a tu flauta | Pieza transcrita por ti, tocada completa y grabada. | Bosque de las Escalas | Transcriptor, Primera pieza |
 | Oído de flautista | 3 grabaciones escuchadas, con 3 observaciones de sonido anotadas por cada una. | Pradera del Silencio | — |
+| Tocar de oído | Una melodía conocida de 8 compases sacada de oído en la flauta, sin partitura, y tocada completa. | Aldea de las Melodías | Primera transcripción, Registro grave |
+| Oído fino | Todos los intervalos hasta la octava (incluidos 4ª aumentada, 6as y 7as): 9 de 10 aciertos en un test de oído. | Ciudad del Ritmo | Oído afinado |
+| Dictado | Dictado melódico de 4 compases (dos escuchas) escrito sin errores, 3 veces en días distintos. | Ciudad del Ritmo | Transcriptor |
+| Melodía y acordes | Melodía y acordes (en guitarra) de un tema de 16 compases, escritos y tocados. | Torre del Canto | Dictado |
+| Oído de rayo | 8 compases rápidos (semicorcheas) transcritos de una grabación, con velocidad reducida si hace falta, y tocados a tempo. | Fortaleza de la Lengua | Melodía y acordes |
+| Arreglista | Un arreglo propio para flauta (melodía, adornos y final) escrito en MuseScore y grabado. | Ciudadela del Virtuoso | Oído de rayo |
 
 ### Habito
 
@@ -456,8 +489,9 @@ Jefe final. Tema y variaciones de Paganini, en la versión de Jasmine Choi.
 | Constancia | 4 semanas seguidas con al menos 4 de 5 sesiones. | Pradera del Silencio | Primera semana |
 | Bitácora | 20 sesiones registradas con minutos y notas. | Pradera del Silencio | — |
 | Los 90 días | Al menos 58 de las 65 sesiones del plan completadas (≈ 90 %). | Aldea de las Melodías | Constancia |
-| Maestro encontrado | Primera clase tomada y apuntes guardados. | Valle del Primer Aliento | — |
-| Flauta revisada | Sellado, ajuste y afinación revisados por tu maestro. | Valle del Primer Aliento | Maestro encontrado |
+| Clase de chequeo | Una clase suelta tomada y lo que te corrigió anotado en tu cuaderno. | Valle del Primer Aliento | — |
+| Flauta revisada | Sellado, ajuste y afinación revisados por un técnico o la tienda, dentro del plazo de devolución. | Valle del Primer Aliento | — |
+| Repertorio vivo | 8 semanas seguidas tocando completa al menos una pieza ya aprendida (anotada en el cuaderno). | Bosque de las Escalas | Primera pieza |
 
 ### Grabacion
 

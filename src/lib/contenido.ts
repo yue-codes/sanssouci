@@ -14,6 +14,10 @@ export type Jefe = CollectionEntry<"jefes">;
 export type Logro = CollectionEntry<"logros">;
 export type Dia = CollectionEntry<"dias">;
 export type Ruta = CollectionEntry<"rutas">;
+/** Una sesión de la semana 0 (antes del día 1). */
+export type SesionArranque = CollectionEntry<"arranque">;
+/** La semana tipo de una zona (la rutina después del día 90). */
+export type SemanaTipo = CollectionEntry<"semanas">;
 /** Categoría de un logro (cada una es una rama del árbol de habilidades). */
 export type CategoriaLogro = Logro["data"]["categoria"];
 
@@ -27,17 +31,21 @@ export type CategoriaLogro = Logro["data"]["categoria"];
  * const jefe = c.jefePorId.get("jefe-0");
  */
 export async function cargarContenido() {
-  const [rutas, niveles, jefes, logros, canciones, dias] = await Promise.all([
+  const [rutas, niveles, jefes, logros, canciones, dias, arranque, semanas] = await Promise.all([
     getCollection("rutas"),
     getCollection("niveles"),
     getCollection("jefes"),
     getCollection("logros"),
     getCollection("canciones"),
     getCollection("dias"),
+    getCollection("arranque"),
+    getCollection("semanas"),
   ]);
   const indice = <T extends { id: string }>(xs: T[]) => new Map(xs.map((x) => [x.id, x]));
   return {
     rutas, logros, canciones, dias, jefes,
+    arranque: [...arranque].sort((a, b) => a.data.numero - b.data.numero),
+    semanas,
     niveles: [...niveles].sort((a, b) => a.data.orden - b.data.orden),
     rutaPorId: indice(rutas),
     nivelPorId: indice(niveles),

@@ -18,13 +18,16 @@ import AnuncioJefe from "@/components/jefes/AnuncioJefe.astro";
 import SenderoPortada from "@/components/mapa/SenderoPortada.astro";
 import IndiceRutas, { type RutaIndice } from "@/components/canciones/IndiceRutas";
 import AvisoProgreso from "@/components/ui/AvisoProgreso.astro";
+import AvisoArranque from "@/components/sesion/AvisoArranque.astro";
+import AvisoRutina from "@/components/sesion/AvisoRutina.astro";
 import { cargarContenido, nombreCortoRuta } from "@/lib/contenido";
-import { diasParaPartitura, minutosDelDia, sesionDeReferencia, titularDelDia } from "@/lib/calendario";
-import { diaDelPlanHoy, fechaLarga } from "@/lib/fechas";
+import { arranqueDeHoy, diasParaPartitura, minutosDelDia, sesionDeReferencia, titularDelDia } from "@/lib/calendario";
+import { diaDelPlanHoy, fechaLarga, hoyIso } from "@/lib/fechas";
 import { sumarMinutos } from "@/lib/formato";
 import { construirSendero } from "@/lib/mapa";
 import { diaDelJefe } from "@/lib/jefes";
 import { progresoDeVisita } from "@/lib/progreso-usuario";
+import { semanaDeZona, sesionDeRutina } from "@/lib/rutina";
 import { HORARIO, SITIO } from "@/config/sitio";
 import { IMAGENES, IMAGEN_RUTA } from "@/config/imagenes";
 
@@ -40,11 +43,18 @@ const hoy = diaDelPlanHoy(partitura[0].fecha, SITIO.zonaHoraria);
 const { dia: sesion, motivo } = sesionDeReferencia(c.dias, hoy);
 const s = sesion.data;
 const minutos = minutosDelDia(sesion);
+// Antes del día 1: la sesión de la semana 0 que toca (o la próxima).
+const arranque = hoy < 1 ? arranqueDeHoy(c.arranque, hoyIso(SITIO.zonaHoraria)) : undefined;
 
 const paradas = construirSendero(c, progreso);
 const actual = paradas.find((p) => p.estado === "actual") ?? paradas[paradas.length - 1];
 const proximo = paradas.flatMap((p) => p.jefes.map((j) => ({ ...j, zona: p.nivel.data.orden }))).find((j) => !j.vencido);
 const diaJefe = proximo && diaDelJefe(c, proximo.jefe.id)?.data.numero;
+// Después del día 90: la sesión de la semana tipo de tu zona.
+const rutina =
+  hoy > partitura.length
+    ? sesionDeRutina(semanaDeZona(c.semanas, c.niveles, actual.nivel.data.orden), hoyIso(SITIO.zonaHoraria), partitura[partitura.length - 1].fecha)
+    : undefined;
 
 // Lo que dice la línea pequeña sobre el título, según el momento del plan.
 const titular = titularDelDia(hoy);
@@ -93,6 +103,8 @@ const totalJefes = c.jefes.length;
         <a href={`/dias/${s.numero}`} class="boton">Empezar la sesión <span aria-hidden="true">→</span></a>
         <a href="/calendario" class="boton-borde">Ver la semana</a>
       </div>
+      {arranque && <AvisoArranque arranque={arranque} class="mt-8 max-w-md" />}
+      {rutina && <AvisoRutina sesion={rutina} class="mt-8 max-w-md" />}
       <AvisoProgreso sesion={conSesion} fallo={fallo} volver="/" que="el camino" class="mt-8 max-w-md" />
     </div>
 

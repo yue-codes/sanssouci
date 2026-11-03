@@ -1,0 +1,131 @@
+---
+/**
+ * Página /rutina: la rutina después del día 90. La semana tipo de tu zona
+ * (`semanas.json`), con la sesión de hoy jugable (cronómetro de `MisionDelDia`) y
+ * el resto de la semana y la revisión del mes debajo. `?zona=nivel-N` enseña la
+ * semana tipo de otra zona (para ver lo que viene).
+ *
+ * Es de servidor (`prerender = false`): depende de TU zona actual (progreso) y de
+ * «hoy». Las sesiones de la rutina no se guardan en el progreso (la tabla de días
+ * solo tiene los 90 del plan): se anotan en el cuaderno.
+ */
+import { CalendarCheck } from "lucide-preact";
+import Base from "@/layouts/Base.astro";
+import EncabezadoSeccion from "@/components/ui/EncabezadoSeccion.astro";
+import AvisoProgreso from "@/components/ui/AvisoProgreso.astro";
+import MisionDelDia from "@/components/sesion/MisionDelDia";
+import { TIPO_BLOQUE } from "@/components/sesion/bloques";
+import { cargarContenido } from "@/lib/contenido";
+import { construirSendero } from "@/lib/mapa";
+import { diaDelPlanHoy, fechaLarga, hoyIso } from "@/lib/fechas";
+import { progresoDeVisita } from "@/lib/progreso-usuario";
+import { SEMANAS_POR_REVISION, semanaDeZona, sesionDeRutina } from "@/lib/rutina";
+import { SITIO } from "@/config/sitio";
+
+export const prerender = false;
+
+const c = await cargarContenido();
+const { progreso, sesion: conSesion, fallo } = await progresoDeVisita(Astro.locals);
+// Esta respuesta es de UNA persona: que ningún CDN ni navegador compartido la guarde.
+Astro.response.headers.set("Cache-Control", "private, no-store");
+
+const dias = [...c.dias].sort((a, b) => a.data.numero - b.data.numero);
+const dia90 = dias[dias.length - 1].data.fecha;
+const hoy = diaDelPlanHoy(dias[0].data.fecha, SITIO.zonaHoraria);
+
+const paradas = construirSendero(c, progreso);
+const actual = (paradas.find((p) => p.estado === "actual") ?? paradas[paradas.length - 1]).nivel;
+// ?zona=… solo cambia lo que se ve; si no es una zona válida, se ignora.
+const pedida = c.nivelPorId.get(Astro.url.searchParams.get("zona") ?? "");
+const semana = semanaDeZona(c.semanas, c.niveles, (pedida ?? actual).data.orden);
+const zona = c.nivelPorId.get(semana.data.nivel.id)!;
+const esLaTuya = zona.id === semanaDeZona(c.semanas, c.niveles, actual.data.orden).data.nivel.id;
+
+// Hasta el día 90 manda el calendario; la sesión de hoy de la rutina solo existe después.
+const deHoy = hoy > dias.length && esLaTuya ? sesionDeRutina(semana, hoyIso(SITIO.zonaHoraria), dia90) : undefined;
+const zonasConSemana = c.niveles.filter((n) => c.semanas.some((s) => s.data.nivel.id === n.id));
+const minutos = (bloques: { minutos: number }[]) => bloques.reduce((t, b) => t + b.minutos, 0);
+const otras = [
+  ...semana.data.sesiones.map((s) => ({ ...s, etiqueta: s.diaSemana })),
+  { ...semana.data.revision, etiqueta: `sábado, cada ${SEMANAS_POR_REVISION} semanas` },
+];
+---
+
+<Base titulo="Rutina" descripcion="La rutina después del día 90: la semana tipo de tu zona y la revisión del mes.">
+  <header class="max-w-3xl" data-revelar="hijos">
+    <p class="eyebrow">Después del día 90 · zona {zona.data.orden} · {zona.data.nombre}</p>
+    <h1 class="mt-4 text-6xl leading-[0.92] sm:text-8xl">Tu <em class="text-acento">rutina</em></h1>
+    <p class="mt-5 max-w-[56ch] text-lg text-tenue">
+      Sin calendario: cada semana repites la semana tipo de tu zona hasta pasarla. Foco: {semana.data.foco}
+      Cada {SEMANAS_POR_REVISION} semanas, el sábado es de revisión.
+    </p>
+    {hoy <= dias.length && (
+      <p class="mt-6 flex max-w-xl items-start gap-2.5 rounded-md border border-resalte/40 bg-resalte/10 px-4 py-3 text-sm">
+        <CalendarCheck size={16} class="mt-0.5 shrink-0 text-resalte" aria-hidden="true" />
+        <span>
+          Aún estás en los 90 días: tu sesión de hoy está en el <a href="/calendario" class="font-semibold text-resalte underline-offset-2 hover:underline">calendario</a>.
+          Esta rutina empieza al terminar el plan ({fechaLarga(dia90)}).
+        </span>
+      </p>
+    )}
+    <AvisoProgreso sesion={conSesion} fallo={fallo} volver="/rutina" que="la rutina" class="mt-6 max-w-md" />
+
+    <nav class="mt-8" aria-label="Semana tipo de cada zona">
+      <ul class="flex flex-wrap gap-2 text-sm">
+        {zonasConSemana.map((n) => (
+          <li>
+            <a
+              href={n.id === actual.id ? "/rutina" : `/rutina?zona=${n.id}`}
+              aria-current={n.id === zona.id ? "page" : undefined}
+              class:list={[
+                "inline-flex items-center gap-1.5 rounded-[3px] border px-2.5 py-1 font-mono text-[0.6875rem] uppercase transition-colors",
+                n.id === zona.id ? "border-acento bg-acento-suave text-acento-claro" : "border-borde text-tenue hover:border-acento/50 hover:text-texto",
+              ]}
+            >
+              Zona {n.data.orden}{n.id === actual.id && " · la tuya"}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </header>
+
+  {deHoy && (
+    <section class="mt-16" aria-labelledby="titulo-hoy">
+      <EncabezadoSeccion
+        id="titulo-hoy"
+        eyebrow={`${deHoy.motivo === "hoy" ? "Hoy" : `Próxima: ${fechaLarga(deHoy.fecha)}`} · semana ${deHoy.semana}${deHoy.revision ? " · revisión" : ""}`}
+        titulo={deHoy.titulo}
+        descripcion={`${deHoy.objetivo} No se guarda en el progreso: anótala en tu cuaderno.`}
+      />
+      <MisionDelDia client:load bloques={deHoy.bloques} />
+    </section>
+  )}
+
+  <section class="mt-16" aria-labelledby="titulo-semana">
+    <EncabezadoSeccion id="titulo-semana" eyebrow={`Zona ${zona.data.orden}`} titulo="La semana tipo" descripcion="Jueves y domingo, descanso." />
+    <ol class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+      {otras.map((s) => (
+        <li class="tarjeta flex flex-col p-5">
+          <p class="eyebrow">{s.etiqueta} · {minutos(s.bloques)} min</p>
+          <h3 class="mt-2 font-display text-2xl leading-tight">{s.titulo}</h3>
+          <p class="mt-1 text-sm text-tenue">{s.objetivo}</p>
+          <ul class="mt-4 grid gap-2 text-sm">
+            {s.bloques.map((b) => {
+              const { nombre, Icono } = TIPO_BLOQUE[b.tipo];
+              return (
+                <li class="flex gap-2.5">
+                  <Icono size={15} class="mt-0.5 shrink-0 text-acento" aria-hidden="true" />
+                  <span>
+                    <span class="font-medium">{nombre}</span> <span class="font-mono text-[0.6875rem] text-tenue">{b.minutos} min</span>
+                    <span class="block text-tenue">{b.actividad}</span>
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
+        </li>
+      ))}
+    </ol>
+  </section>
+</Base>

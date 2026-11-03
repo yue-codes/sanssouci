@@ -227,7 +227,7 @@ export const server = {
   /**
    * Cambia dónde vas con una canción. «pendiente» es el valor por defecto, así que
    * en vez de guardarlo se borra la fila (lo que no aporta no se guarda).
-   * No exige tener sus requisitos: puedes empezar a aprenderla antes (tu maestro manda).
+   * No exige tener sus requisitos: puedes empezar a aprenderla antes (es tu decisión).
    *
    * @returns El estado guardado.
    */

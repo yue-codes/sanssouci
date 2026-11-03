@@ -1,0 +1,1216 @@
+[
+  {
+    "id": "semana-nivel-1",
+    "nivel": "nivel-1",
+    "foco": "Registro grave y primera pieza.",
+    "sesiones": [
+      {
+        "diaSemana": "lunes",
+        "titulo": "Sonido grave",
+        "objetivo": "Un sonido estable en el registro grave.",
+        "bloques": [
+          {
+            "tipo": "calentamiento",
+            "minutos": 10,
+            "actividad": "Trevor Wye (Tono): notas largas de Si4 bajando a Re4, con el afinador."
+          },
+          {
+            "tipo": "sonido",
+            "minutos": 15,
+            "actividad": "Registro grave: Re4–Do5, 6 s por nota, sin que el sonido se rompa."
+          },
+          {
+            "tipo": "repertorio",
+            "minutos": 20,
+            "actividad": "Wellerman por frases, lento, con metrónomo."
+          }
+        ]
+      },
+      {
+        "diaSemana": "martes",
+        "titulo": "Lectura y postura",
+        "objetivo": "Leer y digitar a la vez, con buena postura.",
+        "bloques": [
+          {
+            "tipo": "calentamiento",
+            "minutos": 10,
+            "actividad": "Notas largas con el afinador a la vista."
+          },
+          {
+            "tipo": "lectura",
+            "minutos": 15,
+            "actividad": "Lee melodías nuevas de 8 compases en el registro grave."
+          },
+          {
+            "tipo": "tecnica",
+            "minutos": 10,
+            "actividad": "Postura: grábate 1 min de frente y de lado y revísalo con la lista."
+          },
+          {
+            "tipo": "repertorio",
+            "minutos": 15,
+            "actividad": "Wellerman."
+          }
+        ]
+      },
+      {
+        "diaSemana": "miércoles",
+        "titulo": "Oído",
+        "objetivo": "Llevar a la flauta lo que oyes.",
+        "bloques": [
+          {
+            "tipo": "calentamiento",
+            "minutos": 10,
+            "actividad": "Notas largas con el afinador a la vista."
+          },
+          {
+            "tipo": "oido",
+            "minutos": 15,
+            "actividad": "De oído en la flauta: frases de canciones conocidas entre Re4 y Do5."
+          },
+          {
+            "tipo": "repertorio",
+            "minutos": 20,
+            "actividad": "Wellerman o la pieza que estés aprendiendo."
+          }
+        ]
+      },
+      {
+        "diaSemana": "viernes",
+        "titulo": "Escalas",
+        "objetivo": "Las primeras escalas, despacio.",
+        "bloques": [
+          {
+            "tipo": "calentamiento",
+            "minutos": 10,
+            "actividad": "Notas largas con el afinador a la vista."
+          },
+          {
+            "tipo": "escalas",
+            "minutos": 15,
+            "actividad": "Fragmentos de Sol mayor (Re4–Re5), lentos y limpios."
+          },
+          {
+            "tipo": "estudios",
+            "minutos": 10,
+            "actividad": "Ejercicios de 3 a 5 notas a 60."
+          },
+          {
+            "tipo": "repertorio",
+            "minutos": 15,
+            "actividad": "Wellerman."
+          }
+        ]
+      },
+      {
+        "diaSemana": "sábado",
+        "titulo": "Grabación",
+        "objetivo": "Escucharte con oído crítico.",
+        "bloques": [
+          {
+            "tipo": "calentamiento",
+            "minutos": 10,
+            "actividad": "Notas largas con el afinador a la vista."
+          },
+          {
+            "tipo": "grabacion",
+            "minutos": 20,
+            "actividad": "Graba la pieza o el estudio de la semana. Escúchalo mañana con la lista de autoevaluación (docs/plan.md)."
+          },
+          {
+            "tipo": "repaso",
+            "minutos": 15,
+            "actividad": "Cuaderno: qué criterio de la zona te falta; repite hoy su prueba."
+          }
+        ]
+      }
+    ],
+    "revision": {
+      "titulo": "Revisión del mes",
+      "objetivo": "Comprobar los criterios de tu zona con el protocolo y elegir el foco de las 4 semanas siguientes.",
+      "bloques": [
+        {
+          "tipo": "calentamiento",
+          "minutos": 10,
+          "actividad": "Notas largas con el afinador a la vista."
+        },
+        {
+          "tipo": "revision",
+          "minutos": 30,
+          "actividad": "Prueba los criterios de tu zona que te falten (los ves en /niveles y en el árbol): graba cada uno. Mañana escúchalos y marca solo los que estén claros."
+        },
+        {
+          "tipo": "repaso",
+          "minutos": 10,
+          "actividad": "Cuaderno: qué mejoró este mes, qué no y el foco de las próximas 4 semanas (como mucho 2 cosas)."
+        }
+      ]
+    }
+  },
+  {
+    "id": "semana-nivel-2",
+    "nivel": "nivel-2",
+    "foco": "Segunda octava, Sol y Re mayor, picado y ligado, primeras canciones.",
+    "sesiones": [
+      {
+        "diaSemana": "lunes",
+        "titulo": "Segunda octava",
+        "objetivo": "Saltos de octava limpios.",
+        "bloques": [
+          {
+            "tipo": "calentamiento",
+            "minutos": 12,
+            "actividad": "Notas largas en dos octavas con el afinador (Trevor Wye, Tono)."
+          },
+          {
+            "tipo": "sonido",
+            "minutos": 13,
+            "actividad": "Saltos de octava de Re4–Re5 a La4–La5, lentos."
+          },
+          {
+            "tipo": "repertorio",
+            "minutos": 20,
+            "actividad": "La pieza de la zona que estés aprendiendo, por frases."
+          }
+        ]
+      },
+      {
+        "diaSemana": "martes",
+        "titulo": "Escalas y articulación",
+        "objetivo": "Sol y Re mayor, picadas y ligadas.",
+        "bloques": [
+          {
+            "tipo": "calentamiento",
+            "minutos": 10,
+            "actividad": "Notas largas con el afinador a la vista."
+          },
+          {
+            "tipo": "escalas",
+            "minutos": 15,
+            "actividad": "Sol y Re mayor, una octava: negras a 60 y luego corcheas."
+          },
+          {
+            "tipo": "tecnica",
+            "minutos": 10,
+            "actividad": "La misma escala alternando picado «tu» y ligado."
+          },
+          {
+            "tipo": "lectura",
+            "minutos": 10,
+            "actividad": "Primera vista: 8 compases nuevos y fáciles."
+          }
+        ]
+      },
+      {
+        "diaSemana": "miércoles",
+        "titulo": "Oído",
+        "objetivo": "Sacar melodías sin partitura.",
+        "bloques": [
+          {
+            "tipo": "calentamiento",
+            "minutos": 10,
+            "actividad": "Notas largas con el afinador a la vista."
+          },
+          {
+            "tipo": "oido",
+            "minutos": 15,
+            "actividad": "Saca de oído en la flauta 8 compases de una melodía que conozcas."
+          },
+          {
+            "tipo": "repertorio",
+            "minutos": 20,
+            "actividad": "Always With Me, Bella Ciao, La Llorona o la que estés aprendiendo."
+          }
+        ]
+      },
+      {
+        "diaSemana": "viernes",
+        "titulo": "Estudios",
+        "objetivo": "Sonido y lectura con material nuevo.",
+        "bloques": [
+          {
+            "tipo": "calentamiento",
+            "minutos": 10,
+            "actividad": "Notas largas con el afinador a la vista."
+          },
+          {
+            "tipo": "estudios",
+            "minutos": 20,
+            "actividad": "Trevor Wye (Tono) y melodías sencillas a primera vista."
+          },
+          {
+            "tipo": "repertorio",
+            "minutos": 20,
+            "actividad": "La pieza de la semana, con metrónomo."
+          }
+        ]
+      },
+      {
+        "diaSemana": "sábado",
+        "titulo": "Repertorio vivo",
+        "objetivo": "Repasar lo vencido y grabar lo nuevo.",
+        "bloques": [
+          {
+            "tipo": "calentamiento",
+            "minutos": 10,
+            "actividad": "Notas largas con el afinador a la vista."
+          },
+          {
+            "tipo": "repaso",
+            "minutos": 10,
+            "actividad": "Repertorio vivo: toca completa una pieza que ya venciste, sin parar."
+          },
+          {
+            "tipo": "grabacion",
+            "minutos": 15,
+            "actividad": "Graba la pieza o el estudio de la semana. Escúchalo mañana con la lista de autoevaluación (docs/plan.md)."
+          },
+          {
+            "tipo": "repertorio",
+            "minutos": 15,
+            "actividad": "La pieza nueva, por fragmentos."
+          }
+        ]
+      }
+    ],
+    "revision": {
+      "titulo": "Revisión del mes",
+      "objetivo": "Comprobar los criterios de tu zona con el protocolo y elegir el foco de las 4 semanas siguientes.",
+      "bloques": [
+        {
+          "tipo": "calentamiento",
+          "minutos": 10,
+          "actividad": "Notas largas con el afinador a la vista."
+        },
+        {
+          "tipo": "revision",
+          "minutos": 30,
+          "actividad": "Prueba los criterios de tu zona que te falten (los ves en /niveles y en el árbol): graba cada uno. Mañana escúchalos y marca solo los que estén claros."
+        },
+        {
+          "tipo": "repaso",
+          "minutos": 10,
+          "actividad": "Cuaderno: qué mejoró este mes, qué no y el foco de las próximas 4 semanas (como mucho 2 cosas)."
+        }
+      ]
+    }
+  },
+  {
+    "id": "semana-nivel-3",
+    "nivel": "nivel-3",
+    "foco": "Dos octavas, siete escalas, staccato y primeros estudios (Gariboldi, Moyse).",
+    "sesiones": [
+      {
+        "diaSemana": "lunes",
+        "titulo": "Sonido y escalas",
+        "objetivo": "Igualar el sonido y ampliar escalas.",
+        "bloques": [
+          {
+            "tipo": "calentamiento",
+            "minutos": 12,
+            "actividad": "Moyse, De la sonorité: notas descendentes desde Si5 con el mismo color."
+          },
+          {
+            "tipo": "escalas",
+            "minutos": 15,
+            "actividad": "La escala de la semana (rota: Do, Sol, Re, La, Fa, Sib, Mib), 2 octavas, corcheas a 72."
+          },
+          {
+            "tipo": "repertorio",
+            "minutos": 23,
+            "actividad": "Tu pieza de la zona (Ghibli, anime o clásica)."
+          }
+        ]
+      },
+      {
+        "diaSemana": "martes",
+        "titulo": "Gariboldi",
+        "objetivo": "Un estudio por semana.",
+        "bloques": [
+          {
+            "tipo": "calentamiento",
+            "minutos": 10,
+            "actividad": "Notas largas con el afinador a la vista."
+          },
+          {
+            "tipo": "estudios",
+            "minutos": 20,
+            "actividad": "Gariboldi, 20 Estudios pequeños op. 131: el estudio de la semana, por fragmentos y lento.",
+            "recurso": "IMSLP (dominio público)"
+          },
+          {
+            "tipo": "lectura",
+            "minutos": 10,
+            "actividad": "Primera vista: 8 compases."
+          },
+          {
+            "tipo": "teoria",
+            "minutos": 5,
+            "actividad": "Escribe la relativa menor de la escala de la semana y sus 3 formas."
+          }
+        ]
+      },
+      {
+        "diaSemana": "miércoles",
+        "titulo": "Oído y transcripción",
+        "objetivo": "Una transcripción completa, poco a poco.",
+        "bloques": [
+          {
+            "tipo": "calentamiento",
+            "minutos": 10,
+            "actividad": "Armónicos sobre Do4 y Re4."
+          },
+          {
+            "tipo": "oido",
+            "minutos": 20,
+            "actividad": "Tu transcripción en curso: 4 compases nuevos, escritos en MuseScore."
+          },
+          {
+            "tipo": "repertorio",
+            "minutos": 20,
+            "actividad": "Tu pieza de la zona."
+          }
+        ]
+      },
+      {
+        "diaSemana": "viernes",
+        "titulo": "Staccato y estudio",
+        "objetivo": "Lengua ligera y el estudio a tempo.",
+        "bloques": [
+          {
+            "tipo": "calentamiento",
+            "minutos": 10,
+            "actividad": "Do4 en pp y en mf, 4 s."
+          },
+          {
+            "tipo": "tecnica",
+            "minutos": 15,
+            "actividad": "Staccato en semicorcheas en 2 octavas, subiendo el metrónomo de 4 en 4."
+          },
+          {
+            "tipo": "estudios",
+            "minutos": 15,
+            "actividad": "Gariboldi: el estudio de la semana, a tempo."
+          },
+          {
+            "tipo": "repertorio",
+            "minutos": 10,
+            "actividad": "Tu pieza de la zona."
+          }
+        ]
+      },
+      {
+        "diaSemana": "sábado",
+        "titulo": "Repertorio vivo",
+        "objetivo": "Repasar lo vencido y grabar lo nuevo.",
+        "bloques": [
+          {
+            "tipo": "calentamiento",
+            "minutos": 10,
+            "actividad": "Notas largas con el afinador a la vista."
+          },
+          {
+            "tipo": "repaso",
+            "minutos": 10,
+            "actividad": "Repertorio vivo: toca completa una pieza que ya venciste, sin parar."
+          },
+          {
+            "tipo": "grabacion",
+            "minutos": 20,
+            "actividad": "Graba la pieza o el estudio de la semana. Escúchalo mañana con la lista de autoevaluación (docs/plan.md)."
+          },
+          {
+            "tipo": "repertorio",
+            "minutos": 15,
+            "actividad": "La pieza nueva."
+          }
+        ]
+      }
+    ],
+    "revision": {
+      "titulo": "Revisión del mes",
+      "objetivo": "Comprobar los criterios de tu zona con el protocolo y elegir el foco de las 4 semanas siguientes.",
+      "bloques": [
+        {
+          "tipo": "calentamiento",
+          "minutos": 10,
+          "actividad": "Notas largas con el afinador a la vista."
+        },
+        {
+          "tipo": "revision",
+          "minutos": 30,
+          "actividad": "Prueba los criterios de tu zona que te falten (los ves en /niveles y en el árbol): graba cada uno. Mañana escúchalos y marca solo los que estén claros."
+        },
+        {
+          "tipo": "repaso",
+          "minutos": 10,
+          "actividad": "Cuaderno: qué mejoró este mes, qué no y el foco de las próximas 4 semanas (como mucho 2 cosas)."
+        }
+      ]
+    }
+  },
+  {
+    "id": "semana-nivel-4",
+    "nivel": "nivel-4",
+    "foco": "Tercera octava hasta Sol6, cromática, las doce mayores, síncopa y Köhler.",
+    "sesiones": [
+      {
+        "diaSemana": "lunes",
+        "titulo": "Tres octavas",
+        "objetivo": "Abrir la tercera octava sin forzar.",
+        "bloques": [
+          {
+            "tipo": "calentamiento",
+            "minutos": 12,
+            "actividad": "Notas largas en las tres octavas, hasta Sol6, con el afinador."
+          },
+          {
+            "tipo": "escalas",
+            "minutos": 15,
+            "actividad": "Escalas mayores de la semana (2 nuevas y repaso), 2 octavas, de memoria."
+          },
+          {
+            "tipo": "repertorio",
+            "minutos": 23,
+            "actividad": "Tu pieza de la zona (openings, cine, videojuegos o clásica)."
+          }
+        ]
+      },
+      {
+        "diaSemana": "martes",
+        "titulo": "Köhler",
+        "objetivo": "Estudios progresivos de técnica.",
+        "bloques": [
+          {
+            "tipo": "calentamiento",
+            "minutos": 10,
+            "actividad": "Notas largas con el afinador a la vista."
+          },
+          {
+            "tipo": "estudios",
+            "minutos": 20,
+            "actividad": "Köhler, op. 33 libro 1 (o Gariboldi op. 131, nº 11–20).",
+            "recurso": "IMSLP (dominio público)"
+          },
+          {
+            "tipo": "lectura",
+            "minutos": 10,
+            "actividad": "Primera vista con síncopas y semicorcheas."
+          },
+          {
+            "tipo": "teoria",
+            "minutos": 5,
+            "actividad": "Cifrado: escribe los acordes de tu pieza."
+          }
+        ]
+      },
+      {
+        "diaSemana": "miércoles",
+        "titulo": "Oído fino",
+        "objetivo": "Dictado e intervalos.",
+        "bloques": [
+          {
+            "tipo": "calentamiento",
+            "minutos": 10,
+            "actividad": "Notas largas con el afinador a la vista."
+          },
+          {
+            "tipo": "oido",
+            "minutos": 15,
+            "actividad": "Dictado de 4 compases (dos escuchas) e intervalos, incluidas 6as y 7as."
+          },
+          {
+            "tipo": "repertorio",
+            "minutos": 25,
+            "actividad": "Tu pieza de la zona."
+          }
+        ]
+      },
+      {
+        "diaSemana": "viernes",
+        "titulo": "Ritmo",
+        "objetivo": "Síncopa y cromática estables.",
+        "bloques": [
+          {
+            "tipo": "calentamiento",
+            "minutos": 10,
+            "actividad": "Escala cromática en 2 octavas, lenta."
+          },
+          {
+            "tipo": "tecnica",
+            "minutos": 15,
+            "actividad": "Pasajes sincopados con el metrónomo marcando 2 y 4."
+          },
+          {
+            "tipo": "estudios",
+            "minutos": 15,
+            "actividad": "Köhler: el estudio de la semana, a tempo."
+          },
+          {
+            "tipo": "repertorio",
+            "minutos": 15,
+            "actividad": "Tu pieza de la zona."
+          }
+        ]
+      },
+      {
+        "diaSemana": "sábado",
+        "titulo": "Repertorio vivo",
+        "objetivo": "Repasar lo vencido y grabar lo nuevo.",
+        "bloques": [
+          {
+            "tipo": "calentamiento",
+            "minutos": 10,
+            "actividad": "Notas largas con el afinador a la vista."
+          },
+          {
+            "tipo": "repaso",
+            "minutos": 10,
+            "actividad": "Repertorio vivo: toca completa una pieza que ya venciste, sin parar."
+          },
+          {
+            "tipo": "grabacion",
+            "minutos": 20,
+            "actividad": "Graba la pieza o el estudio de la semana. Escúchalo mañana con la lista de autoevaluación (docs/plan.md)."
+          },
+          {
+            "tipo": "repertorio",
+            "minutos": 15,
+            "actividad": "La pieza nueva."
+          }
+        ]
+      }
+    ],
+    "revision": {
+      "titulo": "Revisión del mes",
+      "objetivo": "Comprobar los criterios de tu zona con el protocolo y elegir el foco de las 4 semanas siguientes.",
+      "bloques": [
+        {
+          "tipo": "calentamiento",
+          "minutos": 10,
+          "actividad": "Notas largas con el afinador a la vista."
+        },
+        {
+          "tipo": "revision",
+          "minutos": 30,
+          "actividad": "Prueba los criterios de tu zona que te falten (los ves en /niveles y en el árbol): graba cada uno. Mañana escúchalos y marca solo los que estén claros."
+        },
+        {
+          "tipo": "repaso",
+          "minutos": 10,
+          "actividad": "Cuaderno: qué mejoró este mes, qué no y el foco de las próximas 4 semanas (como mucho 2 cosas)."
+        }
+      ]
+    }
+  },
+  {
+    "id": "semana-nivel-5",
+    "nivel": "nivel-5",
+    "foco": "Vibrato, dinámicas, tercera octava hasta Si6, menores, Taffanel & Gaubert y Köhler II.",
+    "sesiones": [
+      {
+        "diaSemana": "lunes",
+        "titulo": "Vibrato y dinámicas",
+        "objetivo": "Un sonido que canta.",
+        "bloques": [
+          {
+            "tipo": "calentamiento",
+            "minutos": 12,
+            "actividad": "Notas largas con crescendo y diminuendo, con el afinador (±10 cents)."
+          },
+          {
+            "tipo": "sonido",
+            "minutos": 13,
+            "actividad": "Vibrato con metrónomo: pulsos de 4 y 6 por negra a 60."
+          },
+          {
+            "tipo": "repertorio",
+            "minutos": 25,
+            "actividad": "Tu pieza de la zona (Por una Cabeza, Kiki, Fauré…)."
+          }
+        ]
+      },
+      {
+        "diaSemana": "martes",
+        "titulo": "Taffanel & Gaubert",
+        "objetivo": "La rutina de técnica para siempre.",
+        "bloques": [
+          {
+            "tipo": "calentamiento",
+            "minutos": 10,
+            "actividad": "Notas largas con el afinador a la vista."
+          },
+          {
+            "tipo": "escalas",
+            "minutos": 15,
+            "actividad": "Taffanel & Gaubert, EJ 1: una tonalidad nueva por semana."
+          },
+          {
+            "tipo": "estudios",
+            "minutos": 20,
+            "actividad": "Köhler, op. 33 libro 2."
+          },
+          {
+            "tipo": "teoria",
+            "minutos": 5,
+            "actividad": "Forma: marca las frases y las cadencias de tu pieza."
+          }
+        ]
+      },
+      {
+        "diaSemana": "miércoles",
+        "titulo": "Melodía y acordes",
+        "objetivo": "Oír también la armonía.",
+        "bloques": [
+          {
+            "tipo": "calentamiento",
+            "minutos": 10,
+            "actividad": "Notas largas con el afinador a la vista."
+          },
+          {
+            "tipo": "oido",
+            "minutos": 20,
+            "actividad": "Melodía y acordes (en guitarra) de un tema de 16 compases."
+          },
+          {
+            "tipo": "repertorio",
+            "minutos": 20,
+            "actividad": "Tu pieza de la zona."
+          }
+        ]
+      },
+      {
+        "diaSemana": "viernes",
+        "titulo": "Agudos y trinos",
+        "objetivo": "La tercera octava afinada.",
+        "bloques": [
+          {
+            "tipo": "calentamiento",
+            "minutos": 10,
+            "actividad": "La6 y Si6 en notas largas, afinadas."
+          },
+          {
+            "tipo": "tecnica",
+            "minutos": 15,
+            "actividad": "Trinos de tono y semitono, parejos."
+          },
+          {
+            "tipo": "escalas",
+            "minutos": 10,
+            "actividad": "Menores armónicas y melódicas de la semana."
+          },
+          {
+            "tipo": "repertorio",
+            "minutos": 15,
+            "actividad": "Tu pieza de la zona."
+          }
+        ]
+      },
+      {
+        "diaSemana": "sábado",
+        "titulo": "Repertorio vivo",
+        "objetivo": "Repasar lo vencido y grabar lo nuevo.",
+        "bloques": [
+          {
+            "tipo": "calentamiento",
+            "minutos": 10,
+            "actividad": "Notas largas con el afinador a la vista."
+          },
+          {
+            "tipo": "repaso",
+            "minutos": 10,
+            "actividad": "Repertorio vivo: toca completa una pieza que ya venciste, sin parar."
+          },
+          {
+            "tipo": "grabacion",
+            "minutos": 20,
+            "actividad": "Graba la pieza o el estudio de la semana. Escúchalo mañana con la lista de autoevaluación (docs/plan.md)."
+          },
+          {
+            "tipo": "repertorio",
+            "minutos": 15,
+            "actividad": "La pieza nueva."
+          }
+        ]
+      }
+    ],
+    "revision": {
+      "titulo": "Revisión del mes",
+      "objetivo": "Comprobar los criterios de tu zona con el protocolo y elegir el foco de las 4 semanas siguientes.",
+      "bloques": [
+        {
+          "tipo": "calentamiento",
+          "minutos": 10,
+          "actividad": "Notas largas con el afinador a la vista."
+        },
+        {
+          "tipo": "revision",
+          "minutos": 30,
+          "actividad": "Prueba los criterios de tu zona que te falten (los ves en /niveles y en el árbol): graba cada uno. Mañana escúchalos y marca solo los que estén claros."
+        },
+        {
+          "tipo": "repaso",
+          "minutos": 10,
+          "actividad": "Cuaderno: qué mejoró este mes, qué no y el foco de las próximas 4 semanas (como mucho 2 cosas)."
+        }
+      ]
+    }
+  },
+  {
+    "id": "semana-nivel-6",
+    "nivel": "nivel-6",
+    "foco": "Doble y triple picado, tercera octava completa, Taffanel & Gaubert EJ 4 y Andersen.",
+    "sesiones": [
+      {
+        "diaSemana": "lunes",
+        "titulo": "Doble picado",
+        "objetivo": "La lengua rápida, desde cero.",
+        "bloques": [
+          {
+            "tipo": "calentamiento",
+            "minutos": 12,
+            "actividad": "Notas largas en las tres octavas, hasta Do7."
+          },
+          {
+            "tipo": "tecnica",
+            "minutos": 15,
+            "actividad": "Doble picado «tu-ku»: primero en una nota, luego en escala; metrónomo de 4 en 4."
+          },
+          {
+            "tipo": "repertorio",
+            "minutos": 23,
+            "actividad": "Tu pieza de la zona (Badinerie, Senbonzakura…)."
+          }
+        ]
+      },
+      {
+        "diaSemana": "martes",
+        "titulo": "Andersen",
+        "objetivo": "Estudios de articulación y velocidad.",
+        "bloques": [
+          {
+            "tipo": "calentamiento",
+            "minutos": 10,
+            "actividad": "Notas largas con el afinador a la vista."
+          },
+          {
+            "tipo": "escalas",
+            "minutos": 15,
+            "actividad": "Taffanel & Gaubert, EJ 4, con todas las articulaciones."
+          },
+          {
+            "tipo": "estudios",
+            "minutos": 20,
+            "actividad": "Andersen, op. 41.",
+            "recurso": "IMSLP (dominio público)"
+          },
+          {
+            "tipo": "lectura",
+            "minutos": 10,
+            "actividad": "Lectura rápida de pasajes técnicos."
+          }
+        ]
+      },
+      {
+        "diaSemana": "miércoles",
+        "titulo": "Oído de rayo",
+        "objetivo": "Transcribir pasajes rápidos.",
+        "bloques": [
+          {
+            "tipo": "calentamiento",
+            "minutos": 10,
+            "actividad": "Notas largas con el afinador a la vista."
+          },
+          {
+            "tipo": "oido",
+            "minutos": 20,
+            "actividad": "Transcribe 8 compases rápidos de una grabación, con la velocidad reducida si hace falta."
+          },
+          {
+            "tipo": "repertorio",
+            "minutos": 20,
+            "actividad": "Tu pieza de la zona."
+          }
+        ]
+      },
+      {
+        "diaSemana": "viernes",
+        "titulo": "Triple picado",
+        "objetivo": "Tresillos parejos.",
+        "bloques": [
+          {
+            "tipo": "calentamiento",
+            "minutos": 10,
+            "actividad": "Notas largas con el afinador a la vista."
+          },
+          {
+            "tipo": "tecnica",
+            "minutos": 15,
+            "actividad": "Triple picado en tresillos de semicorchea."
+          },
+          {
+            "tipo": "estudios",
+            "minutos": 15,
+            "actividad": "Andersen: el estudio de la semana, a tempo."
+          },
+          {
+            "tipo": "repertorio",
+            "minutos": 15,
+            "actividad": "Tu pieza de la zona."
+          }
+        ]
+      },
+      {
+        "diaSemana": "sábado",
+        "titulo": "Repertorio vivo",
+        "objetivo": "Repasar lo vencido y grabar lo nuevo.",
+        "bloques": [
+          {
+            "tipo": "calentamiento",
+            "minutos": 10,
+            "actividad": "Notas largas con el afinador a la vista."
+          },
+          {
+            "tipo": "repaso",
+            "minutos": 10,
+            "actividad": "Repertorio vivo: toca completa una pieza que ya venciste, sin parar."
+          },
+          {
+            "tipo": "grabacion",
+            "minutos": 20,
+            "actividad": "Graba la pieza o el estudio de la semana. Escúchalo mañana con la lista de autoevaluación (docs/plan.md)."
+          },
+          {
+            "tipo": "repertorio",
+            "minutos": 15,
+            "actividad": "La pieza nueva."
+          }
+        ]
+      }
+    ],
+    "revision": {
+      "titulo": "Revisión del mes",
+      "objetivo": "Comprobar los criterios de tu zona con el protocolo y elegir el foco de las 4 semanas siguientes.",
+      "bloques": [
+        {
+          "tipo": "calentamiento",
+          "minutos": 10,
+          "actividad": "Notas largas con el afinador a la vista."
+        },
+        {
+          "tipo": "revision",
+          "minutos": 30,
+          "actividad": "Prueba los criterios de tu zona que te falten (los ves en /niveles y en el árbol): graba cada uno. Mañana escúchalos y marca solo los que estén claros."
+        },
+        {
+          "tipo": "repaso",
+          "minutos": 10,
+          "actividad": "Cuaderno: qué mejoró este mes, qué no y el foco de las próximas 4 semanas (como mucho 2 cosas)."
+        }
+      ]
+    }
+  },
+  {
+    "id": "semana-nivel-7",
+    "nivel": "nivel-7",
+    "foco": "Obras de concierto: lengua de rayo, terceras, arpegios, resistencia y tu propio arreglo.",
+    "sesiones": [
+      {
+        "diaSemana": "lunes",
+        "titulo": "Terceras",
+        "objetivo": "La base de los pasajes de concierto.",
+        "bloques": [
+          {
+            "tipo": "calentamiento",
+            "minutos": 12,
+            "actividad": "Notas largas: color y proyección."
+          },
+          {
+            "tipo": "escalas",
+            "minutos": 15,
+            "actividad": "Escalas en terceras: una tonalidad nueva por semana."
+          },
+          {
+            "tipo": "repertorio",
+            "minutos": 28,
+            "actividad": "Tu obra de concierto, sección por sección."
+          }
+        ]
+      },
+      {
+        "diaSemana": "martes",
+        "titulo": "Arpegios y estudios",
+        "objetivo": "Todas las tonalidades.",
+        "bloques": [
+          {
+            "tipo": "calentamiento",
+            "minutos": 10,
+            "actividad": "Notas largas con el afinador a la vista."
+          },
+          {
+            "tipo": "escalas",
+            "minutos": 10,
+            "actividad": "Arpegios mayores y menores de la semana, 2 octavas."
+          },
+          {
+            "tipo": "estudios",
+            "minutos": 20,
+            "actividad": "Andersen, op. 15 (24 grandes estudios).",
+            "recurso": "IMSLP (dominio público)"
+          },
+          {
+            "tipo": "repertorio",
+            "minutos": 15,
+            "actividad": "Tu obra de concierto."
+          }
+        ]
+      },
+      {
+        "diaSemana": "miércoles",
+        "titulo": "Arreglista",
+        "objetivo": "Tu propia versión de una canción.",
+        "bloques": [
+          {
+            "tipo": "calentamiento",
+            "minutos": 10,
+            "actividad": "Notas largas con el afinador a la vista."
+          },
+          {
+            "tipo": "oido",
+            "minutos": 15,
+            "actividad": "Tu arreglo: escribe 8 compases nuevos en MuseScore."
+          },
+          {
+            "tipo": "repertorio",
+            "minutos": 25,
+            "actividad": "Tu obra de concierto."
+          }
+        ]
+      },
+      {
+        "diaSemana": "viernes",
+        "titulo": "Resistencia",
+        "objetivo": "Aguantar una obra entera.",
+        "bloques": [
+          {
+            "tipo": "calentamiento",
+            "minutos": 10,
+            "actividad": "Notas largas con el afinador a la vista."
+          },
+          {
+            "tipo": "tecnica",
+            "minutos": 15,
+            "actividad": "Doble picado rápido: sube hacia 132 o más."
+          },
+          {
+            "tipo": "respiracion",
+            "minutos": 10,
+            "actividad": "Resistencia: la obra entera u 8 min seguidos, grabados."
+          },
+          {
+            "tipo": "repertorio",
+            "minutos": 20,
+            "actividad": "Tu obra de concierto."
+          }
+        ]
+      },
+      {
+        "diaSemana": "sábado",
+        "titulo": "Repertorio vivo",
+        "objetivo": "Repasar lo vencido y grabar lo nuevo.",
+        "bloques": [
+          {
+            "tipo": "calentamiento",
+            "minutos": 10,
+            "actividad": "Notas largas con el afinador a la vista."
+          },
+          {
+            "tipo": "repaso",
+            "minutos": 10,
+            "actividad": "Repertorio vivo: toca completa una pieza que ya venciste, sin parar."
+          },
+          {
+            "tipo": "grabacion",
+            "minutos": 25,
+            "actividad": "Graba la pieza o el estudio de la semana. Escúchalo mañana con la lista de autoevaluación (docs/plan.md)."
+          },
+          {
+            "tipo": "repertorio",
+            "minutos": 15,
+            "actividad": "Tu obra de concierto."
+          }
+        ]
+      }
+    ],
+    "revision": {
+      "titulo": "Revisión del mes",
+      "objetivo": "Comprobar los criterios de tu zona con el protocolo y elegir el foco de las 4 semanas siguientes.",
+      "bloques": [
+        {
+          "tipo": "calentamiento",
+          "minutos": 10,
+          "actividad": "Notas largas con el afinador a la vista."
+        },
+        {
+          "tipo": "revision",
+          "minutos": 30,
+          "actividad": "Prueba los criterios de tu zona que te falten (los ves en /niveles y en el árbol): graba cada uno. Mañana escúchalos y marca solo los que estén claros."
+        },
+        {
+          "tipo": "repaso",
+          "minutos": 10,
+          "actividad": "Cuaderno: qué mejoró este mes, qué no y el foco de las próximas 4 semanas (como mucho 2 cosas)."
+        }
+      ]
+    }
+  },
+  {
+    "id": "semana-nivel-8",
+    "nivel": "nivel-8",
+    "foco": "La cumbre: respiración circular y todo a velocidad de concierto.",
+    "sesiones": [
+      {
+        "diaSemana": "lunes",
+        "titulo": "Respiración circular",
+        "objetivo": "Tocar sin cortar el aire.",
+        "bloques": [
+          {
+            "tipo": "calentamiento",
+            "minutos": 12,
+            "actividad": "Notas largas: color y proyección."
+          },
+          {
+            "tipo": "tecnica",
+            "minutos": 15,
+            "actividad": "Respiración circular: primero con una pajita en un vaso de agua, luego en notas largas."
+          },
+          {
+            "tipo": "repertorio",
+            "minutos": 28,
+            "actividad": "Tu jefe final, sección por sección."
+          }
+        ]
+      },
+      {
+        "diaSemana": "martes",
+        "titulo": "Técnica de concierto",
+        "objetivo": "Velocidad con control.",
+        "bloques": [
+          {
+            "tipo": "calentamiento",
+            "minutos": 10,
+            "actividad": "Notas largas con el afinador a la vista."
+          },
+          {
+            "tipo": "escalas",
+            "minutos": 15,
+            "actividad": "Taffanel & Gaubert a velocidad de concierto."
+          },
+          {
+            "tipo": "estudios",
+            "minutos": 20,
+            "actividad": "Andersen, op. 60.",
+            "recurso": "IMSLP (dominio público)"
+          },
+          {
+            "tipo": "repertorio",
+            "minutos": 15,
+            "actividad": "Tu jefe final."
+          }
+        ]
+      },
+      {
+        "diaSemana": "miércoles",
+        "titulo": "Escuchar a los grandes",
+        "objetivo": "Aprender de otras versiones.",
+        "bloques": [
+          {
+            "tipo": "calentamiento",
+            "minutos": 10,
+            "actividad": "Notas largas con el afinador a la vista."
+          },
+          {
+            "tipo": "oido",
+            "minutos": 15,
+            "actividad": "Compara 3 grabaciones de tu jefe y anota las diferencias de fraseo y tempo."
+          },
+          {
+            "tipo": "repertorio",
+            "minutos": 25,
+            "actividad": "Tu jefe final."
+          }
+        ]
+      },
+      {
+        "diaSemana": "viernes",
+        "titulo": "Pasajes",
+        "objetivo": "Los pasajes del jefe como estudios.",
+        "bloques": [
+          {
+            "tipo": "calentamiento",
+            "minutos": 10,
+            "actividad": "Notas largas con el afinador a la vista."
+          },
+          {
+            "tipo": "tecnica",
+            "minutos": 20,
+            "actividad": "Los pasajes más difíciles de tu jefe: lento → a tempo, con metrónomo."
+          },
+          {
+            "tipo": "repertorio",
+            "minutos": 25,
+            "actividad": "Tu jefe final."
+          }
+        ]
+      },
+      {
+        "diaSemana": "sábado",
+        "titulo": "Repertorio vivo",
+        "objetivo": "Repasar lo vencido y grabar lo nuevo.",
+        "bloques": [
+          {
+            "tipo": "calentamiento",
+            "minutos": 10,
+            "actividad": "Notas largas con el afinador a la vista."
+          },
+          {
+            "tipo": "repaso",
+            "minutos": 10,
+            "actividad": "Repertorio vivo: toca completa una pieza que ya venciste, sin parar."
+          },
+          {
+            "tipo": "grabacion",
+            "minutos": 25,
+            "actividad": "Graba la pieza o el estudio de la semana. Escúchalo mañana con la lista de autoevaluación (docs/plan.md)."
+          },
+          {
+            "tipo": "repertorio",
+            "minutos": 15,
+            "actividad": "Tu jefe final."
+          }
+        ]
+      }
+    ],
+    "revision": {
+      "titulo": "Revisión del mes",
+      "objetivo": "Comprobar los criterios de tu zona con el protocolo y elegir el foco de las 4 semanas siguientes.",
+      "bloques": [
+        {
+          "tipo": "calentamiento",
+          "minutos": 10,
+          "actividad": "Notas largas con el afinador a la vista."
+        },
+        {
+          "tipo": "revision",
+          "minutos": 30,
+          "actividad": "Prueba los criterios de tu zona que te falten (los ves en /niveles y en el árbol): graba cada uno. Mañana escúchalos y marca solo los que estén claros."
+        },
+        {
+          "tipo": "repaso",
+          "minutos": 10,
+          "actividad": "Cuaderno: qué mejoró este mes, qué no y el foco de las próximas 4 semanas (como mucho 2 cosas)."
+        }
+      ]
+    }
+  }
+]

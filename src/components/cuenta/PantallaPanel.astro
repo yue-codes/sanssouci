@@ -3,8 +3,8 @@
  * @component PantallaPanel
  * El panel como la pantalla de tu personaje: saludo, el día del plan, tu rango,
  * el minimapa con tu posición, la sesión de hoy y un marcador (racha, sesiones,
- * tiempo, logros, jefes). Debajo, tu partitura de 90 días, las misiones de tu
- * zona y tu próximo jefe.
+ * tiempo, logros, jefes). Debajo, tu partitura de 90 días, las canciones más
+ * cerca de abrirse, las misiones de tu zona y tu próximo jefe.
  *
  * Solo pinta: recibe el progreso ya cargado. La página `/panel` lo saca de
  * Supabase; así este componente se puede probar con progreso de ejemplo y no
@@ -14,20 +14,24 @@ import { BookCheck, Clock, Crown, Flame, LogOut, Settings, Sparkles, Swords, Tro
 import FondoPortada from "@/components/ui/FondoPortada.astro";
 import EncabezadoSeccion from "@/components/ui/EncabezadoSeccion.astro";
 import ResumenSesion from "@/components/sesion/ResumenSesion.astro";
+import AvisoArranque from "@/components/sesion/AvisoArranque.astro";
+import AvisoRutina from "@/components/sesion/AvisoRutina.astro";
 import PartituraNoventaDias from "@/components/calendario/PartituraNoventaDias";
 import MiniMapa from "@/components/mapa/MiniMapa.astro";
 import BarraMisiones from "@/components/logros/BarraMisiones.astro";
 import ListaMisiones from "@/components/logros/ListaMisiones.astro";
 import AnuncioJefe from "@/components/jefes/AnuncioJefe.astro";
+import ProximasCanciones from "@/components/canciones/ProximasCanciones.astro";
 import type { Contenido } from "@/lib/contenido";
 import type { Progreso } from "@/lib/progreso";
 import type { DiaCompletado } from "@/lib/progreso-usuario";
 import { racha } from "@/lib/progreso";
-import { diasParaPartitura, minutosDelDia, sesionDeReferencia, titularDelDia } from "@/lib/calendario";
+import { arranqueDeHoy, diasParaPartitura, minutosDelDia, sesionDeReferencia, titularDelDia } from "@/lib/calendario";
 import { fechaLarga } from "@/lib/fechas";
 import { construirSendero, siguientePaso } from "@/lib/mapa";
 import { diaDelJefe } from "@/lib/jefes";
 import { rangoTalentos } from "@/lib/arbol";
+import { semanaDeZona, sesionDeRutina } from "@/lib/rutina";
 import { IMAGENES } from "@/config/imagenes";
 
 interface Props {
@@ -52,6 +56,8 @@ const imagen = IMAGENES.siluetaVentana;
 // ---- El día de hoy -----------------------------------------------------------
 const titular = titularDelDia(hoy);
 const { dia: sesion, motivo } = sesionDeReferencia(c.dias, hoy);
+// Antes del día 1: la sesión de la semana 0 que toca (o la próxima).
+const arranque = hoy < 1 ? arranqueDeHoy(c.arranque, fechaHoy) : undefined;
 
 // ---- Cifras ------------------------------------------------------------------
 const practica = c.dias.filter((d) => d.data.tipo !== "descanso");
@@ -75,6 +81,10 @@ const actual = paradas.find((p) => p.estado === "actual") ?? paradas[paradas.len
 const paso = siguientePaso(actual);
 const proximoJefe = paradas.flatMap((p) => p.jefes.map((j) => ({ ...j, zona: p.nivel.data.orden }))).find((j) => !j.vencido);
 const diaJefe = proximoJefe && diaDelJefe(c, proximoJefe.jefe.id)?.data.numero;
+// Después del día 90: la sesión de la semana tipo de tu zona.
+const ultimoDia = Math.max(...c.dias.map((d) => d.data.numero));
+const dia90 = c.dias.find((d) => d.data.numero === ultimoDia)!.data.fecha;
+const rutina = hoy > ultimoDia ? sesionDeRutina(semanaDeZona(c.semanas, c.niveles, actual.nivel.data.orden), fechaHoy, dia90) : undefined;
 ---
 
 <!-- ============ PORTADA: tu personaje ============ -->
@@ -130,6 +140,8 @@ const diaJefe = proximoJefe && diaDelJefe(c, proximoJefe.jefe.id)?.data.numero;
     </div>
 
     <div data-revelar>
+      {arranque && <AvisoArranque arranque={arranque} class="mb-4 bg-fondo/85 backdrop-blur-md" />}
+      {rutina && <AvisoRutina sesion={rutina} class="mb-4 bg-fondo/85 backdrop-blur-md" />}
       <ResumenSesion
         dia={sesion}
         hecha={diasCompletados.has(sesion.id)}
@@ -165,6 +177,18 @@ const diaJefe = proximoJefe && diaDelJefe(c, proximoJefe.jefe.id)?.data.numero;
   <section aria-labelledby="titulo-partitura">
     <EncabezadoSeccion id="titulo-partitura" eyebrow="Tus 90 días" titulo="Tu partitura" descripcion="Cada nota llena es una sesión hecha." enlace={{ href: "/calendario", texto: "Calendario completo" }} />
     <PartituraNoventaDias client:load dias={diasParaPartitura(c)} hoy={hoy} hechos={[...numerosHechos]} />
+  </section>
+
+  <!-- ============ PRÓXIMAS CANCIONES ============ -->
+  <section class="mt-20" aria-labelledby="titulo-canciones">
+    <EncabezadoSeccion
+      id="titulo-canciones"
+      eyebrow="¿Cuándo puedo tocarla?"
+      titulo="Tus próximas canciones"
+      descripcion="Las que tienes más cerca: lo que te falta y cuándo se abren según el plan."
+      enlace={{ href: "/repertorio", texto: "Todo tu repertorio" }}
+    />
+    <ProximasCanciones c={c} obtenidos={progreso.obtenidos} hoy={hoy} />
   </section>
 
   <!-- ============ MISIONES + PRÓXIMO JEFE ============ -->

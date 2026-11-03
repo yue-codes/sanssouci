@@ -2,7 +2,7 @@
  * @file Datos del calendario de 90 días: semanas, minutos e hitos de cada día.
  * Funciones puras sobre las entradas de `dias.json`.
  */
-import type { Contenido, Dia, Nivel } from "@/lib/contenido";
+import type { Contenido, Dia, Nivel, SesionArranque } from "@/lib/contenido";
 import type { DiaPartitura } from "@/lib/partitura";
 import { indiceDiaSemana } from "@/lib/fechas";
 import { diaDelJefe, jefesEnOrden } from "@/lib/jefes";
@@ -68,7 +68,7 @@ export function minutosDelDia(dia: Dia): number {
 }
 
 /**
- * Hitos de un día: jefe, primera clase (bloque de tipo «clase»), llegada de la
+ * Hitos de un día: jefe, clase de chequeo (bloque de tipo «clase»), llegada de la
  * flauta (el primer día de la fase con flauta) o festivo.
  *
  * @param dia Día a evaluar.
@@ -113,6 +113,25 @@ export function sesionDeReferencia(dias: readonly Dia[], hoy: number): SesionDeR
   const siguiente = practica.find((d) => d.data.numero >= hoy);
   if (!siguiente) return { dia: practica[practica.length - 1], motivo: "terminado" };
   return { dia: siguiente, motivo: siguiente.data.numero === hoy ? "hoy" : "proxima" };
+}
+
+/** La sesión de la semana 0 que se enseña, y si toca hoy o es la siguiente. */
+export interface ArranqueDeHoy {
+  sesion: SesionArranque;
+  motivo: "hoy" | "proxima";
+}
+
+/**
+ * Qué sesión de la semana 0 (antes del día 1) toca hoy o es la siguiente.
+ *
+ * @param arranque Las sesiones de `arranque.json` (en cualquier orden).
+ * @param fechaHoy Fecha de hoy, «AAAA-MM-DD» (ver `hoyIso`).
+ * @returns La de hoy, o la próxima; `undefined` si ya pasaron todas.
+ * @example arranqueDeHoy(c.arranque, "2026-11-05") // jueves → { sesion: la del viernes 6, motivo: "proxima" }
+ */
+export function arranqueDeHoy(arranque: readonly SesionArranque[], fechaHoy: string): ArranqueDeHoy | undefined {
+  const siguiente = [...arranque].sort((a, b) => a.data.fecha.localeCompare(b.data.fecha)).find((a) => a.data.fecha >= fechaHoy);
+  return siguiente && { sesion: siguiente, motivo: siguiente.data.fecha === fechaHoy ? "hoy" : "proxima" };
 }
 
 /** Título grande según el momento del plan, en tres trozos (el del medio va resaltado). */

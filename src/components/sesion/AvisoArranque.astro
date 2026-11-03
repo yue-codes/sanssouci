@@ -1,0 +1,38 @@
+---
+/**
+ * @component AvisoArranque
+ * Tarjeta de la semana 0: antes del día 1, dice qué sesión de arranque toca hoy
+ * (o la próxima) y lleva a `/arranque`. Se usa en la portada y en el panel solo
+ * cuando el plan aún no empieza; quien la usa decide si se pinta (`arranqueDeHoy`).
+ *
+ * @example
+ * {arranque && <AvisoArranque arranque={arranque} class="mt-8" />}
+ */
+import { Flag } from "lucide-preact";
+import type { ArranqueDeHoy } from "@/lib/calendario";
+import { fechaLarga } from "@/lib/fechas";
+
+interface Props {
+  /** La sesión de la semana 0 que toca (de `arranqueDeHoy`). */
+  arranque: ArranqueDeHoy;
+  /** Clases extra (por ejemplo, márgenes). */
+  class?: string;
+}
+const { arranque, class: clase = "" } = Astro.props;
+const a = arranque.sesion.data;
+const minutos = a.bloques.reduce((s, b) => s + b.minutos, 0);
+---
+
+<a
+  href={`/arranque#${arranque.sesion.id}`}
+  class:list={["group flex items-start gap-4 rounded-md border border-resalte/40 bg-resalte/10 p-4 transition-colors hover:border-resalte/70 hover:bg-resalte/15", clase]}
+>
+  <span class="grid size-10 shrink-0 place-items-center rounded-full bg-resalte/20 text-resalte" aria-hidden="true"><Flag size={18} /></span>
+  <span>
+    <span class="block font-mono text-[0.625rem] tracking-[0.08em] text-resalte uppercase">
+      Semana 0 · {arranque.motivo === "hoy" ? "hoy toca" : `próxima: ${fechaLarga(a.fecha)}`}
+    </span>
+    <span class="mt-1 block font-display text-2xl leading-tight group-hover:text-acento-claro">{a.titulo}</span>
+    <span class="mt-1 block text-sm text-tenue">{a.objetivo} {minutos} min. <span class="font-semibold text-resalte">Ir al arranque →</span></span>
+  </span>
+</a>

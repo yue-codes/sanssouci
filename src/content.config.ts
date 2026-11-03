@@ -141,6 +141,14 @@ const extras = defineCollection({
   }),
 });
 
+/** Un bloque de una sesión (lo comparten los 90 días y la semana 0). */
+const bloque = z.object({
+  tipo: z.enum(TIPOS_BLOQUE),
+  minutos: z.number().int().positive(),
+  actividad: z.string(),
+  recurso: z.string().optional(),
+});
+
 const dias = defineCollection({
   loader: file("src/data/dias.json"),
   schema: z.object({
@@ -153,17 +161,51 @@ const dias = defineCollection({
     sesion: z.number().int().min(1).optional(),
     titulo: z.string(),
     objetivo: z.string(),
-    bloques: z.array(z.object({
-      tipo: z.enum(TIPOS_BLOQUE),
-      minutos: z.number().int().positive(),
-      actividad: z.string(),
-      recurso: z.string().optional(),
-    })),
+    bloques: z.array(bloque),
     logrosPosibles: z.array(reference("logros")),
     jefe: reference("jefes").optional(),
     notas: z.string().optional(),
   }),
 });
 
+/**
+ * Semana 0: sesiones cortas de arranque ANTES del día 1. Van aparte de `dias` a
+ * propósito: no cuentan para los 90 días, ni para la racha, ni se guardan en el progreso.
+ */
+const arranque = defineCollection({
+  loader: file("src/data/arranque.json"),
+  schema: z.object({
+    numero: z.number().int().min(1),
+    fecha: z.iso.date(),
+    diaSemana: z.string(),
+    titulo: z.string(),
+    objetivo: z.string(),
+    bloques: z.array(bloque).min(1),
+    notas: z.string().optional(),
+  }),
+});
+
+/** Una sesión de práctica genérica (sin fecha): las de la semana tipo. */
+const sesion = z.object({
+  titulo: z.string(),
+  objetivo: z.string(),
+  bloques: z.array(bloque).min(1),
+});
+
+/**
+ * Semana tipo de cada zona: la rutina DESPUÉS del día 90, cuando ya no hay
+ * calendario. Cinco sesiones (lunes, martes, miércoles, viernes y sábado) y una
+ * revisión que sustituye al sábado cada 4 semanas.
+ */
+const semanas = defineCollection({
+  loader: file("src/data/semanas.json"),
+  schema: z.object({
+    nivel: reference("niveles"),
+    foco: z.string(),
+    sesiones: z.array(sesion.extend({ diaSemana: z.enum(["lunes", "martes", "miércoles", "viernes", "sábado"]) })).length(5),
+    revision: sesion,
+  }),
+});
+
 /** Colecciones que Astro registra (los nombres son los de `getCollection("…")`). */
-export const collections = { rutas, logros, niveles, jefes, canciones, extras, dias };
+export const collections = { rutas, logros, niveles, jefes, canciones, extras, dias, arranque, semanas };

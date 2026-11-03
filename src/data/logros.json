@@ -144,7 +144,7 @@
       "logro-tercera-octava-completa"
     ],
     "descripcion": "Tocar sin interrumpir el sonido mientras inhalas por la nariz.",
-    "criterio": "30 s de pasaje continuo sin corte audible (validado por tu maestro)."
+    "criterio": "30 s de pasaje continuo sin corte audible, comprobado en tu grabación (escúchala al día siguiente)."
   },
   {
     "id": "logro-primer-sonido",
@@ -287,7 +287,7 @@
       "logro-dinamicas"
     ],
     "descripcion": "Vibrato controlado (pulsos de aire).",
-    "criterio": "Pulsos de 4 y 6 por negra a 60 bpm, regulares; el maestro lo aprueba."
+    "criterio": "Pulsos de 4 y 6 por negra a 60 bpm, regulares: compruébalo en la grabación y en la gráfica del afinador (oscilación pareja y centrada en la nota)."
   },
   {
     "id": "logro-digitaciones-al-aire",
@@ -575,23 +575,21 @@
   },
   {
     "id": "logro-primera-clase",
-    "nombre": "Maestro encontrado",
+    "nombre": "Clase de chequeo",
     "categoria": "habito",
     "nivelSugerido": "nivel-1",
     "requiere": [],
-    "descripcion": "Tener la primera clase con maestro.",
-    "criterio": "Primera clase tomada y apuntes guardados."
+    "descripcion": "Opcional y muy recomendable: una clase suelta (presencial o en línea) para que alguien con experiencia revise tu embocadura y tu postura.",
+    "criterio": "Una clase suelta tomada y lo que te corrigió anotado en tu cuaderno."
   },
   {
     "id": "logro-flauta-revisada",
     "nombre": "Flauta revisada",
     "categoria": "habito",
     "nivelSugerido": "nivel-1",
-    "requiere": [
-      "logro-primera-clase"
-    ],
-    "descripcion": "Que el maestro revise la flauta al recibirla.",
-    "criterio": "Sellado, ajuste y afinación revisados por tu maestro."
+    "requiere": [],
+    "descripcion": "Que un técnico de instrumentos de viento (o la tienda) revise la flauta al recibirla, dentro del plazo de devolución.",
+    "criterio": "Sellado, ajuste y afinación revisados por un técnico o la tienda, dentro del plazo de devolución."
   },
   {
     "id": "logro-primer-video",
@@ -656,5 +654,208 @@
     ],
     "descripcion": "Tocar una pieza sin partitura.",
     "criterio": "Una pieza completa de memoria."
+  },
+  {
+    "id": "logro-postura",
+    "nombre": "Postura revisada",
+    "categoria": "tecnica",
+    "nivelSugerido": "nivel-1",
+    "requiere": [
+      "logro-primer-sonido"
+    ],
+    "descripcion": "Revisar tu postura y tu embocadura en video, con la lista de comprobación de docs/plan.md.",
+    "criterio": "Video de frente y de lado tocando 1 min: hombros abajo, muñecas rectas, cabeza recta y flauta paralela a los labios. Revísalo al día siguiente y anota qué corregir."
+  },
+  {
+    "id": "logro-afinacion-basica",
+    "nombre": "Afinado",
+    "categoria": "sonido",
+    "nivelSugerido": "nivel-1",
+    "requiere": [
+      "logro-primeras-notas"
+    ],
+    "descripcion": "Empezar a usar el afinador desde las primeras notas.",
+    "criterio": "Notas largas de Sol4, La4 y Si4 dentro de ±20 cents en el afinador, 3 intentos de 3."
+  },
+  {
+    "id": "logro-afinacion-dos-octavas",
+    "nombre": "Afinación en dos octavas",
+    "categoria": "sonido",
+    "nivelSugerido": "nivel-3",
+    "requiere": [
+      "logro-afinacion-basica",
+      "logro-dos-octavas"
+    ],
+    "descripcion": "Mantener la afinación al subir a la segunda octava.",
+    "criterio": "Escala de Re mayor en 2 octavas en notas largas, cada nota dentro de ±15 cents."
+  },
+  {
+    "id": "logro-repertorio-vivo",
+    "nombre": "Repertorio vivo",
+    "categoria": "habito",
+    "nivelSugerido": "nivel-3",
+    "requiere": [
+      "logro-primera-pieza"
+    ],
+    "descripcion": "Repasar lo que ya sabes para no olvidarlo: lo que no se toca, se pierde.",
+    "criterio": "8 semanas seguidas tocando completa al menos una pieza ya aprendida (anotada en el cuaderno)."
+  },
+  {
+    "id": "logro-oido-flauta",
+    "nombre": "Tocar de oído",
+    "categoria": "oido",
+    "nivelSugerido": "nivel-2",
+    "requiere": [
+      "logro-primera-transcripcion",
+      "logro-registro-grave"
+    ],
+    "descripcion": "Llevar el oído directamente a la flauta, sin partitura.",
+    "criterio": "Una melodía conocida de 8 compases sacada de oído en la flauta, sin partitura, y tocada completa."
+  },
+  {
+    "id": "logro-oido-intervalos-2",
+    "nombre": "Oído fino",
+    "categoria": "oido",
+    "nivelSugerido": "nivel-4",
+    "requiere": [
+      "logro-oido-intervalos"
+    ],
+    "descripcion": "Reconocer de oído todos los intervalos dentro de la octava.",
+    "criterio": "Todos los intervalos hasta la octava (incluidos 4ª aumentada, 6as y 7as): 9 de 10 aciertos en un test de oído."
+  },
+  {
+    "id": "logro-dictado",
+    "nombre": "Dictado",
+    "categoria": "oido",
+    "nivelSugerido": "nivel-4",
+    "requiere": [
+      "logro-transcripcion-completa"
+    ],
+    "descripcion": "Escribir lo que oyes, con ritmo y notas.",
+    "criterio": "Dictado melódico de 4 compases (dos escuchas) escrito sin errores, 3 veces en días distintos."
+  },
+  {
+    "id": "logro-transcripcion-armonia",
+    "nombre": "Melodía y acordes",
+    "categoria": "oido",
+    "nivelSugerido": "nivel-5",
+    "requiere": [
+      "logro-dictado"
+    ],
+    "descripcion": "Sacar de oído no solo la melodía, también la armonía.",
+    "criterio": "Melodía y acordes (en guitarra) de un tema de 16 compases, escritos y tocados."
+  },
+  {
+    "id": "logro-transcripcion-rapida",
+    "nombre": "Oído de rayo",
+    "categoria": "oido",
+    "nivelSugerido": "nivel-6",
+    "requiere": [
+      "logro-transcripcion-armonia"
+    ],
+    "descripcion": "Transcribir pasajes rápidos, como los de tus jefes.",
+    "criterio": "8 compases rápidos (semicorcheas) transcritos de una grabación, con velocidad reducida si hace falta, y tocados a tempo."
+  },
+  {
+    "id": "logro-arreglista",
+    "nombre": "Arreglista",
+    "categoria": "oido",
+    "nivelSugerido": "nivel-7",
+    "requiere": [
+      "logro-transcripcion-rapida"
+    ],
+    "descripcion": "Hacer tu propia versión para flauta de una canción.",
+    "criterio": "Un arreglo propio para flauta (melodía, adornos y final) escrito en MuseScore y grabado."
+  },
+  {
+    "id": "logro-moyse-sonoridad",
+    "nombre": "De la sonorité",
+    "categoria": "sonido",
+    "nivelSugerido": "nivel-3",
+    "requiere": [
+      "logro-notas-largas"
+    ],
+    "descripcion": "El ejercicio clásico de Moyse para igualar el sonido en todo el registro.",
+    "criterio": "Moyse, De la sonorité, cap. 1: notas descendentes de Si5 a Do4 con el mismo color de sonido, grabado."
+  },
+  {
+    "id": "logro-gariboldi",
+    "nombre": "Gariboldi",
+    "categoria": "tecnica",
+    "nivelSugerido": "nivel-3",
+    "requiere": [
+      "logro-escala-sol-mayor",
+      "logro-legato"
+    ],
+    "descripcion": "Los primeros estudios melódicos: leer, articular y frasear a la vez.",
+    "criterio": "Estudios 1 a 10 de los 20 Estudios pequeños op. 131 de Gariboldi, cada uno grabado limpio a negra = 60 como mínimo."
+  },
+  {
+    "id": "logro-kohler-1",
+    "nombre": "Köhler I",
+    "categoria": "tecnica",
+    "nivelSugerido": "nivel-4",
+    "requiere": [
+      "logro-gariboldi",
+      "logro-staccato"
+    ],
+    "descripcion": "Estudios progresivos de técnica y articulación.",
+    "criterio": "6 estudios de Köhler op. 33 libro 1, grabados limpios."
+  },
+  {
+    "id": "logro-kohler-2",
+    "nombre": "Köhler II",
+    "categoria": "tecnica",
+    "nivelSugerido": "nivel-5",
+    "requiere": [
+      "logro-kohler-1"
+    ],
+    "descripcion": "El siguiente escalón de Köhler: más velocidad y registro.",
+    "criterio": "4 estudios de Köhler op. 33 libro 2, grabados limpios."
+  },
+  {
+    "id": "logro-andersen",
+    "nombre": "Andersen",
+    "categoria": "tecnica",
+    "nivelSugerido": "nivel-6",
+    "requiere": [
+      "logro-kohler-2"
+    ],
+    "descripcion": "Estudios de articulación y velocidad para la tercera octava.",
+    "criterio": "6 estudios de Andersen op. 41, grabados limpios."
+  },
+  {
+    "id": "logro-escalas-terceras",
+    "nombre": "Escalas en terceras",
+    "categoria": "escalas",
+    "nivelSugerido": "nivel-7",
+    "requiere": [
+      "logro-todas-escalas-mayores",
+      "logro-escalas-menores"
+    ],
+    "descripcion": "Escalas por terceras: la base de los pasajes de concierto.",
+    "criterio": "12 escalas mayores en terceras, 2 octavas, a 72 bpm en corcheas."
+  },
+  {
+    "id": "logro-arpegios",
+    "nombre": "Arpegios",
+    "categoria": "escalas",
+    "nivelSugerido": "nivel-7",
+    "requiere": [
+      "logro-escalas-menores"
+    ],
+    "descripcion": "Arpegios en todas las tonalidades.",
+    "criterio": "Arpegios mayores y menores en las 12 tonalidades, 2 octavas, a 80 bpm en corcheas."
+  },
+  {
+    "id": "logro-resistencia",
+    "nombre": "Fondo de concierto",
+    "categoria": "respiracion",
+    "nivelSugerido": "nivel-7",
+    "requiere": [
+      "logro-dinamicas"
+    ],
+    "descripcion": "Aguantar una obra larga sin perder el sonido.",
+    "criterio": "8 min o más seguidos (una obra o varias piezas) sin perder sonido ni afinación al final, grabados."
   }
 ]

@@ -1,0 +1,76 @@
+---
+/**
+ * @component ProximasCanciones
+ * «¿Cuándo puedo tocarla?» en pequeño: cuántas canciones ya puedes tocar y las
+ * más cercanas a abrirse, cada una con lo que le falta y cuándo se abre (día
+ * estimado del plan o zona). Va en el panel; el detalle completo está en /repertorio.
+ *
+ * @example
+ * <ProximasCanciones c={c} obtenidos={progreso.obtenidos} hoy={hoy} />
+ */
+import { LockKeyhole, Music } from "lucide-preact";
+import ChipRuta from "@/components/canciones/ChipRuta";
+import { nombreCortoRuta, type Contenido } from "@/lib/contenido";
+import { alcanceDeCanciones, cuandoSeAbre, diasEstimadosDeLogros, proximasCanciones } from "@/lib/desbloqueos";
+
+interface Props {
+  /** Contenido cargado con `cargarContenido()`. */
+  c: Contenido;
+  /** Ids de tus logros. */
+  obtenidos: ReadonlySet<string>;
+  /** Número del día de hoy en el plan (puede ser ≤ 0 o > 90). */
+  hoy: number;
+  /** Cuántas canciones próximas enseñar. */
+  cuantas?: number;
+  /** Clases extra. */
+  class?: string;
+}
+const { c, obtenidos, hoy, cuantas = 4, class: clase = "" } = Astro.props;
+
+const alcances = alcanceDeCanciones(c, obtenidos, diasEstimadosDeLogros(c));
+const abiertas = alcances.filter((a) => a.abierta).length;
+const proximas = proximasCanciones(alcances, cuantas);
+/** Cuántos nombres de logro se enseñan por canción; el resto se cuenta. */
+const MAX_LOGROS = 2;
+---
+
+<div class:list={["overflow-hidden rounded-md border border-borde bg-superficie", clase]}>
+  <a href="/repertorio" class="group flex items-center gap-4 border-b border-borde p-4 transition-colors hover:bg-superficie-2">
+    <span class="grid size-11 shrink-0 place-items-center rounded-full bg-acento-suave text-acento" aria-hidden="true"><Music size={20} /></span>
+    <span class="flex-1">
+      <span class="block font-display text-3xl leading-none tabular-nums">{abiertas}<span class="text-tenue">/{alcances.length}</span></span>
+      <span class="font-mono text-[0.625rem] tracking-[0.06em] text-tenue uppercase">canciones que ya puedes tocar</span>
+    </span>
+    <span class="text-sm font-semibold text-acento group-hover:text-acento-claro">Tu repertorio <span aria-hidden="true">→</span></span>
+  </a>
+
+  {proximas.length > 0 && (
+    <ul class="divide-y divide-borde" aria-label="Las próximas canciones que se abren">
+      {proximas.map((a) => {
+        const s = a.cancion.data;
+        const ruta = c.rutaPorId.get(s.ruta.id)!;
+        const nombres = a.faltan.slice(0, MAX_LOGROS).map((l) => l.data.nombre).join(", ");
+        const resto = a.faltan.length - MAX_LOGROS;
+        return (
+          <li>
+            <a href={`/canciones/${a.cancion.id}`} class="group flex flex-wrap items-start gap-x-4 gap-y-1 p-4 transition-colors hover:bg-superficie-2">
+              <LockKeyhole size={16} class="mt-1 shrink-0 text-tenue" aria-hidden="true" />
+              <span class="min-w-0 flex-1">
+                <span class="block font-medium group-hover:text-acento-claro">
+                  {s.titulo} <span class="sr-only">(bloqueada)</span>
+                </span>
+                <span class="mt-0.5 block text-sm text-tenue">
+                  Te falta: <span class="text-texto">{nombres}</span>{resto > 0 && ` y ${resto} más`}
+                </span>
+              </span>
+              <span class="flex flex-col items-end gap-1.5">
+                <span class="font-mono text-[0.6875rem] text-resalte">{cuandoSeAbre(a, c, hoy)}</span>
+                <ChipRuta nombre={nombreCortoRuta(ruta)} color={ruta.data.color} />
+              </span>
+            </a>
+          </li>
+        );
+      })}
+    </ul>
+  )}
+</div>

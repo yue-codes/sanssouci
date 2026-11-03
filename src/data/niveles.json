@@ -5,7 +5,7 @@
     "nombre": "Pradera del Silencio",
     "zona": "Antes de la flauta",
     "resumen": "Aprender a leer, contar y escuchar antes de soplar. Lo que construyas aquí acelera todo lo demás.",
-    "estimacion": "Días 1–28 (2 al 29 de noviembre de 2026)",
+    "estimacion": "Días 1–28 (9 nov – 6 dic 2026)",
     "temario": {
       "lectura": "Clave de sol, líneas adicionales hasta Do7, lectura con metrónomo.",
       "teoria": "Figuras y compases, puntillos, tonos y semitonos, escalas mayores, armaduras, intervalos.",
@@ -32,7 +32,7 @@
     "nombre": "Valle del Primer Aliento",
     "zona": "Primer sonido",
     "resumen": "La flauta llega. Embocadura, primeras notas y registro grave, sin forzar los labios.",
-    "estimacion": "Días 29–62 (≈ 30 nov 2026 – 2 ene 2027)",
+    "estimacion": "Días 29–62 (≈ 7 dic 2026 – 9 ene 2027)",
     "temario": {
       "lectura": "Leer las piezas que tocas; nombre de nota y digitación juntos.",
       "teoria": "Repaso aplicado: tonalidad de cada pieza.",
@@ -46,7 +46,9 @@
       "logro-primer-sonido",
       "logro-primeras-notas",
       "logro-registro-grave",
-      "logro-primera-pieza"
+      "logro-primera-pieza",
+      "logro-postura",
+      "logro-afinacion-basica"
     ],
     "jefe": "jefe-1"
   },
@@ -56,7 +58,7 @@
     "nombre": "Aldea de las Melodías",
     "zona": "Primeras canciones",
     "resumen": "Segunda octava, primeras escalas completas y tus primeras canciones de la lista.",
-    "estimacion": "Días 64–90 (4 al 30 de enero de 2027)",
+    "estimacion": "Días 64–90 (11 ene – 6 feb 2027)",
     "temario": {
       "lectura": "Partituras sencillas a primera vista.",
       "teoria": "Tonalidades de Sol y Re mayor en la práctica.",
@@ -72,7 +74,8 @@
       "logro-escala-re-mayor",
       "logro-picado-simple",
       "logro-legato",
-      "logro-notas-largas"
+      "logro-notas-largas",
+      "logro-oido-flauta"
     ],
     "jefe": "jefe-2"
   },
@@ -82,14 +85,14 @@
     "nombre": "Bosque de las Escalas",
     "zona": "Dos octavas",
     "resumen": "Consolidar dos octavas, más escalas y articulación. Aquí empieza el temario serio de verdad.",
-    "estimacion": "≈ 4–9 meses desde el inicio (estimación; depende de tu avance y tu maestro)",
+    "estimacion": "≈ 4–9 meses desde el inicio (estimación; depende de tu avance)",
     "temario": {
       "lectura": "Primera vista diaria de 8 compases.",
       "teoria": "Escalas menores y relativas.",
       "respiracion": "Frases de 8 compases.",
       "sonido": "Do grave, armónicos, Trevor Wye diario.",
       "escalas": "Mayores hasta 3 alteraciones, 2 octavas.",
-      "estudios": "Estudios melódicos sencillos (los que elija tu maestro).",
+      "estudios": "Gariboldi, 20 Estudios pequeños op. 131 (nº 1–10); Moyse, De la sonorité (cap. 1).",
       "repertorio": "Ghibli y anime de dificultad 3–4."
     },
     "requisitosParaPasar": [
@@ -98,7 +101,10 @@
       "logro-staccato",
       "logro-do-grave",
       "logro-cinco-piezas",
-      "logro-transcripcion-completa"
+      "logro-transcripcion-completa",
+      "logro-afinacion-dos-octavas",
+      "logro-gariboldi",
+      "logro-repertorio-vivo"
     ],
     "jefe": "jefe-3"
   },
@@ -115,7 +121,7 @@
       "respiracion": "Respiraciones rápidas en pasajes rítmicos.",
       "sonido": "Tercera octava hasta Sol6.",
       "escalas": "Las 12 mayores y la cromática.",
-      "estudios": "Estudios técnicos asignados por tu maestro.",
+      "estudios": "Köhler, op. 33 libro 1; Gariboldi op. 131 (nº 11–20).",
       "repertorio": "Openings de anime, cine y videojuegos de dificultad 4."
     },
     "requisitosParaPasar": [
@@ -123,7 +129,9 @@
       "logro-escala-cromatica",
       "logro-todas-escalas-mayores",
       "logro-sincopa",
-      "logro-diez-piezas"
+      "logro-diez-piezas",
+      "logro-kohler-1",
+      "logro-dictado"
     ],
     "jefe": "jefe-4"
   },
@@ -140,7 +148,7 @@
       "respiracion": "Control del aire para dinámicas extremas.",
       "sonido": "Vibrato, dinámicas, tercera octava hasta Si6.",
       "escalas": "Menores armónicas y melódicas; T&G EJ 1 y 4.",
-      "estudios": "Taffanel & Gaubert, Ejercicios diarios.",
+      "estudios": "Taffanel & Gaubert, Ejercicios diarios; Köhler, op. 33 libro 2.",
       "repertorio": "Por una Cabeza y piezas de dificultad 5 (Kiki, Lumière, NieR, Gira Gira…)."
     },
     "requisitosParaPasar": [
@@ -149,7 +157,9 @@
       "logro-tercera-octava-si",
       "logro-escalas-menores",
       "logro-tg-ej1",
-      "logro-trinos"
+      "logro-trinos",
+      "logro-kohler-2",
+      "logro-transcripcion-armonia"
     ],
     "jefe": "jefe-5"
   },
@@ -166,14 +176,16 @@
       "respiracion": "Gestión del aire en pasajes largos.",
       "sonido": "Tercera octava completa (Do7).",
       "escalas": "T&G EJ 4 con todas las articulaciones.",
-      "estudios": "Estudios de articulación asignados por tu maestro.",
+      "estudios": "Andersen, op. 41 (articulación y velocidad).",
       "repertorio": "Badinerie, Vals op. 69 nº 2 de Chopin, Liebesleid y piezas de dificultad 6 (Senbonzakura, Crossing Field…)."
     },
     "requisitosParaPasar": [
       "logro-doble-picado",
       "logro-triple-picado",
       "logro-tercera-octava-completa",
-      "logro-tg-ej4"
+      "logro-tg-ej4",
+      "logro-andersen",
+      "logro-transcripcion-rapida"
     ],
     "jefe": "jefe-6"
   },
@@ -182,7 +194,7 @@
     "orden": 7,
     "nombre": "Ciudadela del Virtuoso",
     "zona": "Repertorio de concierto",
-    "resumen": "Obras de concierto exigentes. Aquí el maestro es imprescindible.",
+    "resumen": "Obras de concierto exigentes. Graba todo y compárate con las referencias; aquí una clase suelta de vez en cuando ahorra meses.",
     "estimacion": "≈ 3–4+ años (estimación)",
     "temario": {
       "lectura": "Partituras de concierto completas.",
@@ -190,11 +202,15 @@
       "respiracion": "Resistencia en obras largas.",
       "sonido": "Color y proyección.",
       "escalas": "Escalas en terceras y arpegios en todas las tonalidades.",
-      "estudios": "Estudios de nivel avanzado.",
+      "estudios": "Andersen, op. 15 (24 grandes estudios).",
       "repertorio": "Romberg op. 17, Danse Macabre, Verano de Vivaldi, Introducción y Rondó Caprichoso, y el J-pop más rápido (Cry Baby, Usseewa, Yoru ni Kakeru)."
     },
     "requisitosParaPasar": [
-      "logro-doble-picado-rapido"
+      "logro-doble-picado-rapido",
+      "logro-escalas-terceras",
+      "logro-arpegios",
+      "logro-resistencia",
+      "logro-arreglista"
     ],
     "jefe": "jefe-7"
   },
@@ -211,7 +227,7 @@
       "respiracion": "Respiración circular.",
       "sonido": "Control total del registro.",
       "escalas": "Todo, a velocidad de concierto.",
-      "estudios": "Lo que marque tu maestro.",
+      "estudios": "Andersen, op. 15 y op. 60; los pasajes de tus jefes, como estudios.",
       "repertorio": "La Campanella, Capricho 24, Estudio op. 25 nº 2, Six Trillion Years (arreglo transcendental)."
     },
     "requisitosParaPasar": [],

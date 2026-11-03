@@ -1,0 +1,53 @@
+---
+/**
+ * Página /arranque: la semana 0, tres sesiones cortas antes del día 1 (de
+ * `arranque.json`). Sirven para preparar las herramientas y empezar el hábito.
+ * No cuentan para los 90 días ni se guardan en el progreso, así que la página es
+ * estática: cada sesión es una `MisionDelDia` sin número (se juega, no se guarda).
+ */
+import { Lightbulb } from "lucide-preact";
+import Base from "@/layouts/Base.astro";
+import MigasDePan from "@/components/ui/MigasDePan.astro";
+import EncabezadoSeccion from "@/components/ui/EncabezadoSeccion.astro";
+import MisionDelDia from "@/components/sesion/MisionDelDia";
+import { cargarContenido } from "@/lib/contenido";
+import { fechaLarga } from "@/lib/fechas";
+
+const c = await cargarContenido();
+const dia1 = [...c.dias].sort((a, b) => a.data.numero - b.data.numero)[0].data;
+---
+
+<Base titulo="Semana 0: arranque" descripcion="Tres sesiones cortas para preparar tus herramientas antes del día 1.">
+  <MigasDePan items={[{ texto: "Calendario", href: "/calendario" }, { texto: "Semana 0" }]} />
+
+  <header class="mt-8 max-w-3xl" data-revelar="hijos">
+    <p class="eyebrow">Antes del día 1 · no cuenta para los 90 días</p>
+    <h1 class="mt-4 text-5xl leading-[0.95] sm:text-7xl">Semana 0: arranque</h1>
+    <p class="mt-5 max-w-[60ch] text-lg leading-relaxed text-tenue">
+      Tres sesiones cortas para tener listas tus herramientas, medir tu aire de partida y conocer el juego.
+      El plan empieza el <strong class="font-medium text-texto">{fechaLarga(dia1.fecha)}</strong> con el test inicial de lectura.
+    </p>
+  </header>
+
+  {c.arranque.map((a) => (
+    <section id={a.id} class="mt-16 scroll-mt-24" aria-labelledby={`titulo-${a.id}`}>
+      <EncabezadoSeccion
+        id={`titulo-${a.id}`}
+        eyebrow={`Sesión ${a.data.numero} de ${c.arranque.length} · ${fechaLarga(a.data.fecha)}`}
+        titulo={a.data.titulo}
+        descripcion={a.data.objetivo}
+      />
+      {a.data.notas && (
+        <p class="mb-8 flex max-w-3xl gap-3 rounded-md border border-resalte/30 bg-resalte/5 p-4 text-sm leading-relaxed">
+          <Lightbulb size={18} class="mt-0.5 shrink-0 text-resalte" aria-hidden="true" />
+          <span><span class="font-semibold text-resalte">Nota:</span> {a.data.notas}</span>
+        </p>
+      )}
+      <MisionDelDia client:visible bloques={a.data.bloques} />
+    </section>
+  ))}
+
+  <p class="mt-16">
+    <a href={`/dias/${dia1.numero}`} class="boton">Ver el día 1 <span aria-hidden="true">→</span></a>
+  </p>
+</Base>

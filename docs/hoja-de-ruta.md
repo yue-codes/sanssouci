@@ -12,6 +12,26 @@
 2. ✅ (3 nov 2026) El usuario aprobó todo el rediseño: `/niveles/[id]`, `/logros`, `/canciones`, `/canciones/[id]`, `/panel` y `/entrar`.
    - **No ejecutes `pnpm dev` tú.**
 
+## 0b. Fase 6 (3 nov 2026): hecha, falta el visto bueno del usuario
+
+Diseño y decisiones en `docs/diseno-fase-6.md`. Lo hecho:
+
+- **6.0 Arranque:** plan movido a **día 1 = lunes 9 nov 2026** (`pnpm reprogramar`), semana 0 en `arranque.json` + `/arranque`, aviso en la portada y en el panel, `/perfil` avisa si la fecha no coincide, `verificar` sin fechas fijas, `/calendario` calcula sus fechas.
+- **6.1 + 6.2 Sin maestro y mejoras:** protocolo de autoevaluación, estudios por defecto, señales para parar (`docs/plan.md`); 18 logros nuevos (postura, afinación, repertorio vivo, oído por zona, Gariboldi, Moyse, Köhler, Andersen, terceras, arpegios, resistencia); criterios sin «el maestro lo aprueba»; afinador en el calentamiento y oído en la fase con flauta (`dias.json`).
+- **6.4 Clásicas:** 21 obras nuevas (Grieg, Dvořák, Händel, Gluck, Fauré, Mozart, Debussy, Chaminade…) con 31 videos.
+- **6.5 «¿Cuándo puedo tocarla?»:** `/repertorio` (nuevo enlace en la cabecera), «Tus próximas canciones» en el panel y el aviso del árbol con las canciones que se abren.
+- **6.3 Después del día 90:** `semanas.json` (semana tipo por zona 1–8 y revisión cada 4 semanas) y `/rutina`.
+
+**Lo que tiene que hacer el usuario:**
+
+1. En `/perfil`, poner **día 1 = 9 nov 2026**. Si en las pruebas marcó días como hechos, desmarcarlos en cada día.
+2. Probar en `pnpm dev`: `/`, `/panel`, `/arranque`, `/repertorio`, `/rutina` y el aviso del árbol al conseguir un logro. **Reiniciar `pnpm dev`** si ya estaba en marcha (colecciones nuevas).
+3. Auditar las páginas de servidor nuevas (`/repertorio`, `/rutina`) como dice `docs/arquitectura.md` «Accesibilidad».
+
+**Límites conocidos:**
+- Las sesiones de la semana 0 y de la rutina no se guardan en el progreso (la tabla solo tiene los 90 días). Si hace falta, sería una tabla nueva en Supabase.
+- Las fechas de la rutina cuentan desde el día 90 de `dias.json`, no desde el perfil (igual que el resto de páginas públicas).
+
 ## 1. Fase 4: terminar el progreso real
 
 El login funciona (desde el paso g, con correo y contraseña). Las tablas existen con RLS (`supabase/migrations/`): `perfiles`, `dias_completados`, `logros_obtenidos`, `victorias_jefe` y `estado_canciones`. **Falta todo lo que escribe** en ellas y que las páginas lean el progreso real.
@@ -95,8 +115,8 @@ Cuida que la página sin sesión siga funcionando (contenido para todos, progres
 
 ## 3. Datos que solo sabe el usuario
 
-- Fecha real de llegada de la flauta (Jean Paul FL-430, ≈ principios de diciembre de 2026). Se guardará en `/perfil`; hasta entonces, `dias.json` la estima en el día 29.
-- Fecha de su primera clase con maestro (al llegar la flauta).
+- Fecha real de llegada de la flauta (Jean Paul FL-430, ≈ principios de diciembre de 2026). Se guardará en `/perfil`; hasta entonces, `dias.json` la estima en el día 29 (≈ 7 dic 2026).
+- Técnico para revisar la flauta dentro del plazo de devolución (el maestro casi no existirá: ver `docs/plan.md`, autoevaluación).
 - Canciones nuevas: clasificarlas con `docs/clasificar-cancion.md`, añadir el video a `canciones.txt` y pasar `pnpm verificar`.
 
 ## 4. Ideas aplazadas (no hacer sin que el usuario lo pida)

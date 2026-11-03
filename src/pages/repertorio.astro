@@ -1,0 +1,196 @@
+---
+/**
+ * Página /repertorio: «¿cuándo puedo tocarla?». Todas las canciones colocadas en
+ * el tiempo, como un camino que se va abriendo:
+ * 1. Las que ya puedes tocar.
+ * 2. Las que se abren dentro de los 90 días, en una línea de tiempo por día estimado.
+ * 3. Las de después del día 90, por zona (desplegables), con la estimación de la zona.
+ * Datos: `alcanceDeCanciones` y `cuandoSeAbre` (src/lib/desbloqueos.ts).
+ *
+ * Es de servidor (`prerender = false`): depende de TU progreso (lo que te falta) y de
+ * «hoy» (qué días ya pasaron). Sin sesión, como si empezaras.
+ */
+import { Check, ChevronDown, LockKeyhole, Music } from "lucide-preact";
+import Base from "@/layouts/Base.astro";
+import EncabezadoSeccion from "@/components/ui/EncabezadoSeccion.astro";
+import AvisoProgreso from "@/components/ui/AvisoProgreso.astro";
+import ChipRuta from "@/components/canciones/ChipRuta";
+import { cargarContenido, nombreCortoRuta } from "@/lib/contenido";
+import { alcanceDeCanciones, diasEstimadosDeLogros, type AlcanceCancion } from "@/lib/desbloqueos";
+import { diaDelPlanHoy, fechaCorta } from "@/lib/fechas";
+import { progresoDeVisita } from "@/lib/progreso-usuario";
+import { SITIO } from "@/config/sitio";
+
+export const prerender = false;
+
+const c = await cargarContenido();
+const { progreso, sesion, fallo } = await progresoDeVisita(Astro.locals);
+// Esta respuesta es de UNA persona: que ningún CDN ni navegador compartido la guarde.
+Astro.response.headers.set("Cache-Control", "private, no-store");
+
+const dias = [...c.dias].sort((a, b) => a.data.numero - b.data.numero);
+const hoy = diaDelPlanHoy(dias[0].data.fecha, SITIO.zonaHoraria);
+const alcances = alcanceDeCanciones(c, progreso.obtenidos, diasEstimadosDeLogros(c));
+const porDificultad = (a: AlcanceCancion, b: AlcanceCancion) => a.cancion.data.dificultad - b.cancion.data.dificultad;
+
+const abiertas = alcances.filter((a) => a.abierta).sort(porDificultad);
+const enElPlan = alcances.filter((a) => !a.abierta && a.dia !== undefined);
+const despues = alcances.filter((a) => !a.abierta && a.dia === undefined);
+
+// Línea de tiempo: un hito por día estimado, en orden.
+const hitos = [...new Set(enElPlan.map((a) => a.dia!))]
+  .sort((a, b) => a - b)
+  .map((n) => ({
+    dia: n,
+    fecha: dias.find((d) => d.data.numero === n)?.data.fecha,
+    pasado: n < hoy,
+    canciones: enElPlan.filter((a) => a.dia === n).sort(porDificultad),
+  }));
+
+// Después del día 90: por zona, en el orden del camino.
+const zonas = c.niveles
+  .map((nivel) => ({ nivel, canciones: despues.filter((a) => a.zona.id === nivel.id).sort(porDificultad) }))
+  .filter((z) => z.canciones.length > 0);
+
+const cifras = [
+  { valor: abiertas.length, texto: "ya puedes tocar" },
+  { valor: enElPlan.length, texto: "se abren en tus 90 días" },
+  { valor: despues.length, texto: "después del día 90" },
+];
+
+const ruta = (a: AlcanceCancion) => c.rutaPorId.get(a.cancion.data.ruta.id)!;
+/** «Te falta: A, B y 2 más», para no llenar la línea de nombres. */
+const faltan = (a: AlcanceCancion, max = 2) => {
+  const nombres = a.faltan.slice(0, max).map((l) => l.data.nombre).join(", ");
+  return a.faltan.length > max ? `${nombres} y ${a.faltan.length - max} más` : nombres;
+};
+---
+
+<Base titulo="Repertorio" descripcion="Cuándo se abre cada canción: las que ya puedes tocar, las de tus 90 días y las de cada zona.">
+  <!-- ============ PORTADA ============ -->
+  <header class="max-w-3xl" data-revelar="hijos">
+    <p class="eyebrow">¿Cuándo puedo tocarla?</p>
+    <h1 class="mt-4 text-6xl leading-[0.92] sm:text-8xl">Tu <em class="text-acento">repertorio</em></h1>
+    <p class="mt-5 max-w-[56ch] text-lg text-tenue">
+      Cada canción se abre al conseguir los logros que pide. Aquí ves cuándo, según el plan: un día estimado si cae
+      en tus 90 días, o la zona del camino si llega después. Es una estimación: lo que manda es lo que te falta de verdad.
+    </p>
+    <dl class="mt-8 flex flex-wrap gap-x-10 gap-y-4">
+      {cifras.map((e) => (
+        <div class="flex flex-col-reverse">
+          <dt class="mt-1 font-mono text-[0.625rem] tracking-[0.06em] text-tenue uppercase">{e.texto}</dt>
+          <dd class="font-display text-5xl leading-none tabular-nums">{e.valor}</dd>
+        </div>
+      ))}
+    </dl>
+    <AvisoProgreso sesion={sesion} fallo={fallo} volver="/repertorio" que="tu repertorio" class="mt-8 max-w-md" />
+  </header>
+
+  <!-- ============ YA PUEDES TOCARLAS ============ -->
+  <section class="mt-20" aria-labelledby="titulo-abiertas">
+    <EncabezadoSeccion id="titulo-abiertas" eyebrow="Abiertas" titulo="Ya puedes tocarlas" />
+    {abiertas.length > 0 ? (
+      <ul class="flex flex-wrap gap-2">
+        {abiertas.map((a) => (
+          <li>
+            <a href={`/canciones/${a.cancion.id}`} class="inline-flex items-center gap-2 rounded-md border border-exito/40 bg-exito/10 px-3 py-2 text-sm transition-colors hover:border-exito">
+              <Check size={14} class="text-exito" aria-hidden="true" /> {a.cancion.data.titulo}
+            </a>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p class="max-w-[60ch] text-tenue">
+        Aún ninguna: la primera es <strong class="font-medium text-texto">{hitos[0]?.canciones[0]?.cancion.data.titulo ?? "la de tu primer jefe"}</strong>, cuando llegue la flauta.
+        Mientras tanto, cada logro de la zona 0 te acerca.
+      </p>
+    )}
+  </section>
+
+  <!-- ============ LÍNEA DE TIEMPO: LOS 90 DÍAS ============ -->
+  {hitos.length > 0 && (
+    <section class="mt-20" aria-labelledby="titulo-linea">
+      <EncabezadoSeccion
+        id="titulo-linea"
+        eyebrow="En tus 90 días"
+        titulo="Se abren por el camino"
+        descripcion="El día en que el plan te da lo último que pide cada canción."
+        enlace={{ href: "/calendario", texto: "Calendario" }}
+      />
+      <ol class="relative ml-3 border-l border-borde-fuerte">
+        {hitos.map((h) => (
+          <li class="relative pb-12 pl-8 last:pb-0">
+            <span
+              class:list={[
+                "absolute top-1 -left-[0.5625rem] grid size-4 place-items-center rounded-full border-2 bg-fondo",
+                h.pasado ? "border-tenue" : "border-resalte shadow-[0_0_16px_-2px_var(--resalte)]",
+              ]}
+              aria-hidden="true"
+            ></span>
+            <h3 class="flex flex-wrap items-baseline gap-x-3">
+              <a href={`/dias/${h.dia}`} class="font-display text-3xl hover:text-acento-claro">Día {h.dia}</a>
+              {h.fecha && <span class="font-mono text-[0.6875rem] text-tenue uppercase">{fechaCorta(h.fecha)}</span>}
+              {h.pasado && <span class="font-mono text-[0.625rem] text-resalte uppercase">ya pasó: en cuanto consigas lo que falta</span>}
+            </h3>
+            <ul class="mt-4 grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
+              {h.canciones.map((a) => (
+                <li>
+                  <a href={`/canciones/${a.cancion.id}`} class="group flex h-full flex-col gap-2 rounded-md border border-borde bg-superficie p-3 transition-colors hover:border-acento/50 hover:bg-superficie-2">
+                    <span class="flex items-start gap-2">
+                      <LockKeyhole size={14} class="mt-1 shrink-0 text-tenue" aria-hidden="true" />
+                      <span class="font-medium group-hover:text-acento-claro">{a.cancion.data.titulo} <span class="sr-only">(bloqueada)</span></span>
+                    </span>
+                    <span class="text-sm text-tenue">Te falta: <span class="text-texto">{faltan(a)}</span></span>
+                    <span class="mt-auto"><ChipRuta nombre={nombreCortoRuta(ruta(a))} color={ruta(a).data.color} /></span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </li>
+        ))}
+      </ol>
+    </section>
+  )}
+
+  <!-- ============ DESPUÉS DEL DÍA 90: POR ZONA ============ -->
+  {zonas.length > 0 && (
+    <section class="mt-20" aria-labelledby="titulo-zonas">
+      <EncabezadoSeccion
+        id="titulo-zonas"
+        eyebrow="Después del día 90"
+        titulo="Lo que espera en cada zona"
+        descripcion="Aquí ya no hay fechas: cada zona se pasa por criterios. La estimación es orientativa."
+        enlace={{ href: "/mapa", texto: "Mapa" }}
+      />
+      <div class="grid gap-3">
+        {zonas.map((z) => (
+          <details class="group rounded-md border border-borde bg-superficie open:border-borde-fuerte">
+            <summary class="flex cursor-pointer list-none flex-wrap items-center gap-x-4 gap-y-1 p-4 [&::-webkit-details-marker]:hidden">
+              <span class="font-mono text-[0.6875rem] text-acento uppercase">Zona {z.nivel.data.orden}</span>
+              <span class="font-display text-2xl">{z.nivel.data.nombre}</span>
+              <span class="text-sm text-tenue">{z.nivel.data.estimacion}</span>
+              <span class="ml-auto inline-flex items-center gap-2 text-sm text-tenue">
+                <Music size={14} aria-hidden="true" /> {z.canciones.length}
+                <span class="sr-only">canciones</span>
+                <ChevronDown size={16} class="transition-transform group-open:rotate-180" aria-hidden="true" />
+              </span>
+            </summary>
+            <ul class="grid gap-x-6 border-t border-borde p-4 sm:grid-cols-2">
+              {z.canciones.map((a) => (
+                <li>
+                  <a href={`/canciones/${a.cancion.id}`} class="group flex items-baseline gap-2 rounded-[3px] px-2 py-1.5 hover:bg-superficie-2">
+                    <span class="size-1.5 shrink-0 translate-y-[-2px] rounded-full" style={{ background: ruta(a).data.color }} aria-hidden="true"></span>
+                    <span class="group-hover:text-acento-claro">{a.cancion.data.titulo}</span>
+                    <span class="ml-auto shrink-0 font-mono text-[0.625rem] text-tenue">
+                      {a.faltan.length} {a.faltan.length === 1 ? "logro" : "logros"}
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </details>
+        ))}
+      </div>
+    </section>
+  )}
+</Base>

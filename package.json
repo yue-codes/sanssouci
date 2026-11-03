@@ -15,7 +15,8 @@
     "generar-docs": "node scripts/generar-docs.mjs",
     "auditar": "astro build && node scripts/auditar.mjs",
     "optimizar-imagenes": "node scripts/optimizar-imagenes.mjs",
-    "desplegar": "astro build && wrangler deploy"
+    "desplegar": "astro build && wrangler deploy",
+    "reprogramar": "node scripts/reprogramar-dias.mjs"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^14.4.4",

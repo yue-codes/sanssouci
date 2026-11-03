@@ -1,0 +1,37 @@
+---
+/**
+ * @component AvisoRutina
+ * Después del día 90: la sesión de tu semana tipo que toca hoy (o la próxima) y
+ * un enlace a `/rutina`. Se usa en la portada y en el panel solo cuando el plan
+ * de 90 días ya terminó; quien la usa decide si se pinta (`sesionDeRutina`).
+ *
+ * @example
+ * {rutina && <AvisoRutina sesion={rutina} class="mt-8" />}
+ */
+import { Repeat } from "lucide-preact";
+import type { SesionDeRutina } from "@/lib/rutina";
+import { fechaLarga } from "@/lib/fechas";
+
+interface Props {
+  /** La sesión de la rutina que toca (de `sesionDeRutina`). */
+  sesion: SesionDeRutina;
+  /** Clases extra (por ejemplo, márgenes). */
+  class?: string;
+}
+const { sesion: s, class: clase = "" } = Astro.props;
+const minutos = s.bloques.reduce((t, b) => t + b.minutos, 0);
+---
+
+<a
+  href="/rutina"
+  class:list={["group flex items-start gap-4 rounded-md border border-acento/50 bg-acento-suave/40 p-4 transition-colors hover:border-acento", clase]}
+>
+  <span class="grid size-10 shrink-0 place-items-center rounded-full bg-acento-suave text-acento" aria-hidden="true"><Repeat size={18} /></span>
+  <span>
+    <span class="block font-mono text-[0.625rem] tracking-[0.08em] text-acento uppercase">
+      Tu rutina · semana {s.semana} · {s.motivo === "hoy" ? "hoy toca" : `próxima: ${fechaLarga(s.fecha)}`}
+    </span>
+    <span class="mt-1 block font-display text-2xl leading-tight group-hover:text-acento-claro">{s.titulo}</span>
+    <span class="mt-1 block text-sm text-tenue">{s.objetivo} {minutos} min. <span class="font-semibold text-acento">Ir a la rutina →</span></span>
+  </span>
+</a>

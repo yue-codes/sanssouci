@@ -19,6 +19,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 | 4. Login y progreso (Supabase, migraciones, middleware, islas que guardan) | ✅ **hecha** (3 nov 2026, probada por el usuario en local y en producción). Supabase con RLS (`docs/supabase.md`); sesión en cookies con middleware (`src/lib/supabase.ts`, `src/middleware.ts`); cuentas con **correo y contraseña** (`/entrar` con modos entrar / registro / recuperar, `/contrasena`, `lib/cuenta.ts`; Google descartado); escritura con **Astro Actions** (`src/actions/index.ts`: días, logros, victorias, canciones) y `/perfil`; lectura con **Server Islands** donde el progreso es un trozo (`/arbol`, `/canciones`, `/canciones/[id]`, `/jefes/[id]`, `/dias/[n]`) y **páginas de servidor** donde es casi todo (`/`, `/mapa`, `/logros`, `/niveles/[id]`, `/calendario`) con `progresoDeVisita` y `AvisoProgreso`. Detalle de cada paso (a–g) en `docs/hoja-de-ruta.md` §1; reglas en `docs/arquitectura.md` «Sesión y páginas de servidor». |
 | Rediseño «Nocturno» (paleta «Cian») | ✅ **hecho y aprobado** (vistos buenos del 3 nov 2026). Base: tokens, solo tema oscuro, fuentes, imágenes con `astro:assets`, `motion` + Lenis, cabecera y pie. Las portadas con imagen usan `FondoPortada` (`components/ui/`). Detalle en `docs/arquitectura.md` («Colores, tipografía y tema», «Imágenes», «Movimiento» y una nota por página). |
 | 5. Despliegue en Cloudflare Workers | ✅ **publicada** (3 nov 2026) en https://sanssouci.eduardo-jes-angeles-hdz.workers.dev con Workers Builds conectado a GitHub (cada push a `main` publica). Supabase con la dirección pública; probada por el usuario en producción. Guía en `docs/despliegue.md`. `build.format: "file"` quitó las redirecciones 307 (comprobado). Pendiente: cambiar las imágenes ajenas antes de compartir la web. |
+| 6. Sin maestro, después del día 90 y «¿cuándo puedo tocarla?» | ✅ **hecha** (3 nov 2026), pendiente del visto bueno del usuario. Diseño y detalle en `docs/diseno-fase-6.md`. Plan movido: **día 1 = lunes 9 nov 2026** con una **semana 0** (`/arranque`) el 4, 6 y 7 nov; metodología sin maestro (autoevaluación, estudios por defecto, 18 logros nuevos); 21 clásicas nuevas; `/repertorio`, «Tus próximas canciones» en el panel y aviso de canciones al conseguir un logro; rutina después del día 90 (`/rutina`, `semanas.json`). |
 
 ## 0. Estado técnico del repo y comandos
 
@@ -26,7 +27,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Comandos (no existe linter ni tests unitarios):
   - `pnpm build`: compila; es la verificación principal.
   - `pnpm astro check`: tipos y validación de los esquemas del contenido (incluidas las referencias rotas entre JSON).
-  - `pnpm verificar`: reglas entre archivos que Zod no ve (cada video de `canciones.txt` aparece una sola vez, 90 días, 65 sesiones de 45 a 60 min, jueves y domingo de descanso, jefe ↔ nivel).
+  - `pnpm verificar`: reglas entre archivos que Zod no ve (cada video de `canciones.txt` aparece una sola vez, 90 días, 65 sesiones de 45 a 60 min, jueves y domingo de descanso, día 1 en lunes y fechas seguidas, semana 0 antes del día 1, una semana tipo de 45 a 60 min por zona 1–8, jefe ↔ nivel).
+  - `pnpm reprogramar AAAA-MM-DD`: mueve el plan a otro lunes de inicio (`scripts/reprogramar-dias.mjs`); reparte las sesiones cortas de festivo en las fechas festivas. Después: `pnpm verificar`, `pnpm generar-docs`, la semana 0 (`arranque.json`) y la fecha de `/perfil`.
   - `pnpm auditar`: compila y revisa la accesibilidad del HTML de `dist/` (`scripts/auditar.mjs`). Pásalo al terminar páginas nuevas. Con el adaptador de Cloudflare las páginas prerenderizadas salen en `dist/client/` (el worker, en `dist/server/`); el script ya revisa esa carpeta. **Las páginas de servidor no salen ahí:** se auditan aparte (cómo, en `docs/arquitectura.md` «Accesibilidad»).
   - `pnpm optimizar-imagenes`: genera `src/assets/imagenes/` (WebP grande y `-mini`) desde `imagenes-originales/`. Las imágenes nuevas van en `imagenes-originales/`, nunca directo en `src/assets/`.
   - `pnpm desplegar`: compila y publica a mano en Cloudflare (`wrangler deploy`; antes, `! pnpm wrangler login`). Lo normal es publicar con un push a `main` (Workers Builds). Detalle en `docs/despliegue.md`.
@@ -38,7 +40,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ### Arquitectura de datos (decidida)
 
-- **Contenido** (igual para todos): JSON en `src/data/` (`rutas`, `niveles`, `jefes`, `logros`, `canciones`, `extras`, `dias`). Cada archivo es un arreglo con `id` y se carga con el loader `file()` en `src/content.config.ts`. Las relaciones usan `reference()`, así que un id inexistente rompe el build. `z` se importa de `astro/zod` (Zod v4).
+- **Contenido** (igual para todos): JSON en `src/data/` (`rutas`, `niveles`, `jefes`, `logros`, `canciones`, `extras`, `dias`, `arranque` (semana 0) y `semanas` (semana tipo por zona, después del día 90)). Cada archivo es un arreglo con `id` y se carga con el loader `file()` en `src/content.config.ts`. Las relaciones usan `reference()`, así que un id inexistente rompe el build. `z` se importa de `astro/zod` (Zod v4).
 - **Los JSON son la fuente de verdad.** Los `.md` de `docs/` que dicen «generado» no se editan a mano. `docs/plan.md` (guías) y `docs/clasificar-cancion.md` (criterio para canciones nuevas) sí son manuales.
 - **Lo derivable no se guarda:** la URL de YouTube sale de `youtubeId`; «reto de oído» = ninguna versión tiene `partitura` y alguna tiene `de-oido`.
 - **Los ids son estables:** la base de datos de progreso los guarda. No los renombres.
@@ -60,8 +62,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 - De niño tocó lo básico de **saxofón alto** (ya no tiene el saxofón). En **guitarra** sabe acordes base y rasgueos básicos y la tiene a mano.
 - **Lectura de partitura: casi desde cero.** Conoce los nombres de las notas pero lee muy despacio y olvidó las notas agudas. **Teoría desde cero.**
-- 100% **autodidacta**, pero buscará un maestro presencial 1 clase por semana (en grupos y redes sociales).
-- **Primera clase con maestro:** cambió el 2 de noviembre de 2026: será **cuando llegue la flauta** (≈ principios de diciembre, semana 5), no antes. En `src/data/dias.json` la ventana es la primera semana con flauta (días 29 a 34; el día 33 es el de referencia).
+- 100% **autodidacta** (al principio pensaba buscar un maestro semanal; ver la línea siguiente).
+- **Maestro: casi no habrá** (decidido el 3 nov 2026: «tú te encargas de todo»). El plan funciona sin él: autoevaluación con grabación, afinador y metrónomo (protocolo en `docs/plan.md`) y estudios por defecto (Gariboldi, Moyse, Köhler, Andersen). Se le recomienda, como opcional, una **clase suelta de chequeo** de embocadura y postura (logro «Clase de chequeo») y la **revisión de la flauta por un técnico** dentro del plazo de devolución (día 33).
 - Quiere aprender a **transcribir de oído usando la guitarra**.
 - Quiere **grabar y publicar videos** (grabar es parte de cada jefe). **El equipo de grabación (cámara, micrófono, ajustes, manuales) queda fuera del proyecto: lo investiga él. No gastes recursos en eso.**
 - Meta: ser un gran flautista traversa. Gusta de clásica, Ghibli, anime (openings, Vocaloid, Ado), videojuegos (Hollow Knight, Nier, Octopath, Tetris, Clair Obscur), folk (Wellerman, Bella Ciao).
@@ -69,13 +71,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ### Horario (decidido)
 - Práctica **lunes, martes, miércoles, viernes y sábado**, de **8:00 a 10:00 pm**, sesiones de **45 a 60 min**.
 - **Descanso: jueves y domingo.**
-- **Inicio: lunes 2 de noviembre de 2026 = Día 1.** El día 90 es el **sábado 30 de enero de 2027**.
+- **Inicio: lunes 9 de noviembre de 2026 = Día 1** (cambió el 3 nov 2026: antes era el 2 nov). Antes, una **semana 0** de arranque el miércoles 4, viernes 6 y sábado 7 (`arranque.json`, `/arranque`). El día 90 es el **sábado 6 de febrero de 2027**.
 - Zona horaria: America/Mexico_City.
 
 ### Flauta (decidido)
 - Comprará la **Jean Paul FL-430** (~$7,000 MXN) **en aproximadamente 1 mes** (≈ principios de diciembre de 2026), con garantía y devolución. No comprará cabeza suelta antes.
 - Datos verificados: plateada, agujeros abiertos con tapones (se toca con los tapones puestos), llave de sol desfasada y mecanismo de Mi dividido. Reseñas: buena relación precio-calidad pero con variación entre unidades (algún caso de zapatillas que no sellan y mecanismo algo lento).
-- Plan: que el maestro la revise al recibirla (sellado, ajuste, afinación). Piensa **cambiarla en unos años** (señal típica: entre el año 2 y 3, la decide el maestro y su progreso).
+- Plan: que un técnico (o la tienda) la revise al recibirla (sellado, ajuste, afinación), dentro del plazo de devolución. Piensa **cambiarla en unos años** (señal típica: entre el año 2 y 3, según su progreso).
 - Se evaluaron Yamaha YFL-222HD y Jupiter JFL700R (~$15,000 MXN cada una); descartadas por precio por ahora.
 
 ## 3. Qué hay que producir
@@ -83,13 +85,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ### 3.1 Plan y catálogo (hecho)
 - `docs/plan.md`: reglas del juego, cuidado del cuerpo, guía de la FL-430 con las preguntas para la primera clase, y libros.
 - `docs/mapa.md`, `docs/plan-90-dias.md` y `docs/catalogo.md`: generados desde `src/data`.
-- Catálogo: 124 obras a partir de los 182 videos de `canciones.txt` (cifras al 2 nov 2026; crecen al añadir canciones) (metadatos sacados con `yt-dlp`). Lo que no es pieza para flauta traversa va en `extras.json`. Canciones nuevas: seguir `docs/clasificar-cancion.md`.
+- Catálogo: 145 obras a partir de los 213 videos de `canciones.txt` (cifras al 3 nov 2026, con las 21 clásicas «de regla» añadidas; crecen al añadir canciones) (metadatos sacados con `yt-dlp`). Lo que no es pieza para flauta traversa va en `extras.json`. Canciones nuevas: seguir `docs/clasificar-cancion.md`.
 
 ### 3.2 La web (fases 3–5)
 - Decidido con el usuario: **Supabase** (login con **correo y contraseña**, registro abierto con confirmación por correo; el 3 nov 2026 sustituyó al enlace mágico y se descartó Google; Postgres con RLS), **Cloudflare Workers** (`@astrojs/cloudflare`, Astro en modo servidor) y **varios usuarios** (cada uno con su propio progreso).
 - **El rendimiento no es prioridad:** usa **Preact a fondo** (páginas interactivas como componentes completos) y `@preact/signals` para el estado compartido entre islas.
 - **Diseño:** el usuario quiere que impresione, con Tailwind (v4). La dirección visual ya está aprobada (ver 3.3). Para cambios visuales grandes, enséñale antes una muestra y espera su aprobación.
-- Páginas previstas: `/`, `/entrar`, `/panel`, `/mapa`, `/arbol`, `/niveles/[id]`, `/jefes/[id]`, `/calendario`, `/dias/[n]`, `/logros`, `/canciones`, `/canciones/[id]`, `/perfil` y `/contrasena`. Middleware de sesión para las rutas privadas. Funciones puras en `src/lib/` (`estaDesbloqueado`, `estadoLogro`, `ordenZonaActual` y `racha`). Las páginas de cuenta (`/panel`, `/entrar`, `/perfil`, `/contrasena`) solo cargan datos; lo que se ve está en `src/components/cuenta/`.
+- Páginas: `/`, `/entrar`, `/panel`, `/mapa`, `/arbol`, `/niveles/[id]`, `/jefes/[id]`, `/calendario`, `/dias/[n]`, `/logros`, `/canciones`, `/canciones/[id]`, `/perfil`, `/contrasena`, `/arranque` (semana 0), `/repertorio` («¿cuándo puedo tocarla?») y `/rutina` (después del día 90). Middleware de sesión para las rutas privadas. Funciones puras en `src/lib/` (`estaDesbloqueado`, `estadoLogro`, `ordenZonaActual` y `racha`). Las páginas de cuenta (`/panel`, `/entrar`, `/perfil`, `/contrasena`) solo cargan datos; lo que se ve está en `src/components/cuenta/`.
 - Las claves de Supabase van en `.env` (fuera de git; plantilla en `.env.example`: `PUBLIC_SUPABASE_URL` y `PUBLIC_SUPABASE_PUBLISHABLE_KEY`) y en los secretos de Cloudflare. Solo se usa la clave *publishable*; la *secret* nunca. RLS automática activada en el panel, pero cada migración activa RLS y crea sus reglas explícitamente. Detalle en `docs/supabase.md`.
 
 ### 3.3 Arquitectura del frontend (fase 3, ya en el código)
@@ -102,7 +104,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Imports con alias `@/`** (→ `src/`, en `tsconfig.json`). `./` solo dentro de la misma carpeta; nunca `../`.
 - **Dirección visual «Nocturno»** (elegida el 2 nov 2026 entre cuatro maquetas; sustituye a «Bosque») con **paleta «Cian»**, sacada de la imagen principal `anime-cian.webp` (el usuario la pidió así): noche índigo, texto rosa pálido, **cian como marca**, lavanda para lo disponible, menta para lo conseguido, rosa fuerte para los jefes. Las fotos cálidas llevan un velo cobalto (`.velo`). **Solo tema oscuro** (sin selector de tema). Toda la paleta en `src/styles/tokens.css`: paleta con nombre → semánticos.
 - **Documentación del código:** cabecera `@file` / `@component` en cada archivo (en los `.tsx`, el JSDoc `@component` va justo encima de la función del componente), JSDoc (`@param`, `@returns`, `@example`) en todo lo exportado y comentario en cada prop. Comentarios internos solo para el porqué.
-- **Funciones clave:** `cargarContenido()` en `src/lib/contenido.ts` (úsalo en vez de `getCollection` en cada página; tipo `Contenido`), `Progreso`, `estadoLogro`, `ordenZonaActual` y `estadoZona` en `src/lib/progreso.ts`, `construirSendero` / `siguientePaso` en `src/lib/mapa.ts`, `construirNodosArbol` en `src/lib/arbol.ts`, `logrosConEstado`, `usosDeLogros` y `avancePorCategoria` en `src/lib/logros.ts`, `jefesEnOrden` / `diaDelJefe` en `src/lib/jefes.ts`, `semanasDelPlan` / `hitosDelDia` / `sesionDeReferencia` en `src/lib/calendario.ts`, `resumirCancion` en `src/lib/canciones.ts`, filtros del catálogo en `src/lib/catalogo.ts`, URLs de YouTube en `src/lib/youtube.ts`, fechas en `src/lib/fechas.ts` y `duracion` en `src/lib/formato.ts`. **Una isla no puede importar (ni indirectamente) `@/lib/contenido`**, porque usa `astro:content`, que solo existe en el servidor: recibe datos planos por props (ver «Qué puede importar una isla» en `docs/arquitectura.md`). Progreso real: `progresoDeVisita(Astro.locals)` en `src/lib/progreso-usuario.ts` (nunca lanza; sin sesión, `PROGRESO_VACIO`) y el aviso `AvisoProgreso`; «hoy» con `diaDelPlanHoy` (`src/lib/fechas.ts`).
+- **Funciones clave:** `cargarContenido()` en `src/lib/contenido.ts` (úsalo en vez de `getCollection` en cada página; tipo `Contenido`), `Progreso`, `estadoLogro`, `ordenZonaActual` y `estadoZona` en `src/lib/progreso.ts`, `construirSendero` / `siguientePaso` en `src/lib/mapa.ts`, `construirNodosArbol` en `src/lib/arbol.ts`, `logrosConEstado`, `usosDeLogros` y `avancePorCategoria` en `src/lib/logros.ts`, `jefesEnOrden` / `diaDelJefe` en `src/lib/jefes.ts`, `semanasDelPlan` / `hitosDelDia` / `sesionDeReferencia` en `src/lib/calendario.ts`, `resumirCancion` en `src/lib/canciones.ts`, `diasEstimadosDeLogros` / `alcanceDeCanciones` / `proximasCanciones` / `cancionesQueSeAbren` / `cuandoSeAbre` en `src/lib/desbloqueos.ts` (cuándo se abre cada canción), `semanaDeZona` / `sesionDeRutina` en `src/lib/rutina.ts`, `arranqueDeHoy` en `src/lib/calendario.ts`, filtros del catálogo en `src/lib/catalogo.ts`, URLs de YouTube en `src/lib/youtube.ts`, fechas en `src/lib/fechas.ts` y `duracion` en `src/lib/formato.ts`. **Una isla no puede importar (ni indirectamente) `@/lib/contenido`**, porque usa `astro:content`, que solo existe en el servidor: recibe datos planos por props (ver «Qué puede importar una isla» en `docs/arquitectura.md`). Progreso real: `progresoDeVisita(Astro.locals)` en `src/lib/progreso-usuario.ts` (nunca lanza; sin sesión, `PROGRESO_VACIO`) y el aviso `AvisoProgreso`; «hoy» con `diaDelPlanHoy` (`src/lib/fechas.ts`).
 - **Estructura visual (de la fase 3, se mantiene): A + C.** `/mapa` como mapa del mundo que se sube de abajo arriba (zona → jefe como puerta con llaves → zona; lo cercano con detalle, lo lejano «en niebla») y `/arbol` como árbol de talentos estilo RPG (ramas = categorías de logro, líneas = `requiere`). En la portada, los 90 días son una partitura (`PartituraNoventaDias`).
 - **Signals:** dentro de un componente usa `useSignal` y `useComputed`, no `signal` y `computed`.
 - **«Hoy»:** en una página estática sería la fecha del build. Por eso lo que depende de «hoy» va en páginas de servidor (`diaDelPlanHoy`) o en una isla que lo calcula en el navegador (`FaltanDias`). Detalle en `docs/arquitectura.md` («Sesión y páginas de servidor»).
@@ -123,17 +125,19 @@ Calentamiento (aire/sonido) → escalas y técnica → estudios → repertorio m
 
 ## 5. Fases de los primeros 90 días
 
-- **Semanas 1 a 4 (2 nov a ~29 nov), sin flauta:** test inicial de lectura de notas (con foco en agudas), lectura desde cero con metrónomo, teoría (escalas mayores, armaduras, intervalos, ritmo), respiración y soplido sostenido, tabla de digitaciones "al aire", oído y transcripción con la guitarra, escuchar flautistas (Galway, Pahud, Rampal). **Primera clase: cuando llegue la flauta** (antes se había previsto entre el 21 y el 26 de noviembre).
-- **Semanas 5 a 13 (≈ 30 nov a 30 ene), con flauta:** revisión de la flauta, sonido y embocadura (Trevor Wye, Practice Book vol. 1: Tono), primeras notas y escalas, primeras piezas fáciles de su lista (p. ej. Always With Me, Merry-Go-Round of Life, Tetris, Bella Ciao, Wellerman). **Tres jefes en los 90 días**, todos con grabación: jefe 0 (día 27, de oído y en guitarra), jefe 1 Wellerman (día 62) y jefe 2 Always With Me (día 90).
+- **Semana 0 (4, 6 y 7 nov):** arranque (herramientas, respiración, conocer la web); no cuenta para los 90 días.
+- **Semanas 1 a 4 (9 nov a ~6 dic), sin flauta:** test inicial de lectura de notas (con foco en agudas), lectura desde cero con metrónomo, teoría (escalas mayores, armaduras, intervalos, ritmo), respiración y soplido sostenido, tabla de digitaciones "al aire", oído y transcripción con la guitarra, escuchar flautistas (Galway, Pahud, Rampal). Sin maestro: autoevaluación; una clase suelta de chequeo es opcional.
+- **Semanas 5 a 13 (≈ 7 dic a 6 feb), con flauta:** revisión de la flauta (técnico) y autoevaluación de postura en video, sonido y embocadura (Trevor Wye, Practice Book vol. 1: Tono), primeras notas y escalas, primeras piezas fáciles de su lista (p. ej. Always With Me, Merry-Go-Round of Life, Tetris, Bella Ciao, Wellerman). **Tres jefes en los 90 días**, todos con grabación: jefe 0 (día 27, de oído y en guitarra), jefe 1 Wellerman (día 62) y jefe 2 Always With Me (día 90).
 - Ajustar la fecha real de llegada de la flauta cuando la sepa.
 - Libro más adelante: Taffanel & Gaubert.
 
 ## 6. Reglas para producir el plan (importante)
 
-- **Sé honesto con los tiempos.** Del día 91 en adelante, el camino se define por **criterios de paso** (por ejemplo "escala de Re mayor a X tempo con sonido limpio"), con **estimaciones** de tiempo, **no fechas inventadas**. Su progreso real y su maestro lo cambiarán todo.
+- **Sé honesto con los tiempos.** Del día 91 en adelante, el camino se define por **criterios de paso** (por ejemplo "escala de Re mayor a X tempo con sonido limpio"), con **estimaciones** de tiempo, **no fechas inventadas**. Su progreso real lo cambiará todo.
 - No prometas que logrará lo muy avanzado en poco tiempo. Es realista que tarde años.
 - Cuida el cuerpo: sesiones sin forzar labios ni respiración al inicio; no más de lo recomendado.
-- Cuando haya maestro, **lo que él diga manda** sobre el plan.
+- Casi no habrá maestro: los criterios se comprueban con **autoevaluación** (grabación, afinador, metrónomo). Si toma una clase suelta, lo que diga esa persona manda sobre el plan.
+- Del día 91 en adelante, la rutina es la **semana tipo de su zona** (`semanas.json`), con revisión cada 4 semanas.
 - Si un dato es incierto, dilo.
 
 ## 7. Pendiente
@@ -141,5 +145,6 @@ Calentamiento (aire/sonido) → escalas y técnica → estudios → repertorio m
 Detalle técnico de lo que falta: `docs/hoja-de-ruta.md`. Datos que solo sabe el usuario:
 
 - Confirmar la **fecha real de llegada de la flauta** cuando la compre.
-- Fecha exacta de la primera clase (será al llegar la flauta, ≈ principios de diciembre).
+- Buscar un técnico (o confirmar con la tienda) para revisar la flauta dentro del plazo de devolución.
+- Horario después del día 90 y si quiere tocar con otros: aún no lo sabe (las semanas tipo se ajustan si cambia).
 - Lista de canciones: el usuario puede agregar más; clasificarlas con el mismo criterio.

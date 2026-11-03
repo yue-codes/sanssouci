@@ -58,6 +58,27 @@ export function fechaCorta(iso: string): string {
 }
 
 /**
+ * Suma días a una fecha ISO.
+ * @example sumarDias("2026-11-09", 89) // → "2027-02-06"
+ */
+export function sumarDias(iso: string, dias: number): string {
+  const f = parsearFecha(iso);
+  f.setDate(f.getDate() + dias);
+  return `${f.getFullYear()}-${String(f.getMonth() + 1).padStart(2, "0")}-${String(f.getDate()).padStart(2, "0")}`;
+}
+
+/**
+ * Fecha con el año, corta o larga.
+ * @example fechaConAnio("2026-11-09")          // → "9 nov 2026"
+ * @example fechaConAnio("2026-11-09", "larga") // → "9 de noviembre de 2026"
+ */
+export function fechaConAnio(iso: string, formato: "corta" | "larga" = "corta"): string {
+  const f = parsearFecha(iso);
+  if (formato === "larga") return f.toLocaleDateString("es-MX", { day: "numeric", month: "long", year: "numeric" });
+  return `${fechaCorta(iso)} ${f.getFullYear()}`;
+}
+
+/**
  * Posición del día en una semana que empieza en lunes: 0 = lunes … 6 = domingo.
  * (`Date.getDay()` empieza en domingo = 0; aquí se desplaza).
  */

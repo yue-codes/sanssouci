@@ -31,7 +31,36 @@ for (const d of dias) {
     check(min >= 45 && min <= 60, `${d.id} dura ${min} min (debe ser entre 45 y 60).`);
   }
 }
-check(dias.at(-1)?.fecha === "2027-01-30", "El día 90 debe ser el 30 de enero de 2027.");
+// El día 1 es un lunes y los días van seguidos (la fecha de inicio la pone scripts/reprogramar-dias.mjs).
+const ordenados = [...dias].sort((a, b) => a.numero - b.numero);
+const dia1 = new Date(`${ordenados[0]?.fecha}T00:00:00Z`);
+check(dia1.getUTCDay() === 1, `El día 1 (${ordenados[0]?.fecha}) debe ser lunes.`);
+for (const d of ordenados) {
+  const esperada = new Date(dia1.getTime() + (d.numero - 1) * 86_400_000).toISOString().slice(0, 10);
+  check(d.fecha === esperada, `${d.id} tiene fecha ${d.fecha}; le toca ${esperada}.`);
+}
+
+// 2b. La semana 0 (arranque) va antes del día 1 y nunca en día de descanso.
+for (const a of leer("arranque")) {
+  check(a.fecha < ordenados[0].fecha, `${a.id} (${a.fecha}) debe ir antes del día 1 (${ordenados[0].fecha}).`);
+  const dia = ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"][new Date(`${a.fecha}T00:00:00Z`).getUTCDay()];
+  check(dia === a.diaSemana, `${a.id}: ${a.fecha} es ${dia}, no ${a.diaSemana}.`);
+  check(dia !== "jueves" && dia !== "domingo", `${a.id} cae en ${dia}, que es de descanso.`);
+}
+
+// 2c. Semanas tipo (después del día 90): una por zona de la 1 a la 8, sesiones en el
+//     orden del horario y cada una (y la revisión) de 45 a 60 min.
+const semanas = leer("semanas");
+const minutos = (s) => s.bloques.reduce((t, b) => t + b.minutos, 0);
+for (const n of niveles.filter((x) => x.orden >= 1)) {
+  check(semanas.filter((s) => s.nivel === n.id).length === 1, `${n.id} debe tener exactamente una semana tipo.`);
+}
+for (const s of semanas) {
+  check(s.sesiones.map((x) => x.diaSemana).join() === "lunes,martes,miércoles,viernes,sábado", `${s.id}: las sesiones deben ir de lunes a sábado sin jueves.`);
+  for (const x of [...s.sesiones, s.revision]) {
+    check(minutos(x) >= 45 && minutos(x) <= 60, `${s.id} «${x.titulo}» dura ${minutos(x)} min (debe ser entre 45 y 60).`);
+  }
+}
 
 // 3. Cada nivel apunta a un jefe que pertenece a ese mismo nivel.
 for (const n of niveles) {

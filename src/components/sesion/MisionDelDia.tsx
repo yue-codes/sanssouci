@@ -16,14 +16,17 @@ export interface Bloque {
 }
 
 interface Props {
-  /** Número del día (1 a 90): es lo que se guarda. */
-  numero: number;
+  /**
+   * Número del día (1 a 90): es lo que se guarda. Sin él (semana 0), la misión se
+   * juega igual pero no se guarda en el progreso.
+   */
+  numero?: number;
   /** Bloques del día, en orden. */
   bloques: Bloque[];
   /** ¿Hay sesión? Sin ella, al terminar se invita a entrar. */
-  sesion: boolean;
+  sesion?: boolean;
   /** El registro guardado de este día, o `null` si aún no está marcado. */
-  registro: Registro | null;
+  registro?: Registro | null;
 }
 
 /** Segundos en formato «m:ss». */
@@ -45,7 +48,7 @@ const reloj = (s: number) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2,
  * guardado, la misión empieza cumplida (todas las etapas marcadas). La pinta la
  * Server Island `MisionConProgreso`, que sabe quién visita.
  */
-export default function MisionDelDia({ numero, bloques, sesion, registro: registroInicial }: Props) {
+export default function MisionDelDia({ numero, bloques, sesion = false, registro: registroInicial = null }: Props) {
   const todas = () => new Set(bloques.map((_, i) => i));
   const hechos = useSignal<ReadonlySet<number>>(registroInicial ? todas() : new Set());
   const registro = useSignal(registroInicial);
@@ -201,7 +204,11 @@ export default function MisionDelDia({ numero, bloques, sesion, registro: regist
             <Trophy size={30} class="text-exito" aria-hidden="true" />
             <p class="mt-2 font-mono text-[0.6875rem] tracking-[0.12em] text-exito uppercase">¡Misión cumplida!</p>
             <p class="mt-1 font-display text-3xl">+{total} minutos de práctica</p>
-            <RegistroDia numero={numero} sesion={sesion} registro={registro.value} alCambiar={(r) => (registro.value = r)} minutos={total} />
+            {numero === undefined ? (
+              <p class="mt-3 max-w-[40ch] text-sm text-tenue">La semana 0 no se guarda en tu progreso: es para arrancar. Anótala en tu cuaderno.</p>
+            ) : (
+              <RegistroDia numero={numero} sesion={sesion} registro={registro.value} alCambiar={(r) => (registro.value = r)} minutos={total} />
+            )}
             <button type="button" onClick={reiniciar} class="mt-5 inline-flex items-center gap-1.5 text-xs font-semibold text-tenue hover:text-texto">
               <RotateCcw size={13} aria-hidden="true" /> Repetir la misión
             </button>

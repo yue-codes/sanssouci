@@ -4496,5 +4496,795 @@
     ],
     "compositor": "W. A. Mozart",
     "notas": "En la voz original es famosa por sus agudos; en la flauta, la dificultad está en el staccato rápido y en la precisión de la tercera octava."
+  },
+  {
+    "id": "largo-nuevo-mundo",
+    "titulo": "Largo (Sinfonía del Nuevo Mundo)",
+    "obra": "Sinfonía nº 9, op. 95",
+    "categoria": "clasica",
+    "ruta": "clasica",
+    "dificultad": 2,
+    "nivel": "nivel-2",
+    "tecnicas": [
+      "logro-legato",
+      "logro-picado-simple",
+      "logro-notas-largas"
+    ],
+    "requiere": [
+      "logro-registro-grave"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "zyQc30OD7M0",
+        "tituloVideo": "Flute Playalong Largo (Dvorak) C Sheet music with accompaniment backing track",
+        "canal": "playalong trotamúsico",
+        "duracionSeg": 109,
+        "usos": [
+          "partitura",
+          "acompanamiento"
+        ],
+        "instrumentacion": "flauta y pista"
+      }
+    ],
+    "compositor": "Antonín Dvořák",
+    "notas": "Lento y cantado: ideal para trabajar el sonido. En la orquesta lo toca el corno inglés; aquí, arreglo para flauta."
+  },
+  {
+    "id": "la-manana-grieg",
+    "titulo": "La mañana",
+    "obra": "Peer Gynt, suite nº 1, op. 46",
+    "categoria": "clasica",
+    "ruta": "clasica",
+    "dificultad": 3,
+    "nivel": "nivel-3",
+    "tecnicas": [
+      "logro-dos-octavas",
+      "logro-legato"
+    ],
+    "requiere": [
+      "logro-segunda-octava",
+      "logro-escala-sol-mayor",
+      "logro-ritmo-puntillo"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "jVgGlxnPXHU",
+        "tituloVideo": "Flute Playalong Morning Mood (Peer Gynt) C Sheet music with accompaniment backing track",
+        "canal": "playalong trotamúsico",
+        "duracionSeg": 118,
+        "usos": [
+          "partitura",
+          "acompanamiento"
+        ],
+        "instrumentacion": "flauta y pista"
+      }
+    ],
+    "compositor": "Edvard Grieg",
+    "notas": "El solo de flauta más famoso para empezar: frases que suben a la segunda octava."
+  },
+  {
+    "id": "minueto-en-sol",
+    "titulo": "Minueto en Sol",
+    "obra": "Cuaderno de Anna Magdalena, BWV Anh. 114",
+    "categoria": "clasica",
+    "ruta": "clasica",
+    "dificultad": 3,
+    "nivel": "nivel-3",
+    "tecnicas": [
+      "logro-dos-octavas",
+      "logro-legato",
+      "logro-picado-simple"
+    ],
+    "requiere": [
+      "logro-segunda-octava",
+      "logro-escala-sol-mayor",
+      "logro-ritmo-puntillo"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "nTPhtzJqmEY",
+        "tituloVideo": "🌺 Bach's Minuet in G Major 🌺 + Sheet Music",
+        "canal": "ViktoriousFlutes",
+        "duracionSeg": 53,
+        "usos": [
+          "partitura",
+          "referencia",
+          "clip"
+        ],
+        "instrumentacion": "flauta sola",
+        "nota": "La partitura está enlazada en la descripción (flutetunes)."
+      },
+      {
+        "youtubeId": "QaNXmA0X9GI",
+        "tituloVideo": "Bach, Menuet in G BWV 114 for flute and piano - play along with piano accompaniment",
+        "canal": "fourandtwentymusic",
+        "duracionSeg": 61,
+        "usos": [
+          "acompanamiento"
+        ],
+        "instrumentacion": "pista de piano"
+      }
+    ],
+    "compositor": "Christian Petzold (atribuido a J. S. Bach)",
+    "notas": "El primer barroco de casi todos los flautistas."
+  },
+  {
+    "id": "ombra-mai-fu",
+    "titulo": "Ombra mai fu (Largo de Händel)",
+    "obra": "Serse, HWV 40",
+    "categoria": "clasica",
+    "ruta": "clasica",
+    "dificultad": 3,
+    "nivel": "nivel-3",
+    "tecnicas": [
+      "logro-dos-octavas",
+      "logro-legato",
+      "logro-notas-largas"
+    ],
+    "requiere": [
+      "logro-segunda-octava",
+      "logro-escala-sol-mayor",
+      "logro-ritmo-puntillo"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "7gtzQv6PTSc",
+        "tituloVideo": "Handel Largo - Ombra Mai Fu - Flute (Aoki) Piano (Steinberg)",
+        "canal": "Rob Steinberg",
+        "duracionSeg": 124,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y piano"
+      }
+    ],
+    "compositor": "Georg Friedrich Händel",
+    "notas": "Frases largas: perfecta para respirar en el sitio justo."
+  },
+  {
+    "id": "sonata-handel-hwv-363b",
+    "titulo": "Sonata en Sol mayor, HWV 363b",
+    "obra": "Sonatas para flauta, op. 1",
+    "categoria": "clasica",
+    "ruta": "clasica",
+    "dificultad": 4,
+    "nivel": "nivel-4",
+    "tecnicas": [
+      "logro-staccato",
+      "logro-sincopa"
+    ],
+    "requiere": [
+      "logro-dos-octavas",
+      "logro-escalas-3-alteraciones"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "VgUEI_yVaWg",
+        "tituloVideo": "G.F. Händel, Flute Sonata in G major, HWV 363b",
+        "canal": "Flutist Yubeen Kim Official",
+        "duracionSeg": 532,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y clave"
+      }
+    ],
+    "compositor": "Georg Friedrich Händel",
+    "notas": "Repertorio formal de estudio: cuatro movimientos cortos (lento, rápido, lento, danzas)."
+  },
+  {
+    "id": "sonata-handel-hwv-359b",
+    "titulo": "Sonata en mi menor, HWV 359b",
+    "obra": "Sonatas para flauta, op. 1",
+    "categoria": "clasica",
+    "ruta": "clasica",
+    "dificultad": 4,
+    "nivel": "nivel-4",
+    "tecnicas": [
+      "logro-staccato",
+      "logro-sincopa"
+    ],
+    "requiere": [
+      "logro-dos-octavas",
+      "logro-escalas-3-alteraciones"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "2u2pfFOKEcM",
+        "tituloVideo": "G. F. Händel: Flute Sonata in E minor, Op. 1 No. 1b (HWV 359b)",
+        "canal": "Baroque Music Scores",
+        "duracionSeg": 521,
+        "usos": [
+          "partitura",
+          "referencia"
+        ],
+        "instrumentacion": "flauta y continuo"
+      },
+      {
+        "youtubeId": "JXTpcuw4eNQ",
+        "tituloVideo": "헨델 플루트 소나타 1번 e minor, handel flute sonata no 1, accompaniment,",
+        "canal": "Flute Graffiti",
+        "duracionSeg": 467,
+        "usos": [
+          "acompanamiento"
+        ],
+        "instrumentacion": "pista de piano",
+        "nota": "La partitura está enlazada en la descripción."
+      }
+    ],
+    "compositor": "Georg Friedrich Händel",
+    "notas": "La otra sonata de Händel que se estudia pronto."
+  },
+  {
+    "id": "danza-espiritus-bienaventurados",
+    "titulo": "Danza de los espíritus bienaventurados",
+    "obra": "Orfeo ed Euridice",
+    "categoria": "clasica",
+    "ruta": "clasica",
+    "dificultad": 5,
+    "nivel": "nivel-5",
+    "tecnicas": [
+      "logro-tercera-octava-sol",
+      "logro-dinamicas",
+      "logro-notas-largas"
+    ],
+    "requiere": [
+      "logro-tercera-octava-sol",
+      "logro-escala-cromatica",
+      "logro-sincopa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "x-OrXOOeA0I",
+        "tituloVideo": "Christoph Gluck Dance of the Blessed Spirits for Flute and Piano",
+        "canal": "SKP MANAGEMENT",
+        "duracionSeg": 181,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y piano"
+      }
+    ],
+    "compositor": "Christoph Willibald Gluck",
+    "notas": "El solo de flauta clásico por excelencia: lento, pero sube a la tercera octava y pide un sonido muy controlado."
+  },
+  {
+    "id": "minueto-arlesienne",
+    "titulo": "Minueto de L'Arlésienne",
+    "obra": "L'Arlésienne, suite nº 2",
+    "categoria": "clasica",
+    "ruta": "clasica",
+    "dificultad": 5,
+    "nivel": "nivel-5",
+    "tecnicas": [
+      "logro-tercera-octava-sol",
+      "logro-dinamicas"
+    ],
+    "requiere": [
+      "logro-tercera-octava-sol",
+      "logro-escala-cromatica",
+      "logro-sincopa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "LyzXdMV1qCE",
+        "tituloVideo": "🎼Georges BIZET - Menuet de L'Arlésienne (Op. 23) [FLUTE & PIANO version] - (Sheet Music Scrolling)",
+        "canal": "Just Flute",
+        "duracionSeg": 279,
+        "usos": [
+          "partitura",
+          "referencia"
+        ],
+        "instrumentacion": "flauta y piano"
+      },
+      {
+        "youtubeId": "WZqqJI3aFZY",
+        "tituloVideo": "🎼 Georges BIZET - Menuet de L'Arlésienne (OP. 23) - (Piano Accompaniment) - (Sheet Music Scrolling)",
+        "canal": "Play FLUTE Alone",
+        "duracionSeg": 275,
+        "usos": [
+          "partitura",
+          "acompanamiento"
+        ],
+        "instrumentacion": "pista de piano"
+      }
+    ],
+    "compositor": "Georges Bizet",
+    "notas": "Solo de orquesta famoso, con arpegios fluidos."
+  },
+  {
+    "id": "sicilienne-faure",
+    "titulo": "Sicilienne, op. 78",
+    "obra": "Pelléas et Mélisande",
+    "categoria": "clasica",
+    "ruta": "clasica",
+    "dificultad": 5,
+    "nivel": "nivel-5",
+    "tecnicas": [
+      "logro-tercera-octava-sol",
+      "logro-dinamicas"
+    ],
+    "requiere": [
+      "logro-tercera-octava-sol",
+      "logro-escala-cromatica",
+      "logro-sincopa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "3AxuE67xLsg",
+        "tituloVideo": "🎼G. FAURÉ - Sicilienne (FLUTE & Piano version) [Op. 78] - (Sheet Music Scrolling)",
+        "canal": "Just Flute",
+        "duracionSeg": 255,
+        "usos": [
+          "partitura",
+          "referencia"
+        ],
+        "instrumentacion": "flauta y piano"
+      },
+      {
+        "youtubeId": "tD2yuP-Q5xk",
+        "tituloVideo": "🎹 G. Fauré - Sicilienne Op. 78 [Piano Accompaniment] [Playback for Flute]🎹",
+        "canal": "PianoTandem",
+        "duracionSeg": 254,
+        "usos": [
+          "acompanamiento"
+        ],
+        "instrumentacion": "pista de piano"
+      }
+    ],
+    "compositor": "Gabriel Fauré",
+    "notas": "Imprescindible del repertorio: compás de 6/8 y frases muy cantadas."
+  },
+  {
+    "id": "siciliano-bwv-1031",
+    "titulo": "Siciliano",
+    "obra": "Sonata en Mib mayor, BWV 1031",
+    "categoria": "clasica",
+    "ruta": "clasica",
+    "dificultad": 5,
+    "nivel": "nivel-5",
+    "tecnicas": [
+      "logro-tercera-octava-sol",
+      "logro-dinamicas"
+    ],
+    "requiere": [
+      "logro-tercera-octava-sol",
+      "logro-escala-cromatica",
+      "logro-sincopa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "VN4oWqenIIA",
+        "tituloVideo": "Bach : Siciliano from Sonata BWV 1031 - Flute",
+        "canal": "Sheetmusic2print",
+        "duracionSeg": 142,
+        "usos": [
+          "partitura"
+        ],
+        "instrumentacion": "flauta y clave"
+      },
+      {
+        "youtubeId": "7TC57rTGXOo",
+        "tituloVideo": "Flute Sonata in E-Flat Major, BWV 1031: II. Siciliano",
+        "canal": "Emmanuel Pahud",
+        "duracionSeg": 135,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y clave"
+      }
+    ],
+    "compositor": "J. S. Bach (atribuida)",
+    "notas": "Barroco expresivo, con ornamentos."
+  },
+  {
+    "id": "tambourin-gossec",
+    "titulo": "Tambourin",
+    "obra": "Le triomphe de la République",
+    "categoria": "clasica",
+    "ruta": "clasica",
+    "dificultad": 6,
+    "nivel": "nivel-6",
+    "tecnicas": [
+      "logro-vibrato",
+      "logro-tercera-octava-si",
+      "logro-staccato"
+    ],
+    "requiere": [
+      "logro-tercera-octava-si",
+      "logro-vibrato"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "GXjw44wdcs0",
+        "tituloVideo": "François-Joseph Gossec - Tambourin (Flute, ABRSM grade 6)",
+        "canal": "Viia Flute",
+        "duracionSeg": 120,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y piano"
+      }
+    ],
+    "compositor": "François-Joseph Gossec",
+    "notas": "Picado ligero y brillante. Es obra de examen de grado 6 (ABRSM)."
+  },
+  {
+    "id": "meditacion-thais",
+    "titulo": "Meditación",
+    "obra": "Thaïs",
+    "categoria": "clasica",
+    "ruta": "clasica",
+    "dificultad": 6,
+    "nivel": "nivel-6",
+    "tecnicas": [
+      "logro-vibrato",
+      "logro-tercera-octava-si",
+      "logro-dinamicas"
+    ],
+    "requiere": [
+      "logro-tercera-octava-si",
+      "logro-vibrato"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "hpSDgLpMzQI",
+        "tituloVideo": "🎼 J. MASSENET -  Méditation (from opera \"Thais\") [FLUTE & piano version] - (Sheet Music Scrolling)",
+        "canal": "Just Flute",
+        "duracionSeg": 289,
+        "usos": [
+          "partitura",
+          "referencia"
+        ],
+        "instrumentacion": "flauta y piano"
+      },
+      {
+        "youtubeId": "SIMSlHoao6E",
+        "tituloVideo": "Katherine Bryan plays Massenet's Meditation from Thais",
+        "canal": "Katherine Bryan Flute",
+        "duracionSeg": 286,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y piano"
+      }
+    ],
+    "compositor": "Jules Massenet",
+    "notas": "Vibrato y canto: escrita para violín, muy tocada en flauta."
+  },
+  {
+    "id": "andante-k315",
+    "titulo": "Andante en Do, K. 315",
+    "obra": "W. A. Mozart",
+    "categoria": "clasica",
+    "ruta": "clasica",
+    "dificultad": 6,
+    "nivel": "nivel-6",
+    "tecnicas": [
+      "logro-vibrato",
+      "logro-tercera-octava-si",
+      "logro-trinos"
+    ],
+    "requiere": [
+      "logro-tercera-octava-si",
+      "logro-vibrato"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "q_cYK_XxY_I",
+        "tituloVideo": "🎼  W. A. MOZART - Andante in C Major - (Orchestra Accompaniment) - (Sheet Music Scrolling)",
+        "canal": "Play FLUTE Alone",
+        "duracionSeg": 381,
+        "usos": [
+          "partitura",
+          "acompanamiento"
+        ],
+        "instrumentacion": "pista de orquesta"
+      },
+      {
+        "youtubeId": "cGN3Ep_RbZk",
+        "tituloVideo": "Mozart - Andante in C K.315 for Flute And Piano",
+        "canal": "Izzy Stocchetti",
+        "duracionSeg": 314,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y piano"
+      }
+    ],
+    "compositor": "Wolfgang Amadeus Mozart",
+    "notas": "El primer Mozart para flauta: elegancia, adornos y control."
+  },
+  {
+    "id": "syrinx",
+    "titulo": "Syrinx",
+    "obra": "Flauta sola, L. 129",
+    "categoria": "clasica",
+    "ruta": "clasica",
+    "dificultad": 6,
+    "nivel": "nivel-6",
+    "tecnicas": [
+      "logro-vibrato",
+      "logro-tercera-octava-si",
+      "logro-dinamicas",
+      "logro-do-grave"
+    ],
+    "requiere": [
+      "logro-tercera-octava-si",
+      "logro-vibrato"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "RNjroFNi7mA",
+        "tituloVideo": "Debussy: Syrinx for solo flute (Emmanuel Pahud)",
+        "canal": "Warner Classics",
+        "duracionSeg": 202,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta sola"
+      }
+    ],
+    "compositor": "Claude Debussy",
+    "notas": "Flauta sola: color, rubato y el Reb grave final. No es muy rápida; lo difícil es la libertad musical."
+  },
+  {
+    "id": "fantasias-telemann",
+    "titulo": "12 Fantasías para flauta sola",
+    "obra": "TWV 40:2–13",
+    "categoria": "clasica",
+    "ruta": "clasica",
+    "dificultad": 6,
+    "nivel": "nivel-6",
+    "tecnicas": [
+      "logro-vibrato",
+      "logro-tercera-octava-si",
+      "logro-staccato"
+    ],
+    "requiere": [
+      "logro-tercera-octava-si",
+      "logro-vibrato"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "l72mmxsveik",
+        "tituloVideo": "Georg Philip Telemann – 12 Fantasias for Flute, TWV 40:2-13",
+        "canal": "SP's score videos",
+        "duracionSeg": 2880,
+        "usos": [
+          "partitura",
+          "referencia"
+        ],
+        "instrumentacion": "flauta sola",
+        "nota": "Las 12 seguidas, con la partitura."
+      },
+      {
+        "youtubeId": "ZY4zHacVo3E",
+        "tituloVideo": "Telemann Fantasy No.2 in A Minor [Flute Solo] - #JasmineChoi #flute #flutist",
+        "canal": "Jasmine Choi",
+        "duracionSeg": 355,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta sola",
+        "nota": "Solo la nº 2 en la menor."
+      }
+    ],
+    "compositor": "Georg Philipp Telemann",
+    "notas": "Flauta sola barroca. Empieza por la nº 2 en la menor; algunas son más difíciles que otras."
+  },
+  {
+    "id": "partita-bwv-1013",
+    "titulo": "Partita en la menor, BWV 1013",
+    "obra": "Flauta sola",
+    "categoria": "clasica",
+    "ruta": "clasica",
+    "dificultad": 8,
+    "nivel": "nivel-7",
+    "tecnicas": [
+      "logro-doble-picado",
+      "logro-tercera-octava-completa",
+      "logro-respiracion-circular"
+    ],
+    "requiere": [
+      "logro-doble-picado",
+      "logro-tercera-octava-completa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "LHsTr1lNkSM",
+        "tituloVideo": "J.S.Bach : Partita in a minor for solo flute (BWV 1013)",
+        "canal": "Heewon Han 한희원",
+        "duracionSeg": 564,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta sola"
+      }
+    ],
+    "compositor": "J. S. Bach",
+    "notas": "Flauta sola, prueba de madurez: frases larguísimas sin sitio para respirar."
+  },
+  {
+    "id": "concierto-mozart-k313",
+    "titulo": "Concierto en Sol mayor, K. 313",
+    "obra": "Concierto para flauta nº 1",
+    "categoria": "clasica",
+    "ruta": "clasica",
+    "dificultad": 8,
+    "nivel": "nivel-7",
+    "tecnicas": [
+      "logro-doble-picado",
+      "logro-tercera-octava-completa",
+      "logro-trinos"
+    ],
+    "requiere": [
+      "logro-doble-picado",
+      "logro-tercera-octava-completa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "la_JbPj_WiU",
+        "tituloVideo": "Mozart: Flute Concerto No. 1 in G major, K. 313/285c (with Score)",
+        "canal": "symphony7526",
+        "duracionSeg": 1474,
+        "usos": [
+          "partitura",
+          "referencia"
+        ],
+        "instrumentacion": "flauta y orquesta"
+      }
+    ],
+    "compositor": "Wolfgang Amadeus Mozart",
+    "notas": "El concierto de audición estándar."
+  },
+  {
+    "id": "concertino-chaminade",
+    "titulo": "Concertino, op. 107",
+    "obra": "Flauta y piano (u orquesta)",
+    "categoria": "clasica",
+    "ruta": "clasica",
+    "dificultad": 8,
+    "nivel": "nivel-7",
+    "tecnicas": [
+      "logro-doble-picado",
+      "logro-tercera-octava-completa"
+    ],
+    "requiere": [
+      "logro-doble-picado",
+      "logro-tercera-octava-completa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "MN4pvzT8C6k",
+        "tituloVideo": "Cécile Chaminade - Concertino for Flute and Piano (with Score)",
+        "canal": "Classical Sheet Music",
+        "duracionSeg": 453,
+        "usos": [
+          "partitura",
+          "referencia"
+        ],
+        "instrumentacion": "flauta y piano"
+      },
+      {
+        "youtubeId": "sRbqOua7rEo",
+        "tituloVideo": "Chaminade Concertino, Op.107 | Sir James Galway",
+        "canal": "Knight Classical ",
+        "duracionSeg": 423,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y piano"
+      }
+    ],
+    "compositor": "Cécile Chaminade",
+    "notas": "Romántico virtuoso, muy popular entre flautistas."
+  },
+  {
+    "id": "sonata-poulenc",
+    "titulo": "Sonata para flauta y piano",
+    "obra": "FP 164",
+    "categoria": "clasica",
+    "ruta": "clasica",
+    "dificultad": 8,
+    "nivel": "nivel-7",
+    "tecnicas": [
+      "logro-doble-picado",
+      "logro-tercera-octava-completa"
+    ],
+    "requiere": [
+      "logro-doble-picado",
+      "logro-tercera-octava-completa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "OG0DafrYNdM",
+        "tituloVideo": "F. Poulenc: Sonata for flute and piano - Jean Pierre Rampal",
+        "canal": "Stefano Flute Channel",
+        "duracionSeg": 661,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y piano"
+      }
+    ],
+    "compositor": "Francis Poulenc",
+    "notas": "Siglo XX, imprescindible: tres movimientos muy distintos."
+  },
+  {
+    "id": "fantasia-pastoral-hungara",
+    "titulo": "Fantasía pastoral húngara, op. 26",
+    "obra": "Flauta y piano",
+    "categoria": "clasica",
+    "ruta": "clasica",
+    "dificultad": 9,
+    "nivel": "nivel-7",
+    "tecnicas": [
+      "logro-doble-picado",
+      "logro-tercera-octava-completa",
+      "logro-trinos"
+    ],
+    "requiere": [
+      "logro-doble-picado",
+      "logro-tercera-octava-completa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "_8lz_OySLmw",
+        "tituloVideo": "Franz Doppler - Fantaisie Pastorale Hongroise for Flute and Piano, Op. 26 (IFD 8) [Score-Video]",
+        "canal": "George N. Gianopoulos, composer",
+        "duracionSeg": 694,
+        "usos": [
+          "partitura",
+          "referencia"
+        ],
+        "instrumentacion": "flauta y piano"
+      },
+      {
+        "youtubeId": "KlPTuIkoaAk",
+        "tituloVideo": "Doppler: Hungarian Fantasy Op.26 - #JasmineChoi #flute #flutist",
+        "canal": "Jasmine Choi",
+        "duracionSeg": 716,
+        "usos": [
+          "referencia"
+        ],
+        "instrumentacion": "flauta y piano"
+      }
+    ],
+    "compositor": "Franz Doppler",
+    "notas": "Hermana de Czardas: parte lenta y libre, y final muy rápido."
+  },
+  {
+    "id": "concierto-ibert",
+    "titulo": "Concierto para flauta",
+    "obra": "Flauta y orquesta",
+    "categoria": "clasica",
+    "ruta": "clasica",
+    "dificultad": 9,
+    "nivel": "nivel-7",
+    "tecnicas": [
+      "logro-doble-picado",
+      "logro-tercera-octava-completa",
+      "logro-triple-picado"
+    ],
+    "requiere": [
+      "logro-doble-picado",
+      "logro-tercera-octava-completa"
+    ],
+    "versiones": [
+      {
+        "youtubeId": "4SOQI6y6_t4",
+        "tituloVideo": "J. Ibert: Flute Concerto (with score)",
+        "canal": "Evan Judson",
+        "duracionSeg": 1216,
+        "usos": [
+          "partitura",
+          "referencia"
+        ],
+        "instrumentacion": "flauta y orquesta"
+      }
+    ],
+    "compositor": "Jacques Ibert",
+    "notas": "Nivel de concierto: uno de los más exigentes del siglo XX."
   }
 ]

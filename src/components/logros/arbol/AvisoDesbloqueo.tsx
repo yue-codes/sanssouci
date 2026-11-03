@@ -1,5 +1,5 @@
 import { useEffect } from "preact/hooks";
-import { Sparkles, X } from "lucide-preact";
+import { Music, Sparkles, X } from "lucide-preact";
 
 /** Lo que se celebra: el talento conseguido y lo que abre. */
 export interface Celebracion {
@@ -9,6 +9,8 @@ export interface Celebracion {
   nombre: string;
   /** Nombres de los talentos que pasan de bloqueados a disponibles. */
   abre: string[];
+  /** Títulos de las canciones que este talento deja listas para tocar. */
+  canciones: string[];
   /** Cambia en cada celebración (reinicia el aviso y el estallido). */
   clave: number;
 }
@@ -20,12 +22,16 @@ interface Props {
   onCerrar: () => void;
 }
 
-/** Segundos que se queda visible el aviso. */
+/** Segundos que se queda visible el aviso (más si abre canciones: hay más que leer). */
 const SEGUNDOS = 6;
+const SEGUNDOS_CON_CANCIONES = 10;
+/** Cuántos títulos de canción se nombran; el resto se cuenta («y 3 más»). */
+const MAX_TITULOS = 3;
 
 /**
  * @component AvisoDesbloqueo
- * Aviso tipo videojuego al conseguir un talento: «+1 talento» y lo que se abre.
+ * Aviso tipo videojuego al conseguir un talento: «+1 talento», lo que se abre y
+ * las canciones que ya puedes tocar (con enlace a /repertorio).
  * Aparece abajo y centrado (en escritorio, arriba, para no tapar la ficha) y se
  * cierra solo. Es una región `aria-live`, así que los lectores de pantalla lo
  * anuncian; por eso el contenedor siempre existe y solo cambia su contenido.
@@ -33,7 +39,7 @@ const SEGUNDOS = 6;
 export default function AvisoDesbloqueo({ celebracion: c, onCerrar }: Props) {
   useEffect(() => {
     if (!c) return;
-    const t = setTimeout(onCerrar, SEGUNDOS * 1000);
+    const t = setTimeout(onCerrar, (c.canciones.length ? SEGUNDOS_CON_CANCIONES : SEGUNDOS) * 1000);
     return () => clearTimeout(t);
   }, [c?.clave]);
 
@@ -53,6 +59,16 @@ export default function AvisoDesbloqueo({ celebracion: c, onCerrar }: Props) {
             {c.abre.length > 0 && (
               <p class="mt-1 text-sm text-tenue">
                 Se abre{c.abre.length > 1 ? "n" : ""}: <span class="text-resalte">{c.abre.join(", ")}</span>
+              </p>
+            )}
+            {c.canciones.length > 0 && (
+              <p class="mt-2 flex items-start gap-1.5 text-sm">
+                <Music size={14} class="mt-0.5 shrink-0 text-acento" aria-hidden="true" />
+                <span>
+                  Ya puedes tocar: <span class="text-acento-claro">{c.canciones.slice(0, MAX_TITULOS).join(", ")}</span>
+                  {c.canciones.length > MAX_TITULOS && ` y ${c.canciones.length - MAX_TITULOS} más`}.{" "}
+                  <a href="/repertorio" class="font-semibold text-acento underline-offset-2 hover:underline">Ver tu repertorio</a>
+                </span>
               </p>
             )}
           </div>
