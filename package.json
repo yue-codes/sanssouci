@@ -14,7 +14,8 @@
     "check": "astro check",
     "generar-docs": "node scripts/generar-docs.mjs",
     "auditar": "astro build && node scripts/auditar.mjs",
-    "optimizar-imagenes": "node scripts/optimizar-imagenes.mjs"
+    "optimizar-imagenes": "node scripts/optimizar-imagenes.mjs",
+    "desplegar": "astro build && wrangler deploy"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^14.4.4",
@@ -39,5 +40,6 @@
     "@astrojs/check": "^0.9.12",
     "typescript": "^6.0.3",
     "wrangler": "^4.156.2"
-  }
+  },
+  "packageManager": "pnpm@10.33.0"
 }

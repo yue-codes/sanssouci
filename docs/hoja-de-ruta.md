@@ -83,13 +83,14 @@ Cuida que la página sin sesión siga funcionando (contenido para todos, progres
 
 ## 2. Fase 5: despliegue en Cloudflare Workers
 
-1. Cuenta de Cloudflare (la crea el usuario) y `wrangler login` (lo ejecuta él con `! pnpm wrangler login`).
-2. Secretos: `PUBLIC_SUPABASE_URL` y `PUBLIC_SUPABASE_PUBLISHABLE_KEY` como variables del worker. Nunca la clave *secret*.
-3. `pnpm build` y `pnpm wrangler deploy`. Revisar que las páginas prerenderizadas (`dist/client/`) y el worker (`dist/server/`) salen bien.
-4. Supabase → Authentication → URL Configuration: añadir el dominio real (Site URL y Redirect URLs para `/auth/confirmar`).
-5. Probar en producción: entrar con correo y contraseña, marcar un día, cerrar sesión. Recuperar la contraseña (el enlace del correo debe llevar a la dirección pública).
-6. Escribir la guía para el usuario (`docs/despliegue.md`): cómo volver a desplegar y dónde ver los registros.
-7. Antes de compartir la web con otras personas: **cambiar las imágenes ajenas** (ver `docs/arquitectura.md` «Imágenes»).
+**Decidido el 3 nov 2026:** Workers Builds conectado a GitHub (cada push a `main` compila y publica). Guía completa: `docs/despliegue.md`.
+
+1. ✅ Ensayo local (`pnpm wrangler deploy --dry-run`): worker de 629 KB comprimido (límite gratis: 3 MB), 570 archivos estáticos, recursos `ASSETS` y `SESSION`. Versiones fijadas para la compilación en Cloudflare: `.node-version` y `packageManager`. Script `pnpm desplegar` para publicar a mano.
+2. ⏳ El usuario conecta el repositorio en Cloudflare con la configuración de `docs/despliegue.md` y las dos *build variables* de Supabase (son públicas y se meten en el código al compilar: no son secretos del worker). Nunca la clave *secret*.
+3. ⏳ Supabase → Authentication → URL Configuration: añadir la dirección pública (Site URL y Redirect URLs).
+4. ⏳ Probar en producción: entrar con correo y contraseña, marcar un día, cerrar sesión. Recuperar la contraseña (el enlace del correo debe llevar a la dirección pública).
+5. ✅ Guía para el usuario: `docs/despliegue.md`.
+6. Antes de compartir la web con otras personas: **cambiar las imágenes ajenas** (ver `docs/arquitectura.md` «Imágenes»).
 
 ## 3. Datos que solo sabe el usuario
 
